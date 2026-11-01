@@ -60,6 +60,7 @@ table{width:100%;border-collapse:collapse}th,td{text-align:right;padding:7px 9px
 footer{max-width:1100px;margin:0 auto;padding:10px 16px 40px;color:var(--mute);font-size:13px;text-align:center}
 .cert{border:2px solid var(--gold);border-radius:14px;padding:12px 16px;margin:8px 0;background:var(--soft)}
 @media (max-width:600px){body{font-size:16px}.hero{padding:30px 14px}nav.main a{font-size:14px;padding:5px 9px}}
+.tj-ghunna{color:#2b9a6d;font-weight:700}.tj-ikhfa{color:#2f6fb0;font-weight:700}.tj-idg_g{color:#14a39a;font-weight:700}.tj-idg_n{color:#9a63d0;font-weight:700}.tj-iqlab{color:#d9822b;font-weight:700}.tj-qalqala{color:#d04a3a;font-weight:700}.tj-madd{color:#b8851f;font-weight:700}
 </style>
 </head>
 <body>
@@ -194,11 +195,11 @@ async function quranRoute(app,parts){
     el('div',{class:'card'},q,el('div',{style:'height:12px'}),list));
 }
 async function reader(app,n,focus){
-  const d=await surahData(n),fs=store.get('fs',30),mode=store.get('mode','flow'),marks=bm();
+  const d=await surahData(n),fs=store.get('fs',30),mode=store.get('mode','flow'),marks=bm(),tjOn=store.get('tj',false);
   const box=el('div',{class:'mushaf'+(mode==='lines'?' lines':''),style:'--fs:'+fs+'px'});
   const text=el('p',{class:'ayah'});
   let bsm='';try{bsm=(await surahData(1)).ayat[0].text}catch{}
-  const spans=d.ayat.map(a=>el('span',{class:'a'+(marks.has(n+':'+a.ayah)?' bm':''),id:'a'+a.ayah,title:'اضغط لوضع/إزالة إشارة مرجعية',on:{click:ev=>{const on=toggleBm(n,a.ayah);ev.currentTarget.classList.toggle('bm',on);store.set('last',{s:n,a:a.ayah})}}},a.text,el('span',{class:'num'},'﴿'+ar(a.ayah)+'﴾'),' '));
+  const spans=d.ayat.map(a=>el('span',{class:'a'+(marks.has(n+':'+a.ayah)?' bm':''),id:'a'+a.ayah,title:'اضغط لوضع/إزالة إشارة مرجعية',on:{click:ev=>{const on=toggleBm(n,a.ayah);ev.currentTarget.classList.toggle('bm',on);store.set('last',{s:n,a:a.ayah})}}},tjOn?tajweedNodes(a.text):a.text,el('span',{class:'num'},'﴿'+ar(a.ayah)+'﴾'),' '));
   text.append(...spans);
   box.append(el('div',{class:'sname'},surahName(n)),(n!==1&&n!==9&&bsm)?el('p',{class:'ayah bsm'},bsm):'',text,el('p',{class:'small',style:'text-align:center'},d.attribution));
   const sel=surahSelect(n);sel.addEventListener('change',()=>{location.hash='#/quran/'+sel.value});
@@ -211,7 +212,7 @@ async function reader(app,n,focus){
   const modeBtn=el('button',{class:'ghost sm',on:{click:()=>{const l=box.classList.toggle('lines');store.set('mode',l?'lines':'flow')}}},'تبديل العرض: متصل / سطر لكل آية');
   app.replaceChildren(
     el('div',{class:'card'},el('div',{class:'toolbar'},el('div',{},el('label',{},'السورة'),sel),el('div',{},el('label',{},'الانتقال إلى آية'),jump),el('div',{},el('label',{},'حجم الخط'),rng),el('div',{},el('label',{},'بحث'),find)),fres,
-      el('div',{style:'display:flex;gap:8px;flex-wrap:wrap;align-items:center'},n>1?el('a',{class:'btn ghost sm',href:'#/quran/'+(n-1)},'→ السابقة'):'',n<114?el('a',{class:'btn ghost sm',href:'#/quran/'+(n+1)},'التالية ←'):'',el('a',{class:'btn ghost sm',href:'#/quran'},'فهرس السور'),modeBtn,el('span',{class:'small'},'اضغط على أي آية لحفظ موضعك وإشارتها.'))),
+      el('div',{style:'display:flex;gap:8px;flex-wrap:wrap;align-items:center'},n>1?el('a',{class:'btn ghost sm',href:'#/quran/'+(n-1)},'→ السابقة'):'',n<114?el('a',{class:'btn ghost sm',href:'#/quran/'+(n+1)},'التالية ←'):'',el('a',{class:'btn ghost sm',href:'#/quran'},'فهرس السور'),modeBtn,el('label',{style:'display:inline-flex;gap:6px;align-items:center;margin:0;color:var(--ink)'},el('input',{type:'checkbox',...(tjOn?{checked:true}:{}),on:{change:ev=>{store.set('tj',ev.target.checked);route()}}}),'تلوين التجويد'),el('span',{class:'small'},'اضغط على أي آية لحفظ موضعك وإشارتها.')),tjOn?tjLegend():''),
     box);
   if(!store.get('last',null)||store.get('last').s!==n)store.set('last',{s:n,a:1});
   if(focus)setTimeout(()=>go(focus),150);
@@ -695,6 +696,43 @@ async function reviewSanad(body){
   const r=await api('GET','/scholarly/sanad'),msg=el('div');
   body.append(el('div',{class:'card'},el('div',{class:'msg warn'},'الاعتماد هنا يعني أنك اطّلعت على ما يثبت القراءة وكتبتَ ذلك في الملاحظة. لا تُصدر المنصة إجازة، ولا تستطيع توثيق إسنادك أنت.'),
     r.entries.length?table(['صاحب الطلب','الرواية','الشيخ','السنة','التوثيق',''],r.entries.map(e=>{const nt=el('input',{placeholder:'ملاحظتك (مطلوبة)'});return[e.holder,e.riwayah,e.teacherName,e.yearHijri?ar(e.yearHijri):'—',e.documentNote||'—',el('div',{},nt,el('button',{class:'sm',on:{click:()=>run(msg,async()=>{await api('POST','/scholarly/sanad/'+e.id+'/decide',{decision:'verified',note:nt.value.trim()});route()})}},'توثيق'),el('button',{class:'ghost sm',on:{click:()=>run(msg,async()=>{await api('POST','/scholarly/sanad/'+e.id+'/decide',{decision:'rejected',note:nt.value.trim()});route()})}},'رفض'))]})):empty('لا طلبات معلّقة.'),msg))}
+
+/* ---------- tajweed colouring: a SEPARATE display layer over the stored text (the text itself is never altered) ---------- */
+const TJC={ghunna:['غنّة مشددة (نّ، مّ)','#2b9a6d'],ikhfa:['إخفاء','#2f6fb0'],idg_g:['إدغام بغنة','#14a39a'],idg_n:['إدغام بغير غنة','#7b4bb0'],iqlab:['إقلاب','#d9822b'],qalqala:['قلقلة','#c0392b'],madd:['مد زائد على الطبيعي','#a8741a']};
+function tajweedClusters(text){
+  const L=/[ء-غف-يٱ]/,M=/[ً-ٰٟۖ-ۭـ]/,cl=[];
+  for(const ch of text){if(L.test(ch))cl.push({t:ch,b:ch,m:'',w:false});else if(M.test(ch)&&cl.length&&!cl[cl.length-1].sep){const c=cl[cl.length-1];c.t+=ch;c.m+=ch}else cl.push({t:ch,b:'',m:'',sep:true})}
+  return cl}
+function tajweedClassify(text){
+  const cl=tajweedClusters(text),has=(c,re)=>re.test(c.m),V=/[ًٌٍَُِّٰ]/,
+    hamza=new Set('ءأإؤئ'),halqi=new Set('ءأإؤئهعحغخ'),ikhfaL=new Set('تثجدذزسشصضطظفقك'),idgG=new Set('ينمو'),idgN=new Set('لر'),QAL=new Set('قطبجد');
+  const out=cl.map(()=>null);
+  const nextLetter=(i)=>{let crossed=false;for(let j=i+1;j<cl.length;j++){const c=cl[j];if(c.sep){if(c.t===' ')crossed=true;continue}
+      if(c.b==='ٱ'&&crossed){continue}
+      if(/^[ۖ-ۜ]$/.test(c.m.trim()?c.m[0]:'')&&false){}
+      return {c,crossed,j}}return null};
+  const waqfBetween=(i,j)=>{for(let k=i+1;k<j;k++)if(cl[k].sep&&/[ۖ-ۜ]/.test(cl[k].t))return true;return false};
+  const wordEnd=i=>{let j=i;while(j+1<cl.length&&!cl[j+1].sep)j++;return j};
+  for(let i=0;i<cl.length;i++){const c=cl[i];if(c.sep)continue;const b=c.b;
+    if(has(c,/\u0653/)||b==='\u0622'){out[i]='madd'}
+    if((b==='ن'||b==='م')&&has(c,/ّ/)){out[i]='ghunna';continue}
+    if(QAL.has(b)&&has(c,/ْ/)){out[i]='qalqala';continue}
+    const tan=has(c,/[\u064B\u064C\u064D]/),noonS=b==='ن'&&!V.test(c.m)&&!has(c,/[ّ]/),meemS=b==='م'&&!V.test(c.m);
+    if(tan||noonS){
+      const from=tan?wordEnd(i):i,nx=nextLetter(from);if(!nx)continue;
+      if(waqfBetween(from,nx.j))continue;
+      const inWord=!nx.crossed&&!tan,n=nx.c.b;
+      if(has(c,/ۢ/)||n==='ب'){out[i]='iqlab';continue}
+      if(ikhfaL.has(n)){out[i]='ikhfa';continue}
+      if(!inWord){if(idgG.has(n))out[i]='idg_g';else if(idgN.has(n))out[i]='idg_n'}
+    }else if(meemS){
+      const nx=nextLetter(i);if(!nx||waqfBetween(i,nx.j))continue;
+      if(nx.c.b==='ب')out[i]='ikhfa';else if(nx.c.b==='م'&&nx.crossed)out[i]='idg_g'}
+  }
+  return cl.map((c,i)=>({t:c.t,cls:out[i]}))}
+function tajweedNodes(text){
+  return tajweedClassify(text).map(x=>x.cls?el('span',{class:'tj tj-'+x.cls,title:TJC[x.cls][0]},x.t):x.t)}
+const tjLegend=()=>el('div',{class:'small',style:'margin:6px 0'},'تلوين التجويد (تقريبي وقيد المراجعة العلمية؛ لا يغني عن المقرئ): ',Object.entries(TJC).map(([k,[n,c]])=>el('span',{class:'chip',style:'border-inline-start:14px solid '+c},n)));
 
 try{if('serviceWorker' in navigator&&location.protocol==='https:')navigator.serviceWorker.register('/sw.js').catch(()=>{})}catch{}
 route();

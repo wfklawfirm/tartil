@@ -5,7 +5,7 @@
 | 1 Web platform | PARTIAL (live SPA: landing, Quran reader, tajweed library, personal space, dashboards; browser-tested on Chromium only) |
 | 2 Mobile/PWA | PARTIAL (installable manifest + service worker caching app shell and Quran text; not tested on a real phone) |
 | 3 Original visual identity | NOT_STARTED |
-| 4 Quran rendering engine | PARTIAL (Tanzil Hafs 6236 ayat live, provisionally approved by owner; reader with search/bookmarks; no tajweed colouring, no audio) |
+| 4 Quran rendering engine | PARTIAL (Tanzil Hafs 6236 ayat live, provisionally approved by owner; reader with search/bookmarks; approximate tajweed colouring layer, provisional; no audio) |
 | 5 Verified knowledge base | STARTED (extraction + dedup detect; no concepts yet; nothing reviewed) |
 | 6 Lesson/activity library | PARTIAL (tajweed library + 4 quizzes + generated complete-the-ayah activity; AI-authored, pending scholarly review) |
 | 7 Learning & assessment system | PARTIAL (tracks, progress, qari assessments, quiz attempts) |
