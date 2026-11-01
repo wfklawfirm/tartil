@@ -5,7 +5,7 @@
 | 1 Web platform | NOT_STARTED |
 | 2 Mobile/PWA | NOT_STARTED |
 | 3 Original visual identity | NOT_STARTED |
-| 4 Quran rendering engine | SCHEMA_ONLY (immutable canon tables + gap check + strict importer; no text imported) |
+| 4 Quran rendering engine | SCHEMA_ONLY (Tanzil Hafs imported in tests, complete, NOT_APPROVED; no reader UI) |
 | 5 Verified knowledge base | STARTED (extraction + dedup detect; no concepts yet; nothing reviewed) |
 | 6 Lesson/activity library | NOT_STARTED |
 | 7 Learning & assessment system | NOT_STARTED |

@@ -1,0 +1,45 @@
+{
+ "tanzil_ayat": 6236,
+ "quotes_checked": 2541,
+ "by_status": {
+  "VERIFIED": 2286,
+  "VERIFIED_FUZZY": 44,
+  "LOCATED_ELSEWHERE": 78,
+  "MISMATCH": 133
+ },
+ "pct_verified": 91.7,
+ "books_with_most_mismatch": [
+  [
+   "SRC-022869",
+   91
+  ],
+  [
+   "SRC-013240",
+   51
+  ],
+  [
+   "SRC-021513",
+   35
+  ],
+  [
+   "SRC-008633",
+   18
+  ],
+  [
+   "SRC-017065",
+   7
+  ],
+  [
+   "SRC-011275",
+   3
+  ],
+  [
+   "SRC-011089",
+   2
+  ],
+  [
+   "SRC-011106",
+   2
+  ]
+ ]
+}

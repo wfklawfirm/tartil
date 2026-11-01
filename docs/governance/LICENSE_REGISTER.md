@@ -8,7 +8,7 @@ All `LICENSE_REVIEW_REQUIRED`. Permitted use now: internal analysis/extraction o
 ## External resources (from Phase-2 acquisition kit; none downloaded)
 | Resource | Terms (as recorded in kit, 2026-10-31) | Status |
 |---|---|---|
-| Tanzil Quran text 1.1 | Verbatim copy with attribution + link; no changes. Download requires accepting terms | NOT_ACQUIRED - needs owner to accept terms |
+| Tanzil Quran text 1.1 (Uthmani, txt-2) | Verbatim copy with attribution + link to tanzil.net; no changes; notice kept in file | ACQUIRED 2026-11-01 (terms accepted under owner's delegation); SHA-256 in scholarly-assets/quran/raw/SHA256.txt; display must show attribution |
 | Quran Foundation API | Display in app ok; no raw redistribution; storage/ML-training limits | API_ONLY, not bundled |
 | Quran Lab models (NPL-1.2 / non-commercial) | No commercial use | EXCLUDED |
 | mjmirza/quran-dataset | README says CC BY 4.0 but LICENSE says custom revenue-tier/AI-training licence | BLOCKED (conflict) |

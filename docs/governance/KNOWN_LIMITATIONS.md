@@ -1,7 +1,7 @@
 # KNOWN_LIMITATIONS (honest list)
 
 1. **No user interface yet.** API slice 1 exists (tested on PGlite); `pg.ts` adapter is untested against a live Postgres/Supabase. No rate limiting, email verification, password reset, MFA, refresh tokens, or token revocation yet - login tokens last 1 hour and cannot be revoked.
-2. **No Quran text imported.** All 3,906 book citations are unverified against any Quran text (statuses RESOLVED_UNVERIFIED etc.). Ayah-count table is my reference list (self-checked to sum to 6,236); it is not provider metadata.
+2. **Quran text: Tanzil Uthmani only (Hafs)**, not religiously approved; no other riwayat. Citation check uses a consonantal skeleton ignoring alef/hamza (orthography differs between Uthmani rasm and the books), so it can accept near-misses; ~5% of quotes remain unmatched. Re-running scripts/generate_registry_docs.py overwrites the manually appended citation section of the review queue - re-run verify step after it.
 3. **Triage is title-based**, validated only by term density; no scholar reviewed it. 9764 is uncertain.
 4. **No printed page numbers** in the source exports; citations to "page X" cannot be produced - only section/paragraph locators.
 5. **Source typos exist** (8 ayah numbers out of range, ~23 unresolved surah names); flagged, not corrected.
