@@ -46,7 +46,13 @@ test('full journey: onboarding -> minor student -> guardian consent -> recitatio
   assert.equal((await call('POST', `${base}/submissions/${sub.body.id}/state`, qari.token, { state: 'feedback_sent' })).status, 200);
   // guardian sees the child's work; revocation blocks further recordings
   assert.equal((await call('GET', `${base}/submissions`, parent.token)).body.submissions.length, 1);
+  const cl = (await call('GET', `${base}/consents`, parent.token)).body.consents as { id: string; revokedAt: string | null }[];
+  assert.equal(cl.length, 1); assert.equal(cl[0]!.revokedAt, null);
+  assert.equal((await call('GET', `${base}/guardian-links`, parent.token)).body.links.length, 1);
+  assert.equal((await call('GET', `${base}/consents`, other.token)).body.consents.length, 0);
+  assert.equal((await call('GET', `/i/${inst}/consents`, other.token)).status === 200 ? (await call('GET', `/i/${inst}/consents`, other.token)).body.consents.length : 0, 0);
   assert.equal((await call('POST', `${base}/consents/${consent}/revoke`, parent.token)).status, 200);
+  assert.ok((await call('GET', `${base}/consents`, parent.token)).body.consents[0].revokedAt);
   assert.equal((await call('POST', `${base}/submissions`, child.token, rec)).status, 409);
 
   // isolation: the other institution's admin gets nothing / forbidden on our tenant, and the DB hides our rows even with a forged tenant id

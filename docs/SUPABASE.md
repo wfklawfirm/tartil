@@ -43,3 +43,7 @@ Decision: the pinned file stays the reference; the served copy is NOT imported. 
 - Read API strips the 4-word basmala prefix from ayah 1 (surahs other than 1 and 9) for display only; stored text unchanged. Test: exactly 112 surahs stripped against the real file.
 - Migration 0007 `rate_limits`: credential endpoints (/auth/*) limited to 10/min per client IP using a shared DB counter (works across edge instances). Limitation: keyed on the first X-Forwarded-For value, which can be spoofed by a client; other routes use a per-process best-effort limit (240/min).
 - Function `api` is at version 6.
+
+## Update 2026-11-01 (batch 1): family view
+- API function v7: added GET /i/:inst/guardian-links and GET /i/:inst/consents (RLS-filtered). Web client: "الأسرة والموافقات" (link/verify guardian, grant/revoke consent) and read-only submissions list. Audio upload is NOT implemented.
+- GitHub repo wfklawfirm/tartil (private) is connected to Vercel; production branch master, root packages/web-vercel.

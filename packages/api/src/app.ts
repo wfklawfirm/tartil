@@ -140,6 +140,14 @@ export function buildApp(d: Deps) {
     const r = await tenant(req, reply, tx => tx.query(`UPDATE consents SET revoked_at = now() WHERE id = $1 AND revoked_at IS NULL RETURNING id`, [id]));
     if (r) return r.rows.length ? { revoked: true } : reply.code(404).send({ error: 'not_found_or_already_revoked' });
   });
+  app.get('/i/:inst/guardian-links', async (req, reply) => {
+    const r = await tenant(req, reply, tx => tx.query(`SELECT id, guardian_user_id AS "guardianUserId", student_user_id AS "studentUserId", relationship, verified_at AS "verifiedAt" FROM guardian_links ORDER BY created_at DESC`));
+    if (r) return { links: r.rows };
+  });
+  app.get('/i/:inst/consents', async (req, reply) => {
+    const r = await tenant(req, reply, tx => tx.query(`SELECT id, student_user_id AS "studentUserId", purpose, granted_at AS "grantedAt", expires_at AS "expiresAt", revoked_at AS "revokedAt" FROM consents ORDER BY granted_at DESC`));
+    if (r) return { consents: r.rows };
+  });
   app.post('/i/:inst/submissions', async (req, reply) => {
     const b = z.object({ editionCode: z.string().min(3).max(64), riwayah: z.string().min(2).max(60), surah: z.number().int().min(1).max(114), ayahStart: z.number().int().min(1), ayahEnd: z.number().int().min(1), audioObjectKey: z.string().min(3).max(300).refine(k => !/^https?:/i.test(k), 'must be a private object key, not a URL') }).parse(req.body);
     const r = await tenant(req, reply, (tx, u, inst) => tx.query(`INSERT INTO recitation_submissions (institution_id, student_user_id, edition_code, riwayah, surah, ayah_start, ayah_end, audio_object_key) VALUES ($1,$2,$3,$4,$5,$6,$7,$8) RETURNING id`, [inst, u, b.editionCode, b.riwayah, b.surah, b.ayahStart, b.ayahEnd, b.audioObjectKey]));
