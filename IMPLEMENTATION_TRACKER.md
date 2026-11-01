@@ -21,7 +21,7 @@
 | 17 AI services | NOT_STARTED (policy: human-supervised only) |
 | 18 Content management & review | PARTIAL (DB workflow gate tested; no UI) |
 | 19 DB & APIs | PARTIAL (DB done; API slice 1: auth, onboarding, guardian/consent, recitation submit) |
-| 20 Automated tests | PARTIAL (26 DB + 4 API journey tests; no browser E2E/a11y) |
+| 20 Automated tests | PARTIAL (27 DB + 4 API journey tests; no browser E2E/a11y) |
 | 21 Documentation | PARTIAL (governance registers) |
 | 22 Deploy files | PARTIAL (docs/SUPABASE.md checklist, server entry; not deployed) |
 | 23 Licence report | PARTIAL (LICENSE_REGISTER) |

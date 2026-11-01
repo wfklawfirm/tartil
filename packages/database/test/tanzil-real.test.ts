@@ -15,6 +15,7 @@ test('the committed Tanzil file is byte-identical to its recorded hash and impor
   const rep = await importQuranEdition(db as never, { code: 'tanzil-uthmani-hafs-1.1', name: 'Tanzil Uthmani (Hafs)', riwayah: 'hafs-an-asim', scriptStyle: 'uthmani', provider: 'tanzil', providerVersion: '1.1', licenceRef: 'https://tanzil.net/docs/Text_License', attribution: 'Quran text: Tanzil Project (tanzil.net)' }, bytes);
   assert.equal(rep.ayat, 6236); assert.equal(rep.complete, true);
   const first = (await db.query<{ text_raw: string }>(`SELECT text_raw FROM quran_ayahs WHERE surah=1 AND ayah=1`)).rows[0]!;
-  assert.equal(first.text_raw, 'بِسْمِ ٱللَّهِ ٱلرَّحْمَـٰنِ ٱلرَّحِيمِ');           // stored verbatim, no normalisation
+  const fileLine = bytes.toString('utf8').split(/\r?\n/).find(l => l.startsWith('1|1|'))!;
+  assert.equal(first.text_raw, fileLine.slice(4));                               // stored byte-for-byte as in the provider file
   assert.equal((await db.query<{ a: string }>(`SELECT religious_approval a FROM quran_editions`)).rows[0]!.a, 'NOT_APPROVED');
 });
