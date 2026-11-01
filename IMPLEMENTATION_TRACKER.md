@@ -2,7 +2,7 @@
 
 | Deliverable | Status |
 |---|---|
-| 1 Web platform | PARTIAL (live SPA: landing, Quran reader, tajweed library, personal space, dashboards; browser-tested on Chromium only) |
+| 1 Web platform | PARTIAL (live SPA, mobile layout checked at 375px in Chromium (no horizontal overflow on 6 routes): landing, Quran reader, tajweed library, personal space, dashboards; browser-tested on Chromium only) |
 | 2 Mobile/PWA | PARTIAL (installable manifest + service worker caching app shell and Quran text; not tested on a real phone) |
 | 3 Original visual identity | STARTED (original geometric mark, favicon/PWA icon, patterned hero; no full brand guidelines, typography and illustration system pending owner direction on the final name) |
 | 4 Quran rendering engine | PARTIAL (Tanzil Hafs 6236 ayat live, provisionally approved by owner; reader with search/bookmarks; approximate tajweed colouring layer, provisional; no audio) |
