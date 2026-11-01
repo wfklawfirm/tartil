@@ -293,6 +293,95 @@ export function buildApp(d: Deps) {
     if (r) return r;
   });
 
+  // ---- scholarly review workspace: only active scholarly_reviewers; the DB trigger enforces legal transitions, approver identity and licence clearance ----
+  app.get('/scholarly/items', async (req, reply) => {
+    const q = z.object({ state: z.string().max(30).optional(), kind: z.string().max(30).optional() }).parse(req.query);
+    const r = await personal(req, reply, async tx => {
+      if (!(await tx.query<{ ok: boolean }>(`SELECT app.is_scholar() AS ok`)).rows[0]!.ok) return null;
+      const items = await tx.query(`SELECT id, kind, title_ar AS "titleAr", title_en AS "titleEn", state, riwayah_scope AS "riwayahScope", licence_cleared AS "licenceCleared", approved_at AS "approvedAt", array_length(source_unit_ids, 1) AS "sources"
+        FROM scholarly_items WHERE ($1::text IS NULL OR state = $1) AND ($2::text IS NULL OR kind = $2) ORDER BY state, kind, title_ar LIMIT 500`, [q.state ?? null, q.kind ?? null]);
+      const counts = await tx.query(`SELECT state, count(*)::int AS n FROM scholarly_items GROUP BY state ORDER BY state`);
+      return { items: items.rows, counts: counts.rows };
+    });
+    if (r === null) return reply.code(403).send({ error: 'forbidden' });
+    if (r) return r;
+  });
+  app.get('/scholarly/items/:id', async (req, reply) => {
+    const id = uuid.parse((req.params as { id: string }).id);
+    const r = await personal(req, reply, async tx => {
+      if (!(await tx.query<{ ok: boolean }>(`SELECT app.is_scholar() AS ok`)).rows[0]!.ok) return 'forbidden' as const;
+      const it = (await tx.query(`SELECT id, kind, title_ar AS "titleAr", title_en AS "titleEn", body, source_unit_ids AS "sourceUnitIds", riwayah_scope AS "riwayahScope", state, licence_cleared AS "licenceCleared", approved_at AS "approvedAt" FROM scholarly_items WHERE id = $1`, [id])).rows[0];
+      if (!it) return 'not_found' as const;
+      const hist = await tx.query(`SELECT r.from_state AS "fromState", r.to_state AS "toState", r.note, r.created_at AS "createdAt", u.display_name AS reviewer FROM scholarly_reviews r LEFT JOIN users u ON u.id = r.reviewer_user_id WHERE r.item_id = $1 ORDER BY r.created_at`, [id]);
+      return { item: it, history: hist.rows };
+    });
+    if (r === 'forbidden') return reply.code(403).send({ error: 'forbidden' });
+    if (r === 'not_found') return reply.code(404).send({ error: 'not_found' });
+    if (r) return r;
+  });
+  app.post('/scholarly/items/:id/transition', async (req, reply) => {
+    const id = uuid.parse((req.params as { id: string }).id);
+    const b = z.object({ to: z.enum(['EXTRACTED', 'NORMALIZED', 'UNDER_REVIEW', 'APPROVED', 'PUBLISHED', 'REJECTED', 'REVISION_REQUIRED', 'ARCHIVED']), note: z.string().max(4000).optional() }).parse(req.body);
+    if ((b.to === 'REJECTED' || b.to === 'REVISION_REQUIRED') && !b.note?.trim()) return reply.code(400).send({ error: 'note_required' });
+    const r = await personal(req, reply, async (tx, u) => {
+      if (!(await tx.query<{ ok: boolean }>(`SELECT app.is_scholar() AS ok`)).rows[0]!.ok) return { code: 403, error: 'forbidden' };
+      const cur = (await tx.query<{ state: string }>(`SELECT state FROM scholarly_items WHERE id = $1 FOR UPDATE`, [id])).rows[0];
+      if (!cur) return { code: 404, error: 'not_found' };
+      try {
+        await tx.exec('SAVEPOINT tr');
+        await tx.query(`UPDATE scholarly_items SET state = $2, approved_by = CASE WHEN $2 = 'APPROVED' THEN $3::uuid ELSE approved_by END WHERE id = $1`, [id, b.to, u]);
+      } catch (e) {
+        await tx.exec('ROLLBACK TO SAVEPOINT tr');
+        const m = e instanceof Error ? e.message : '';
+        const code = m.match(/illegal_transition|publication_requires_licence_clearance|approval_requires_active_scholarly_reviewer/)?.[0];
+        if (code) return { code: 409, error: code };
+        throw e;
+      }
+      await tx.query(`INSERT INTO scholarly_reviews (item_id, reviewer_user_id, from_state, to_state, note) VALUES ($1, $2, $3, $4, $5)`, [id, u, cur.state, b.to, b.note?.trim() || null]);
+      return { code: 200, state: b.to };
+    });
+    if (!r) return;
+    if (r.code !== 200) return reply.code(r.code).send({ error: (r as { error: string }).error });
+    return { ok: true, state: (r as { state: string }).state };
+  });
+
+  // ---- sanad register (self-declared; verified only by a scholarly reviewer other than the holder; never an ijazah issued by the platform) ----
+  app.get('/me/sanad', async (req, reply) => {
+    const r = await personal(req, reply, tx => tx.query(`SELECT e.id, e.riwayah, e.teacher_name AS "teacherName", e.year_hijri AS "yearHijri", e.document_note AS "documentNote", e.status, e.review_note AS "reviewNote", e.reviewed_at AS "reviewedAt", e.created_at AS "createdAt" FROM sanad_entries e WHERE e.user_id = app.current_user_id() ORDER BY e.created_at`));
+    if (r) return { entries: r.rows, note: 'Self-declared record. The platform does not issue ijazah; "verified" means a scholarly reviewer examined the documents you presented.' };
+  });
+  app.post('/me/sanad', async (req, reply) => {
+    const b = z.object({ riwayah: z.string().min(2).max(60), teacherName: z.string().min(2).max(200), yearHijri: z.number().int().min(1).max(1600).optional(), documentNote: z.string().max(1000).optional() }).parse(req.body);
+    const r = await personal(req, reply, tx => tx.query(`INSERT INTO sanad_entries (user_id, riwayah, teacher_name, year_hijri, document_note) VALUES (app.current_user_id(), $1, $2, $3, $4) RETURNING id`, [b.riwayah, b.teacherName, b.yearHijri ?? null, b.documentNote ?? null]));
+    if (r) return reply.code(201).send({ id: (r.rows[0] as { id: string }).id, status: 'declared' });
+  });
+  app.get('/scholarly/sanad', async (req, reply) => {
+    const q = z.object({ status: z.enum(['declared', 'verified', 'rejected']).default('declared') }).parse(req.query);
+    const r = await personal(req, reply, async tx => {
+      if (!(await tx.query<{ ok: boolean }>(`SELECT app.is_scholar() AS ok`)).rows[0]!.ok) return null;
+      return tx.query(`SELECT e.id, e.user_id AS "userId", e.riwayah, e.teacher_name AS "teacherName", e.year_hijri AS "yearHijri", e.document_note AS "documentNote", e.status, e.review_note AS "reviewNote", e.created_at AS "createdAt"
+        FROM sanad_entries e WHERE e.status = $1 AND e.user_id <> app.current_user_id() ORDER BY e.created_at LIMIT 200`, [q.status]);
+    });
+    if (r === null) return reply.code(403).send({ error: 'forbidden' });
+    if (r) {   // display names come from the service path (name only, never email); the reviewer needs them to identify the holder
+      const ids = [...new Set((r.rows as Array<{ userId: string }>).map(x => x.userId))];
+      const names = new Map((ids.length ? (await d.service.query<{ id: string; display_name: string }>(`SELECT id, display_name FROM users WHERE id = ANY($1::uuid[])`, [ids])).rows : []).map(x => [x.id, x.display_name]));
+      return { entries: (r.rows as Array<{ userId: string }>).map(({ userId, ...x }) => ({ ...x, holder: names.get(userId) ?? '—' })) };
+    }
+  });
+  app.post('/scholarly/sanad/:id/decide', async (req, reply) => {
+    const id = uuid.parse((req.params as { id: string }).id);
+    const b = z.object({ decision: z.enum(['verified', 'rejected']), note: z.string().min(3).max(2000) }).parse(req.body);
+    const r = await personal(req, reply, async (tx, u) => {
+      if (!(await tx.query<{ ok: boolean }>(`SELECT app.is_scholar() AS ok`)).rows[0]!.ok) return 'forbidden' as const;
+      const x = await tx.query(`UPDATE sanad_entries SET status = $2, reviewed_by = $3, reviewed_at = now(), review_note = $4 WHERE id = $1 AND status = 'declared' RETURNING id`, [id, b.decision, u, b.note]);
+      return x.rows.length ? 'ok' as const : 'not_found' as const;
+    });
+    if (r === 'forbidden') return reply.code(403).send({ error: 'forbidden' });
+    if (r === 'not_found') return reply.code(404).send({ error: 'not_found_or_already_decided' });
+    if (r) return { ok: true };
+  });
+
   // ---- learning tracks, progress, passport, certificates ----
   const unitSchema = z.object({ title: z.string().min(1).max(200), kind: z.enum(['recitation', 'memorization', 'tajweed', 'review']), surah: z.number().int().min(1).max(114).optional(), fromAyah: z.number().int().min(1).optional(), toAyah: z.number().int().min(1).optional() });
   app.post('/i/:inst/tracks', async (req, reply) => {

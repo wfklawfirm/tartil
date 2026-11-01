@@ -101,8 +101,9 @@ function toggleBm(s,a){const b=bm(),k=s+':'+a;b.has(k)?b.delete(k):b.add(k);stor
 /* ---------- shell ---------- */
 let ME=null;
 function renderNav(active){
-  const items=[['#/','الرئيسية','home'],['#/quran','القرآن الكريم','quran'],['#/tajweed','التجويد','tajweed']];
+  const items=[['#/','الرئيسية','home'],['#/quran','القرآن الكريم','quran'],['#/tajweed','التجويد','tajweed'],['#/qiraat','القراءات','qiraat']];
   if(token)items.push(['#/me','رحلتي','me'],['#/app','لوحتي','app']);
+  if(token&&isScholar())items.push(['#/review','المراجعة العلمية','review']);
   $('#nav').replaceChildren(...items.map(([h,t,k])=>el('a',{href:h,class:k===active?'on':''},t)));
   const who=$('#who');
   if(token&&ME)who.replaceChildren(ME.displayName,el('button',{class:'ghost sm',on:{click:()=>{setToken(null);location.hash='#/';route()}}},'خروج'));
@@ -117,6 +118,8 @@ async function route(){
   try{
     if(top==='quran'){renderNav('quran');await quranRoute(app,parts)}
     else if(top==='tajweed'){renderNav('tajweed');await tajweedView(app,parts)}
+    else if(top==='qiraat'){renderNav('qiraat');qiraatView(app)}
+    else if(top==='review'){renderNav('review');await reviewView(app,parts)}
     else if(top==='me'){renderNav('me');await meView(app,parts)}
     else if(top==='auth'){renderNav('');authView(app)}
     else if(top==='verify'){renderNav('');await verifyView(app,parts[1])}
@@ -142,6 +145,7 @@ async function landing(app){
       feat('✅','اختبر نفسك','اختبارات في المخارج والصفات وأحكام النون والميم والمدود، واختبار «أكمل الآية» يُولَّد من نص المصحف. (تمهيدية قيد المراجعة العلمية)'),
       feat('🗺️','خريطة الإتقان','لوحة بالسور الـ114 تُظهر تقدّم حفظك، ومهارات التجويد من نتائج اختباراتك.'),
       feat('📱','تثبيت على الهاتف','تُثبَّت كتطبيق على هاتفك، ويُقرأ المصحف الذي فتحته من قبل دون اتصال.'),
+      feat('📜','القراءات والإسناد','تعريف بالقراءات العشر ورواتها، وسجلّ لتدوين سندك يوثّقه مراجع علمي بشري عند الاطّلاع على ما يثبته. المنصة لا تُصدر إجازات.'),
       feat('🧭','مسارات ومناهج','تضع المؤسسة مسارات من وحدات (تلاوة، حفظ، تجويد، مراجعة) ويتابع الطالب تقدّمه وحدة بعد وحدة.'),
       feat('🕌','حلقات مباشرة','جلسات بموعد وحضور، وغرفة اتصال مرئي لا تُفتح إلا قبل الموعد، وبحضور المقرئ.'),
       feat('🎙️','تلاوتك أمام مقرئ','سجّل تلاوتك من المتصفح، يستمع إليها المقرئ المعيّن لك ويكتب ملاحظاته ومستويات الملاحظة.'),
@@ -571,10 +575,10 @@ function streakOf(days){const s=new Set(days);let n=0,d=new Date();if(!s.has(tod
 const dueText=m=>m<60?'بعد '+ar(m)+' دقائق':m<1440?'بعد '+ar(Math.round(m/60))+' ساعات':'بعد '+ar(Math.round(m/1440))+' يومًا';
 async function meView(app,parts){
   if(!token){location.hash='#/auth';return}
-  const T=[['today','اليوم'],['hifz','حفظي'],['quiz','اختبر نفسك'],['map','خريطة الإتقان']],cur=T.some(t=>t[0]===parts[1])?parts[1]:'today';
+  const T=[['today','اليوم'],['hifz','حفظي'],['quiz','اختبر نفسك'],['map','خريطة الإتقان'],['sanad','سندي']],cur=T.some(t=>t[0]===parts[1])?parts[1]:'today';
   const body=el('div');
   app.replaceChildren(el('h1',{style:'margin:0 0 10px'},'رحلتي'),el('div',{class:'tabs'},T.map(([k,t])=>el('a',{href:'#/me/'+k,class:k===cur?'on':''},t))),body);
-  if(cur==='today')await todayTab(body);else if(cur==='hifz')await hifzTab(body);else if(cur==='quiz')quizTab(body,parts[2]);else await mapTab(body)}
+  if(cur==='today')await todayTab(body);else if(cur==='hifz')await hifzTab(body);else if(cur==='quiz')quizTab(body,parts[2]);else if(cur==='sanad')await sanadTab(body);else await mapTab(body)}
 async function todayTab(body){
   const [due,mast]=await Promise.all([api('GET','/me/hifz/due'),api('GET','/me/mastery')]),st=streakOf(mast.activeDays);
   body.append(el('div',{class:'grid'},
@@ -647,6 +651,50 @@ async function mapTab(body){
     ...QUIZZES.map(z=>{const q=qm.get(z.k);return el('div',{style:'margin:10px 0'},el('div',{},z.t+' — '+(q?ar(q.best)+'٪ ('+ar(q.attempts)+' محاولات)':'لم تُجرَّب')),el('div',{style:'height:10px;border-radius:6px;background:var(--line);overflow:hidden'},el('div',{style:'height:100%;width:'+(q?q.best:0)+'%;background:'+(q&&q.best>=80?'var(--ok)':'var(--gold)')})))}),
     el('a',{class:'btn',href:'#/me/quiz'},'اختبر نفسك')));
 }
+
+/* ---------- qiraat library, sanad register, scholarly review workspace ---------- */
+const QIRAAT=[['نافع المدني','المدينة المنورة',['قالون','ورش']],['ابن كثير المكي','مكة المكرمة',['البزي','قنبل']],['أبو عمرو البصري','البصرة',['الدوري','السوسي']],['ابن عامر الدمشقي','دمشق',['هشام','ابن ذكوان']],['عاصم الكوفي','الكوفة',['شعبة','حفص']],['حمزة الكوفي','الكوفة',['خلف','خلّاد']],['الكسائي الكوفي','الكوفة',['أبو الحارث','الدوري']],['أبو جعفر المدني','المدينة المنورة',['ابن وردان','ابن جمّاز']],['يعقوب البصري','البصرة',['رويس','روح']],['خلف العاشر','بغداد',['إسحاق','إدريس']]];
+function qiraatView(app){
+  app.replaceChildren(el('h1',{style:'margin:0 0 10px'},'القراءات والروايات'),
+    el('div',{class:'card'},el('p',{},'القراءات العشر المتواترة: لكل قارئ راويان. وكل قراءة وروايتها وجه من وجوه أداء القرآن الكريم ثابت بالتلقّي والسند، ولا يجوز دمج روايتين في نص واحد؛ لذا تحفظ المنصة كل رواية في طبعة مستقلة.'),
+      el('div',{class:'msg warn'},'نص المصحف المتاح في المنصة الآن برواية حفص عن عاصم فقط. لا تُعرض روايات أخرى قبل اعتماد طبعتها من مراجع علمي وانتهاء التحقق من ترخيصها. وهذه الصفحة تعريف تمهيدي قيد المراجعة العلمية، ولا تغني عن التلقّي من مقرئ مجاز.')),
+    el('div',{class:'grid'},QIRAAT.map(([q,c,r],i)=>el('div',{class:'feat'},el('b',{},ar(i+1)+'. '+q),el('span',{class:'small'},'من '+c),el('div',{},r.map(x=>el('span',{class:'chip'},'رواية '+x)))))),
+    el('div',{class:'card',style:'margin-top:16px'},el('h2',{},'الإسناد'),el('p',{},'الإسناد سلسلة الشيوخ الذين قرأ بعضهم على بعض حتى النبي ﷺ. يمكنك في «رحلتي ← سندي» تدوين من قرأتَ عليهم، ويراجعه مراجع علمي بشري إن قدّمتَ ما يثبته. المنصة لا تُصدر إجازات.'),
+      el('a',{class:'btn',href:'#/me/sanad'},'سجلّ سندي')))}
+async function sanadTab(body){
+  const msg=el('div'),list=el('div'),rw=el('input',{placeholder:'مثال: حفص عن عاصم'}),tn=el('input',{placeholder:'اسم الشيخ'}),yr=el('input',{type:'number',min:1,max:1600,placeholder:'اختياري'}),dn=el('textarea',{rows:2,placeholder:'اختياري: كيف ثبتت القراءة (إجازة مكتوبة، شهادة، تسجيل…)'});
+  body.append(el('div',{class:'card'},el('h2',{},'سجلّ سندي (تدوين ذاتي)'),el('div',{class:'msg warn'},'هذا تدوين منك أنت، ولا تتحقق المنصة منه ولا تُصدر إجازة. تظهر عبارة «موثّق» فقط إذا اطّلع مراجع علمي بشري على ما يثبته وكتب ذلك.'),
+    el('div',{class:'row'},field('الرواية',rw),field('اسم الشيخ',tn),field('سنة القراءة (هجري)',yr)),field('ملاحظة التوثيق',dn),
+    el('button',{on:{click:()=>run(msg,async()=>{await api('POST','/me/sanad',{riwayah:rw.value.trim(),teacherName:tn.value.trim(),yearHijri:yr.value?Number(yr.value):undefined,documentNote:dn.value.trim()||undefined});rw.value=tn.value=yr.value=dn.value='';note(msg,'دُوّن.','ok');load()})}},'تدوين'),msg),
+    el('div',{class:'card'},el('h2',{},'ما دوّنتُه'),list));
+  const ST={declared:'مدوّن ذاتيًا',verified:'موثّق من مراجع علمي',rejected:'لم يُوثَّق'};
+  async function load(){const r=await api('GET','/me/sanad');list.replaceChildren(r.entries.length?table(['الرواية','الشيخ','السنة','الحالة','ملاحظة المراجع'],r.entries.map(e=>[e.riwayah,e.teacherName,e.yearHijri?ar(e.yearHijri):'—',el('span',{class:'chip'},ST[e.status]),e.reviewNote||'—'])):empty('لا شيء بعد.'))}
+  await load()}
+const STATE_AR={DRAFT:'مسودة',EXTRACTED:'مستخرج',NORMALIZED:'مهيّأ',UNDER_REVIEW:'قيد المراجعة',APPROVED:'معتمد',PUBLISHED:'منشور',REJECTED:'مرفوض',REVISION_REQUIRED:'يحتاج تعديلًا',ARCHIVED:'مؤرشف'};
+const NEXT={DRAFT:['EXTRACTED','ARCHIVED'],EXTRACTED:['NORMALIZED'],NORMALIZED:['UNDER_REVIEW'],UNDER_REVIEW:['APPROVED','REJECTED','REVISION_REQUIRED'],REVISION_REQUIRED:['UNDER_REVIEW'],APPROVED:['PUBLISHED'],PUBLISHED:['ARCHIVED','REVISION_REQUIRED'],REJECTED:['ARCHIVED']};
+const KIND_AR={concept:'مفهوم',tajweed_rule:'حكم تجويد',lesson:'درس',exercise:'تمرين',competency:'كفاية',teaching_note:'ملاحظة تدريس'};
+const isScholar=()=>!!(ME&&ME.memberships.some(m=>m.role==='scholarly_reviewer'));
+async function reviewView(app,parts){
+  if(!token){location.hash='#/auth';return}
+  if(!isScholar()){app.replaceChildren(el('div',{class:'card'},el('h2',{},'المراجعة العلمية'),el('p',{},'هذه المساحة للمراجعين العلميين المعتمدين فقط. يُضيف مدير المؤسسة المراجع بدور «مراجع علمي» من تبويب «الأسرة والأعضاء».')));return}
+  const cur=parts[1]==='sanad'?'sanad':'items',body=el('div');
+  app.replaceChildren(el('h1',{style:'margin:0 0 10px'},'المراجعة العلمية'),el('div',{class:'tabs'},[['items','المحتوى'],['sanad','طلبات توثيق الإسناد']].map(([k,t])=>el('a',{href:'#/review/'+k,class:k===cur?'on':''},t))),body);
+  if(cur==='sanad')return reviewSanad(body);
+  const st=parts[2]||'',r=await api('GET','/scholarly/items'+(st?'?state='+st:'')),det=el('div');
+  body.append(el('div',{class:'card'},el('p',{class:'small'},'لا يُنشر أي محتوى مستخرج من الكتب إلا بعد اعتماده هنا، ولا يُنشر ما لم يُوثَّق ترخيصه (قرار مالك المنصة). كل انتقال يُسجَّل باسمك وتاريخه.'),
+    el('div',{},el('a',{class:'chip',href:'#/review/items'},'الكل'),...r.counts.map(c=>el('a',{class:'chip',href:'#/review/items/'+c.state},STATE_AR[c.state]+' ('+ar(c.n)+')')))),
+    el('div',{class:'card'},r.items.length?table(['النوع','العنوان','الحالة','المصادر','الترخيص',''],r.items.map(i=>[KIND_AR[i.kind]||i.kind,i.titleAr,el('span',{class:'chip'},STATE_AR[i.state]),ar(i.sources||0),i.licenceCleared?'موثّق':'غير موثّق',el('button',{class:'ghost sm',on:{click:()=>showItem(i.id)}},'فتح')])):empty('لا عناصر.')),det);
+  async function showItem(id){run(det,async()=>{const x=await api('GET','/scholarly/items/'+id),it=x.item,out=el('div'),nt=el('textarea',{rows:2,placeholder:'ملاحظة (مطلوبة عند الرفض أو طلب التعديل)'});
+    det.replaceChildren(el('div',{class:'card'},el('h2',{},it.titleAr),el('div',{},el('span',{class:'chip'},KIND_AR[it.kind]||it.kind),el('span',{class:'chip'},STATE_AR[it.state]),el('span',{class:'chip'},'الرواية: '+it.riwayahScope)),
+      el('h3',{},'المحتوى'),el('pre',{style:'white-space:pre-wrap;direction:rtl;background:var(--soft);padding:10px;border-radius:9px'},JSON.stringify(it.body,null,2)),
+      el('h3',{},'مواضع المصادر'),el('div',{class:'small',dir:'ltr'},(it.sourceUnitIds||[]).join(' ، ')||'—'),
+      el('h3',{},'السجلّ'),x.history.length?table(['من','إلى','المراجع','الملاحظة','التاريخ'],x.history.map(h=>[STATE_AR[h.fromState],STATE_AR[h.toState],h.reviewer||'—',h.note||'—',fmt(h.createdAt)])):empty('لا انتقالات بعد.'),
+      field('ملاحظة',nt),el('div',{},(NEXT[it.state]||[]).map(s=>el('button',{class:s==='REJECTED'||s==='ARCHIVED'?'ghost':'',style:'margin-inline-end:8px',on:{click:()=>run(out,async()=>{await api('POST','/scholarly/items/'+id+'/transition',{to:s,note:nt.value.trim()||undefined});showItem(id);note(out,'تم.','ok')})}},'← '+STATE_AR[s]))),out))})}
+}
+async function reviewSanad(body){
+  const r=await api('GET','/scholarly/sanad'),msg=el('div');
+  body.append(el('div',{class:'card'},el('div',{class:'msg warn'},'الاعتماد هنا يعني أنك اطّلعت على ما يثبت القراءة وكتبتَ ذلك في الملاحظة. لا تُصدر المنصة إجازة، ولا تستطيع توثيق إسنادك أنت.'),
+    r.entries.length?table(['صاحب الطلب','الرواية','الشيخ','السنة','التوثيق',''],r.entries.map(e=>{const nt=el('input',{placeholder:'ملاحظتك (مطلوبة)'});return[e.holder,e.riwayah,e.teacherName,e.yearHijri?ar(e.yearHijri):'—',e.documentNote||'—',el('div',{},nt,el('button',{class:'sm',on:{click:()=>run(msg,async()=>{await api('POST','/scholarly/sanad/'+e.id+'/decide',{decision:'verified',note:nt.value.trim()});route()})}},'توثيق'),el('button',{class:'ghost sm',on:{click:()=>run(msg,async()=>{await api('POST','/scholarly/sanad/'+e.id+'/decide',{decision:'rejected',note:nt.value.trim()});route()})}},'رفض'))]})):empty('لا طلبات معلّقة.'),msg))}
 
 try{if('serviceWorker' in navigator&&location.protocol==='https:')navigator.serviceWorker.register('/sw.js').catch(()=>{})}catch{}
 route();
