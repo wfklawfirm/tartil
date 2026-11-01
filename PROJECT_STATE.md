@@ -10,6 +10,8 @@
 - **Deployed on Supabase** (project `tartil`, ref okbtrogotrtciymmuokr, eu-central-1): migrations 0001-0005 applied; Tanzil edition imported inside the DB (hash-gated, 6,236 ayat, byte-identical, NOT_APPROVED); security advisor 0 findings; targeted isolation/consent/immutability checks passed on the real instance (see docs/SUPABASE.md).
 - Database foundation (migrations 0001-0005) with 27 passing tests incl. mutation-verified tenant isolation, guardian consent for minors, immutable audit, immutable Quran text, scholarly publication gate.
 
+- **Live (2026-11-01):** migration 0006 applied; API running as Supabase Edge Function (31-check live journey passed); Arabic web client on Vercel `tartil-web` (behind Vercel Auth). See docs/SUPABASE.md.
+
 ## Not built (do not assume)
 Web/mobile UI, design system, audio, recitation studio UI, live halaqat, AI services, passport/credentials, QCEF load/review, live-Postgres test of `pg.ts` (the pg adapter has not run against a real server).
 

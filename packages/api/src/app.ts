@@ -22,9 +22,16 @@ function mapError(e: unknown): { status: number; code: string } {
 
 export function buildApp(d: Deps) {
   const app = Fastify({ logger: false });
+  // Accept `content-type: application/json` with an EMPTY body (action endpoints like verify/revoke), reject malformed JSON with 400.
+  app.addContentTypeParser('application/json', { parseAs: 'string' }, (_req, body, done) => {
+    try { done(null, body ? JSON.parse(body as string) : undefined); } catch { done(Object.assign(new Error('invalid_json'), { statusCode: 400 }), undefined); }
+  });
   app.setErrorHandler((err: unknown, _req, reply) => {
     if (err instanceof z.ZodError) return reply.code(400).send({ error: 'validation_failed', issues: err.issues.map(i => ({ path: i.path.join('.'), message: i.message })) });
-    const { status, code } = mapError(err); // never leak SQL text
+    const sc = (err as { statusCode?: number } | null)?.statusCode;
+    if (typeof sc === 'number' && sc >= 400 && sc < 500) return reply.code(sc).send({ error: sc === 413 ? 'payload_too_large' : 'bad_request' }); // framework-level client errors stay 4xx
+    const { status, code } = mapError(err); // never leak SQL text to clients
+    if (status === 500) console.error('internal_error', err instanceof Error ? `${err.name}: ${err.message}`.slice(0, 300) : 'non-error thrown'); // server-side log only
     return reply.code(status).send({ error: code });
   });
 

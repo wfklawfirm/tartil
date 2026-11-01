@@ -81,3 +81,12 @@ test('web client is served with a restrictive CSP when configured', async () => 
   const r = await a2.inject({ method: 'GET', url: '/' });
   assert.equal(r.statusCode, 200); assert.match(r.headers['content-type'] as string, /text\/html/); assert.match(r.headers['content-security-policy'] as string, /frame-ancestors 'none'/); assert.match(r.body, /dir="rtl"/);
 });
+
+test('action endpoints accept an empty JSON body; malformed JSON is a 400, not a 500', async () => {
+  const u = await user('emptybody');
+  const raw = (url: string, payload?: string, headers: Record<string, string> = {}) => app.inject({ method: 'POST', url, payload, headers: { 'content-type': 'application/json', authorization: `Bearer ${u.token}`, ...headers } });
+  const inst = (await call('POST', '/institutions', u.token, { name: 'Dar E', slug: 'dar-e' })).body.id as string;
+  assert.equal((await raw(`/i/${inst}/guardian-links/00000000-0000-4000-8000-000000000000/verify`)).statusCode, 404); // reaches the handler (was 500)
+  assert.equal((await raw('/institutions', '{not json')).statusCode, 400);
+  assert.equal((await raw('/institutions', '')).statusCode, 400); // body required by the schema => validation, not a crash
+});

@@ -1,3 +1,4 @@
+import { Buffer } from 'node:buffer';
 import { scrypt, randomBytes, timingSafeEqual, createHmac } from 'node:crypto';
 import { promisify } from 'node:util';
 const scryptAsync = promisify(scrypt) as (pw: string, salt: Buffer, len: number) => Promise<Buffer>;

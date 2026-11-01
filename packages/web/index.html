@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="api-base" content="">
 <title>ترتيل — منصة تعلّم القرآن</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Amiri+Quran&family=Noto+Naskh+Arabic:wght@400;600;700&display=swap" rel="stylesheet">
@@ -33,7 +34,8 @@ const $=(s,r=document)=>r.querySelector(s);
 const el=(t,a={},...k)=>{const e=document.createElement(t);for(const[x,v]of Object.entries(a)){if(x==='on')for(const[ev,f]of Object.entries(v))e.addEventListener(ev,f);else if(x==='class')e.className=v;else e.setAttribute(x,v)}for(const c of k.flat())e.append(c instanceof Node?c:document.createTextNode(c??''));return e};
 let token=null;try{token=sessionStorage.getItem('t')}catch{}
 const ERR={unauthenticated:'انتهت الجلسة، سجّل الدخول مجددًا',forbidden:'غير مسموح لك بهذا الإجراء',guardian_consent_required:'يلزم موافقة وليّ الأمر قبل التسجيل',already_exists:'موجود مسبقًا',invalid_credentials:'بيانات الدخول غير صحيحة',validation_failed:'بيانات غير صالحة',user_not_found:'المستخدم غير موجود',not_found:'غير موجود',invalid_reference:'مرجع غير صالح (تأكد من المعرّفات)',edition_not_available:'نص القرآن غير متاح بعد: لم يُعتمد شرعيًا من مشرف علمي'};
-async function api(method,url,body){const r=await fetch(url,{method,headers:{'content-type':'application/json',...(token?{authorization:'Bearer '+token}:{})},body:body?JSON.stringify(body):undefined});let j={};try{j=await r.json()}catch{}if(!r.ok){const e=new Error(ERR[j.error]||j.error||('خطأ '+r.status));e.code=j.error;e.status=r.status;throw e}return j}
+const BASE=(document.querySelector('meta[name=api-base]')||{}).content||'';
+async function api(method,url,body){const r=await fetch(BASE+url,{method,headers:{'content-type':'application/json',...(token?{authorization:'Bearer '+token}:{})},body:body?JSON.stringify(body):undefined});let j={};try{j=await r.json()}catch{}if(!r.ok){const e=new Error(ERR[j.error]||j.error||('خطأ '+r.status));e.code=j.error;e.status=r.status;throw e}return j}
 const note=(box,text,cls='')=>{box.replaceChildren(el('div',{class:'msg '+cls},text))};
 const run=async(box,fn)=>{try{await fn();}catch(e){note(box,e.message,'err');if(e.status===401&&token){token=null;try{sessionStorage.removeItem('t')}catch{}}}};
 function field(label,input){return el('div',{},el('label',{},label),input)}

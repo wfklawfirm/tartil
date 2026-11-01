@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="api-base" content="/api">
+<title>ترتيل — منصة تعلّم القرآن</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Amiri+Quran&family=Noto+Naskh+Arabic:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#faf8f3;--card:#fff;--ink:#1d2b26;--mute:#5e6d66;--line:#e4e0d4;--accent:#1f6b52;--accent-ink:#fff;--warn:#8a5a00;--bad:#a12c2c}
+@media (prefers-color-scheme:dark){:root{--bg:#121816;--card:#1a2420;--ink:#e8efe9;--mute:#9bb0a6;--line:#2c3a34;--accent:#4fb08c;--accent-ink:#06130e;--warn:#e0b04a;--bad:#e27a7a}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.7 "Noto Naskh Arabic",system-ui,sans-serif}
+header{padding:14px 16px;border-bottom:1px solid var(--line);display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+header h1{margin:0;font-size:22px}main{max-width:900px;margin:0 auto;padding:16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;margin:0 0 14px}
+h2{margin:0 0 10px;font-size:18px}label{display:block;margin:8px 0 2px;color:var(--mute);font-size:14px}
+input,select,textarea{width:100%;padding:9px 10px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);font:inherit}
+button{padding:9px 16px;border:0;border-radius:8px;background:var(--accent);color:var(--accent-ink);font:inherit;font-weight:600;cursor:pointer;margin-top:10px}
+button.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}button:disabled{opacity:.5}
+.row{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}.tabs button{margin:0}.tabs button.on{background:var(--accent);color:var(--accent-ink)}.tabs button:not(.on){background:transparent;color:var(--ink);border:1px solid var(--line)}
+.msg{padding:8px 12px;border-radius:8px;margin:8px 0;background:var(--bg);border:1px solid var(--line)}.msg.err{color:var(--bad)}.msg.warn{color:var(--warn)}
+table{width:100%;border-collapse:collapse}th,td{text-align:right;padding:6px 8px;border-bottom:1px solid var(--line);font-size:15px}
+.ayah{font-family:"Amiri Quran","Noto Naskh Arabic",serif;font-size:28px;line-height:2.4;margin:0}.small{color:var(--mute);font-size:13px}.mono{direction:ltr;unicode-bidi:plaintext;font-family:ui-monospace,monospace;font-size:12px;word-break:break-all}
+</style>
+</head>
+<body>
+<header><h1>ترتيل</h1><div id="who" class="small"></div></header>
+<main id="app"></main>
+<script>
+"use strict";
+const $=(s,r=document)=>r.querySelector(s);
+const el=(t,a={},...k)=>{const e=document.createElement(t);for(const[x,v]of Object.entries(a)){if(x==='on')for(const[ev,f]of Object.entries(v))e.addEventListener(ev,f);else if(x==='class')e.className=v;else e.setAttribute(x,v)}for(const c of k.flat())e.append(c instanceof Node?c:document.createTextNode(c??''));return e};
+let token=null;try{token=sessionStorage.getItem('t')}catch{}
+const ERR={unauthenticated:'انتهت الجلسة، سجّل الدخول مجددًا',forbidden:'غير مسموح لك بهذا الإجراء',guardian_consent_required:'يلزم موافقة وليّ الأمر قبل التسجيل',already_exists:'موجود مسبقًا',invalid_credentials:'بيانات الدخول غير صحيحة',validation_failed:'بيانات غير صالحة',user_not_found:'المستخدم غير موجود',not_found:'غير موجود',invalid_reference:'مرجع غير صالح (تأكد من المعرّفات)',edition_not_available:'نص القرآن غير متاح بعد: لم يُعتمد شرعيًا من مشرف علمي'};
+const BASE=(document.querySelector('meta[name=api-base]')||{}).content||'';
+async function api(method,url,body){const r=await fetch(BASE+url,{method,headers:{'content-type':'application/json',...(token?{authorization:'Bearer '+token}:{})},body:body?JSON.stringify(body):undefined});let j={};try{j=await r.json()}catch{}if(!r.ok){const e=new Error(ERR[j.error]||j.error||('خطأ '+r.status));e.code=j.error;e.status=r.status;throw e}return j}
+const note=(box,text,cls='')=>{box.replaceChildren(el('div',{class:'msg '+cls},text))};
+const run=async(box,fn)=>{try{await fn();}catch(e){note(box,e.message,'err');if(e.status===401&&token){token=null;try{sessionStorage.removeItem('t')}catch{}}}};
+function field(label,input){return el('div',{},el('label',{},label),input)}
+function table(heads,rows){return el('table',{},el('thead',{},el('tr',{},heads.map(h=>el('th',{},h)))),el('tbody',{},rows.map(r=>el('tr',{},r.map(c=>el('td',{},c))))))}
+const ROLE={tenant_admin:'مدير المؤسسة',qari:'مقرئ',student:'طالب',guardian:'وليّ أمر',safeguarding_officer:'مسؤول حماية',scholarly_reviewer:'مراجع علمي'};
+
+function authView(){
+  const box=el('div'),em=el('input',{type:'email',autocomplete:'username'}),pw=el('input',{type:'password',autocomplete:'current-password'}),nm=el('input',{});
+  const login=el('button',{on:{click:()=>run(box,async()=>{const r=await api('POST','/auth/login',{email:em.value,password:pw.value});token=r.token;try{sessionStorage.setItem('t',token)}catch{}boot()})}},'دخول');
+  const reg=el('button',{class:'ghost',on:{click:()=>run(box,async()=>{await api('POST','/auth/register',{displayName:nm.value,email:em.value,password:pw.value});note(box,'تم إنشاء الحساب، اضغط «دخول».')})}},'إنشاء حساب');
+  return el('div',{class:'card'},el('h2',{},'تسجيل الدخول'),field('الاسم (للتسجيل فقط)',nm),field('البريد الإلكتروني',em),field('كلمة المرور (10 أحرف على الأقل)',pw),login,' ',reg,box,
+    el('p',{class:'small'},'منصة تعليمية. لا تُصدر المنصة فتاوى ولا إجازات؛ التقييمات يكتبها مقرئ بشري فقط.'));
+}
+
+async function home(me){
+  const app=$('#app');app.replaceChildren();
+  $('#who').replaceChildren(me.displayName+' ',el('button',{class:'ghost',on:{click:()=>{token=null;try{sessionStorage.removeItem('t')}catch{};boot()}}},'خروج'));
+  const insts=[...new Map(me.memberships.map(m=>[m.institutionId,m])).values()];
+  const tabs=el('div',{class:'tabs'}),body=el('div');app.append(tabs,body);
+  const views={};
+  views['المؤسسات']=()=>{
+    const box=el('div'),name=el('input'),slug=el('input',{dir:'ltr',placeholder:'dar-example'});
+    body.replaceChildren(el('div',{class:'card'},el('h2',{},'مؤسساتي'),insts.length?table(['المؤسسة','أدواري'],insts.map(i=>[i.name,me.memberships.filter(m=>m.institutionId===i.institutionId).map(m=>ROLE[m.role]||m.role).join('، ')])):el('p',{},'لست عضوًا في أي مؤسسة بعد.')),
+      el('div',{class:'card'},el('h2',{},'إنشاء مؤسسة جديدة'),el('div',{class:'row'},field('الاسم',name),field('المعرّف (إنجليزي)',slug)),el('button',{on:{click:()=>run(box,async()=>{await api('POST','/institutions',{name:name.value,slug:slug.value});boot()})}},'إنشاء'),box));
+  };
+  insts.forEach(i=>{views[i.name]=()=>tenantView(i,me,body)});
+  views['القرآن']=()=>quranView(body);
+  for(const k of Object.keys(views)){const b=el('button',{on:{click:()=>{[...tabs.children].forEach(x=>x.classList.remove('on'));b.classList.add('on');views[k]()}}},k);tabs.append(b)}
+  tabs.children[0].click();
+}
+
+async function tenantView(inst,me,body){
+  const roles=me.memberships.filter(m=>m.institutionId===inst.institutionId).map(m=>m.role),has=r=>roles.includes(r),b='/i/'+inst.institutionId;
+  const sections=el('div');body.replaceChildren(el('div',{class:'card'},el('h2',{},inst.name),el('p',{class:'small'},roles.map(r=>ROLE[r]).join('، '))),sections);
+  const box=el('div');
+  // halaqat list
+  const hbox=el('div'),hl=el('div');
+  const loadH=()=>run(hbox,async()=>{const r=await api('GET',b+'/halaqat');hl.replaceChildren(r.halaqat.length?table(['الحلقة','المعرّف',''],r.halaqat.map(h=>[h.name,el('span',{class:'mono'},h.id),el('button',{class:'ghost',on:{click:()=>halaqahView(h)}},'فتح')])):el('p',{},'لا توجد حلقات ظاهرة لك.'))});
+  sections.append(el('div',{class:'card'},el('h2',{},'الحلقات'),hl,hbox));loadH();
+  const detail=el('div');sections.append(detail);
+  async function halaqahView(h){
+    const sb=el('div'),sl=el('div'),mb=el('div'),ml=el('div');
+    detail.replaceChildren(el('div',{class:'card'},el('h2',{},'حلقة: '+h.name),el('h3',{},'الطلاب'),ml,mb,el('h3',{},'الجلسات'),sl,sb));
+    const loadM=()=>run(mb,async()=>{const r=await api('GET',b+'/halaqat/'+h.id+'/members');ml.replaceChildren(r.members.length?table(['معرّف الطالب'],r.members.map(m=>[el('span',{class:'mono'},m.studentUserId)])):el('p',{},'—'))});
+    const loadS=()=>run(sb,async()=>{const r=await api('GET',b+'/halaqat/'+h.id+'/sessions');sl.replaceChildren(r.sessions.length?table(['الموعد','الموضوع','الحضور'],r.sessions.map(s=>[new Date(s.startsAt).toLocaleString('ar'),s.topic||'—',el('button',{class:'ghost',on:{click:()=>attView(s)}},'عرض/تسجيل')])):el('p',{},'—'))});
+    if(has('tenant_admin')){const sid=el('input',{dir:'ltr',placeholder:'معرّف الطالب (UUID)'});mb.append(field('إضافة طالب',sid),el('button',{on:{click:()=>run(mb,async()=>{await api('POST',b+'/halaqat/'+h.id+'/members',{studentUserId:sid.value});loadM()})}},'إضافة'))}
+    if(has('tenant_admin')||has('qari')){const a=el('input',{type:'datetime-local'}),z=el('input',{type:'datetime-local'}),t=el('input');sb.after(el('div',{},el('div',{class:'row'},field('البداية',a),field('النهاية',z),field('الموضوع',t)),el('button',{on:{click:()=>run(sb,async()=>{await api('POST',b+'/halaqat/'+h.id+'/sessions',{startsAt:new Date(a.value).toISOString(),endsAt:new Date(z.value).toISOString(),topic:t.value||undefined});loadS()})}},'إضافة جلسة')))}
+    loadM();loadS();
+  }
+  async function attView(s){
+    const ab=el('div'),al=el('div');
+    detail.append(el('div',{class:'card'},el('h2',{},'الحضور'),al,ab));
+    const load=()=>run(ab,async()=>{const r=await api('GET',b+'/sessions/'+s.id+'/attendance');const L={present:'حاضر',absent:'غائب',late:'متأخر',excused:'بعذر'};al.replaceChildren(r.attendance.length?table(['الطالب','الحالة'],r.attendance.map(x=>[el('span',{class:'mono'},x.studentUserId),L[x.status]])):el('p',{},'لا سجلات.'))});
+    if(has('qari')||has('tenant_admin')){const sid=el('input',{dir:'ltr',placeholder:'معرّف الطالب'}),st=el('select',{},...[['present','حاضر'],['late','متأخر'],['absent','غائب'],['excused','بعذر']].map(([v,t])=>el('option',{value:v},t)));
+      ab.after(el('div',{class:'row'},field('الطالب',sid),field('الحالة',st)),el('button',{on:{click:()=>run(ab,async()=>{await api('POST',b+'/sessions/'+s.id+'/attendance',{studentUserId:sid.value,status:st.value});load()})}},'تسجيل'))}
+    load();
+  }
+  // assessments
+  const abx=el('div'),alist=el('div');
+  const loadA=()=>run(abx,async()=>{const r=await api('GET',b+'/assessments');const lv=v=>v??'—';alist.replaceChildren(r.assessments.length?table(['الطالب','السورة','المخارج','الصفات','الأحكام','الطلاقة','الحفظ','ملاحظة'],r.assessments.map(x=>[el('span',{class:'mono'},x.studentUserId),`${x.surah}:${x.ayahStart}-${x.ayahEnd}`,lv(x.makharij),lv(x.sifat),lv(x.ahkamTajweed),lv(x.fluency),lv(x.memorisation),x.note||'']))
+    :el('p',{},'لا تقييمات ظاهرة لك.'))});
+  const acard=el('div',{class:'card'},el('h2',{},'تقييمات المقرئ'),el('p',{class:'small'},'مستويات الملاحظة من 1 إلى 4 يكتبها مقرئ بشري؛ ليست حكمًا شرعيًا ولا إجازة.'),alist,abx);
+  if(has('qari')){const f={};const mk=(k,l)=>{f[k]=el('input',{type:'number',min:1,max:4});return field(l,f[k])};
+    const sid=el('input',{dir:'ltr'}),su=el('input',{type:'number',min:1,max:114,value:1}),a1=el('input',{type:'number',min:1,value:1}),a2=el('input',{type:'number',min:1,value:7}),note=el('textarea',{rows:2});
+    acard.append(el('h3',{},'تقييم جديد'),el('div',{class:'row'},field('معرّف الطالب',sid),field('السورة',su),field('من آية',a1),field('إلى آية',a2)),el('div',{class:'row'},mk('makharij','المخارج'),mk('sifat','الصفات'),mk('ahkamTajweed','أحكام التجويد'),mk('fluency','الطلاقة'),mk('memorisation','الحفظ')),field('ملاحظة',note),
+      el('button',{on:{click:()=>run(abx,async()=>{const body={studentUserId:sid.value,surah:+su.value,ayahStart:+a1.value,ayahEnd:+a2.value,note:note.value||undefined};for(const[k,e]of Object.entries(f))if(e.value)body[k]=+e.value;await api('POST',b+'/assessments',body);loadA()})}},'حفظ التقييم'))}
+  sections.append(acard);loadA();
+  // admin tools
+  if(has('tenant_admin')){
+    const mb=el('div'),email=el('input',{type:'email',dir:'ltr'}),role=el('select',{},...Object.entries(ROLE).map(([v,t])=>el('option',{value:v},t)));
+    const stu=el('input',{dir:'ltr',placeholder:'معرّف المستخدم'}),minor=el('select',{},el('option',{value:'true'},'قاصر (أقل من 18)'),el('option',{value:'false'},'بالغ'));
+    const hn=el('input'),hq=el('input',{dir:'ltr',placeholder:'معرّف المقرئ'});
+    sections.append(el('div',{class:'card'},el('h2',{},'إدارة المؤسسة'),
+      el('div',{class:'row'},field('بريد العضو (يجب أن يكون مسجّلًا)',email),field('الدور',role)),el('button',{on:{click:()=>run(mb,async()=>{const r=await api('POST',b+'/members',{email:email.value,role:role.value});note(mb,'أُضيف العضو. معرّفه: '+r.userId)})}},'إضافة عضو'),
+      el('div',{class:'row'},field('ملف طالب: معرّف المستخدم',stu),field('الفئة',minor)),el('button',{on:{click:()=>run(mb,async()=>{await api('POST',b+'/students',{userId:stu.value,isMinor:minor.value==='true'});note(mb,'تم إنشاء ملف الطالب')})}},'إنشاء ملف طالب'),
+      el('div',{class:'row'},field('اسم الحلقة',hn),field('المقرئ',hq)),el('button',{on:{click:()=>run(mb,async()=>{await api('POST',b+'/halaqat',{name:hn.value,qariUserId:hq.value});note(mb,'تم إنشاء الحلقة');loadH()})}},'إنشاء حلقة'),mb));
+  }
+}
+
+async function quranView(body){
+  const box=el('div'),out=el('div'),sel=el('select'),ed=el('select');
+  body.replaceChildren(el('div',{class:'card'},el('h2',{},'قراءة القرآن'),box,out));
+  run(box,async()=>{
+    const[e,r]=await Promise.all([api('GET','/quran/editions'),api('GET','/quran/reference')]);
+    if(!e.editions.length){note(box,'لا يوجد نص معتمد بعد. النص المستورد ينتظر اعتماد مشرف علمي، ولا يُعرض للمتعلّمين قبل ذلك.','warn');return}
+    e.editions.forEach(x=>ed.append(el('option',{value:x.code},x.name+' — '+x.riwayah)));r.surahs.forEach(s=>sel.append(el('option',{value:s.surah},'سورة رقم '+s.surah+' ('+s.ayahCount+' آية)')));
+    const go=el('button',{on:{click:()=>run(box,async()=>{const q=await api('GET','/quran/'+encodeURIComponent(ed.value)+'/'+sel.value);out.replaceChildren(...q.ayat.map(a=>el('p',{class:'ayah'},a.text+' ﴿'+a.ayah+'﴾')),el('p',{class:'small'},q.attribution))})}},'عرض');
+    box.replaceChildren(el('div',{class:'row'},field('النسخة',ed),field('السورة',sel)),go);
+  });
+}
+
+async function boot(){
+  const app=$('#app');app.replaceChildren();$('#who').replaceChildren();
+  if(!token){app.append(authView());return}
+  try{home(await api('GET','/me'))}catch(e){token=null;try{sessionStorage.removeItem('t')}catch{};app.append(authView())}
+}
+boot();
+</script>
+</body>
+</html>
