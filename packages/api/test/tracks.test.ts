@@ -124,3 +124,29 @@ test('halaqah join: window enforced, minor needs a verified guardian, room not g
   assert.equal(j.status, 200); assert.equal(j.body.recorded, false); assert.match(j.body.url, /^https:\/\/meet\.jit\.si\/tartil-[0-9a-f]{64}$/);
   assert.equal((await call('POST', `${b}/sessions/${open}/join`, out.token)).status, 404);   // not in the circle: session invisible
 });
+
+test('people list shows names (not e-mails); a student cannot see other students; upcoming sessions respect visibility', async () => {
+  const admin = await user('padmin'), qari = await user('pqari'), s1 = await user('pstu1'), s2 = await user('pstu2');
+  const inst = (await call('POST', '/institutions', admin.token, { name: 'Dar P', slug: 'dar-p' })).body.id as string;
+  const b = `/i/${inst}`;
+  for (const [u, role] of [[qari, 'qari'], [s1, 'student'], [s2, 'student']] as const) await call('POST', `${b}/members`, admin.token, { email: u.email, role });
+  const all = (await call('GET', `${b}/people`, admin.token)).body.people as Array<{ displayName: string; role: string }>;
+  assert.ok(all.some(p => p.displayName === 'pstu1' && p.role === 'student'));
+  assert.ok(!JSON.stringify(all).includes('@example.test'));
+  const mine = (await call('GET', `${b}/people`, s1.token)).body.people as Array<{ displayName: string }>;
+  assert.ok(!mine.some(p => p.displayName === 'pstu2'));
+  const h = (await call('POST', `${b}/halaqat`, admin.token, { name: 'Halaqah P', qariUserId: qari.id })).body.id as string;
+  await call('POST', `${b}/students`, admin.token, { userId: s1.id, isMinor: false });
+  await call('POST', `${b}/halaqat/${h}/members`, admin.token, { studentUserId: s1.id });
+  const t = Date.now();
+  await call('POST', `${b}/halaqat/${h}/sessions`, qari.token, { startsAt: new Date(t + 3600e3).toISOString(), endsAt: new Date(t + 7200e3).toISOString(), topic: 'x' });
+  assert.equal(((await call('GET', `${b}/sessions-upcoming`, s1.token)).body.sessions as unknown[]).length, 1);
+  assert.equal(((await call('GET', `${b}/sessions-upcoming`, s2.token)).body.sessions as unknown[]).length, 0);
+  await call('POST', `${b}/qari-assignments`, admin.token, { qariUserId: qari.id, studentUserId: s1.id });
+  const qv = (await call('GET', `${b}/people`, qari.token)).body.people as Array<{ displayName: string; role: string }>;
+  assert.ok(qv.some(p => p.displayName === 'pstu1' && p.role === 'student'), 'qari sees the assigned student by name');
+  assert.ok(!qv.some(p => p.displayName === 'pstu2'), 'qari does not see unassigned students');
+  const sv = (await call('GET', `${b}/people`, s1.token)).body.people as Array<{ displayName: string; role: string }>;
+  assert.ok(sv.some(p => p.displayName === 'pqari' && p.role === 'qari'), 'student sees own qari');
+  assert.equal((await call('GET', `${b}/people`)).status, 401);
+});

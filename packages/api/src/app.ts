@@ -334,6 +334,22 @@ export function buildApp(d: Deps) {
     return { url: r.url, recorded: false, note: 'External video room (Jitsi). The platform does not record it. A qari must be present; no private adult-child sessions.' };
   });
 
+  // ---- people & upcoming sessions (what the caller may see is decided by RLS, not here) ----
+  app.get('/i/:inst/people', async (req, reply) => {
+    // Members (admin sees all, others only themselves) plus the people the caller is allowed to see through assignments/links. RLS filters every branch.
+    const r = await tenant(req, reply, tx => tx.query(`SELECT x.user_id AS "userId", x.role, coalesce(u.display_name, '—') AS "displayName" FROM (
+        SELECT user_id, role::text AS role FROM memberships WHERE status = 'active'
+        UNION SELECT user_id, 'student' FROM student_profiles
+        UNION SELECT qari_user_id, 'qari' FROM qari_assignments WHERE active
+        UNION SELECT guardian_user_id, 'guardian' FROM guardian_links WHERE revoked_at IS NULL) x
+      LEFT JOIN users u ON u.id = x.user_id ORDER BY x.role, u.display_name`));
+    if (r) return { people: r.rows };
+  });
+  app.get('/i/:inst/sessions-upcoming', async (req, reply) => {
+    const r = await tenant(req, reply, tx => tx.query(`SELECT s.id, s.halaqah_id AS "halaqahId", h.name AS "halaqah", s.starts_at AS "startsAt", s.ends_at AS "endsAt", s.topic FROM halaqah_sessions s JOIN halaqat h ON h.id = s.halaqah_id WHERE s.ends_at > now() - interval '15 minutes' ORDER BY s.starts_at LIMIT 20`));
+    if (r) return { sessions: r.rows };
+  });
+
   // ---- halaqat / sessions / attendance ----
   app.post('/i/:inst/halaqat', async (req, reply) => {
     const b = z.object({ name: z.string().min(2).max(200), qariUserId: uuid }).parse(req.body);
