@@ -157,7 +157,11 @@ test('UI track templates are accepted by the API (payloads valid, units persiste
   const m = html.match(/const TEMPLATES=(\[[\s\S]*?\}\]);\s*\n/);
   assert.ok(m, 'TEMPLATES block found');
   const templates = new Function('surahName', `return ${m![1]}`)((n: number) => 'S' + n) as Array<{ title: string; description: string; units: unknown[] }>;
-  assert.equal(templates.length, 3);
+  assert.equal(templates.length, 11);
+  const khatm = templates.find(t => t.title.startsWith('ختمة')) as { units: Array<{ fromAyah: number; toAyah: number }> };
+  assert.ok(khatm, 'khatm template present');
+  assert.equal(khatm.units.reduce((n, u) => n + (u.toAyah - u.fromAyah + 1), 0), 6236, 'khatm covers every ayah exactly once');
+  assert.equal(templates.filter(t => t.units.length > 200).length, 0);
   const admin = await user('tmpladmin');
   const inst = (await call('POST', '/institutions', admin.token, { name: 'Dar Tmpl', slug: 'dar-tmpl' })).body.id as string;
   for (const t of templates) {
@@ -165,6 +169,6 @@ test('UI track templates are accepted by the API (payloads valid, units persiste
     assert.equal(r.status, 201, t.title + ' ' + JSON.stringify(r.body));
   }
   const list = (await call('GET', `/i/${inst}/tracks`, admin.token)).body.tracks as Array<{ status: string; units: unknown[] }>;
-  assert.equal(list.length, 3);
+  assert.equal(list.length, 11);
   assert.ok(list.every(t => t.status === 'draft' && t.units.length > 0));
 });
