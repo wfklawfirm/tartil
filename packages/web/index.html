@@ -214,8 +214,9 @@ async function reader(app,n,focus){
   const modeBtn=el('button',{class:'ghost sm',on:{click:()=>{const l=box.classList.toggle('lines');store.set('mode',l?'lines':'flow')}}},'تبديل العرض: متصل / سطر لكل آية');
   app.replaceChildren(
     el('div',{class:'card'},el('div',{class:'toolbar'},el('div',{},el('label',{},'السورة'),sel),el('div',{},el('label',{},'الانتقال إلى آية'),jump),el('div',{},el('label',{},'حجم الخط'),rng),el('div',{},el('label',{},'بحث'),find)),fres,
-      el('div',{style:'display:flex;gap:8px;flex-wrap:wrap;align-items:center'},n>1?el('a',{class:'btn ghost sm',href:'#/quran/'+(n-1)},'→ السابقة'):'',n<114?el('a',{class:'btn ghost sm',href:'#/quran/'+(n+1)},'التالية ←'):'',el('a',{class:'btn ghost sm',href:'#/quran'},'فهرس السور'),modeBtn,el('label',{style:'display:inline-flex;gap:6px;align-items:center;margin:0;color:var(--ink)'},el('input',{type:'checkbox',...(tjOn?{checked:true}:{}),on:{change:ev=>{store.set('tj',ev.target.checked);route()}}}),'تلوين التجويد'),el('span',{class:'small'},'اضغط على أي آية لحفظ موضعك وإشارتها.')),tjOn?tjLegend():''),
+      el('div',{style:'display:flex;gap:8px;flex-wrap:wrap;align-items:center'},n>1?el('a',{class:'btn ghost sm',href:'#/quran/'+(n-1)},'→ السابقة'):'',n<114?el('a',{class:'btn ghost sm',href:'#/quran/'+(n+1)},'التالية ←'):'',el('a',{class:'btn ghost sm',href:'#/quran'},'فهرس السور'),modeBtn,el('label',{style:'display:inline-flex;gap:6px;align-items:center;margin:0;color:var(--ink)'},el('input',{type:'checkbox',...(tjOn?{checked:true}:{}),on:{change:ev=>{store.set('tj',ev.target.checked);route()}}}),'تلوين التجويد'),el('label',{style:'display:inline-flex;gap:6px;align-items:center;margin:0;color:var(--ink)'},el('input',{type:'checkbox',...(store.get('tr',false)?{checked:true}:{}),on:{change:ev=>{store.set('tr',ev.target.checked);route()}}}),'عرض الترجمة الإنجليزية'),el('span',{class:'small'},'اضغط على أي آية لحفظ موضعك وإشارتها.')),tjOn?tjLegend():''),
     box);
+  if(store.get('tr',false))showTranslation(app,n);
   if(!store.get('last',null)||store.get('last').s!==n)store.set('last',{s:n,a:1});
   if(focus)setTimeout(()=>go(focus),150);
 }
@@ -753,6 +754,18 @@ function tajweedClassify(text){
   return cl.map((c,i)=>({t:c.t,cls:out[i]}))}
 function tajweedNodes(text){
   return tajweedClassify(text).map(x=>x.cls?el('span',{class:'tj tj-'+x.cls,title:TJC[x.cls][0]},x.t):x.t)}
+async function showTranslation(app,n){
+  const c=el('div',{class:'card'},el('h2',{},'الترجمة الإنجليزية'),el('p',{class:'small'},'جارٍ التحميل…'));app.append(c);
+  try{
+    const eds=(await api('GET','/translations/editions')).editions;
+    if(!eds.length){c.replaceChildren(el('h2',{},'الترجمة'),empty('لا ترجمة معتمدة متاحة الآن.'));return}
+    const d=await api('GET','/translations/'+eds[0].code+'/'+n);
+    c.replaceChildren(el('h2',{},'الترجمة الإنجليزية'),
+      el('div',{dir:'ltr',lang:'en',style:'text-align:left;line-height:1.8'},d.ayat.map(x=>el('p',{style:'margin:8px 0'},el('span',{class:'chip',style:'margin-inline-end:8px'},String(x.ayah)),x.text))),
+      el('p',{class:'small',dir:'ltr',lang:'en',style:'text-align:left'},d.attribution),
+      el('p',{class:'small'},'ترجمة بشرية لمعاني القرآن، وليست القرآن نفسه ولا حكمًا شرعيًا؛ النص العربي وحده هو القرآن. الترجمة قيد المراجعة العلمية.'))
+  }catch(e){c.replaceChildren(el('h2',{},'الترجمة'),el('div',{class:'msg err'},e.message))}
+}
 const tjLegend=()=>el('div',{class:'small',style:'margin:6px 0'},'تلوين التجويد (تقريبي وقيد المراجعة العلمية؛ لا يغني عن المقرئ): ',Object.entries(TJC).map(([k,[n,c]])=>el('span',{class:'chip',style:'border-inline-start:14px solid '+c},n)));
 
 try{if('serviceWorker' in navigator&&location.protocol==='https:')navigator.serviceWorker.register('/sw.js').catch(()=>{})}catch{}

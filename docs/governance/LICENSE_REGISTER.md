@@ -17,3 +17,6 @@ All `LICENSE_REVIEW_REQUIRED`. Permitted use now: internal analysis/extraction o
 
 ## Source selection 2026-11-02
 Owner selected, in principle, KFGQPC (audio/translations/mushaf reference), Quran Foundation API (streaming audio/translations) and Tanzil (text, already live). Details, terms read and next actions: `SOURCE_SELECTION_2026-11-02.md`. **Status: SELECTED_PENDING_AGREEMENT; licences remain NOT cleared; nothing downloaded or integrated.**
+
+## Clear Quran (English translation of the meanings) - ACQUIRED 2026-11-02
+Translator Talal Itani, clearquran.com, "Allah" edition, version 2026-10-09. Licence CC BY-ND 4.0 (commercial use allowed, no permission needed; wording must stay unchanged; translator credited). Imported by `scripts/supabase/import_clearquran.sql` (pinned SHA-256 `138b00041d6013f2dd96e84038529044da53748e8c534942af37edd2a4ca3eb5`, 6236 verses, count and hash gated). Edition code `clearquran-allah-en-2026-10`. **Status: APPROVED provisionally by the owner (pending scholarly review); attribution is always shown with the text.**

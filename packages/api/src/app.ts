@@ -664,6 +664,21 @@ export function buildApp(d: Deps) {
     app.get('/', async (_req, reply) => reply.header('content-type', 'text/html; charset=utf-8').header('x-content-type-options', 'nosniff').header('referrer-policy', 'no-referrer')
       .header('content-security-policy', "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; connect-src 'self'; frame-ancestors 'none'").send(html));
   }
+  // ---- translations of the meanings: separate from the Quran text, approved editions only (RLS), always with attribution ----
+  app.get('/translations/editions', async () => {
+    const r = await withContext(d.app, {}, tx => tx.query(`SELECT code, name, language, translator, provider, provider_version AS "providerVersion", licence_name AS "licenceName", licence_ref AS "licenceRef", attribution_text AS "attribution" FROM translation_editions ORDER BY language, code`));
+    return { editions: r.rows };
+  });
+  app.get('/translations/:edition/:surah', async (req, reply) => {
+    const p = z.object({ edition: z.string().min(3).max(64), surah: z.coerce.number().int().min(1).max(114) }).parse(req.params);
+    const r = await withContext(d.app, {}, async tx => {
+      const ed = await tx.query<{ attribution: string; language: string; translator: string }>(`SELECT attribution_text AS attribution, language, translator FROM translation_editions WHERE code = $1`, [p.edition]);
+      if (!ed.rows.length) return null;
+      const a = await tx.query<{ ayah: number; text: string }>(`SELECT ayah, text_raw AS text FROM translation_ayahs WHERE edition_code = $1 AND surah = $2 ORDER BY ayah`, [p.edition, p.surah]);
+      return { edition: p.edition, language: ed.rows[0]!.language, translator: ed.rows[0]!.translator, attribution: ed.rows[0]!.attribution, surah: p.surah, ayat: a.rows, note: 'A human translation of the meanings. It is not the Quran and not a ruling; the Arabic text alone is the Quran.' };
+    });
+    return r ?? reply.code(404).send({ error: 'edition_not_available' });
+  });
   app.get('/health', async () => ({ ok: true }));
   return app;
 }

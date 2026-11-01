@@ -46,3 +46,6 @@ Halaqah + attendance + assessment-record journey; Quran Core read API (hidden un
 - Live API = edge function v16 (adds /i/:inst/roster, /members/:mid/status, /overview-stats, /audit-trail). Verified: health ok, 401 unauthenticated, Quran text intact, 6236 ayat reference.
 - Added: 8 curriculum track templates (proposals, not endorsed), institution admin console, first visual identity pass (mark, icon, hero pattern).
 - Bundles for the owner to push in order: tartil-o, tartil-p, tartil-q, tartil-r.
+
+## 2026-11-02 translation layer
+Migration 0011 (translation tables, immutability, hash, range checks, RLS) applied live. Clear Quran imported (6236 verses, hash verified) and provisionally APPROVED. API routes `/translations/editions` and `/translations/:edition/:surah` live in edge function v17; verified live (edition listed, surah 1 = 7 verses, surah 2 = 286, unknown edition 404, Quran reference total 6236). Reader has an opt-in English translation toggle. Tests: API 29/29, DB 38/38. Bundle tartil-v.
