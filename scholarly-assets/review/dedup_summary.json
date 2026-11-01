@@ -1,0 +1,125 @@
+{
+ "units_considered": 57989,
+ "pairs_by_class": {
+  "RELATED_VARIANT": 938,
+  "NEAR_DUPLICATE": 481,
+  "EXACT_NORMALISED": 4600
+ },
+ "near_dup_clusters": 629,
+ "largest_clusters": [
+  {
+   "size": 19,
+   "sources": 12
+  },
+  {
+   "size": 18,
+   "sources": 13
+  },
+  {
+   "size": 15,
+   "sources": 11
+  },
+  {
+   "size": 15,
+   "sources": 10
+  },
+  {
+   "size": 14,
+   "sources": 12
+  },
+  {
+   "size": 14,
+   "sources": 11
+  },
+  {
+   "size": 13,
+   "sources": 10
+  },
+  {
+   "size": 13,
+   "sources": 11
+  },
+  {
+   "size": 12,
+   "sources": 11
+  },
+  {
+   "size": 12,
+   "sources": 10
+  }
+ ],
+ "top_source_pairs_by_near_dup": [
+  [
+   [
+    "SRC-022869",
+    "SRC-037615"
+   ],
+   193
+  ],
+  [
+   [
+    "SRC-037615",
+    "SRC-038025"
+   ],
+   178
+  ],
+  [
+   [
+    "SRC-007311",
+    "SRC-037615"
+   ],
+   159
+  ],
+  [
+   [
+    "SRC-017065",
+    "SRC-037615"
+   ],
+   138
+  ],
+  [
+   [
+    "SRC-012754",
+    "SRC-037615"
+   ],
+   125
+  ],
+  [
+   [
+    "SRC-012093",
+    "SRC-037615"
+   ],
+   124
+  ],
+  [
+   [
+    "SRC-007311",
+    "SRC-038025"
+   ],
+   117
+  ],
+  [
+   [
+    "SRC-037615",
+    "SRC-038104"
+   ],
+   115
+  ],
+  [
+   [
+    "SRC-009632",
+    "SRC-037615"
+   ],
+   112
+  ],
+  [
+   [
+    "SRC-021580",
+    "SRC-037615"
+   ],
+   110
+  ]
+ ],
+ "units_in_near_dup_clusters": 2281,
+ "pct_units_in_near_dup_clusters": 3.93
+}

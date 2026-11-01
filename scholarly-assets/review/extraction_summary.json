@@ -1,0 +1,706 @@
+[
+ {
+  "source_id": "SRC-000571",
+  "title": "متون طالب العلم - المستوى الثاني\r[تحفة الأطفال في التجويد للجمزوري - (",
+  "category": "CORE_MATN",
+  "tier": "1",
+  "sections": 28,
+  "units": 1094,
+  "chars": 105105,
+  "ayah_quotes": 141,
+  "cites_parsed": 0,
+  "cite_status": {},
+  "source_sha256": "1e0bda4840debfe1268634c27b48593d1fab24de9d5bd08b87a15980a2230a81"
+ },
+ {
+  "source_id": "SRC-000581",
+  "title": "المقدمة فيما على قارئ القرآن أن يعلمه، الجزرية",
+  "category": "CORE_MATN",
+  "tier": "1",
+  "sections": 45,
+  "units": 907,
+  "chars": 95422,
+  "ayah_quotes": 17,
+  "cites_parsed": 14,
+  "cite_status": {
+   "RESOLVED_UNVERIFIED": 14
+  },
+  "source_sha256": "7ac6f70d6193197812294d37dc192f629b9cc2861fd3f4f09f73b9f79e586d67"
+ },
+ {
+  "source_id": "SRC-000688",
+  "title": "تيسير أحكام التجويد (المستوى الأول)",
+  "category": "CORE_TAJWEED",
+  "tier": "1",
+  "sections": 94,
+  "units": 256,
+  "chars": 13727,
+  "ayah_quotes": 191,
+  "cites_parsed": 0,
+  "cite_status": {},
+  "source_sha256": "ea614b44d72664bdfdb8051cf09c4f54af3a0477e2554a865d5078fabf6fc81a"
+ },
+ {
+  "source_id": "SRC-000801",
+  "title": "ترجمة برهان الدين إبراهيم بن عمر بن إبراهيم الجعبري (ت ٧٣٢ هـ)",
+  "category": "QIRAAT_BIOGRAPHY",
+  "tier": "3",
+  "sections": 55,
+  "units": 812,
+  "chars": 84741,
+  "ayah_quotes": 0,
+  "cites_parsed": 0,
+  "cite_status": {},
+  "source_sha256": "9c41ccd7696ffbb906240cb9840f98f99792e39172592bd946bfd4da949ebdda"
+ },
+ {
+  "source_id": "SRC-000937",
+  "title": "الإِتْقَانِ فِي ضَوَابِطِ تَسْجِيِلِ القُرْآنِ",
+  "category": "RECITATION_PERFORMANCE",
+  "tier": "3",
+  "sections": 87,
+  "units": 988,
+  "chars": 141354,
+  "ayah_quotes": 13,
+  "cites_parsed": 7,
+  "cite_status": {
+   "RESOLVED_UNVERIFIED": 7
+  },
+  "source_sha256": "a111f3b046fd88bd94220f4cd958e8d6e6a00b7cca81978a7061c008001cd504"
+ },
+ {
+  "source_id": "SRC-000989",
+  "title": "تقويم طرق تعليم القرآن الكريم في مراحل التعليم العام والتعليم الجامعي",
+  "category": "PEDAGOGY",
+  "tier": "2",
+  "sections": 43,
+  "units": 330,
+  "chars": 56029,
+  "ayah_quotes": 4,
+  "cites_parsed": 4,
+  "cite_status": {
+   "RESOLVED_UNVERIFIED": 4
+  },
+  "source_sha256": "57e603075fea3c8175ad91f6aa53dcca610c8ecd25ed8c05c2ba51ad793e19e3"
+ },
+ {
+  "source_id": "SRC-001096",
+  "title": "المقدمة فيما على قارئ القرآن أن يعلمه الجزرية\r(متون طالب العلم - الإضا",
+  "category": "CORE_MATN",
+  "tier": "1",
+  "sections": 18,
+  "units": 172,
+  "chars": 13308,
+  "ayah_quotes": 0,
+  "cites_parsed": 0,
+  "cite_status": {},
+  "source_sha256": "b6057d440c30a9308f2a59abe50240bc88fb0c7c7c4f5de35afada393969dff8"
+ },
+ {
+  "source_id": "SRC-002916",
+  "title": "ظاهرة المد في الأداء القرآني دراسة صوتية للمدة الزمنية للمد العارض للس",
+  "category": "PHONETICS_RESEARCH",
+  "tier": "2",
+  "sections": 5,
+  "units": 2285,
+  "chars": 72291,
+  "ayah_quotes": 106,
+  "cites_parsed": 0,
+  "cite_status": {},
+  "source_sha256": "2e75494aa100ee18f2c49075637ffced092447478ae423f68b58713d59803688"
+ },
+ {
+  "source_id": "SRC-005464",
+  "title": "الوجيز في علم التجويد",
+  "category": "CORE_TAJWEED",
+  "tier": "1",
+  "sections": 17,
+  "units": 1778,
+  "chars": 102612,
+  "ayah_quotes": 0,
+  "cites_parsed": 0,
+  "cite_status": {},
+  "source_sha256": "3d37b79106f76f586726eaae49f224045146679c94eb76f923ed320dea353ef3"
+ },
+ {
+  "source_id": "SRC-005465",
+  "title": "تطور كتابة المصحف الشريف وطباعته",
+  "category": "RASM_MUSHAF",
+  "tier": "2",
+  "sections": 24,
+  "units": 759,
+  "chars": 110538,
+  "ayah_quotes": 0,
+  "cites_parsed": 0,
+  "cite_status": {},
+  "source_sha256": "73c43f7f96b003115750ec07681c24d10fb15ac8c85a48fa0c95f64ff94b7dfc"
+ },
+ {
+  "source_id": "SRC-007311",
+  "title": "غاية المريد في علم التجويد",
+  "category": "CORE_TAJWEED",
+  "tier": "1",
+  "sections": 188,
+  "units": 4596,
+  "chars": 316096,
+  "ayah_quotes": 1208,
+  "cites_parsed": 15,
+  "cite_status": {
+   "SURAH_IMPLIED_BY_CONTEXT": 1,
+   "RESOLVED_UNVERIFIED": 13,
+   "AYAH_OUT_OF_RANGE": 1
+  },
+  "source_sha256": "93889d68b769d475d20fe41565f5ff15bbcf1a9490985084baa4cb671b1f524f"
+ },
+ {
+  "source_id": "SRC-008194",
+  "title": "التمهيد في علم التجويد",
+  "category": "CORE_TAJWEED",
+  "tier": "1",
+  "sections": 44,
+  "units": 1013,
+  "chars": 118540,
+  "ayah_quotes": 699,
+  "cites_parsed": 0,
+  "cite_status": {},
+  "source_sha256": "a86b2174208b63ec2cf90af81cb262b71769e4d3b2f2aaf7d6c7f1bd12aaa2a2"
+ },
+ {
+  "source_id": "SRC-008517",
+  "title": "العناية بالقرآن الكريم وعلومه من بداية القرن الرابع الهجري إلى عصرنا ا",
+  "category": "QURAN_SCIENCES",
+  "tier": "3",
+  "sections": 78,
+  "units": 854,
+  "chars": 111501,
+  "ayah_quotes": 6,
+  "cites_parsed": 3,
+  "cite_status": {
+   "RESOLVED_UNVERIFIED": 3
+  },
+  "source_sha256": "7da17ad077f254bcae7aaf2cac2d47fe6cf39dffaf702dc22a82bc9dad574379"
+ },
+ {
+  "source_id": "SRC-008552",
+  "title": "المصاحف المخطوطة في القرن الحادي عشر الهجري",
+  "category": "RASM_MUSHAF",
+  "tier": "3",
+  "sections": 26,
+  "units": 2004,
+  "chars": 55886,
+  "ayah_quotes": 3,
+  "cites_parsed": 3,
+  "cite_status": {
+   "RESOLVED_UNVERIFIED": 3
+  },
+  "source_sha256": "7db27e07ef133f2c13237984247a204885b50205df51b5b11649b06e38febae6"
+ },
+ {
+  "source_id": "SRC-008563",
+  "title": "المقومات الشخصية لمعلم القرآن الكريم",
+  "category": "PEDAGOGY",
+  "tier": "2",
+  "sections": 44,
+  "units": 1357,
+  "chars": 141672,
+  "ayah_quotes": 50,
+  "cites_parsed": 32,
+  "cite_status": {
+   "RESOLVED_UNVERIFIED": 32
+  },
+  "source_sha256": "154e0e124d5795377f8e438f3dc274b64a143a0e79eac76233fddf7bafa687a4"
+ },
+ {
+  "source_id": "SRC-008633",
+  "title": "مدخل في علوم القراءات",
+  "category": "QIRAAT",
+  "tier": "2",
+  "sections": 85,
+  "units": 3332,
+  "chars": 285239,
+  "ayah_quotes": 622,
+  "cites_parsed": 178,
+  "cite_status": {
+   "RESOLVED_UNVERIFIED": 175,
+   "AMBIGUOUS_MULTI_SURAH": 1,
+   "AYAH_OUT_OF_RANGE": 1,
+   "UNRESOLVED_SURAH": 1
+  },
+  "source_sha256": "0f7e583a290684c284ff8f830a270fb56bbd98be4345bf6c64ae2744565373fc"
+ },
+ {
+  "source_id": "SRC-008639",
+  "title": "صفحات في علوم القراءات",
+  "category": "QIRAAT",
+  "tier": "2",
+  "sections": 142,
+  "units": 4361,
+  "chars": 305041,
+  "ayah_quotes": 324,
+  "cites_parsed": 16,
+  "cite_status": {
+   "RESOLVED_UNVERIFIED": 15,
+   "AMBIGUOUS_MULTI_SURAH": 1
+  },
+  "source_sha256": "15e66e10eb4f34da448772b4f1da95d10280c84cac6236668bf30d873fdc936f"
+ },
+ {
+  "source_id": "SRC-009597",
+  "title": "القواعد والإشارات في أصول القراءات",
+  "category": "QIRAAT",
+  "tier": "2",
+  "sections": 5,
+  "units": 135,
+  "chars": 14621,
+  "ayah_quotes": 0,
+  "cites_parsed": 0,
+  "cite_status": {},
+  "source_sha256": "5034f1805c434fd70935795b729f21d9d0e5e8550ea3d7b9f347a8e76d326598"
+ },
+ {
+  "source_id": "SRC-009632",
+  "title": "تحفة الأطفال والغلمان في تجويد القرآن",
+  "category": "CORE_MATN",
+  "tier": "1",
+  "sections": 10,
+  "units": 95,
+  "chars": 11505,
+  "ayah_quotes": 0,
+  "cites_parsed": 0,
+  "cite_status": {},
+  "source_sha256": "a19da0eb6a1a83363eb9e30660871e834cb5176b0508f06ae03ffc45d13399d4"
+ },
+ {
+  "source_id": "SRC-009764",
+  "title": "إذهاب الحزن وشفاء الصدر السقيم",
+  "category": "PERIPHERAL_CANDIDATE",
+  "tier": "3",
+  "sections": 487,
+  "units": 4942,
+  "chars": 702950,
+  "ayah_quotes": 0,
+  "cites_parsed": 0,
+  "cite_status": {},
+  "source_sha256": "01e15858bd9036e648ce64c246232e23d91f57287f01984cdf4024304bd1f57e"
+ },
+ {
+  "source_id": "SRC-010011",
+  "title": "تنبيه الخلان بتكميل مورد الظمآن \"مطبوع ضمن كتاب دليل الحيران على مورد ",
+  "category": "RASM_MUSHAF",
+  "tier": "2",
+  "sections": 4,
+  "units": 647,
+  "chars": 64162,
+  "ayah_quotes": 246,
+  "cites_parsed": 0,
+  "cite_status": {},
+  "source_sha256": "d54e3d873f2f47aa6014a60f560745cedd3aba6e4ced42f165c413b315d99f8e"
+ },
+ {
+  "source_id": "SRC-011089",
+  "title": "تدريس القرآن الكريم في السجون ودور الملاحظة الاجتماعية",
+  "category": "PEDAGOGY",
+  "tier": "3",
+  "sections": 26,
+  "units": 828,
+  "chars": 58095,
+  "ayah_quotes": 33,
+  "cites_parsed": 33,
+  "cite_status": {
+   "RESOLVED_UNVERIFIED": 33
+  },
+  "source_sha256": "b1eecbf7d6294b07cafe69d5575dc741a291541483549391a9299eb2cc2f2f40"
+ },
+ {
+  "source_id": "SRC-011103",
+  "title": "تقويم تعليم حفظ القرآن الكريم وتعليمه في حلقات جمعيات تحفيظ القرآن الك",
+  "category": "PEDAGOGY",
+  "tier": "2",
+  "sections": 9,
+  "units": 279,
+  "chars": 24641,
+  "ayah_quotes": 8,
+  "cites_parsed": 8,
+  "cite_status": {
+   "RESOLVED_UNVERIFIED": 8
+  },
+  "source_sha256": "4d23fc8a4523cc076f545fa11c0ae928dcfd41d0fe8287d32ef569fe30c3ae08"
+ },
+ {
+  "source_id": "SRC-011106",
+  "title": "تقويم طرق تعليم القرآن وعلومه في مدارس تحفيظ القرآن الكريم",
+  "category": "PEDAGOGY",
+  "tier": "2",
+  "sections": 16,
+  "units": 1421,
+  "chars": 69547,
+  "ayah_quotes": 27,
+  "cites_parsed": 24,
+  "cite_status": {
+   "RESOLVED_UNVERIFIED": 24
+  },
+  "source_sha256": "5a528aa78cc7cf434742067f2aff8073590aa0a968902d1ee5049338f00eddde"
+ },
+ {
+  "source_id": "SRC-011275",
+  "title": "فن الإلقاء",
+  "category": "RECITATION_PERFORMANCE",
+  "tier": "3",
+  "sections": 41,
+  "units": 1824,
+  "chars": 204437,
+  "ayah_quotes": 227,
+  "cites_parsed": 30,
+  "cite_status": {
+   "RESOLVED_UNVERIFIED": 30
+  },
+  "source_sha256": "e59688004d696ee0f79ba50f21289a30a381530dc8279825fee487a79d3eb383"
+ },
+ {
+  "source_id": "SRC-011301",
+  "title": "قواعد التجويد على رواية حفص عن عاصم بن أبي النجود",
+  "category": "CORE_TAJWEED",
+  "tier": "1",
+  "sections": 45,
+  "units": 911,
+  "chars": 102766,
+  "ayah_quotes": 498,
+  "cites_parsed": 6,
+  "cite_status": {
+   "RESOLVED_UNVERIFIED": 6
+  },
+  "source_sha256": "1a7bedd854db573367ac7e5bdc4d106422ef6d89078e78868a1b0d29ae25221c"
+ },
+ {
+  "source_id": "SRC-012093",
+  "title": "منظومة المقدمة فيما يجب على القارئ أن يعلمه (الجزرية)",
+  "category": "CORE_MATN",
+  "tier": "1",
+  "sections": 18,
+  "units": 127,
+  "chars": 8377,
+  "ayah_quotes": 0,
+  "cites_parsed": 0,
+  "cite_status": {},
+  "source_sha256": "ba77b689f43dab965f18a66ead8d093c63989dcb3a021ee8a3f7283e07f5c677"
+ },
+ {
+  "source_id": "SRC-012754",
+  "title": "العميد في علم التجويد",
+  "category": "CORE_TAJWEED",
+  "tier": "1",
+  "sections": 341,
+  "units": 1533,
+  "chars": 198154,
+  "ayah_quotes": 0,
+  "cites_parsed": 0,
+  "cite_status": {},
+  "source_sha256": "a971bdfa1a1bdb43648db2934e31e5e1406c5e371ac84cfb446c9384fdd7e055"
+ },
+ {
+  "source_id": "SRC-013240",
+  "title": "القراءات روايتا ورش وحفص دراسة تحليلية مقارنة",
+  "category": "QIRAAT",
+  "tier": "2",
+  "sections": 271,
+  "units": 3496,
+  "chars": 390847,
+  "ayah_quotes": 2227,
+  "cites_parsed": 590,
+  "cite_status": {
+   "RESOLVED_UNVERIFIED": 582,
+   "AYAH_OUT_OF_RANGE": 4,
+   "UNRESOLVED_SURAH": 4
+  },
+  "source_sha256": "82180dd66d013a2fd6ae85c9f6ec38bd743a6d012c6d070859d6048ff73a1f1b"
+ },
+ {
+  "source_id": "SRC-017065",
+  "title": "الروضة الندية شرح متن الجزرية",
+  "category": "CORE_TAJWEED",
+  "tier": "1",
+  "sections": 47,
+  "units": 1708,
+  "chars": 170821,
+  "ayah_quotes": 373,
+  "cites_parsed": 279,
+  "cite_status": {
+   "RESOLVED_UNVERIFIED": 279
+  },
+  "source_sha256": "6b4d3eca2825427b6a689f479ed16310f2e092aebb74ed09b0f0e67940884549"
+ },
+ {
+  "source_id": "SRC-017674",
+  "title": "بغية المستفيد في علم التجويد - سلسلة لقاء العشر الأواخر بالمسجد الحرام",
+  "category": "CORE_TAJWEED",
+  "tier": "1",
+  "sections": 32,
+  "units": 405,
+  "chars": 46813,
+  "ayah_quotes": 291,
+  "cites_parsed": 0,
+  "cite_status": {},
+  "source_sha256": "110405ead162908aa987d448e3b045cc052d47a0afd9754c64b9b3b7a3bf7257"
+ },
+ {
+  "source_id": "SRC-021513",
+  "title": "معلم التجويد",
+  "category": "CORE_TAJWEED",
+  "tier": "1",
+  "sections": 106,
+  "units": 1455,
+  "chars": 143378,
+  "ayah_quotes": 482,
+  "cites_parsed": 56,
+  "cite_status": {
+   "RESOLVED_UNVERIFIED": 56
+  },
+  "source_sha256": "1ad91321165547cfdc907bd1b0ee1d6989286235f90ec937bc8235f5ee706ef7"
+ },
+ {
+  "source_id": "SRC-021557",
+  "title": "الوجيز في حكم تجويد الكتاب العزيز",
+  "category": "CORE_TAJWEED",
+  "tier": "1",
+  "sections": 9,
+  "units": 899,
+  "chars": 74985,
+  "ayah_quotes": 41,
+  "cites_parsed": 7,
+  "cite_status": {
+   "RESOLVED_UNVERIFIED": 7
+  },
+  "source_sha256": "c82cadfd9a6d368a0d4e675046d7680bbab69fc74f28e3d09c8fdef688fd26c5"
+ },
+ {
+  "source_id": "SRC-021580",
+  "title": "فتح رب البرية شرح المقدمة الجزرية في علم التجويد",
+  "category": "CORE_TAJWEED",
+  "tier": "1",
+  "sections": 18,
+  "units": 1487,
+  "chars": 110884,
+  "ayah_quotes": 0,
+  "cites_parsed": 0,
+  "cite_status": {},
+  "source_sha256": "13b3d97ec1e537522ecc52b8b455613b2e7471a60e965b12eacecc796a0ec599"
+ },
+ {
+  "source_id": "SRC-022869",
+  "title": "هداية القاري إلى تجويد كلام الباري",
+  "category": "CORE_TAJWEED",
+  "tier": "1",
+  "sections": 367,
+  "units": 5371,
+  "chars": 888778,
+  "ayah_quotes": 2689,
+  "cites_parsed": 2558,
+  "cite_status": {
+   "RESOLVED_UNVERIFIED": 2124,
+   "AMBIGUOUS_MULTI_SURAH": 7,
+   "SURAH_IMPLIED_BY_CONTEXT": 407,
+   "UNRESOLVED_SURAH": 18,
+   "AYAH_OUT_OF_RANGE": 2
+  },
+  "source_sha256": "1008db38bf1ce97412aaabe4850e9038616e9d9b6a21950f62245bed4b4cd736"
+ },
+ {
+  "source_id": "SRC-026458",
+  "title": "التحديد في الإتقان والتجويد",
+  "category": "CORE_TAJWEED",
+  "tier": "1",
+  "sections": 14,
+  "units": 470,
+  "chars": 81123,
+  "ayah_quotes": 1146,
+  "cites_parsed": 0,
+  "cite_status": {},
+  "source_sha256": "0e09fa73fec86379b591966b375264eacfd924c62d315cc528bd518fa8283f5a"
+ },
+ {
+  "source_id": "SRC-029915",
+  "title": "مجموعة مهمة في التجويد والقراءات (١٥ متنا في التجويد والقراءات)\rجمع وت",
+  "category": "CORE_MATN",
+  "tier": "1",
+  "sections": 262,
+  "units": 2773,
+  "chars": 180598,
+  "ayah_quotes": 0,
+  "cites_parsed": 0,
+  "cite_status": {},
+  "source_sha256": "dc4bfc80ceeab8703f01bdfd0294f1a9c95182ea297912ca24643e944a751925"
+ },
+ {
+  "source_id": "SRC-036539",
+  "title": "فضل علم الوقف والابتداء وحكم الوقف على رؤوس الآيات",
+  "category": "WAQF_IBTIDA",
+  "tier": "1",
+  "sections": 8,
+  "units": 594,
+  "chars": 78345,
+  "ayah_quotes": 68,
+  "cites_parsed": 42,
+  "cite_status": {
+   "RESOLVED_UNVERIFIED": 42
+  },
+  "source_sha256": "2d173101c1c0078100f1761206778b7d3c7cd31e0b04ace521ef6e3865e19d08"
+ },
+ {
+  "source_id": "SRC-037615",
+  "title": "الوافي في كيفية ترتيل القرآن الكريم (شرح واف لمتني الجزرية وتحفة الأطف",
+  "category": "CORE_TAJWEED",
+  "tier": "1",
+  "sections": 155,
+  "units": 2352,
+  "chars": 303544,
+  "ayah_quotes": 0,
+  "cites_parsed": 0,
+  "cite_status": {},
+  "source_sha256": "601b743a9c1b78b2b122afa3acc9bfaa905795c7e0d4faf3a9dc4160d43540c6"
+ },
+ {
+  "source_id": "SRC-038007",
+  "title": "فقه قراءة القرآن الكريم",
+  "category": "CORE_TAJWEED",
+  "tier": "1",
+  "sections": 72,
+  "units": 1055,
+  "chars": 106485,
+  "ayah_quotes": 0,
+  "cites_parsed": 0,
+  "cite_status": {},
+  "source_sha256": "1d41b39a4bc842aae95442da031730c250a4e35effbce072630639ba154bb41d"
+ },
+ {
+  "source_id": "SRC-038025",
+  "title": "القول السديد في علم التجويد",
+  "category": "CORE_TAJWEED",
+  "tier": "1",
+  "sections": 218,
+  "units": 3772,
+  "chars": 206076,
+  "ayah_quotes": 0,
+  "cites_parsed": 0,
+  "cite_status": {},
+  "source_sha256": "263d1c4475aaf256f806c24d6d201e20ac83a7f066a85bf0e51e2f3b9a572b03"
+ },
+ {
+  "source_id": "SRC-038033",
+  "title": "كيف تقرأ القرآن الكريم برواية الإمام قالون عن نافع المدني",
+  "category": "QIRAAT",
+  "tier": "2",
+  "sections": 89,
+  "units": 663,
+  "chars": 100180,
+  "ayah_quotes": 0,
+  "cites_parsed": 0,
+  "cite_status": {},
+  "source_sha256": "91dc819a1c573a02c109f4cf70ded577924b023ad61cabf2dbaefc0f45d481a4"
+ },
+ {
+  "source_id": "SRC-038039",
+  "title": "مباحث في علم القراءات مع بيان أصول رواية حفص",
+  "category": "QIRAAT",
+  "tier": "2",
+  "sections": 120,
+  "units": 919,
+  "chars": 93962,
+  "ayah_quotes": 0,
+  "cites_parsed": 0,
+  "cite_status": {},
+  "source_sha256": "4748c31a3429d05c799431b01c0e07ca0c4a853fe54c029ffb55e31cafff54e8"
+ },
+ {
+  "source_id": "SRC-038050",
+  "title": "المختصر المفيد في أحكام التجويد\rمطبوع بآخر: تفسير وبيان مفردات القرآن،",
+  "category": "CORE_TAJWEED",
+  "tier": "1",
+  "sections": 14,
+  "units": 284,
+  "chars": 30319,
+  "ayah_quotes": 0,
+  "cites_parsed": 0,
+  "cite_status": {},
+  "source_sha256": "832ed02df5e30255b5571b46e7bc347d8990c1bdd19476a49051cc6a290357a1"
+ },
+ {
+  "source_id": "SRC-038068",
+  "title": "معجم علوم القرآن",
+  "category": "QURAN_SCIENCES",
+  "tier": "2",
+  "sections": 1229,
+  "units": 6571,
+  "chars": 447949,
+  "ayah_quotes": 0,
+  "cites_parsed": 0,
+  "cite_status": {},
+  "source_sha256": "0396776bde1722677d0a2bf024e89794b40dc784fff8a5d47e66b58c1f78b4c0"
+ },
+ {
+  "source_id": "SRC-038076",
+  "title": "مقدمات في علم القراءات",
+  "category": "QIRAAT",
+  "tier": "2",
+  "sections": 128,
+  "units": 2677,
+  "chars": 335903,
+  "ayah_quotes": 0,
+  "cites_parsed": 0,
+  "cite_status": {},
+  "source_sha256": "8b76081dd28e83089a23d768604978d34500873e1f1db81d6860261ccfdae07f"
+ },
+ {
+  "source_id": "SRC-038104",
+  "title": "الميزان في أحكام تجويد القرآن",
+  "category": "CORE_TAJWEED",
+  "tier": "1",
+  "sections": 284,
+  "units": 1956,
+  "chars": 242215,
+  "ayah_quotes": 0,
+  "cites_parsed": 0,
+  "cite_status": {},
+  "source_sha256": "d0d345957253361fd4b3f63d6526957857728b5f470c9052b18745b4c672908e"
+ },
+ {
+  "source_id": "SRC-096301",
+  "title": "الموسوعة القرآنية المتخصصة",
+  "category": "QURAN_SCIENCES",
+  "tier": "2",
+  "sections": 695,
+  "units": 11838,
+  "chars": 1532463,
+  "ayah_quotes": 0,
+  "cites_parsed": 0,
+  "cite_status": {},
+  "source_sha256": "0f83158bc366b438af107082cfd89ace120d4e1b59f7b8e687e2c05d4bd184d3"
+ },
+ {
+  "source_id": "SRC-121374",
+  "title": "إمتاَعُ الفُضَلاء بتَراجِم القرّاء فِيما بَعدَ القَرن الثامِن الهِجري",
+  "category": "QIRAAT_BIOGRAPHY",
+  "tier": "3",
+  "sections": 903,
+  "units": 7108,
+  "chars": 500813,
+  "ayah_quotes": 25,
+  "cites_parsed": 1,
+  "cite_status": {
+   "RESOLVED_UNVERIFIED": 1
+  },
+  "source_sha256": "44eae5fca9cf530c4560c651b9ae06f36d70f4ab40c87c7f0f18bb6c049e2a12"
+ },
+ {
+  "source_id": "SRC-132519",
+  "title": "بابات في علوم القرآن - سِلْسِلَةُ مُتُونِ الكُتُبِ وَمُخْتَصَرَاتِهَا ",
+  "category": "QURAN_SCIENCES",
+  "tier": "2",
+  "sections": 16,
+  "units": 132,
+  "chars": 8276,
+  "ayah_quotes": 2,
+  "cites_parsed": 0,
+  "cite_status": {},
+  "source_sha256": "0d6b8c3420b0cdcb2980bd36c9c6b88b0ddf20b4f123c36dfed513169d597348"
+ }
+]
