@@ -47,3 +47,8 @@ Decision: the pinned file stays the reference; the served copy is NOT imported. 
 ## Update 2026-11-01 (batch 1): family view
 - API function v7: added GET /i/:inst/guardian-links and GET /i/:inst/consents (RLS-filtered). Web client: "الأسرة والموافقات" (link/verify guardian, grant/revoke consent) and read-only submissions list. Audio upload is NOT implemented.
 - GitHub repo wfklawfirm/tartil (private) is connected to Vercel; production branch master, root packages/web-vercel.
+
+## Update 2026-11-01 (batch 2): audio submissions
+- Private Storage bucket `recitations` (no public access, 10 MB, audio MIME only). API function v8: POST /i/:inst/submissions/:id/upload-url (submitting student only) and GET .../audio-url (anyone RLS lets see the submission; 60 s signed URL). Object path is derived server-side: <inst>/<student>/<submission>.webm.
+- Web client: student recorder (MediaRecorder) + playback. NOT yet exercised in a real browser with a microphone against the live bucket; the API paths are unit-tested with a fake signer only. Minors: DB consent trigger still gates the submission row.
+- vercel.json CSP now allows the Supabase origin for connect/media, and Permissions-Policy microphone=(self).

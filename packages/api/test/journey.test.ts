@@ -16,7 +16,7 @@ const user = async (name: string) => {
   const token = (await call('POST', '/auth/login', undefined, { email, password: PW })).body.token as string;
   return { id, email, token };
 };
-before(async () => { const db = new PGlite(); await applyMigrations(db as never); app = buildApp({ service: db as never, app: db as never, jwtSecret: 'test-secret-0123456789', rateLimit: { auth: 100000, general: 100000 } }); });
+before(async () => { const db = new PGlite(); await applyMigrations(db as never); app = buildApp({ service: db as never, app: db as never, jwtSecret: 'test-secret-0123456789', rateLimit: { auth: 100000, general: 100000 }, storage: { signUpload: async p => 'https://storage.test/up/' + p, signDownload: async p => 'https://storage.test/dl/' + p } }); });
 
 test('full journey: onboarding -> minor student -> guardian consent -> recitation -> qari feedback; other tenant sees nothing', async () => {
   const admin = await user('admin'), qari = await user('qari'), child = await user('child'), parent = await user('parent'), other = await user('otheradmin');
@@ -41,6 +41,15 @@ test('full journey: onboarding -> minor student -> guardian consent -> recitatio
   // public URLs are refused as audio keys
   assert.equal((await call('POST', `${base}/submissions`, child.token, { ...rec, audioObjectKey: 'https://cdn.example/a.mp3' })).status, 400);
   // qari sees it and moves the workflow; the child cannot
+  // audio: only the submitting student can get an upload URL; those who can see the submission (RLS) can get a short-lived download URL; outsiders get 404
+  const signed: string[] = [];
+  const sid = sub.body.id as string;
+  assert.equal((await call('POST', `${base}/submissions/${sid}/upload-url`, child.token)).status, 200);
+  assert.equal((await call('POST', `${base}/submissions/${sid}/upload-url`, qari.token)).status, 403);
+  assert.equal((await call('GET', `${base}/submissions/${sid}/audio-url`, qari.token)).status, 200);
+  assert.equal((await call('GET', `${base}/submissions/${sid}/audio-url`, other.token)).status, 404);
+  assert.equal((await call('GET', `/i/${inst}/submissions/${sid}/audio-url`, other.token)).status, 404);
+  void signed;
   assert.equal((await call('GET', `${base}/submissions`, qari.token)).body.submissions.length, 1);
   assert.equal((await call('POST', `${base}/submissions/${sub.body.id}/state`, child.token, { state: 'closed' })).status, 404);
   assert.equal((await call('POST', `${base}/submissions/${sub.body.id}/state`, qari.token, { state: 'feedback_sent' })).status, 200);

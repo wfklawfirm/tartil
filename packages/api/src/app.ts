@@ -6,7 +6,7 @@ import { hashPassword, verifyPassword, signToken, verifyToken } from './auth.ts'
 
 /** `service` = privileged owner/service connection (registration, login, bootstrap, email lookup only).
  *  `app` = connection used ONLY through withContext() as the unprivileged app_user role. */
-export interface Deps { service: Executor & Pick<TransactionalDb, 'transaction'>; app: TransactionalDb; jwtSecret: string; webIndexPath?: string; rateLimit?: { auth: number; general: number } }
+export interface Deps { service: Executor & Pick<TransactionalDb, 'transaction'>; app: TransactionalDb; jwtSecret: string; webIndexPath?: string; rateLimit?: { auth: number; general: number }; storage?: { signUpload(path: string): Promise<string>; signDownload(path: string): Promise<string> } }
 const uuid = z.string().uuid();
 const ROLES = ['tenant_admin', 'scholarly_reviewer', 'qari', 'student', 'guardian', 'safeguarding_officer'] as const;
 
@@ -156,6 +156,27 @@ export function buildApp(d: Deps) {
   app.get('/i/:inst/submissions', async (req, reply) => {
     const r = await tenant(req, reply, tx => tx.query(`SELECT id, student_user_id AS "studentUserId", surah, ayah_start AS "ayahStart", ayah_end AS "ayahEnd", state, created_at AS "createdAt" FROM recitation_submissions ORDER BY created_at DESC`));
     if (r) return { submissions: r.rows };
+  });
+  // Audio lives in a PRIVATE bucket; paths are derived server-side (never client-chosen). Authorisation = what RLS lets the caller see.
+  const audioPath = (inst: string, student: string, sid: string) => `${inst}/${student}/${sid}.webm`;
+  app.post('/i/:inst/submissions/:id/upload-url', async (req, reply) => {
+    const id = uuid.parse((req.params as { id: string }).id);
+    if (!d.storage) return reply.code(501).send({ error: 'storage_not_configured' });
+    const r = await tenant(req, reply, async (tx, u, inst) => ({ u, inst, rows: (await tx.query<{ student_user_id: string }>(`SELECT student_user_id FROM recitation_submissions WHERE id = $1`, [id])).rows }));
+    if (!r) return;
+    const row = r.rows[0];
+    if (!row) return reply.code(404).send({ error: 'not_found' });
+    if (row.student_user_id !== r.u) return reply.code(403).send({ error: 'forbidden' });
+    return { uploadUrl: await d.storage.signUpload(audioPath(r.inst, row.student_user_id, id)), contentType: 'audio/webm', maxBytes: 10485760 };
+  });
+  app.get('/i/:inst/submissions/:id/audio-url', async (req, reply) => {
+    const id = uuid.parse((req.params as { id: string }).id);
+    if (!d.storage) return reply.code(501).send({ error: 'storage_not_configured' });
+    const r = await tenant(req, reply, async (tx, _u, inst) => ({ inst, rows: (await tx.query<{ student_user_id: string }>(`SELECT student_user_id FROM recitation_submissions WHERE id = $1`, [id])).rows }));
+    if (!r) return;
+    const row = r.rows[0];
+    if (!row) return reply.code(404).send({ error: 'not_found' });
+    return { url: await d.storage.signDownload(audioPath(r.inst, row.student_user_id, id)), expiresInSeconds: 60 };
   });
   app.post('/i/:inst/submissions/:id/state', async (req, reply) => {
     const id = uuid.parse((req.params as { id: string }).id);

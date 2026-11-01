@@ -24,6 +24,20 @@ import { pgDb, assertSafeRoles } from './pg.ts';
 
 const dbUrl = Deno.env.get('SUPABASE_DB_URL');
 const root = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY');
+const sUrl = Deno.env.get('SUPABASE_URL');
+const sh = { authorization: 'Bearer ' + root, apikey: root!, 'content-type': 'application/json' };
+const storage = {
+  async signUpload(path: string) {
+    const r = await fetch(sUrl + '/storage/v1/object/upload/sign/recitations/' + path, { method: 'POST', headers: sh, body: '{}' });
+    if (!r.ok) throw new Error('storage_sign_failed');
+    return sUrl + '/storage/v1' + (await r.json()).url;
+  },
+  async signDownload(path: string) {
+    const r = await fetch(sUrl + '/storage/v1/object/sign/recitations/' + path, { method: 'POST', headers: sh, body: '{"expiresIn":60}' });
+    if (!r.ok) throw new Error('storage_sign_failed');
+    return sUrl + '/storage/v1' + (await r.json()).signedURL;
+  },
+};
 const j = (status: number, body: unknown) => new Response(JSON.stringify(body), { status, headers: { 'content-type': 'application/json' } });
 let appPromise: Promise<ReturnType<typeof buildApp>> | null = null;
 function getApp() {
@@ -31,7 +45,7 @@ function getApp() {
     if (!dbUrl || !root) throw new Error('missing runtime configuration');
     const db = pgDb(new pg.Pool({ connectionString: dbUrl, max: 3 }));
     await assertSafeRoles(db);                       // refuses to serve if the app path could bypass RLS
-    const app = buildApp({ service: db, app: db, jwtSecret: createHash('sha256').update('tartil-jwt-v1:' + root).digest('hex') });
+    const app = buildApp({ service: db, app: db, storage, jwtSecret: createHash('sha256').update('tartil-jwt-v1:' + root).digest('hex') });
     await app.ready();
     return app;
   })().catch(e => { appPromise = null; throw e; });
