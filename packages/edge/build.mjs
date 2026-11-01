@@ -38,6 +38,23 @@ const storage = {
     return sUrl + '/storage/v1' + (await r.json()).signedURL;
   },
 };
+const oaKey = Deno.env.get('OPENAI_API_KEY');
+const aiModel = Deno.env.get('OPENAI_MODEL') ?? 'gpt-4o-mini';
+const ai = oaKey ? {
+  name: 'openai:' + aiModel,
+  async suggest(prompt: string) {
+    const r = await fetch('https://api.openai.com/v1/chat/completions', {
+      method: 'POST', headers: { authorization: 'Bearer ' + oaKey, 'content-type': 'application/json' }, signal: AbortSignal.timeout(25000),
+      body: JSON.stringify({ model: aiModel, max_tokens: 700, temperature: 0.3, messages: [
+        { role: 'system', content: 'You draft short study suggestions for a Quran-learning teacher to review. Never issue religious rulings, grades or ijazah. Never quote or alter Quran text; refer to surah and ayah numbers only. If asked for a ruling or a grade, decline and suggest asking a qualified teacher. Reply in the language of the request.' },
+        { role: 'user', content: prompt }] }),
+    });
+    if (!r.ok) throw new Error('ai_failed');
+    const t = (await r.json()).choices?.[0]?.message?.content;
+    if (!t) throw new Error('ai_empty');
+    return String(t);
+  },
+} : undefined;
 const j = (status: number, body: unknown) => new Response(JSON.stringify(body), { status, headers: { 'content-type': 'application/json' } });
 let appPromise: Promise<ReturnType<typeof buildApp>> | null = null;
 function getApp() {
@@ -45,7 +62,7 @@ function getApp() {
     if (!dbUrl || !root) throw new Error('missing runtime configuration');
     const db = pgDb(new pg.Pool({ connectionString: dbUrl, max: 3 }));
     await assertSafeRoles(db);                       // refuses to serve if the app path could bypass RLS
-    const app = buildApp({ service: db, app: db, storage, jwtSecret: createHash('sha256').update('tartil-jwt-v1:' + root).digest('hex') });
+    const app = buildApp({ service: db, app: db, storage, ai, jwtSecret: createHash('sha256').update('tartil-jwt-v1:' + root).digest('hex') });
     await app.ready();
     return app;
   })().catch(e => { appPromise = null; throw e; });
