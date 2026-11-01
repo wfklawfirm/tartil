@@ -17,7 +17,7 @@ export async function verifyPassword(pw: string, stored: string | null): Promise
 const b64u = (b: Buffer | string) => Buffer.from(b).toString('base64url');
 export function signToken(sub: string, secret: string, ttlSec = 3600, now = Date.now()): string {
   const head = b64u(JSON.stringify({ alg: 'HS256', typ: 'JWT' }));
-  const body = b64u(JSON.stringify({ sub, iat: Math.floor(now / 1000), exp: Math.floor(now / 1000) + ttlSec }));
+  const body = b64u(JSON.stringify({ sub, im: now, iat: Math.floor(now / 1000), exp: Math.floor(now / 1000) + ttlSec }));
   return `${head}.${body}.${b64u(createHmac('sha256', secret).update(`${head}.${body}`).digest())}`;
 }
 export function verifyToken(tok: string, secret: string, now = Date.now()): string | null {
@@ -29,4 +29,9 @@ export function verifyToken(tok: string, secret: string, now = Date.now()): stri
     const c = JSON.parse(Buffer.from(p[1]!, 'base64url').toString()) as { sub: string; exp: number };
     return c.exp * 1000 > now ? c.sub : null;
   } catch { return null; }
+}
+export function verifyTokenFull(tok: string, secret: string, now = Date.now()): { sub: string; issuedMs: number } | null {
+  const sub = verifyToken(tok, secret, now); if (!sub) return null;
+  const c = JSON.parse(Buffer.from(tok.split('.')[1]!, 'base64url').toString()) as { iat: number; im?: number };
+  return { sub, issuedMs: c.im ?? c.iat * 1000 };
 }

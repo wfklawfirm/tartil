@@ -14,6 +14,9 @@
 
 - **2026-11-01 night:** Quran edition provisionally APPROVED by owner (not scholarly; audit pending); basmala display fix; DB-backed login rate limit (0007); API function v6; 10 API tests + 33 DB tests pass.
 
+## Added 2026-11-01 (migration 0008, edge function api v9)
+Tracks/units/progress, learning passport, certificates with public verify-by-code, supervised AI suggestions (human gate, no model connected), halaqah join (Jitsi link, minors need verified guardian), session revocation (logout-all, change-password), 18+ registration checkbox. DB 38/38 tests, API 15/15. Live: migration 0008 applied, edge v9 deployed and smoke-tested (revocation works live). UI in packages/web and web-vercel (needs git push for Vercel). See KNOWN_LIMITATIONS 14-21.
+
 ## Not built (do not assume)
 Web/mobile UI, design system, audio, recitation studio UI, live halaqat, AI services, passport/credentials, QCEF load/review, live-Postgres test of `pg.ts` (the pg adapter has not run against a real server).
 

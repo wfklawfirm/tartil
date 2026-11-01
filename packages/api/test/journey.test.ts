@@ -12,8 +12,8 @@ const call = async (method: 'GET' | 'POST', url: string, token?: string, payload
 };
 const user = async (name: string) => {
   const email = `${name}@example.test`;
-  const id = (await call('POST', '/auth/register', undefined, { displayName: name, email, password: PW })).body.id as string;
-  const token = (await call('POST', '/auth/login', undefined, { email, password: PW })).body.token as string;
+  const id = (await call('POST', '/auth/register', undefined, { displayName: name, email, password: PW, adultConfirmed: true })).body.id as string;
+  const token = (await call('POST', '/auth/login', undefined, { email, password: PW, adultConfirmed: true })).body.token as string;
   return { id, email, token };
 };
 before(async () => { const db = new PGlite(); await applyMigrations(db as never); app = buildApp({ service: db as never, app: db as never, jwtSecret: 'test-secret-0123456789', rateLimit: { auth: 100000, general: 100000 }, storage: { signUpload: async p => 'https://storage.test/up/' + p, signDownload: async p => 'https://storage.test/dl/' + p } }); });
@@ -77,7 +77,7 @@ test('auth: bad password, missing/forged/expired tokens, weak password, validati
   assert.equal((await call('POST', '/institutions', undefined, { name: 'X', slug: 'xx' })).status, 401);
   assert.equal((await call('POST', '/institutions', u.token + 'tamper', { name: 'Xx', slug: 'xx-1' })).status, 401);
   assert.equal((await call('POST', '/auth/register', undefined, { displayName: 'a', email: 'a@example.test', password: 'short' })).status, 400);
-  assert.equal((await call('POST', '/auth/register', undefined, { displayName: 'dup', email: u.email, password: PW })).status, 409);
+  assert.equal((await call('POST', '/auth/register', undefined, { displayName: 'dup', email: u.email, password: PW, adultConfirmed: true })).status, 409);
   const { signToken } = await import('../src/auth.ts');
   const old = signToken(u.id, 'test-secret-0123456789', 60, Date.now() - 3600_000);
   assert.equal((await call('POST', '/institutions', old, { name: 'Xx', slug: 'xx-2' })).status, 401);

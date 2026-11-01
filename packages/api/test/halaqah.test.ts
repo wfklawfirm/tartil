@@ -13,8 +13,8 @@ const call = async (method: 'GET' | 'POST', url: string, token?: string, payload
 };
 const user = async (name: string) => {
   const email = `${name}@example.test`;
-  const id = (await call('POST', '/auth/register', undefined, { displayName: name, email, password: PW })).body.id as string;
-  return { id, email, token: (await call('POST', '/auth/login', undefined, { email, password: PW })).body.token as string };
+  const id = (await call('POST', '/auth/register', undefined, { displayName: name, email, password: PW, adultConfirmed: true })).body.id as string;
+  return { id, email, token: (await call('POST', '/auth/login', undefined, { email, password: PW, adultConfirmed: true })).body.token as string };
 };
 before(async () => { db = new PGlite(); await applyMigrations(db as never); app = buildApp({ service: db as never, app: db as never, jwtSecret: 'test-secret-0123456789', rateLimit: { auth: 100000, general: 100000 } }); });
 

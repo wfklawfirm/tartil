@@ -2,11 +2,11 @@ import Fastify, { type FastifyReply, type FastifyRequest } from 'fastify';
 import { z } from 'zod';
 import { readFileSync } from 'node:fs';
 import { withContext, type Executor, type TransactionalDb, type TxLike } from '@tartil/database';
-import { hashPassword, verifyPassword, signToken, verifyToken } from './auth.ts';
+import { hashPassword, verifyPassword, signToken, verifyToken, verifyTokenFull } from './auth.ts';
 
 /** `service` = privileged owner/service connection (registration, login, bootstrap, email lookup only).
  *  `app` = connection used ONLY through withContext() as the unprivileged app_user role. */
-export interface Deps { service: Executor & Pick<TransactionalDb, 'transaction'>; app: TransactionalDb; jwtSecret: string; webIndexPath?: string; rateLimit?: { auth: number; general: number }; storage?: { signUpload(path: string): Promise<string>; signDownload(path: string): Promise<string> } }
+export interface Deps { service: Executor & Pick<TransactionalDb, 'transaction'>; app: TransactionalDb; jwtSecret: string; webIndexPath?: string; rateLimit?: { auth: number; general: number }; ai?: { suggest(prompt: string): Promise<string>; name: string }; storage?: { signUpload(path: string): Promise<string>; signDownload(path: string): Promise<string> } }
 const uuid = z.string().uuid();
 const ROLES = ['tenant_admin', 'scholarly_reviewer', 'qari', 'student', 'guardian', 'safeguarding_officer'] as const;
 
@@ -70,6 +70,17 @@ export function buildApp(d: Deps) {
     if (!h || h.reset < now) { hits.set(key, { n: 1, reset: now + 60_000 }); return; }
     if (++h.n > limit) return reply.code(429).header('retry-after', '60').send({ error: 'rate_limited' });
   });
+  // Session revocation: a token issued before users.sessions_valid_after is dead (logout-all, password change).
+  const sessionAlive = async (sub: string, issuedMs: number) => {
+    const r = await d.service.query<{ ms: string }>(`SELECT (extract(epoch from sessions_valid_after) * 1000)::bigint AS ms FROM users WHERE id = $1`, [sub]);
+    return r.rows[0] !== undefined && issuedMs >= Number(r.rows[0].ms);
+  };
+  app.addHook('onRequest', async (req, reply) => {
+    const h = req.headers.authorization;
+    if (!h?.startsWith('Bearer ') || req.url.startsWith('/auth/login') || req.url.startsWith('/auth/register')) return;
+    const t = verifyTokenFull(h.slice(7), d.jwtSecret);
+    if (t && !(await sessionAlive(t.sub, t.issuedMs))) return reply.code(401).send({ error: 'session_revoked' });
+  });
   const tenant = async <T>(req: FastifyRequest, reply: FastifyReply, fn: (tx: TxLike, userId: string, inst: string) => Promise<T>) => {
     let userId: string;
     try { userId = authUser(req); } catch { reply.code(401).send({ error: 'unauthenticated' }); return undefined; }
@@ -78,7 +89,7 @@ export function buildApp(d: Deps) {
   };
 
   app.post('/auth/register', async (req, reply) => {
-    const b = z.object({ displayName: z.string().min(1).max(120), email: z.string().email().max(200), password: z.string().min(10).max(200) }).parse(req.body);
+    const b = z.object({ displayName: z.string().min(1).max(120), email: z.string().email().max(200), password: z.string().min(10).max(200), adultConfirmed: z.literal(true) }).parse(req.body);
     const r = await d.service.query<{ id: string }>(`INSERT INTO users (display_name, email, password_hash) VALUES ($1, lower($2), $3) RETURNING id`, [b.displayName, b.email, await hashPassword(b.password)]);
     return reply.code(201).send({ id: r.rows[0]!.id });
   });
@@ -87,6 +98,19 @@ export function buildApp(d: Deps) {
     const u = (await d.service.query<{ id: string; password_hash: string | null }>(`SELECT id, password_hash FROM users WHERE email = lower($1)`, [b.email])).rows[0];
     if (!(await verifyPassword(b.password, u?.password_hash ?? null)) || !u) return reply.code(401).send({ error: 'invalid_credentials' });
     return { token: signToken(u.id, d.jwtSecret) };
+  });
+  app.post('/auth/logout-all', async (req, reply) => {
+    let userId: string; try { userId = authUser(req); } catch { return reply.code(401).send({ error: 'unauthenticated' }); }
+    await d.service.query(`UPDATE users SET sessions_valid_after = to_timestamp($2::double precision / 1000) WHERE id = $1`, [userId, Date.now()]);
+    return { ok: true };
+  });
+  app.post('/auth/change-password', async (req, reply) => {
+    let userId: string; try { userId = authUser(req); } catch { return reply.code(401).send({ error: 'unauthenticated' }); }
+    const b = z.object({ currentPassword: z.string().max(200), newPassword: z.string().min(10).max(200) }).parse(req.body);
+    const u = (await d.service.query<{ password_hash: string | null }>(`SELECT password_hash FROM users WHERE id = $1`, [userId])).rows[0];
+    if (!(await verifyPassword(b.currentPassword, u?.password_hash ?? null))) return reply.code(401).send({ error: 'invalid_credentials' });
+    await d.service.query(`UPDATE users SET password_hash = $2, sessions_valid_after = to_timestamp($3::double precision / 1000) WHERE id = $1`, [userId, await hashPassword(b.newPassword), Date.now()]);
+    return { token: signToken(userId, d.jwtSecret, 3600, Date.now() + 2) };   // every older session is now dead; this one continues
   });
   app.post('/institutions', async (req, reply) => {
     let userId: string; try { userId = authUser(req); } catch { return reply.code(401).send({ error: 'unauthenticated' }); }
@@ -192,6 +216,122 @@ export function buildApp(d: Deps) {
     if (!u) return reply.code(401).send({ error: 'unauthenticated' });
     const m = await d.service.query(`SELECT i.id AS "institutionId", i.name, i.slug, m.role FROM memberships m JOIN institutions i ON i.id = m.institution_id WHERE m.user_id = $1 AND m.status = 'active' AND i.status = 'active' ORDER BY i.name, m.role`, [userId]);
     return { id: u.id, displayName: u.display_name, memberships: m.rows };
+  });
+
+  // ---- learning tracks, progress, passport, certificates ----
+  const unitSchema = z.object({ title: z.string().min(1).max(200), kind: z.enum(['recitation', 'memorization', 'tajweed', 'review']), surah: z.number().int().min(1).max(114).optional(), fromAyah: z.number().int().min(1).optional(), toAyah: z.number().int().min(1).optional() });
+  app.post('/i/:inst/tracks', async (req, reply) => {
+    const b = z.object({ title: z.string().min(1).max(200), description: z.string().max(2000).optional(), units: z.array(unitSchema).max(200).default([]) }).parse(req.body);
+    const id = await tenant(req, reply, async (tx, u, inst) => {
+      const t = (await tx.query<{ id: string }>(`INSERT INTO learning_tracks (institution_id, title, description, created_by) VALUES ($1,$2,$3,$4) RETURNING id`, [inst, b.title, b.description ?? null, u])).rows[0]!.id;
+      let pos = 1;
+      for (const x of b.units) await tx.query(`INSERT INTO track_units (institution_id, track_id, position, title, kind, surah, from_ayah, to_ayah) VALUES ($1,$2,$3,$4,$5,$6,$7,$8)`, [inst, t, pos++, x.title, x.kind, x.surah ?? null, x.fromAyah ?? null, x.toAyah ?? null]);
+      return t;
+    });
+    if (id) return reply.code(201).send({ id });
+  });
+  app.get('/i/:inst/tracks', async (req, reply) => {
+    const r = await tenant(req, reply, async tx => {
+      const t = await tx.query(`SELECT id, title, description, status FROM learning_tracks ORDER BY created_at`);
+      const u = await tx.query(`SELECT id, track_id AS "trackId", position, title, kind, surah, from_ayah AS "fromAyah", to_ayah AS "toAyah" FROM track_units ORDER BY track_id, position`);
+      return { tracks: (t.rows as Array<{ id: string }>).map(x => ({ ...x, units: (u.rows as Array<{ trackId: string }>).filter(y => y.trackId === x.id) })) };
+    });
+    if (r) return r;
+  });
+  app.post('/i/:inst/tracks/:tid/status', async (req, reply) => {
+    const tid = uuid.parse((req.params as { tid: string }).tid);
+    const b = z.object({ status: z.enum(['draft', 'published', 'archived']) }).parse(req.body);
+    const r = await tenant(req, reply, tx => tx.query(`UPDATE learning_tracks SET status = $2 WHERE id = $1 RETURNING id`, [tid, b.status]));
+    if (r) return r.rows.length ? { ok: true } : reply.code(404).send({ error: 'not_found' });
+  });
+  app.post('/i/:inst/tracks/:tid/progress', async (req, reply) => {
+    const tid = uuid.parse((req.params as { tid: string }).tid);
+    const b = z.object({ unitId: uuid, studentUserId: uuid, note: z.string().max(1000).optional() }).parse(req.body);
+    const r = await tenant(req, reply, (tx, u, inst) => tx.query(`INSERT INTO unit_progress (institution_id, track_id, unit_id, student_user_id, marked_by, note) VALUES ($1,$2,$3,$4,$5,$6) RETURNING id`, [inst, tid, b.unitId, b.studentUserId, u, b.note ?? null]));
+    if (r) return reply.code(201).send({ id: (r.rows[0] as { id: string }).id });
+  });
+  // Learning passport: per-track progress for one student + certificates. Visibility is whatever RLS allows the caller to see.
+  app.get('/i/:inst/passport', async (req, reply) => {
+    const q = z.object({ studentUserId: uuid.optional() }).parse(req.query);
+    const r = await tenant(req, reply, async (tx, u) => {
+      const sid = q.studentUserId ?? u;
+      const tr = await tx.query(`SELECT t.id, t.title, (SELECT count(*) FROM track_units x WHERE x.track_id = t.id)::int AS total,
+          (SELECT count(*) FROM unit_progress p WHERE p.track_id = t.id AND p.student_user_id = $1)::int AS done
+        FROM learning_tracks t WHERE t.status = 'published' ORDER BY t.created_at`, [sid]);
+      const ce = await tx.query(`SELECT c.id, c.track_id AS "trackId", c.issued_at AS "issuedAt", c.verification_code AS "verificationCode", c.revoked_at AS "revokedAt" FROM certificates c WHERE c.student_user_id = $1 ORDER BY c.issued_at`, [sid]);
+      const sub = await tx.query(`SELECT state, count(*)::int AS n FROM recitation_submissions WHERE student_user_id = $1 GROUP BY state`, [sid]);
+      return { studentUserId: sid, tracks: tr.rows, certificates: ce.rows, submissionsByState: sub.rows };
+    });
+    if (r) return r;
+  });
+  app.post('/i/:inst/certificates', async (req, reply) => {
+    const b = z.object({ trackId: uuid, studentUserId: uuid }).parse(req.body);
+    const r = await tenant(req, reply, async (tx, u, inst) => {
+      try { return await tx.query(`INSERT INTO certificates (institution_id, track_id, student_user_id, issued_by) VALUES ($1,$2,$3,$4) RETURNING id, verification_code AS "verificationCode"`, [inst, b.trackId, b.studentUserId, u]); }
+      catch (e) { const m = e instanceof Error ? e.message : ''; if (m.includes('track_not_complete') || m.includes('track_not_published') || m.includes('track_empty')) return { conflict: m.match(/track_[a-z_]+/)![0] }; throw e; }
+    });
+    if (!r) return;
+    if ('conflict' in r) return reply.code(409).send({ error: r.conflict });
+    return reply.code(201).send(r.rows[0]);
+  });
+  app.get('/i/:inst/certificates', async (req, reply) => {
+    const r = await tenant(req, reply, tx => tx.query(`SELECT id, track_id AS "trackId", student_user_id AS "studentUserId", issued_at AS "issuedAt", verification_code AS "verificationCode", revoked_at AS "revokedAt" FROM certificates ORDER BY issued_at DESC`));
+    if (r) return { certificates: r.rows };
+  });
+  // Public verification by unguessable code. Shows no personal data of minors; a certificate is a course-completion record, never an ijazah.
+  app.get('/verify/:code', async (req, reply) => {
+    const code = z.string().regex(/^[0-9a-f]{32}$/).parse((req.params as { code: string }).code);
+    const c = (await d.service.query<{ title: string; inst: string; issued_at: string; revoked_at: string | null; name: string; minor: boolean | null }>(
+      `SELECT t.title, i.name AS inst, c.issued_at, c.revoked_at, u.display_name AS name,
+              (SELECT sp.is_minor FROM student_profiles sp WHERE sp.institution_id = c.institution_id AND sp.user_id = c.student_user_id) AS minor
+       FROM certificates c JOIN learning_tracks t ON t.id = c.track_id JOIN institutions i ON i.id = c.institution_id JOIN users u ON u.id = c.student_user_id
+       WHERE c.verification_code = $1`, [code])).rows[0];
+    if (!c) return reply.code(404).send({ valid: false });
+    return { valid: c.revoked_at === null, revoked: c.revoked_at !== null, track: c.title, institution: c.inst, issuedAt: c.issued_at, holder: c.minor === false ? c.name : null,
+      note: 'Course-completion record issued by the institution. Not an ijazah and not a religious ruling.' };
+  });
+
+  // ---- supervised AI assistant: drafts only; nothing reaches a student until a human accepts it ----
+  app.get('/i/:inst/ai/status', async (req, reply) => {
+    const r = await tenant(req, reply, async () => true);
+    if (r) return { modelConnected: Boolean(d.ai), model: d.ai?.name ?? null, note: 'Suggestions are drafts for a qari/admin to accept or reject. They are never a ruling, a grade or an ijazah.' };
+  });
+  app.post('/i/:inst/ai-suggestions/generate', async (req, reply) => {
+    const b = z.object({ studentUserId: uuid, prompt: z.string().min(3).max(2000) }).parse(req.body);
+    if (!d.ai) { const ok = await tenant(req, reply, async () => true); if (ok) return reply.code(501).send({ error: 'model_not_connected' }); return; }
+    const ai = d.ai;
+    const text = await ai.suggest(b.prompt).catch(() => null);
+    if (!text) return reply.code(502).send({ error: 'model_failed' });
+    const r = await tenant(req, reply, (tx, u, inst) => tx.query(`INSERT INTO ai_suggestions (institution_id, student_user_id, body, source, created_by) VALUES ($1,$2,$3,$4,$5) RETURNING id`, [inst, b.studentUserId, text.slice(0, 4000), 'model:' + ai.name, u]));
+    if (r) return reply.code(201).send({ id: (r.rows[0] as { id: string }).id, status: 'pending' });
+  });
+  app.get('/i/:inst/ai-suggestions', async (req, reply) => {
+    const r = await tenant(req, reply, tx => tx.query(`SELECT id, student_user_id AS "studentUserId", body, source, status, created_at AS "createdAt" FROM ai_suggestions ORDER BY created_at DESC LIMIT 200`));
+    if (r) return { suggestions: r.rows };
+  });
+  app.post('/i/:inst/ai-suggestions/:id/review', async (req, reply) => {
+    const id = uuid.parse((req.params as { id: string }).id);
+    const b = z.object({ decision: z.enum(['accepted', 'rejected']) }).parse(req.body);
+    const r = await tenant(req, reply, (tx, u) => tx.query(`UPDATE ai_suggestions SET status = $2, reviewed_by = $3, reviewed_at = now() WHERE id = $1 AND status = 'pending' RETURNING id`, [id, b.decision, u]));
+    if (r) return r.rows.length ? { ok: true } : reply.code(404).send({ error: 'not_found_or_already_reviewed' });
+  });
+
+  // ---- live halaqah join: unguessable Jitsi room per session, NOT recorded by us; minors need a verified guardian ----
+  app.post('/i/:inst/sessions/:sid/join', async (req, reply) => {
+    const sid = uuid.parse((req.params as { sid: string }).sid);
+    const r = await tenant(req, reply, async (tx, u) => {
+      const s = (await tx.query<{ room_token: string; starts_at: string; ends_at: string }>(`SELECT room_token, starts_at, ends_at FROM halaqah_sessions WHERE id = $1`, [sid])).rows[0];
+      if (!s) return { code: 404, error: 'not_found' };
+      const now = Date.now();
+      if (now < Date.parse(s.starts_at) - 15 * 60_000 || now > Date.parse(s.ends_at) + 15 * 60_000) return { code: 409, error: 'session_not_open' };
+      const mem = (await tx.query<{ minor: boolean; guard: boolean }>(`SELECT app.is_minor($1) AS minor, app.has_verified_guardian($1) AS guard`, [u])).rows[0]!;
+      const isStudent = (await tx.query(`SELECT 1 FROM halaqah_members m JOIN halaqah_sessions x ON x.halaqah_id = m.halaqah_id WHERE x.id = $1 AND m.student_user_id = $2`, [sid, u])).rows.length > 0;
+      if (isStudent && mem.minor && !mem.guard) return { code: 409, error: 'guardian_required' };
+      return { code: 200, url: 'https://meet.jit.si/tartil-' + s.room_token };
+    });
+    if (!r) return;
+    if (r.code !== 200) return reply.code(r.code).send({ error: r.error });
+    return { url: r.url, recorded: false, note: 'External video room (Jitsi). The platform does not record it. A qari must be present; no private adult-child sessions.' };
   });
 
   // ---- halaqat / sessions / attendance ----

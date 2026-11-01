@@ -33,7 +33,7 @@ table{width:100%;border-collapse:collapse}th,td{text-align:right;padding:6px 8px
 const $=(s,r=document)=>r.querySelector(s);
 const el=(t,a={},...k)=>{const e=document.createElement(t);for(const[x,v]of Object.entries(a)){if(x==='on')for(const[ev,f]of Object.entries(v))e.addEventListener(ev,f);else if(x==='class')e.className=v;else e.setAttribute(x,v)}for(const c of k.flat())e.append(c instanceof Node?c:document.createTextNode(c??''));return e};
 let token=null;try{token=sessionStorage.getItem('t')}catch{}
-const ERR={unauthenticated:'انتهت الجلسة، سجّل الدخول مجددًا',forbidden:'غير مسموح لك بهذا الإجراء',guardian_consent_required:'يلزم موافقة وليّ الأمر قبل التسجيل',already_exists:'موجود مسبقًا',invalid_credentials:'بيانات الدخول غير صحيحة',validation_failed:'بيانات غير صالحة',user_not_found:'المستخدم غير موجود',not_found:'غير موجود',invalid_reference:'مرجع غير صالح (تأكد من المعرّفات)',edition_not_available:'نص القرآن غير متاح بعد: لم يُعتمد شرعيًا من مشرف علمي'};
+const ERR={unauthenticated:'انتهت الجلسة، سجّل الدخول مجددًا',forbidden:'غير مسموح لك بهذا الإجراء',guardian_consent_required:'يلزم موافقة وليّ الأمر قبل التسجيل',already_exists:'موجود مسبقًا',invalid_credentials:'بيانات الدخول غير صحيحة',validation_failed:'بيانات غير صالحة',user_not_found:'المستخدم غير موجود',not_found:'غير موجود',session_revoked:'أُنهيت هذه الجلسة، سجّل الدخول مجددًا',model_not_connected:'لم يُربط نموذج ذكاء اصطناعي بعد',guardian_required:'يلزم وليّ أمر موثَّق قبل انضمام القاصر',session_not_open:'الجلسة غير مفتوحة الآن (تُفتح قبل الموعد بـ15 دقيقة)',track_not_complete:'لم يُكمل الطالب كل وحدات المسار',track_not_published:'المسار غير منشور',track_empty:'المسار بلا وحدات',rate_limited:'محاولات كثيرة، انتظر دقيقة',invalid_reference:'مرجع غير صالح (تأكد من المعرّفات)',edition_not_available:'نص القرآن غير متاح بعد: لم يُعتمد شرعيًا من مشرف علمي'};
 const BASE=(document.querySelector('meta[name=api-base]')||{}).content||'';
 async function api(method,url,body){const r=await fetch(BASE+url,{method,headers:{'content-type':'application/json',...(token?{authorization:'Bearer '+token}:{})},body:body?JSON.stringify(body):undefined});let j={};try{j=await r.json()}catch{}if(!r.ok){const e=new Error(ERR[j.error]||j.error||('خطأ '+r.status));e.code=j.error;e.status=r.status;throw e}return j}
 const note=(box,text,cls='')=>{box.replaceChildren(el('div',{class:'msg '+cls},text))};
@@ -43,16 +43,24 @@ function table(heads,rows){return el('table',{},el('thead',{},el('tr',{},heads.m
 const ROLE={tenant_admin:'مدير المؤسسة',qari:'مقرئ',student:'طالب',guardian:'وليّ أمر',safeguarding_officer:'مسؤول حماية',scholarly_reviewer:'مراجع علمي'};
 
 function authView(){
-  const box=el('div'),em=el('input',{type:'email',autocomplete:'username'}),pw=el('input',{type:'password',autocomplete:'current-password'}),nm=el('input',{});
+  const box=el('div'),em=el('input',{type:'email',autocomplete:'username'}),pw=el('input',{type:'password',autocomplete:'current-password'}),nm=el('input',{}),adult=el('input',{type:'checkbox'});
   const login=el('button',{on:{click:()=>run(box,async()=>{const r=await api('POST','/auth/login',{email:em.value,password:pw.value});token=r.token;try{sessionStorage.setItem('t',token)}catch{}boot()})}},'دخول');
-  const reg=el('button',{class:'ghost',on:{click:()=>run(box,async()=>{await api('POST','/auth/register',{displayName:nm.value,email:em.value,password:pw.value});note(box,'تم إنشاء الحساب، اضغط «دخول».')})}},'إنشاء حساب');
-  return el('div',{class:'card'},el('h2',{},'تسجيل الدخول'),field('الاسم (للتسجيل فقط)',nm),field('البريد الإلكتروني',em),field('كلمة المرور (10 أحرف على الأقل)',pw),login,' ',reg,box,
+  const reg=el('button',{class:'ghost',on:{click:()=>run(box,async()=>{await api('POST','/auth/register',{displayName:nm.value,email:em.value,password:pw.value,adultConfirmed:adult.checked===true});note(box,'تم إنشاء الحساب، اضغط «دخول».')})}},'إنشاء حساب');
+  return el('div',{class:'card'},el('h2',{},'تسجيل الدخول'),field('الاسم (للتسجيل فقط)',nm),field('البريد الإلكتروني',em),field('كلمة المرور (10 أحرف على الأقل)',pw),el('label',{},adult,' أؤكد أن عمري 18 سنة فأكثر (للتسجيل). الطلاب القاصرون يُنشئ حسابهم وليّ أمرهم أو المؤسسة ويُربط بوليّ أمر موثَّق.'),login,' ',reg,box,
     el('p',{class:'small'},'منصة تعليمية. لا تُصدر المنصة فتاوى ولا إجازات؛ التقييمات يكتبها مقرئ بشري فقط.'));
 }
 
+function accountDialog(){
+  const box=el('div'),cur=el('input',{type:'password',autocomplete:'current-password'}),nw=el('input',{type:'password',autocomplete:'new-password'});
+  const d=el('div',{class:'card'},el('h2',{},'أمان الحساب'),field('كلمة المرور الحالية',cur),field('كلمة المرور الجديدة (10 أحرف على الأقل)',nw),
+    el('button',{on:{click:()=>run(box,async()=>{const r=await api('POST','/auth/change-password',{currentPassword:cur.value,newPassword:nw.value});token=r.token;try{sessionStorage.setItem('t',token)}catch{}cur.value=nw.value='';note(box,'تم تغيير كلمة المرور وإنهاء كل الجلسات الأخرى.')})}},'تغيير كلمة المرور'),' ',
+    el('button',{class:'ghost',on:{click:()=>run(box,async()=>{await api('POST','/auth/logout-all');token=null;try{sessionStorage.removeItem('t')}catch{};boot()})}},'إنهاء كل الجلسات (كل الأجهزة)'),' ',el('button',{class:'ghost',on:{click:()=>d.remove()}},'إغلاق'),box,
+    el('p',{class:'small'},'استعادة كلمة المرور عبر البريد غير متاحة بعد (لا مزوّد بريد مربوط). تواصل مع مدير المؤسسة.'));
+  $('#app').prepend(d);
+}
 async function home(me){
   const app=$('#app');app.replaceChildren();
-  $('#who').replaceChildren(me.displayName+' ',el('button',{class:'ghost',on:{click:()=>{token=null;try{sessionStorage.removeItem('t')}catch{};boot()}}},'خروج'));
+  $('#who').replaceChildren(me.displayName+' ',el('button',{class:'ghost',on:{click:()=>{token=null;try{sessionStorage.removeItem('t')}catch{};boot()}}},'خروج'),' ',el('button',{class:'ghost',on:{click:()=>accountDialog()}},'حسابي'));
   const insts=[...new Map(me.memberships.map(m=>[m.institutionId,m])).values()];
   const tabs=el('div',{class:'tabs'}),body=el('div');app.append(tabs,body);
   const views={};
@@ -80,7 +88,7 @@ async function tenantView(inst,me,body){
     const sb=el('div'),sl=el('div'),mb=el('div'),ml=el('div');
     detail.replaceChildren(el('div',{class:'card'},el('h2',{},'حلقة: '+h.name),el('h3',{},'الطلاب'),ml,mb,el('h3',{},'الجلسات'),sl,sb));
     const loadM=()=>run(mb,async()=>{const r=await api('GET',b+'/halaqat/'+h.id+'/members');ml.replaceChildren(r.members.length?table(['معرّف الطالب'],r.members.map(m=>[el('span',{class:'mono'},m.studentUserId)])):el('p',{},'—'))});
-    const loadS=()=>run(sb,async()=>{const r=await api('GET',b+'/halaqat/'+h.id+'/sessions');sl.replaceChildren(r.sessions.length?table(['الموعد','الموضوع','الحضور'],r.sessions.map(s=>[new Date(s.startsAt).toLocaleString('ar'),s.topic||'—',el('button',{class:'ghost',on:{click:()=>attView(s)}},'عرض/تسجيل')])):el('p',{},'—'))});
+    const loadS=()=>run(sb,async()=>{const r=await api('GET',b+'/halaqat/'+h.id+'/sessions');sl.replaceChildren(r.sessions.length?table(['الموعد','الموضوع','الحضور'],r.sessions.map(s=>[new Date(s.startsAt).toLocaleString('ar'),s.topic||'—',el('span',{},el('button',{on:{click:()=>run(sb,async()=>{const j=await api('POST',b+'/sessions/'+s.id+'/join');window.open(j.url,'_blank','noopener');note(sb,j.note,'ok')})}},'انضمام'),' ',el('button',{class:'ghost',on:{click:()=>attView(s)}},'عرض/تسجيل'))])):el('p',{},'—'))});
     if(has('tenant_admin')){const sid=el('input',{dir:'ltr',placeholder:'معرّف الطالب (UUID)'});mb.append(field('إضافة طالب',sid),el('button',{on:{click:()=>run(mb,async()=>{await api('POST',b+'/halaqat/'+h.id+'/members',{studentUserId:sid.value});loadM()})}},'إضافة'))}
     if(has('tenant_admin')||has('qari')){const a=el('input',{type:'datetime-local'}),z=el('input',{type:'datetime-local'}),t=el('input');sb.after(el('div',{},el('div',{class:'row'},field('البداية',a),field('النهاية',z),field('الموضوع',t)),el('button',{on:{click:()=>run(sb,async()=>{await api('POST',b+'/halaqat/'+h.id+'/sessions',{startsAt:new Date(a.value).toISOString(),endsAt:new Date(z.value).toISOString(),topic:t.value||undefined});loadS()})}},'إضافة جلسة')))}
     loadM();loadS();
@@ -123,6 +131,30 @@ async function tenantView(inst,me,body){
     scard.append(el('h3',{},'تسجيل تلاوة'),el('p',{class:'small'},'للقاصر: يلزم وليّ أمر موثَّق وموافقة تسجيل صوتي سارية، وإلا يُرفض الإرسال.'),el('div',{class:'row'},field('السورة',su),field('من آية',a1),field('إلى آية',a2)),start,' ',stop,prev,send,stat);
   }
   sections.append(scard);loadS();
+  // learning tracks + passport + certificates
+  const tbox=el('div'),tl=el('div'),pbox=el('div'),pl=el('div'),isStaff=has('tenant_admin')||has('qari');
+  const loadT=()=>run(tbox,async()=>{const r=await api('GET',b+'/tracks');const ST={draft:'مسودة',published:'منشور',archived:'مؤرشف'};
+    tl.replaceChildren(r.tracks.length?el('div',{},...r.tracks.map(t=>el('div',{},el('h3',{},t.title+' — '+(ST[t.status]||t.status)),table(['#','الوحدة','النوع','النطاق'],t.units.map(u=>[u.position,u.title,u.kind,u.surah?('سورة '+u.surah+(u.fromAyah?(': '+u.fromAyah+'-'+(u.toAyah||u.fromAyah)):'')):'—'])),
+      isStaff?el('div',{},t.status!=='published'?el('button',{on:{click:()=>run(tbox,async()=>{await api('POST',b+'/tracks/'+t.id+'/status',{status:'published'});loadT()})}},'نشر المسار'):'',' ',(()=>{const sid=el('input',{dir:'ltr',placeholder:'معرّف الطالب'}),un=el('select',{},...t.units.map(u=>el('option',{value:u.id},u.position+'. '+u.title)));return el('div',{class:'row'},field('الطالب',sid),field('الوحدة المُنجَزة',un),el('button',{on:{click:()=>run(tbox,async()=>{await api('POST',b+'/tracks/'+t.id+'/progress',{unitId:un.value,studentUserId:sid.value});note(tbox,'سُجّل الإنجاز','ok')})}},'تسجيل إنجاز'))})(),
+        has('tenant_admin')?(()=>{const sid=el('input',{dir:'ltr',placeholder:'معرّف الطالب'});return el('div',{class:'row'},field('إصدار شهادة إتمام',sid),el('button',{on:{click:()=>run(tbox,async()=>{const c=await api('POST',b+'/certificates',{trackId:t.id,studentUserId:sid.value});note(tbox,'أُصدرت الشهادة. رمز التحقق: '+c.verificationCode,'ok')})}},'إصدار'))})():''):''))):el('p',{},'لا توجد مسارات ظاهرة لك.'))});
+  const tcard=el('div',{class:'card'},el('h2',{},'المسارات والمناهج'),el('p',{class:'small'},'المسارات تضعها المؤسسة؛ تسجيل الإنجاز يقوم به مقرئ المعيّن. الشهادة شهادة إتمام مساق لدى المؤسسة، وليست إجازة.'),tl,tbox);
+  if(isStaff){const ti=el('input'),ts=el('textarea',{rows:3,dir:'ltr',placeholder:'وحدة في كل سطر: العنوان | النوع(recitation/memorization/tajweed/review) | السورة | من | إلى'});
+    tcard.append(el('h3',{},'مسار جديد'),field('العنوان',ti),field('الوحدات',ts),el('button',{on:{click:()=>run(tbox,async()=>{const units=ts.value.split('\n').map(x=>x.trim()).filter(Boolean).map(x=>{const[a,k,su,f,t]=x.split('|').map(y=>y.trim());const u={title:a,kind:k||'recitation'};if(su)u.surah=+su;if(f)u.fromAyah=+f;if(t)u.toAyah=+t;return u});await api('POST',b+'/tracks',{title:ti.value,units});ti.value=ts.value='';loadT()})}},'إنشاء (مسودة)'))}
+  sections.append(tcard);loadT();
+  const pid=el('input',{dir:'ltr',placeholder:'معرّف الطالب (اتركه فارغًا لنفسك)'});
+  const loadP=()=>run(pbox,async()=>{const r=await api('GET',b+'/passport'+(pid.value?('?studentUserId='+encodeURIComponent(pid.value)):''));
+    pl.replaceChildren(table(['المسار','المُنجَز','الإجمالي'],r.tracks.map(t=>[t.title,t.done,t.total])),el('h3',{},'الشهادات'),r.certificates.length?table(['صدرت','رمز التحقق','حالة'],r.certificates.map(c=>[fmt(c.issuedAt),el('span',{class:'mono'},c.verificationCode),c.revokedAt?'مسحوبة':'سارية'])):el('p',{},'لا شهادات بعد.'),
+      el('h3',{},'التسليمات حسب الحالة'),r.submissionsByState.length?table(['الحالة','العدد'],r.submissionsByState.map(x=>[x.state,x.n])):el('p',{},'—'))});
+  sections.append(el('div',{class:'card'},el('h2',{},'جواز التعلّم والتقدّم'),field('طالب',pid),el('button',{on:{click:loadP}},'عرض'),pl,pbox));loadP();
+  // supervised AI assistant
+  const abox2=el('div'),al2=el('div'),ast=el('div');
+  const loadAI=()=>run(abox2,async()=>{const s=await api('GET',b+'/ai/status');note(ast,s.modelConnected?('نموذج مربوط: '+s.model):'لم يُربط أي نموذج ذكاء اصطناعي بعد؛ لا يُولَّد أي اقتراح.',s.modelConnected?'ok':'');
+    const r=await api('GET',b+'/ai-suggestions');al2.replaceChildren(r.suggestions.length?table(['الطالب','الاقتراح','المصدر','الحالة',''],r.suggestions.map(x=>[el('span',{class:'mono'},x.studentUserId),x.body,x.source,{pending:'بانتظار مراجعة بشرية',accepted:'مقبول',rejected:'مرفوض'}[x.status],
+      (x.status==='pending'&&isStaff)?el('span',{},el('button',{on:{click:()=>run(abox2,async()=>{await api('POST',b+'/ai-suggestions/'+x.id+'/review',{decision:'accepted'});loadAI()})}},'قبول'),' ',el('button',{class:'ghost',on:{click:()=>run(abox2,async()=>{await api('POST',b+'/ai-suggestions/'+x.id+'/review',{decision:'rejected'});loadAI()})}},'رفض')):''])):el('p',{},'لا اقتراحات.'))});
+  const acard2=el('div',{class:'card'},el('h2',{},'المساعد الذكي المُشرَف عليه'),el('p',{class:'small'},'اقتراحات تدريبية مسودّة فقط. لا تصل إلى الطالب إلا بعد قبول مقرئ بشري، وليست حكمًا ولا تقييمًا ولا إجازة.'),ast,al2,abox2);
+  if(isStaff){const sid=el('input',{dir:'ltr',placeholder:'معرّف الطالب'}),pr=el('textarea',{rows:2,placeholder:'صِف ما تريد اقتراحه (بلا بيانات شخصية)'});
+    acard2.append(field('الطالب',sid),field('الطلب',pr),el('button',{on:{click:()=>run(abox2,async()=>{await api('POST',b+'/ai-suggestions/generate',{studentUserId:sid.value,prompt:pr.value});loadAI()})}},'توليد مسودة'))}
+  sections.append(acard2);loadAI();
   // admin tools
   if(has('tenant_admin')){
     const mb=el('div'),email=el('input',{type:'email',dir:'ltr'}),role=el('select',{},...Object.entries(ROLE).map(([v,t])=>el('option',{value:v},t)));

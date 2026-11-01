@@ -52,3 +52,6 @@ Decision: the pinned file stays the reference; the served copy is NOT imported. 
 - Private Storage bucket `recitations` (no public access, 10 MB, audio MIME only). API function v8: POST /i/:inst/submissions/:id/upload-url (submitting student only) and GET .../audio-url (anyone RLS lets see the submission; 60 s signed URL). Object path is derived server-side: <inst>/<student>/<submission>.webm.
 - Web client: student recorder (MediaRecorder) + playback. NOT yet exercised in a real browser with a microphone against the live bucket; the API paths are unit-tested with a fake signer only. Minors: DB consent trigger still gates the submission row.
 - vercel.json CSP now allows the Supabase origin for connect/media, and Permissions-Policy microphone=(self).
+
+## Update: migration 0008 + edge v9
+Applied `0008_tracks_certificates_sessions_ai` to project okbtrogotrtciymmuokr; redeployed `api` (v9) with `import_map_path: "deno.json"` (needed when redeploying through the MCP). Live smoke: register requires `adultConfirmed`, logout-all revokes older tokens (`session_revoked`), `/verify/:code` public. A smoke account `smoke-0008@example.test` was created during testing; its deletion was blocked by a pending confirmation, so it may still exist (harmless, no memberships).

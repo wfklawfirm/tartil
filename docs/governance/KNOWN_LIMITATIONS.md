@@ -13,3 +13,13 @@
 11. **AIJUR Skills** was not available and was not inspected.
 12. Canonical Jazariyya/Tuhfa witness text undecided (queue Q-003).
 13. Normalisation for matching is crude (diacritics/hamza/ya/ta-marbuta) and is never applied to stored text.
+
+## Added with migration 0008 (tracks, certificates, sessions, AI, account security)
+14. **No email provider**: password recovery by email does NOT exist. Only change-password (knowing the current one) and logout-all. A locked-out user needs the institution admin; an admin reset flow is not built.
+15. **No LLM connected**: the AI assistant endpoints exist and are tested with a fake model only; live they answer `model_not_connected` (501). Suggestions are drafts, hidden from students until a human accepts (enforced by RLS). Connecting a model needs the owner's key/terms/cost decision and a child-data review (consent purpose `ai_analysis`).
+16. **Live halaqat = external Jitsi room link** (meet.jit.si, unguessable per-session token, opened 15 min before start). Not recorded by the platform, no in-platform moderation, the public Jitsi service is a stopgap with no SLA. Minors need a verified guardian link (checked), but nobody can technically stop a leaked link from being shared. Real video infrastructure is an owner cost/design decision.
+17. **Sessions**: 1 h JWT, revocable via logout-all / password change (checked on every authenticated request through `users.sessions_valid_after`). No refresh tokens, no device list, no MFA.
+18. **Registration** requires an "18+" self-confirmation (a checkbox, not age verification). Minors are created by their guardian/institution as student profiles; guardian verification is a manual admin step. Not legal advice; per-jurisdiction review (COPPA/GDPR-K etc.) not done.
+19. **Certificates** are course-completion records of an institution (all units of a published track marked done by an assigned qari, issued by tenant_admin). Not an ijazah. Public verification shows no name for minors. No PDF/printable certificate yet, no revoke endpoint (column exists).
+20. **Concept extraction (makharij/sifat)** is lexical, ~15% of sampled units were false/tangential (see docs/extraction/CONCEPTS_V1.md). Output is DRAFT, licence-not-cleared, metadata only; nothing is published.
+21. **UI** was exercised with headless Chromium against a local PGlite-backed server (register/adult checkbox, track create/publish, account dialog, guardian consent before/after verification). The microphone recorder and the live Supabase+Vercel UI path were not click-tested by me.
