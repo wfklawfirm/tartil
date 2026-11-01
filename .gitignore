@@ -1,0 +1,8 @@
+node_modules/
+dist/
+.env*
+# Derived/third-party scholarly text: internal analysis only, never committed (LICENSE_REVIEW_REQUIRED)
+scholarly-assets/_inputs/books/
+scholarly-assets/extraction/
+scholarly-assets/_inputs/phase2_kit/
+*.zip

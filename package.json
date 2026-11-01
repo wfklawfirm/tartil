@@ -1,0 +1,21 @@
+{
+  "name": "quran-global-platform",
+  "private": true,
+  "version": "0.0.1",
+  "description": "Tilawa (working name): global Quranic learning & mastery platform - monorepo",
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "test": "npm run test --workspaces --if-present",
+    "typecheck": "npm run typecheck --workspaces --if-present"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.6",
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2"
+  }
+}

@@ -1,0 +1,75 @@
+shamela_id,category,tier,rationale,basis,reviewer
+10011,RASM_MUSHAF,2,Mawrid al-Zam'an supplement: Quranic orthography (rasm) of Warsh tradition,analyst_title_triage,UNREVIEWED
+10025,OFF_TOPIC,5,Hadith-scholar biography/collection (al-Humaydi),analyst_title_triage,UNREVIEWED
+10095,OFF_TOPIC,5,Description of the Prophet's prayer (fiqh),analyst_title_triage,UNREVIEWED
+1096,CORE_MATN,1,Al-Jazariyya (Ibn al-Jazari) with front matter - core tajweed poem,analyst_title_triage,UNREVIEWED
+11089,PEDAGOGY,3,Teaching Quran in prisons - context-specific pedagogy study,analyst_title_triage,UNREVIEWED
+11103,PEDAGOGY,2,Evaluation of hifz teaching in Quran-memorization associations halaqat,analyst_title_triage,UNREVIEWED
+11106,PEDAGOGY,2,Evaluation of Quran teaching methods in tahfiz schools,analyst_title_triage,UNREVIEWED
+11275,RECITATION_PERFORMANCE,3,"Art of oratory/delivery (rhetoric, voice) - adjacent to tilawah performance",analyst_title_triage,UNREVIEWED
+11301,CORE_TAJWEED,1,Tajweed rules per Hafs - Abd al-Aziz al-Qari,analyst_title_triage,UNREVIEWED
+11310,PERIPHERAL,4,Muslims' service of Arabic language for Quran - background,analyst_title_triage,UNREVIEWED
+11311,PERIPHERAL,4,Muslims' service of Arabic language for Quran - background (second volume/edition),analyst_title_triage,UNREVIEWED
+12093,CORE_MATN,1,Al-Jazariyya poem text,analyst_title_triage,UNREVIEWED
+121374,QIRAAT_BIOGRAPHY,3,Biographies of qurra after 8th century AH,analyst_title_triage,UNREVIEWED
+12754,CORE_TAJWEED,1,Al-Amid fi ilm al-tajweed,analyst_title_triage,UNREVIEWED
+13240,QIRAAT,2,Warsh vs Hafs comparative analytical study,analyst_title_triage,UNREVIEWED
+132519,QURAN_SCIENCES,2,Chapters in Quranic sciences - matn/summary,analyst_title_triage,UNREVIEWED
+13893,PERIPHERAL,4,Types of authorship on tafsir - bibliographic,analyst_title_triage,UNREVIEWED
+145422,OFF_TOPIC,5,Academic publishing delays,analyst_title_triage,UNREVIEWED
+148091,OFF_TOPIC,5,"Islamic heritage manuscripts catalogue (17MB) - bibliographic, not instructional",analyst_title_triage,UNREVIEWED
+17065,CORE_TAJWEED,1,Al-Rawda al-Nadiyya: commentary on Jazariyya,analyst_title_triage,UNREVIEWED
+17674,CORE_TAJWEED,1,Bughyat al-mustafid fi ilm al-tajweed,analyst_title_triage,UNREVIEWED
+20970,OFF_TOPIC,5,Tartib al-ulum: classification of sciences,analyst_title_triage,UNREVIEWED
+21513,CORE_TAJWEED,1,Mu'allim al-tajweed (al-Juraisi),analyst_title_triage,UNREVIEWED
+21557,CORE_TAJWEED,1,Al-Wajiz fi hukm tajweed al-kitab al-aziz,analyst_title_triage,UNREVIEWED
+21580,CORE_TAJWEED,1,Fath Rabb al-Bariyya: commentary on Jazariyya,analyst_title_triage,UNREVIEWED
+22869,CORE_TAJWEED,1,"Hidayat al-Qari ila tajweed kalam al-Bari (al-Marsafi), 2 vols, comprehensive",analyst_title_triage,UNREVIEWED
+26458,CORE_TAJWEED,1,Al-Tahdid fi al-itqan wa al-tajweed (al-Dani) - classical source,analyst_title_triage,UNREVIEWED
+2916,PHONETICS_RESEARCH,2,Acoustic study of duration of madd arid lil-sukun,analyst_title_triage,UNREVIEWED
+29915,CORE_MATN,1,Collection of 15 matns in tajweed and qiraat,analyst_title_triage,UNREVIEWED
+31067,OFF_TOPIC,5,Friday sermons,analyst_title_triage,UNREVIEWED
+36381,PERIPHERAL,4,Devotional: relationship with the Quran,analyst_title_triage,UNREVIEWED
+36497,PERIPHERAL,4,Forty Quranic items - devotional collection,analyst_title_triage,UNREVIEWED
+36539,WAQF_IBTIDA,1,"Virtue of waqf and ibtida, ruling of stopping at verse ends",analyst_title_triage,UNREVIEWED
+36545,OFF_TOPIC,5,Marriage advice,analyst_title_triage,UNREVIEWED
+37592,OFF_TOPIC,5,Hadith/sunnah polemics,analyst_title_triage,UNREVIEWED
+37615,CORE_TAJWEED,1,Al-Wafi fi kayfiyyat tartil al-Quran: commentary on Jazariyya and Tuhfat al-Atfal,analyst_title_triage,UNREVIEWED
+38007,CORE_TAJWEED,1,Fiqh qira'at al-Quran,analyst_title_triage,UNREVIEWED
+38025,CORE_TAJWEED,1,Al-Qawl al-sadid fi ilm al-tajweed,analyst_title_triage,UNREVIEWED
+38033,QIRAAT,2,How to recite per Qalun from Nafi,analyst_title_triage,UNREVIEWED
+38039,QIRAAT,2,Studies in qiraat with Hafs usul,analyst_title_triage,UNREVIEWED
+38050,CORE_TAJWEED,1,Concise tajweed summary printed with a mushaf,analyst_title_triage,UNREVIEWED
+38068,QURAN_SCIENCES,2,Dictionary of Quranic sciences,analyst_title_triage,UNREVIEWED
+38076,QIRAAT,2,Introductions to the science of qiraat,analyst_title_triage,UNREVIEWED
+38104,CORE_TAJWEED,1,Al-Mizan fi ahkam tajweed al-Quran,analyst_title_triage,UNREVIEWED
+4993,OFF_TOPIC,5,Biographical memoir of a scholar,analyst_title_triage,UNREVIEWED
+5464,CORE_TAJWEED,1,Al-Wajiz fi ilm al-tajweed (Sibawayh al-Badawi),analyst_title_triage,UNREVIEWED
+5465,RASM_MUSHAF,2,Development of mushaf writing and printing,analyst_title_triage,UNREVIEWED
+571,CORE_MATN,1,Matun talib al-ilm level 2 incl. Tuhfat al-Atfal,analyst_title_triage,UNREVIEWED
+5726,OFF_TOPIC,5,Hadith chains/indexes,analyst_title_triage,UNREVIEWED
+581,CORE_MATN,1,Al-Jazariyya critical edition (al-Qasim),analyst_title_triage,UNREVIEWED
+6342,OFF_TOPIC,5,Zaghal al-ilm (al-Dhahabi) - hadith/ilm criticism,analyst_title_triage,UNREVIEWED
+688,CORE_TAJWEED,1,Taysir ahkam al-tajweed level 1 - Q&A for beginners/children,analyst_title_triage,UNREVIEWED
+7229,OFF_TOPIC,5,Political treatise,analyst_title_triage,UNREVIEWED
+7311,CORE_TAJWEED,1,Ghayat al-murid fi ilm al-tajweed,analyst_title_triage,UNREVIEWED
+7652,OFF_TOPIC,5,Biography of Ibn Baz,analyst_title_triage,UNREVIEWED
+801,QIRAAT_BIOGRAPHY,3,Biography of al-Ja'bari (qiraat scholar),analyst_title_triage,UNREVIEWED
+8194,CORE_TAJWEED,1,Al-Tamhid fi ilm al-tajweed (Ibn al-Jazari) - classical source,analyst_title_triage,UNREVIEWED
+8517,QURAN_SCIENCES,3,History of care for Quran and its sciences,analyst_title_triage,UNREVIEWED
+8552,RASM_MUSHAF,3,Manuscript mushafs of the 11th century AH,analyst_title_triage,UNREVIEWED
+8563,PEDAGOGY,2,Personal qualities of the Quran teacher,analyst_title_triage,UNREVIEWED
+8633,QIRAAT,2,Madkhal fi ulum al-qiraat (al-Tawil),analyst_title_triage,UNREVIEWED
+8639,QIRAAT,2,Pages on the sciences of qiraat,analyst_title_triage,UNREVIEWED
+8937,OFF_TOPIC,5,Usul al-fiqh lecture (maslaha mursala),analyst_title_triage,UNREVIEWED
+9357,OFF_TOPIC,5,Hadith-scholar anecdotes and poetry,analyst_title_triage,UNREVIEWED
+937,RECITATION_PERFORMANCE,3,Rules for recording the Quran (audio) - relevant to recitation-recording policy,analyst_title_triage,UNREVIEWED
+95576,OFF_TOPIC,5,Book arts/calligraphy treatise,analyst_title_triage,UNREVIEWED
+95844,OFF_TOPIC,5,Hadith school of Baghdad,analyst_title_triage,UNREVIEWED
+9597,QIRAAT,2,Al-Qawa'id wal-isharat fi usul al-qiraat,analyst_title_triage,UNREVIEWED
+96242,OFF_TOPIC,5,"Divorce, oaths and vows",analyst_title_triage,UNREVIEWED
+96248,PERIPHERAL,4,Ruling on singing/instruments - adjacent to tilawah ornamentation debates; fiqh not pedagogy,analyst_title_triage,UNREVIEWED
+96301,QURAN_SCIENCES,2,Specialized Quranic encyclopedia (2.8MB),analyst_title_triage,UNREVIEWED
+9632,CORE_MATN,1,Tuhfat al-Atfal (al-Jamzuri),analyst_title_triage,UNREVIEWED
+9764,UNCLASSIFIED,3,"Title is not self-evident; classify from term density, then human review",analyst_title_triage,UNREVIEWED
+989,PEDAGOGY,2,Evaluation of Quran teaching in general and university education,analyst_title_triage,UNREVIEWED
