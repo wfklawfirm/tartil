@@ -14,3 +14,6 @@ All `LICENSE_REVIEW_REQUIRED`. Permitted use now: internal analysis/extraction o
 | mjmirza/quran-dataset | README says CC BY 4.0 but LICENSE says custom revenue-tier/AI-training licence | BLOCKED (conflict) |
 | Reciter audio | Per-reciter rights; datasets do not relicense audio | NOT_ACQUIRED |
 | H5P / LiveKit / Keycloak | Mixed (MIT/GPL parts) / Apache-2.0 / Apache-2.0 | Candidates; review per component |
+
+## Source selection 2026-11-02
+Owner selected, in principle, KFGQPC (audio/translations/mushaf reference), Quran Foundation API (streaming audio/translations) and Tanzil (text, already live). Details, terms read and next actions: `SOURCE_SELECTION_2026-11-02.md`. **Status: SELECTED_PENDING_AGREEMENT; licences remain NOT cleared; nothing downloaded or integrated.**
