@@ -11,3 +11,10 @@
 7. **Before launch**: run the isolation suite against the real instance (copy `test/isolation.test.ts` fixtures to a staging DB), enable PITR backups, and review Supabase advisors (security) output.
 8. **Auth note**: we use our own email+password+JWT for now. Moving to Supabase Auth later means mapping its `sub` to `users.id` in `authUser()` only; RLS needs no change because it keys off `app.user_id`.
 Open risk: the pg adapter (`packages/api/src/pg.ts`) is untested against a live server.
+
+## Deployment record (2026-11-01)
+- Project `tartil`, ref `okbtrogotrtciymmuokr`, eu-central-1, Postgres 17.
+- Applied via MCP in order: 0001, 0002, 0003, 0004. Deviation: on Supabase 0003 was applied with `ALTER TABLE IF EXISTS schema_migrations` (that table belongs to our local runner and does not exist there; Supabase tracks migrations itself). The repo file 0003 is unchanged.
+- Verified on the real instance: all 13 public tables have RLS enabled; anon and authenticated hold no SELECT on any of them; security advisor flagged only mutable search_path on 8 invoker functions, fixed by 0004.
+- NOT yet verified on the real instance: the isolation test suite (needs a direct DB connection string), app_user membership grant for the connecting role.
+- Quran text NOT imported: fetching Tanzil from inside the DB returned SHA-256 bf4f57b9...12c8 (743004 chars) instead of the pinned 6933e133...ec5f, so the import was refused. quran_ayahs is empty. Cause not yet determined (version/line-ending/format difference); do not import until the hash matches or the owner re-pins a new verified file.
