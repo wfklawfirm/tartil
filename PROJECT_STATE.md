@@ -41,3 +41,8 @@ Halaqah + attendance + assessment-record journey; Quran Core read API (hidden un
 - API: /me/hifz (+due, review, delete), /me/quiz-attempts, /me/mastery. Scheduler `nextReview` unit-tested.
 - Web: "رحلتي" (today / hifz / quizzes / mastery map), PWA manifest + service worker, tajweed library, track templates.
 - Tests: API 20/20, DB 38/38, browser journey 10/10 (Chromium, local DB + live Quran text).
+
+## 2026-11-01 late night
+- Live API = edge function v16 (adds /i/:inst/roster, /members/:mid/status, /overview-stats, /audit-trail). Verified: health ok, 401 unauthenticated, Quran text intact, 6236 ayat reference.
+- Added: 8 curriculum track templates (proposals, not endorsed), institution admin console, first visual identity pass (mark, icon, hero pattern).
+- Bundles for the owner to push in order: tartil-o, tartil-p, tartil-q, tartil-r.
