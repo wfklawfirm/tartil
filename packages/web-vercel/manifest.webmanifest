@@ -1,0 +1,12 @@
+{
+  "name": "ترتيل — تعلّم القرآن وإتقانه",
+  "short_name": "ترتيل",
+  "lang": "ar",
+  "dir": "rtl",
+  "start_url": "/#/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#f7f4ec",
+  "theme_color": "#1c6b50",
+  "icons": [{ "src": "/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }]
+}

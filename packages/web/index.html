@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="api-base" content="">
+<link rel="manifest" href="/manifest.webmanifest"><link rel="icon" href="/icon.svg" type="image/svg+xml"><meta name="theme-color" content="#1c6b50">
 <meta name="description" content="ترتيل: منصة عربية لتعلّم القرآن الكريم وإتقانه — قراءة، مسارات، حلقات، تلاوة بإشراف مقرئ.">
 <title>ترتيل — منصة تعلّم القرآن وإتقانه</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -101,7 +102,7 @@ function toggleBm(s,a){const b=bm(),k=s+':'+a;b.has(k)?b.delete(k):b.add(k);stor
 let ME=null;
 function renderNav(active){
   const items=[['#/','الرئيسية','home'],['#/quran','القرآن الكريم','quran'],['#/tajweed','التجويد','tajweed']];
-  if(token)items.push(['#/app','لوحتي','app']);
+  if(token)items.push(['#/me','رحلتي','me'],['#/app','لوحتي','app']);
   $('#nav').replaceChildren(...items.map(([h,t,k])=>el('a',{href:h,class:k===active?'on':''},t)));
   const who=$('#who');
   if(token&&ME)who.replaceChildren(ME.displayName,el('button',{class:'ghost sm',on:{click:()=>{setToken(null);location.hash='#/';route()}}},'خروج'));
@@ -116,6 +117,7 @@ async function route(){
   try{
     if(top==='quran'){renderNav('quran');await quranRoute(app,parts)}
     else if(top==='tajweed'){renderNav('tajweed');await tajweedView(app,parts)}
+    else if(top==='me'){renderNav('me');await meView(app,parts)}
     else if(top==='auth'){renderNav('');authView(app)}
     else if(top==='verify'){renderNav('');await verifyView(app,parts[1])}
     else if(top==='app'){renderNav('app');if(!token){location.hash='#/auth';return}await dashboard(app,parts)}
@@ -136,6 +138,10 @@ async function landing(app){
     el('div',{class:'grid'},
       feat('📖','المصحف كاملًا','114 سورة بالرسم العثماني، رواية حفص عن عاصم، مع بحث وإشارات مرجعية وتكبير الخط ومتابعة القراءة.'),
       feat('🔤','مكتبة التجويد','مخارج الحروف السبعة عشر، وصفاتها، وأحكام النون والميم والمدود، ومستكشف للحروف، مع أمثلة تُعرض من نص المصحف نفسه. (محتوى تمهيدي قيد المراجعة العلمية)'),
+      feat('🔁','حفظ ومراجعة ذكية','أضف المقاطع التي تحفظها فتجدول المنصة مراجعتها بتباعد تدريجي، وتتابع أيامك المتتالية وما بلغ حفظه من كل سورة.'),
+      feat('✅','اختبر نفسك','اختبارات في المخارج والصفات وأحكام النون والميم والمدود، واختبار «أكمل الآية» يُولَّد من نص المصحف. (تمهيدية قيد المراجعة العلمية)'),
+      feat('🗺️','خريطة الإتقان','لوحة بالسور الـ114 تُظهر تقدّم حفظك، ومهارات التجويد من نتائج اختباراتك.'),
+      feat('📱','تثبيت على الهاتف','تُثبَّت كتطبيق على هاتفك، ويُقرأ المصحف الذي فتحته من قبل دون اتصال.'),
       feat('🧭','مسارات ومناهج','تضع المؤسسة مسارات من وحدات (تلاوة، حفظ، تجويد، مراجعة) ويتابع الطالب تقدّمه وحدة بعد وحدة.'),
       feat('🕌','حلقات مباشرة','جلسات بموعد وحضور، وغرفة اتصال مرئي لا تُفتح إلا قبل الموعد، وبحضور المقرئ.'),
       feat('🎙️','تلاوتك أمام مقرئ','سجّل تلاوتك من المتصفح، يستمع إليها المقرئ المعيّن لك ويكتب ملاحظاته ومستويات الملاحظة.'),
@@ -519,6 +525,130 @@ const TEMPLATES=[
  {title:'تلاوة وحفظ جزء عمّ',description:'تلاوة سور الجزء الثلاثين (من النبأ إلى الناس) وحفظها، سورة سورة. (قالب مبدئي)',units:Array.from({length:37},(_,i)=>({title:'حفظ '+surahName(78+i),kind:'memorization',surah:78+i})).concat([{title:'مراجعة الجزء كاملًا',kind:'review'}])},
  {title:'قصار السور: تلاوة صحيحة',description:'تلاوة الفاتحة وقصار السور بحسب التجويد مع تصحيح المقرئ. (قالب مبدئي)',units:[1,112,113,114,111,110,109,108,107,106,105].map(s=>({title:'تلاوة '+surahName(s),kind:'recitation',surah:s}))}];
 
+/* ---------- personal learner space: today / hifz / quizzes / mastery map ---------- */
+const QUIZ_NOTE='اختبارات تمهيدية أعدّتها المنصة بمساعدة الذكاء الاصطناعي، وهي قيد المراجعة العلمية. نتيجتك تقدير ذاتي للمراجعة وليست تقييمًا ولا إجازة؛ التقييم الحقيقي يكتبه مقرئ بشري.';
+const QUIZZES=[
+ {k:'makharij',t:'مخارج الحروف',q:[
+  ['كم عدد المخارج العامة للحروف؟',['ثلاثة','خمسة','سبعة','سبعة عشر'],1,'خمسة: الجوف والحلق واللسان والشفتان والخيشوم.'],
+  ['كم عدد المخارج الخاصة على المذهب المشهور؟',['خمسة','عشرة','سبعة عشر','تسعة وعشرون'],2,'سبعة عشر مخرجًا على مذهب الخليل ومن تبعه.'],
+  ['من أي مخرج يخرج حرف الباء؟',['الحلق','اللسان','الشفتان','الجوف'],2,'الباء والميم والواو غير المدية من الشفتين.'],
+  ['أي الحرفين من أقصى الحلق؟',['ع ح','ء ه','غ خ','ق ك'],1,'الهمزة والهاء من أقصى الحلق، والعين والحاء من وسطه، والغين والخاء من أدناه.'],
+  ['حروف المد الثلاثة (ا و ي) مخرجها:',['الجوف','الحلق','الشفتان','الخيشوم'],0,'حروف المد تخرج من الجوف، وهو الخلاء الداخلي للحلق والفم.'],
+  ['الغنة تخرج من:',['الحلق','الخيشوم','الشفتين','اللسان'],1,'الخيشوم هو خرق الأنف المنجذب إلى داخل الفم.'],
+  ['الغين والخاء من:',['أقصى الحلق','وسط الحلق','أدنى الحلق','الجوف'],2,'أدنى الحلق (أقربه إلى الفم).'],
+  ['حرف الفاء يخرج من:',['بين الشفتين','بين باطن الشفة السفلى وأطراف الثنايا العليا','طرف اللسان','الخيشوم'],1,'الفاء من باطن الشفة السفلى مع أطراف الثنايا العليا.']]},
+ {k:'sifat',t:'صفات الحروف',q:[
+  ['الحروف المستعلية سبعة يجمعها:',['قطب جد','خص ضغط قظ','فحثه شخص سكت','صه زس'],1,'خُصَّ ضغطٍ قِظ.'],
+  ['أي الحروف من حروف القلقلة؟',['ب','س','ف','م'],0,'حروف القلقلة: قطب جد.'],
+  ['أي الحروف من حروف الإطباق؟',['ط','د','ت','س'],0,'حروف الإطباق: ص ض ط ظ.'],
+  ['أي الحروف من حروف الصفير؟',['ز','ط','ك','ل'],0,'حروف الصفير: ص ز س.'],
+  ['أي الحروف مهموس؟',['ب','د','ف','ع'],2,'حروف الهمس: فحثه شخص سكت.'],
+  ['ضد الاستعلاء هو:',['الإطباق','الاستفال','الهمس','الشدة'],1,'الاستعلاء ضده الاستفال.'],
+  ['التكرير صفة حرف:',['اللام','الراء','النون','الميم'],1,'التكرير صفة الراء، ويُحذر من إظهاره.'],
+  ['التفشي صفة حرف:',['ش','س','ص','ز'],0,'التفشي: انتشار الريح في الفم عند النطق بالشين.']]},
+ {k:'noon-meem',t:'أحكام النون الساكنة والميم الساكنة',q:[
+  ['كم حرفًا للإظهار الحلقي؟',['أربعة','ستة','ثمانية','خمسة عشر'],1,'ء ه ع ح غ خ.'],
+  ['حروف الإدغام مجموعة في:',['يرملون','خص ضغط قظ','قطب جد','فحثه شخص'],0,'يرملون: ي ر م ل و ن.'],
+  ['كم حرفًا للإخفاء الحقيقي؟',['ستة','تسعة','خمسة عشر','سبعة عشر'],2,'خمسة عشر حرفًا.'],
+  ['يكون الإقلاب عند حرف:',['الميم','الباء','الفاء','الواو'],1,'تُقلب النون الساكنة ميمًا مخفاة عند الباء.'],
+  ['«مِن يَقُولُ» (البقرة ٨) فيها:',['إظهار','إدغام بغنة','إدغام بلا غنة','إقلاب'],1,'النون الساكنة بعدها ياء: إدغام بغنة.'],
+  ['«مِن رَّبِّهِمْ» (البقرة ٥) فيها:',['إدغام بغنة','إدغام بلا غنة','إخفاء','إقلاب'],1,'النون الساكنة بعدها راء: إدغام بلا غنة.'],
+  ['«أَنۢبِئْهُم» (البقرة ٣٣) فيها:',['إظهار','إخفاء','إقلاب','إدغام'],2,'نون ساكنة بعدها باء: إقلاب.'],
+  ['«مَنْ ءَامَنَ» (البقرة ٦٢) فيها:',['إظهار حلقي','إقلاب','إدغام','إخفاء'],0,'نون ساكنة بعدها همزة: إظهار حلقي.'],
+  ['«تَرْمِيهِم بِحِجَارَةٍ» (الفيل ٤) فيها:',['إظهار شفوي','إخفاء شفوي','إدغام مثلين','إقلاب'],1,'ميم ساكنة بعدها باء: إخفاء شفوي.'],
+  ['«لَهُم مَّا» (النحل ٥٧) فيها:',['إخفاء شفوي','إظهار شفوي','إدغام مثلين صغير','إقلاب'],2,'ميم ساكنة بعدها ميم: إدغام مثلين صغير.']]},
+ {k:'mudood',t:'المدود',q:[
+  ['مقدار المد الطبيعي:',['حركتان','أربع حركات','ست حركات','حركة واحدة'],0,'المد الطبيعي حركتان بمقدار قبض الأصبع وبسطه.'],
+  ['أي الأمثلة للمد المتصل؟',['«فِي»','«السَّمَاءِ»','«رَبَّكَ»','«هُوَ»'],1,'المتصل: همزة بعد حرف المد في كلمة واحدة.'],
+  ['«بِمَا أُنزِلَ» فيها مد:',['متصل','منفصل','لازم','طبيعي'],1,'المنفصل: حرف المد في آخر كلمة والهمز في أول التالية.'],
+  ['«نَسْتَعِينُ» عند الوقف عليها مد:',['عارض للسكون','منفصل','لازم','متصل'],0,'سببه السكون العارض للوقف.'],
+  ['«خَوْفٍ» (قريش ٤) عند الوقف عليها مد:',['لين','عارض','لازم','طبيعي'],0,'حرف اللين (الواو الساكنة المفتوح ما قبلها) مع سكون الوقف.'],
+  ['«الضَّالِّينَ» (الفاتحة ٧) فيها مد:',['لازم كلمي مثقل','منفصل','متصل','طبيعي'],0,'حرف مد بعده حرف مشدد في كلمة واحدة.'],
+  ['مقدار المد اللازم:',['حركتان','أربع حركات','ست حركات','حركة'],2,'المد اللازم ست حركات وجوبًا.']]}];
+const todayStr=()=>{const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')};
+function streakOf(days){const s=new Set(days);let n=0,d=new Date();if(!s.has(todayStr())){d.setDate(d.getDate()-1)}
+  for(;;){const k=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');if(s.has(k)){n++;d.setDate(d.getDate()-1)}else break}return n}
+const dueText=m=>m<60?'بعد '+ar(m)+' دقائق':m<1440?'بعد '+ar(Math.round(m/60))+' ساعات':'بعد '+ar(Math.round(m/1440))+' يومًا';
+async function meView(app,parts){
+  if(!token){location.hash='#/auth';return}
+  const T=[['today','اليوم'],['hifz','حفظي'],['quiz','اختبر نفسك'],['map','خريطة الإتقان']],cur=T.some(t=>t[0]===parts[1])?parts[1]:'today';
+  const body=el('div');
+  app.replaceChildren(el('h1',{style:'margin:0 0 10px'},'رحلتي'),el('div',{class:'tabs'},T.map(([k,t])=>el('a',{href:'#/me/'+k,class:k===cur?'on':''},t))),body);
+  if(cur==='today')await todayTab(body);else if(cur==='hifz')await hifzTab(body);else if(cur==='quiz')quizTab(body,parts[2]);else await mapTab(body)}
+async function todayTab(body){
+  const [due,mast]=await Promise.all([api('GET','/me/hifz/due'),api('GET','/me/mastery')]),st=streakOf(mast.activeDays);
+  body.append(el('div',{class:'grid'},
+    el('div',{class:'feat'},el('b',{},ar(st)+' يوم'),el('span',{class:'small'},'أيام متتالية من النشاط')),
+    el('div',{class:'feat'},el('b',{},ar(due.due.length)),el('span',{class:'small'},'مراجعات مستحقة الآن')),
+    el('div',{class:'feat'},el('b',{},ar(mast.reviewsTotal)),el('span',{class:'small'},'إجمالي المراجعات'))));
+  const area=el('div');body.append(area);
+  if(!due.due.length){area.append(el('div',{class:'card'},empty('لا مراجعات مستحقة. أضف مقاطع للحفظ من تبويب «حفظي»، أو جرّب «اختبر نفسك».'),el('a',{class:'btn',href:'#/me/hifz'},'إضافة مقطع للحفظ')));return}
+  let i=0;const next=()=>{if(i>=due.due.length){area.replaceChildren(el('div',{class:'card'},el('div',{class:'msg ok'},'أحسنت! أنهيت مراجعات اليوم.'),el('a',{class:'btn',href:'#/me/map'},'خريطة الإتقان')));return}
+    const it=due.due[i],c=el('div',{class:'card'}),out=el('div');
+    c.append(el('div',{class:'small'},'مراجعة '+ar(i+1)+' من '+ar(due.due.length)),el('h2',{},surahName(it.surah)+' — الآيات '+ar(it.fromAyah)+'–'+ar(it.toAyah)),el('p',{class:'small'},'اتلُ المقطع من حفظك، ثم اضغط «أظهر النص» لتتحقق، ثم قيّم نفسك بصدق.'),out);
+    const show=el('button',{on:{click:()=>run(out,async()=>{show.disabled=true;const d=await surahData(it.surah);const as=d.ayat.filter(a=>a.ayah>=it.fromAyah&&a.ayah<=it.toAyah).slice(0,25);
+      out.replaceChildren(el('p',{class:'ayah',style:'font-size:24px;line-height:2.3'},as.map(a=>a.text+' ﴿'+ar(a.ayah)+'﴾ ').join('')),
+        el('div',{class:'small'},'كيف كانت مراجعتك؟'),
+        el('div',{},[[1,'نسيت','ghost'],[2,'بصعوبة','ghost'],[3,'جيدة',''],[4,'سهلة','gold']].map(([r,t,cl])=>el('button',{class:cl,style:'margin-inline-end:8px',on:{click:()=>run(out,async()=>{const x=await api('POST','/me/hifz/'+it.id+'/review',{rating:r});i++;next()})}},t))))})}},'أظهر النص');
+    c.append(show);area.replaceChildren(c)};next()}
+async function hifzTab(body){
+  await quranMeta();const cnt=n=>(REF.find(x=>x.surah===n)||{}).ayahCount||7;
+  const msg=el('div'),list=el('div'),sel=surahSelect(),f=el('input',{type:'number',min:1,value:1}),t=el('input',{type:'number',min:1,value:7});
+  const sync=()=>{t.max=f.max=cnt(Number(sel.value));if(Number(t.value)>cnt(Number(sel.value)))t.value=cnt(Number(sel.value))};sel.addEventListener('change',()=>{t.value=cnt(Number(sel.value));f.value=1;sync()});sync();
+  body.append(el('div',{class:'card'},el('h2',{},'أضف مقطعًا للحفظ'),el('p',{class:'small'},'يُجدول المقطع للمراجعة بتباعد تدريجي (مراجعة بعد يوم ثم ثلاثة ثم أكثر) بحسب تقييمك لنفسك، ويُعدّ «محفوظًا» حين يبلغ التباعد أسبوعًا فأكثر. هذه أداة مراجعة ذاتية وليست تقييمًا من مقرئ.'),
+    el('div',{class:'row'},field('السورة',sel),field('من الآية',f),field('إلى الآية',t)),
+    el('button',{on:{click:()=>run(msg,async()=>{await api('POST','/me/hifz',{surah:Number(sel.value),fromAyah:Number(f.value),toAyah:Number(t.value)});note(msg,'أُضيف المقطع إلى مراجعتك.','ok');load()})}},'إضافة'),msg),
+    el('div',{class:'card'},el('h2',{},'مقاطعي'),list));
+  async function load(){const r=await api('GET','/me/hifz');
+    if(!r.items.length){list.replaceChildren(empty('لا مقاطع بعد.'));return}
+    list.replaceChildren(table(['السورة','الآيات','الحالة','التباعد','المراجعة القادمة',''],r.items.map(x=>[surahName(x.surah),ar(x.fromAyah)+'–'+ar(x.toAyah),el('span',{class:'chip'},x.status==='memorized'?'محفوظ':'قيد الحفظ'),ar(x.intervalDays)+' يوم',new Date(x.dueAt)<=new Date(r.now)?'مستحقة الآن':fmt(x.dueAt),
+      el('button',{class:'ghost sm',on:{click:()=>run(msg,async()=>{if(!confirm('حذف هذا المقطع من مراجعتك؟'))return;await api('DELETE','/me/hifz/'+x.id);load()})}},'حذف')])))}
+  await load()}
+function quizTab(body,key){
+  if(key==='complete'){return completeAyah(body)}
+  const q=QUIZZES.find(x=>x.k===key);
+  if(!q){body.append(el('div',{class:'card'},el('p',{class:'small'},QUIZ_NOTE)),el('div',{class:'grid'},
+    ...QUIZZES.map(z=>el('div',{class:'feat'},el('b',{},z.t),el('span',{class:'small'},ar(z.q.length)+' أسئلة'),el('a',{class:'btn sm',href:'#/me/quiz/'+z.k,style:'margin-top:8px'},'ابدأ'))),
+    el('div',{class:'feat'},el('b',{},'أكمل الآية'),el('span',{class:'small'},'اختر الكلمة الناقصة من آية من المصحف'),el('a',{class:'btn sm',href:'#/me/quiz/complete',style:'margin-top:8px'},'ابدأ'))));return}
+  runQuiz(body,q.k,q.t,q.q.map(([p,o,a,e])=>({p,o,a,e})))}
+function runQuiz(body,key,title,qs){
+  let i=0,score=0;const card=el('div',{class:'card'});body.append(card);
+  const step=()=>{if(i>=qs.length){const rec=el('div');card.replaceChildren(el('h2',{},title),el('div',{class:'msg '+(score/qs.length>=.8?'ok':'warn')},'نتيجتك: '+ar(score)+' من '+ar(qs.length)),rec,el('a',{class:'btn',href:'#/me/quiz/'+(key==='complete-ayah'?'complete':key)},'إعادة'),el('a',{class:'btn ghost',href:'#/me/quiz',style:'margin-inline-start:8px'},'كل الاختبارات'),el('p',{class:'small'},QUIZ_NOTE));
+      run(rec,async()=>{await api('POST','/me/quiz-attempts',{quizKey:key,score,total:qs.length})});return}
+    const x=qs[i],out=el('div');
+    card.replaceChildren(el('div',{class:'small'},title+' — سؤال '+ar(i+1)+' من '+ar(qs.length)),el('h3',{},x.p),
+      ...x.o.map((o,j)=>el('button',{class:'ghost',style:'display:block;width:100%;text-align:start;margin:6px 0',on:{click:ev=>{if(out.dataset.done)return;out.dataset.done=1;const ok=j===x.a;if(ok)score++;
+        [...card.querySelectorAll('button.ghost')].forEach((b,k)=>{b.disabled=true;if(k===x.a)b.style.borderColor='var(--ok)';else if(k===j)b.style.borderColor='var(--bad)'});
+        out.replaceChildren(el('div',{class:'msg '+(ok?'ok':'err')},(ok?'صحيح. ':'ليست الإجابة الصحيحة. ')+(x.e||'')),el('button',{on:{click:()=>{i++;step()}}},i+1>=qs.length?'النتيجة':'التالي'))}}},o)),out)};step()}
+async function completeAyah(body){
+  const box=el('div',{class:'card'},el('p',{},'جارٍ إعداد الأسئلة من المصحف…'));body.append(box);
+  const pool=[112,1,113,114,108,103,110,111,109,105,106,107,102,101,100,99,97,95,94,93,92,91,90,89,87,86,85,84,83,82,81,80,78];
+  const qs=[];
+  try{for(let tries=0;qs.length<8&&tries<30;tries++){
+    const s=pool[Math.floor(Math.random()*pool.length)],d=await surahData(s),cands=d.ayat.filter(a=>a.text.split(' ').length>=5);if(!cands.length)continue;
+    const a=cands[Math.floor(Math.random()*cands.length)];if(qs.some(q=>q.ref===s+':'+a.ayah))continue;
+    const w=a.text.split(' ');const idx=1+Math.floor(Math.random()*(w.length-1));const ans=w[idx];
+    const others=[...new Set(d.ayat.flatMap(b=>b.text.split(' ')).filter(x=>norm(x)!==norm(ans)&&x.length>1))];
+    if(others.length<3)continue;const opts=[];while(opts.length<3){const o=others[Math.floor(Math.random()*others.length)];if(!opts.includes(o))opts.push(o)}
+    const all=[...opts,ans].sort(()=>Math.random()-.5);
+    qs.push({ref:s+':'+a.ayah,p:'أكمل الآية ('+surahName(s)+'، الآية '+ar(a.ayah)+'): '+w.map((x,k)=>k===idx?'«.....»':x).join(' '),o:all,a:all.indexOf(ans),e:'الكلمة هي «'+ans+'».'})}}
+  catch(e){box.replaceChildren(el('div',{class:'msg err'},e.message));return}
+  box.remove();runQuiz(body,'complete-ayah','أكمل الآية',qs)}
+async function mapTab(body){
+  const m=await api('GET','/me/mastery'),{ref}=await quranMeta().then(x=>({ref:x.ref})),by=new Map(m.surahs.map(s=>[s.surah,s]));
+  const lvl=s=>{const x=by.get(s);if(!x)return 0;const r=x.memorized/x.ayahCount;return r>=1?4:r>=.5?3:x.memorized>0?2:1};
+  const COL=['var(--line)','#d9e8de','#9fcfb5','#4fb08c','var(--accent2)'],LAB=['لم يبدأ','قيد الحفظ','بعض المقطع محفوظ','نصف السورة فأكثر','السورة كاملة'];
+  const tot=m.surahs.reduce((a,s)=>a+s.memorized,0);
+  body.append(el('div',{class:'card'},el('h2',{},'خريطة حفظي'),el('p',{class:'small'},'كل مربع سورة. اللون يدل على نسبة ما بلغ التباعد أسبوعًا فأكثر من مراجعاتك (تقدير ذاتي). عدد الآيات المحفوظة: '+ar(tot)+' من '+ar(6236)+'.'),
+    el('div',{style:'display:grid;grid-template-columns:repeat(auto-fill,minmax(54px,1fr));gap:6px'},ref.map(r=>{const l=lvl(r.surah),x=by.get(r.surah);return el('a',{href:'#/quran/'+r.surah,title:surahName(r.surah)+' — '+LAB[l]+(x?' ('+ar(x.memorized)+'/'+ar(r.ayahCount)+')':''),style:'display:block;text-align:center;padding:8px 0;border-radius:8px;text-decoration:none;font-size:13px;font-weight:700;background:'+COL[l]+';color:'+(l>=3?'#fff':'var(--ink)')},ar(r.surah))})),
+    el('div',{style:'margin-top:10px'},LAB.map((t,i)=>el('span',{class:'chip',style:'border-inline-start:14px solid '+COL[i]},t)))));
+  const qm=new Map(m.quizzes.map(q=>[q.quizKey,q]));
+  body.append(el('div',{class:'card'},el('h2',{},'مهارات التجويد (من اختباراتك)'),el('p',{class:'small'},'أفضل نتيجة لك في كل اختبار. تقدير ذاتي لا يغني عن تقييم المقرئ.'),
+    ...QUIZZES.map(z=>{const q=qm.get(z.k);return el('div',{style:'margin:10px 0'},el('div',{},z.t+' — '+(q?ar(q.best)+'٪ ('+ar(q.attempts)+' محاولات)':'لم تُجرَّب')),el('div',{style:'height:10px;border-radius:6px;background:var(--line);overflow:hidden'},el('div',{style:'height:100%;width:'+(q?q.best:0)+'%;background:'+(q&&q.best>=80?'var(--ok)':'var(--gold)')})))}),
+    el('a',{class:'btn',href:'#/me/quiz'},'اختبر نفسك')));
+}
+
+try{if('serviceWorker' in navigator&&location.protocol==='https:')navigator.serviceWorker.register('/sw.js').catch(()=>{})}catch{}
 route();
 </script>
 </body>

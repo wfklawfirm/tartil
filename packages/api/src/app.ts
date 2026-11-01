@@ -28,6 +28,18 @@ export function stripBasmalaPrefix(text: string, surah: number): string {
   const w = text.split(' ');
   return w.length > 4 && skeleton(w.slice(0, 4).join('')).replace(/[\u0649]/g, '\u064a') === BASMALA_SKELETON ? w.slice(4).join(' ').trim() : text;
 }
+/** Spaced-review scheduler (SM-2 style). rating: 1 again, 2 hard, 3 good, 4 easy. Pure and unit-tested. */
+export function nextReview(st: { ease: number; intervalDays: number; reps: number; lapses: number }, rating: number): { ease: number; intervalDays: number; reps: number; lapses: number; dueInMinutes: number } {
+  const clamp = (x: number) => Math.min(3.5, Math.max(1.3, Math.round(x * 100) / 100));
+  if (rating <= 1) return { ease: clamp(st.ease - 0.2), intervalDays: 0, reps: 0, lapses: st.lapses + 1, dueInMinutes: 10 };
+  let days: number, ease = st.ease;
+  if (rating === 2) { days = Math.max(1, Math.round(Math.max(st.intervalDays, 1) * 1.2)); ease -= 0.15; }
+  else {
+    days = st.reps === 0 ? 1 : st.reps === 1 ? 3 : Math.max(st.intervalDays + 1, Math.round(st.intervalDays * st.ease));
+    if (rating === 4) { days = Math.max(days + 1, Math.round(days * 1.3)); ease += 0.15; }
+  }
+  return { ease: clamp(ease), intervalDays: days, reps: st.reps + 1, lapses: st.lapses, dueInMinutes: days * 1440 };
+}
 export function buildApp(d: Deps) {
   const app = Fastify({ logger: false });
   // Accept `content-type: application/json` with an EMPTY body (action endpoints like verify/revoke), reject malformed JSON with 400.
@@ -216,6 +228,69 @@ export function buildApp(d: Deps) {
     if (!u) return reply.code(401).send({ error: 'unauthenticated' });
     const m = await d.service.query(`SELECT i.id AS "institutionId", i.name, i.slug, m.role FROM memberships m JOIN institutions i ON i.id = m.institution_id WHERE m.user_id = $1 AND m.status = 'active' AND i.status = 'active' ORDER BY i.name, m.role`, [userId]);
     return { id: u.id, displayName: u.display_name, memberships: m.rows };
+  });
+
+  // ---- personal learner space: hifz (spaced review), quiz attempts, mastery map. Owned by the user; RLS user_id = current user. ----
+  const personal = async <T>(req: FastifyRequest, reply: FastifyReply, fn: (tx: TxLike, userId: string) => Promise<T>): Promise<T | undefined> => {
+    let userId: string; try { userId = authUser(req); } catch { reply.code(401).send({ error: 'unauthenticated' }); return undefined; }
+    return withContext(d.app, { userId }, tx => fn(tx, userId));
+  };
+  app.get('/me/hifz', async (req, reply) => {
+    const r = await personal(req, reply, tx => tx.query(`SELECT id, surah, from_ayah AS "fromAyah", to_ayah AS "toAyah", status, interval_days AS "intervalDays", reps, lapses, due_at AS "dueAt", last_reviewed_at AS "lastReviewedAt" FROM hifz_items ORDER BY surah, from_ayah`));
+    if (r) return { items: r.rows, now: new Date().toISOString() };
+  });
+  app.post('/me/hifz', async (req, reply) => {
+    const b = z.object({ surah: z.number().int().min(1).max(114), fromAyah: z.number().int().min(1), toAyah: z.number().int().min(1) }).parse(req.body);
+    if (b.toAyah < b.fromAyah) return reply.code(400).send({ error: 'bad_range' });
+    const r = await personal(req, reply, async tx => {
+      const c = (await tx.query<{ ayah_count: number }>(`SELECT ayah_count FROM quran_reference_counts WHERE surah = $1`, [b.surah])).rows[0];
+      if (!c || b.toAyah > c.ayah_count) return null;
+      return (await tx.query<{ id: string }>(`INSERT INTO hifz_items (user_id, surah, from_ayah, to_ayah) VALUES (app.current_user_id(), $1, $2, $3) RETURNING id`, [b.surah, b.fromAyah, b.toAyah])).rows[0]!.id;
+    });
+    if (r === null) return reply.code(422).send({ error: 'ayah_out_of_range' });
+    if (r) return reply.code(201).send({ id: r });
+  });
+  app.delete('/me/hifz/:id', async (req, reply) => {
+    const id = uuid.parse((req.params as { id: string }).id);
+    const r = await personal(req, reply, tx => tx.query(`DELETE FROM hifz_items WHERE id = $1 RETURNING id`, [id]));
+    if (r) return r.rows.length ? { ok: true } : reply.code(404).send({ error: 'not_found' });
+  });
+  app.get('/me/hifz/due', async (req, reply) => {
+    const r = await personal(req, reply, tx => tx.query(`SELECT id, surah, from_ayah AS "fromAyah", to_ayah AS "toAyah", status, interval_days AS "intervalDays", reps, due_at AS "dueAt" FROM hifz_items WHERE due_at <= now() ORDER BY due_at LIMIT 50`));
+    if (r) return { due: r.rows };
+  });
+  app.post('/me/hifz/:id/review', async (req, reply) => {
+    const id = uuid.parse((req.params as { id: string }).id);
+    const b = z.object({ rating: z.number().int().min(1).max(4) }).parse(req.body);
+    const r = await personal(req, reply, async tx => {
+      const it = (await tx.query<{ ease: string; interval_days: number; reps: number; lapses: number }>(`SELECT ease, interval_days, reps, lapses FROM hifz_items WHERE id = $1 FOR UPDATE`, [id])).rows[0];
+      if (!it) return null;
+      const n = nextReview({ ease: Number(it.ease), intervalDays: it.interval_days, reps: it.reps, lapses: it.lapses }, b.rating);
+      await tx.query(`UPDATE hifz_items SET ease=$2, interval_days=$3, reps=$4, lapses=$5, status=$6, due_at = now() + ($7 || ' minutes')::interval, last_reviewed_at = now() WHERE id = $1`,
+        [id, n.ease, n.intervalDays, n.reps, n.lapses, n.intervalDays >= 7 ? 'memorized' : 'learning', String(n.dueInMinutes)]);
+      await tx.query(`INSERT INTO hifz_reviews (user_id, item_id, rating, interval_after) VALUES (app.current_user_id(), $1, $2, $3)`, [id, b.rating, n.intervalDays]);
+      return n;
+    });
+    if (r === null) return reply.code(404).send({ error: 'not_found' });
+    if (r) return { intervalDays: r.intervalDays, dueInMinutes: r.dueInMinutes };
+  });
+  app.post('/me/quiz-attempts', async (req, reply) => {
+    const b = z.object({ quizKey: z.string().regex(/^[a-z0-9_-]{1,60}$/), score: z.number().int().min(0), total: z.number().int().min(1).max(200) }).parse(req.body);
+    if (b.score > b.total) return reply.code(400).send({ error: 'bad_score' });
+    const r = await personal(req, reply, tx => tx.query(`INSERT INTO quiz_attempts (user_id, quiz_key, score, total) VALUES (app.current_user_id(), $1, $2, $3) RETURNING id`, [b.quizKey, b.score, b.total]));
+    if (r) return reply.code(201).send({ id: r.rows[0]!.id });
+  });
+  app.get('/me/mastery', async (req, reply) => {
+    const r = await personal(req, reply, async tx => {
+      const surahs = await tx.query(`SELECT i.surah, rc.ayah_count AS "ayahCount", count(DISTINCT a) FILTER (WHERE i.status = 'memorized')::int AS memorized, count(DISTINCT a)::int AS started
+        FROM hifz_items i JOIN quran_reference_counts rc ON rc.surah = i.surah
+        CROSS JOIN LATERAL generate_series(i.from_ayah, i.to_ayah) a GROUP BY i.surah, rc.ayah_count ORDER BY i.surah`);
+      const quizzes = await tx.query(`SELECT quiz_key AS "quizKey", max(round(100.0 * score / total))::int AS best, count(*)::int AS attempts FROM quiz_attempts GROUP BY quiz_key ORDER BY quiz_key`);
+      const days = await tx.query<{ d: string }>(`SELECT DISTINCT to_char(x::date, 'YYYY-MM-DD') AS d FROM (SELECT reviewed_at AS x FROM hifz_reviews UNION ALL SELECT taken_at FROM quiz_attempts) t ORDER BY d DESC LIMIT 400`);
+      const tot = (await tx.query<{ n: number }>(`SELECT count(*)::int AS n FROM hifz_reviews`)).rows[0]!.n;
+      return { surahs: surahs.rows, quizzes: quizzes.rows, activeDays: days.rows.map(x => x.d), reviewsTotal: tot };
+    });
+    if (r) return r;
   });
 
   // ---- learning tracks, progress, passport, certificates ----

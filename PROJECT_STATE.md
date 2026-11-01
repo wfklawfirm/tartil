@@ -35,3 +35,9 @@ Web/mobile UI, design system, audio, recitation studio UI, live halaqat, AI serv
 
 ## Next (engineering, no blockers)
 Halaqah + attendance + assessment-record journey; Quran Core read API (hidden until an approved edition exists); concept extraction v1 (Makharij/Sifat from tier-1 books) feeding `scholarly_items` as DRAFT with lineage; then web client (framework chosen by spike, ADR-009).
+
+## 2026-11-01 night
+- Migration 0009 (hifz_items, hifz_reviews, quiz_attempts; RLS own rows) applied live; edge function `api` v14.
+- API: /me/hifz (+due, review, delete), /me/quiz-attempts, /me/mastery. Scheduler `nextReview` unit-tested.
+- Web: "رحلتي" (today / hifz / quizzes / mastery map), PWA manifest + service worker, tajweed library, track templates.
+- Tests: API 20/20, DB 38/38, browser journey 10/10 (Chromium, local DB + live Quran text).

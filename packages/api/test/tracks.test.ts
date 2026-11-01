@@ -154,7 +154,7 @@ test('people list shows names (not e-mails); a student cannot see other students
 test('UI track templates are accepted by the API (payloads valid, units persisted)', async () => {
   const { readFileSync } = await import('node:fs');
   const html = readFileSync(new URL('../../web-vercel/index.html', import.meta.url), 'utf8');
-  const m = html.match(/const TEMPLATES=(\[[\s\S]*?\}\]);\s*\n\s*route\(\);/);
+  const m = html.match(/const TEMPLATES=(\[[\s\S]*?\}\]);\s*\n/);
   assert.ok(m, 'TEMPLATES block found');
   const templates = new Function('surahName', `return ${m![1]}`)((n: number) => 'S' + n) as Array<{ title: string; description: string; units: unknown[] }>;
   assert.equal(templates.length, 3);
