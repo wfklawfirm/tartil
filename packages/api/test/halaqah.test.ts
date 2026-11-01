@@ -16,7 +16,7 @@ const user = async (name: string) => {
   const id = (await call('POST', '/auth/register', undefined, { displayName: name, email, password: PW })).body.id as string;
   return { id, email, token: (await call('POST', '/auth/login', undefined, { email, password: PW })).body.token as string };
 };
-before(async () => { db = new PGlite(); await applyMigrations(db as never); app = buildApp({ service: db as never, app: db as never, jwtSecret: 'test-secret-0123456789' }); });
+before(async () => { db = new PGlite(); await applyMigrations(db as never); app = buildApp({ service: db as never, app: db as never, jwtSecret: 'test-secret-0123456789', rateLimit: { auth: 100000, general: 100000 } }); });
 
 test('halaqah journey over HTTP: circle, members, session, attendance, qari assessment, visibility', async () => {
   const admin = await user('h-admin'), qari = await user('h-qari'), qari2 = await user('h-qari2'), kid = await user('h-kid'), kid2 = await user('h-kid2'), parent = await user('h-parent'), outsider = await user('h-out');
@@ -77,7 +77,7 @@ test('Quran read API serves nothing until a human approves an edition; then verb
 
 test('web client is served with a restrictive CSP when configured', async () => {
   const { fileURLToPath } = await import('node:url');
-  const a2 = buildApp({ service: db as never, app: db as never, jwtSecret: 'test-secret-0123456789', webIndexPath: fileURLToPath(new URL('../../web/index.html', import.meta.url)) });
+  const a2 = buildApp({ service: db as never, app: db as never, jwtSecret: 'test-secret-0123456789', rateLimit: { auth: 100000, general: 100000 }, webIndexPath: fileURLToPath(new URL('../../web/index.html', import.meta.url)) });
   const r = await a2.inject({ method: 'GET', url: '/' });
   assert.equal(r.statusCode, 200); assert.match(r.headers['content-type'] as string, /text\/html/); assert.match(r.headers['content-security-policy'] as string, /frame-ancestors 'none'/); assert.match(r.body, /dir="rtl"/);
 });

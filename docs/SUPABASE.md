@@ -37,3 +37,9 @@ Decision: the pinned file stays the reference; the served copy is NOT imported. 
 - Live evidence: `scripts/live/journey_live.py` (31 checks) passed against the deployed function; test rows were then removed (institutions/users/audit = 0; ayat 6236; editions 1).
 - Web client: `packages/web-vercel` deployed to Vercel project `tartil-web` (production). `/api/*` is rewritten to the Supabase function; verified: `/api/quran/editions` returns `{"editions":[]}` through the rewrite. The project is behind Vercel Authentication (not public). Making it public is an owner decision.
 - Limits: both DB paths use one owner-role pool (app path guarded by SET LOCAL ROLE + assertSafeRoles); API is publicly reachable (verify_jwt=false) with open registration and no rate limiting; JWT 1h, not revocable; full test suites ran on PGlite, not on Supabase; Quran edition is NOT_APPROVED so the reader shows "unavailable".
+
+## Update 2026-11-01 (night): approval, basmala display, rate limit
+- Edition `tanzil-uthmani-hafs-1.1` set to APPROVED on Supabase by the platform owner (approved_by = "Wissam Khaled (platform owner) - PROVISIONAL approval 2026-11-01, pending independent scholarly audit"). This is NOT a scholarly approval; an independent audit against the Al-Azhar / King Fahd Complex mushaf is still required (see docs/QURAN_VERIFICATION.md). Revert with an UPDATE to NOT_APPROVED if the audit fails.
+- Read API strips the 4-word basmala prefix from ayah 1 (surahs other than 1 and 9) for display only; stored text unchanged. Test: exactly 112 surahs stripped against the real file.
+- Migration 0007 `rate_limits`: credential endpoints (/auth/*) limited to 10/min per client IP using a shared DB counter (works across edge instances). Limitation: keyed on the first X-Forwarded-For value, which can be spoofed by a client; other routes use a per-process best-effort limit (240/min).
+- Function `api` is at version 6.

@@ -16,7 +16,7 @@ const user = async (name: string) => {
   const token = (await call('POST', '/auth/login', undefined, { email, password: PW })).body.token as string;
   return { id, email, token };
 };
-before(async () => { const db = new PGlite(); await applyMigrations(db as never); app = buildApp({ service: db as never, app: db as never, jwtSecret: 'test-secret-0123456789' }); });
+before(async () => { const db = new PGlite(); await applyMigrations(db as never); app = buildApp({ service: db as never, app: db as never, jwtSecret: 'test-secret-0123456789', rateLimit: { auth: 100000, general: 100000 } }); });
 
 test('full journey: onboarding -> minor student -> guardian consent -> recitation -> qari feedback; other tenant sees nothing', async () => {
   const admin = await user('admin'), qari = await user('qari'), child = await user('child'), parent = await user('parent'), other = await user('otheradmin');

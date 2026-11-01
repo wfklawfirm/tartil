@@ -12,6 +12,8 @@
 
 - **Live (2026-11-01):** migration 0006 applied; API running as Supabase Edge Function (31-check live journey passed); Arabic web client on Vercel `tartil-web` (behind Vercel Auth). See docs/SUPABASE.md.
 
+- **2026-11-01 night:** Quran edition provisionally APPROVED by owner (not scholarly; audit pending); basmala display fix; DB-backed login rate limit (0007); API function v6; 10 API tests + 33 DB tests pass.
+
 ## Not built (do not assume)
 Web/mobile UI, design system, audio, recitation studio UI, live halaqat, AI services, passport/credentials, QCEF load/review, live-Postgres test of `pg.ts` (the pg adapter has not run against a real server).
 

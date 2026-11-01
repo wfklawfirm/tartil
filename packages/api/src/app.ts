@@ -6,7 +6,7 @@ import { hashPassword, verifyPassword, signToken, verifyToken } from './auth.ts'
 
 /** `service` = privileged owner/service connection (registration, login, bootstrap, email lookup only).
  *  `app` = connection used ONLY through withContext() as the unprivileged app_user role. */
-export interface Deps { service: Executor & Pick<TransactionalDb, 'transaction'>; app: TransactionalDb; jwtSecret: string; webIndexPath?: string }
+export interface Deps { service: Executor & Pick<TransactionalDb, 'transaction'>; app: TransactionalDb; jwtSecret: string; webIndexPath?: string; rateLimit?: { auth: number; general: number } }
 const uuid = z.string().uuid();
 const ROLES = ['tenant_admin', 'scholarly_reviewer', 'qari', 'student', 'guardian', 'safeguarding_officer'] as const;
 
@@ -20,6 +20,14 @@ function mapError(e: unknown): { status: number; code: string } {
   return { status: 500, code: 'internal_error' };
 }
 
+const BASMALA_SKELETON = 'بسماللهالرحمنالرحيم';
+const skeleton = (t: string) => t.normalize('NFKD').replace(/[\u0671]/g, '\u0627').replace(/[^\u0621-\u063a\u0641-\u064a]/g, '');
+/** Display-only: drop the 4-word basmala some editions prepend to ayah 1 (not part of the ayah; surah 1 and 9 excluded). Never touches stored text. */
+export function stripBasmalaPrefix(text: string, surah: number): string {
+  if (surah === 1 || surah === 9) return text;
+  const w = text.split(' ');
+  return w.length > 4 && skeleton(w.slice(0, 4).join('')).replace(/[\u0649]/g, '\u064a') === BASMALA_SKELETON ? w.slice(4).join(' ').trim() : text;
+}
 export function buildApp(d: Deps) {
   const app = Fastify({ logger: false });
   // Accept `content-type: application/json` with an EMPTY body (action endpoints like verify/revoke), reject malformed JSON with 400.
@@ -42,6 +50,26 @@ export function buildApp(d: Deps) {
     return sub;
   };
   app.addHook('onError', async () => {});
+  // Best-effort in-memory rate limit (per process/isolate; not a distributed limiter). Strict on credential endpoints.
+  // Credential endpoints: shared counter in the database (works across serverless instances). Other routes: best-effort per-process limit.
+  const hits = new Map<string, { n: number; reset: number }>();
+  app.addHook('onRequest', async (req, reply) => {
+    const ip = String(req.headers['x-forwarded-for'] ?? req.ip ?? 'unknown').split(',')[0]!.trim().slice(0, 64);
+    const now = Date.now();
+    if (req.url.startsWith('/auth/')) {
+      const r = await d.service.query<{ n: number }>(
+        `INSERT INTO rate_limits (bucket, window_start, n) VALUES ($1, date_trunc('minute', now()), 1)
+         ON CONFLICT (bucket, window_start) DO UPDATE SET n = rate_limits.n + 1 RETURNING n`, ['auth:' + ip]);
+      if (Math.random() < 0.02) await d.service.query(`DELETE FROM rate_limits WHERE window_start < now() - interval '1 hour'`);
+      if ((r.rows[0]?.n ?? 0) > (d.rateLimit?.auth ?? 10)) return reply.code(429).header('retry-after', '60').send({ error: 'rate_limited' });
+      return;
+    }
+    const limit = d.rateLimit?.general ?? 240, key = 'g:' + ip;
+    if (hits.size > 5000) for (const [k, v] of hits) if (v.reset < now) hits.delete(k);
+    const h = hits.get(key);
+    if (!h || h.reset < now) { hits.set(key, { n: 1, reset: now + 60_000 }); return; }
+    if (++h.n > limit) return reply.code(429).header('retry-after', '60').send({ error: 'rate_limited' });
+  });
   const tenant = async <T>(req: FastifyRequest, reply: FastifyReply, fn: (tx: TxLike, userId: string, inst: string) => Promise<T>) => {
     let userId: string;
     try { userId = authUser(req); } catch { reply.code(401).send({ error: 'unauthenticated' }); return undefined; }
@@ -216,7 +244,8 @@ export function buildApp(d: Deps) {
       const ed = await tx.query<{ attribution: string; riwayah: string }>(`SELECT attribution_text AS attribution, riwayah FROM quran_editions WHERE code = $1`, [p.edition]);
       if (!ed.rows.length) return null;
       const a = await tx.query(`SELECT ayah, text_raw AS text FROM quran_ayahs WHERE edition_code = $1 AND surah = $2 ORDER BY ayah`, [p.edition, p.surah]);
-      return { edition: p.edition, riwayah: ed.rows[0]!.riwayah, attribution: ed.rows[0]!.attribution, surah: p.surah, ayat: a.rows };
+      const ayat = (a.rows as { ayah: number; text: string }[]).map(x => ({ ayah: x.ayah, text: x.ayah === 1 ? stripBasmalaPrefix(x.text, p.surah) : x.text }));
+      return { edition: p.edition, riwayah: ed.rows[0]!.riwayah, attribution: ed.rows[0]!.attribution, surah: p.surah, ayat, note: 'Stored text is verbatim; the basmala prefix some sources put before ayah 1 is removed for display only.' };
     });
     return r ?? reply.code(404).send({ error: 'edition_not_available' });
   });
