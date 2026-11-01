@@ -150,3 +150,21 @@ test('people list shows names (not e-mails); a student cannot see other students
   assert.ok(sv.some(p => p.displayName === 'pqari' && p.role === 'qari'), 'student sees own qari');
   assert.equal((await call('GET', `${b}/people`)).status, 401);
 });
+
+test('UI track templates are accepted by the API (payloads valid, units persisted)', async () => {
+  const { readFileSync } = await import('node:fs');
+  const html = readFileSync(new URL('../../web-vercel/index.html', import.meta.url), 'utf8');
+  const m = html.match(/const TEMPLATES=(\[[\s\S]*?\}\]);\s*\n\s*route\(\);/);
+  assert.ok(m, 'TEMPLATES block found');
+  const templates = new Function('surahName', `return ${m![1]}`)((n: number) => 'S' + n) as Array<{ title: string; description: string; units: unknown[] }>;
+  assert.equal(templates.length, 3);
+  const admin = await user('tmpladmin');
+  const inst = (await call('POST', '/institutions', admin.token, { name: 'Dar Tmpl', slug: 'dar-tmpl' })).body.id as string;
+  for (const t of templates) {
+    const r = await call('POST', `/i/${inst}/tracks`, admin.token, { title: t.title, description: t.description, units: t.units });
+    assert.equal(r.status, 201, t.title + ' ' + JSON.stringify(r.body));
+  }
+  const list = (await call('GET', `/i/${inst}/tracks`, admin.token)).body.tracks as Array<{ status: string; units: unknown[] }>;
+  assert.equal(list.length, 3);
+  assert.ok(list.every(t => t.status === 'draft' && t.units.length > 0));
+});
