@@ -247,7 +247,7 @@ function authView(app){
 }
 
 /* ---------- dashboard ---------- */
-const SECTIONS=[['overview','نظرة عامة'],['tracks','المسارات'],['halaqat','الحلقات'],['recitation','التلاوة والتقييم'],['certs','الشهادات'],['assistant','المساعد'],['people','الأسرة والأعضاء']];
+const SECTIONS=[['overview','نظرة عامة'],['tracks','المسارات'],['halaqat','الحلقات'],['recitation','التلاوة والتقييم'],['certs','الشهادات'],['assistant','المساعد'],['people','الأسرة والأعضاء'],['admin','الإدارة']];
 async function dashboard(app,parts){
   if(!ME){try{ME=await api('GET','/me')}catch(e){setToken(null);location.hash='#/auth';return}}
   renderNav('app');
@@ -269,8 +269,8 @@ async function dashboard(app,parts){
   const body=el('div');
   app.replaceChildren(el('div',{class:'card',style:'display:flex;gap:14px;flex-wrap:wrap;align-items:center;justify-content:space-between'},
       el('div',{},el('h2',{style:'margin:0'},inst.name),roles.map(r=>el('span',{class:'chip'},ROLE[r]||r))),insts.length>1?instSel:''),
-    el('div',{class:'tabs'},SECTIONS.map(([k,t])=>el('a',{href:'#/app/'+id+'/'+k,class:k===sec?'on':''},t))),body);
-  const views={overview,tracks,halaqat,recitation,certs,assistant,people};
+    el('div',{class:'tabs'},SECTIONS.filter(([k])=>k!=='admin'||ctx.admin).map(([k,t])=>el('a',{href:'#/app/'+id+'/'+k,class:k===sec?'on':''},t))),body);
+  const views={overview,tracks,halaqat,recitation,certs,assistant,people,admin:adminView};
   try{await views[sec](body,ctx)}catch(e){body.replaceChildren(el('div',{class:'msg err'},e.message))}
   if(sec==='overview'){const d=el('details',{class:'card'},el('summary',{style:'cursor:pointer;font-weight:700'},'إنشاء مؤسسة جديدة'),newInst());body.append(d)}
 }
@@ -409,6 +409,24 @@ async function assistant(body,ctx){
     body.append(el('div',{class:'card'},el('h2',{},'توليد مسوّدة'),field('الطالب',s),field('الطلب',pr),el('button',{on:{click:()=>run(m,async()=>{if(!s.value)throw new Error('اختر الطالب');note(m,'جارٍ التوليد…');await api('POST',ctx.b+'/ai-suggestions/generate',{studentUserId:s.value,prompt:pr.value.trim()});pr.value='';note(m,'أُنشئت المسوّدة وهي بانتظار مراجعتك أعلاه','ok');load()})}},'توليد'),m))}
 }
 
+const AUDIT_ACTION={INSERT:'إضافة',UPDATE:'تعديل',DELETE:'حذف'};
+const AUDIT_OBJ={memberships:'عضوية',student_profiles:'ملف طالب',guardian_links:'ربط وليّ أمر',consents:'موافقة',qari_assignments:'إسناد مقرئ',recitation_submissions:'تسليم تلاوة',assessments:'تقييم',learning_tracks:'مسار',certificates:'شهادة',halaqat:'حلقة',ai_suggestions:'اقتراح ذكي'};
+async function adminView(body,ctx){
+  if(!ctx.admin){body.replaceChildren(el('div',{class:'msg err'},'هذه الصفحة لمدير المؤسسة فقط.'));return}
+  const sBox=el('div'),rBox=el('div'),aBox=el('div');
+  body.append(el('div',{class:'card'},el('h2',{},'أرقام المؤسسة'),sBox),
+    el('div',{class:'card'},el('h2',{},'الأعضاء وصلاحياتهم'),el('p',{class:'small'},'تعليق العضوية يمنع صاحبها من الوصول إلى بيانات المؤسسة فورًا دون حذف سجلّه، ويمكن إعادة تفعيلها. لا يمكنك تعليق نفسك ولا آخر مدير في المؤسسة.'),rBox),
+    el('div',{class:'card'},el('h2',{},'سجل التدقيق'),el('p',{class:'small'},'آخر ١٠٠ عملية على بيانات المؤسسة. السجل للقراءة فقط ولا يمكن تعديله أو حذفه.'),aBox));
+  const loadStats=()=>run(sBox,async()=>{const s=await api('GET',ctx.b+'/overview-stats');
+    const t=(n,l)=>el('div',{class:'feat'},el('b',{},ar(n)),el('span',{class:'small'},l));
+    sBox.replaceChildren(el('div',{class:'grid'},t(s.students,'طالب'),t(s.qaris,'مقرئ'),t(s.halaqat,'حلقة'),t(s.tracksPublished,'مسار منشور'),t(s.tracksDraft,'مسار مسودة'),t(s.submissionsOpen,'تسليم ينتظر المراجعة'),t(s.assessments,'تقييم'),t(s.certificates,'شهادة'),t(s.suspended,'عضوية معلّقة')))});
+  const loadRoster=()=>run(rBox,async()=>{const r=await api('GET',ctx.b+'/roster');
+    rBox.replaceChildren(table(['الاسم','الدور','الحالة',''],r.members.map(m=>[m.userId===ME.id?m.displayName+' (أنت)':m.displayName,ROLE[m.role]||m.role,m.status==='active'?'فعّالة':'معلّقة',
+      m.userId===ME.id&&m.role==='tenant_admin'?'':el('button',{class:'sm ghost',on:{click:()=>run(rBox,async()=>{await api('POST',ctx.b+'/members/'+m.id+'/status',{status:m.status==='active'?'suspended':'active'});loadRoster();loadStats();loadAudit()})}},m.status==='active'?'تعليق':'إعادة تفعيل')])))});
+  const loadAudit=()=>run(aBox,async()=>{const r=await api('GET',ctx.b+'/audit-trail');
+    aBox.replaceChildren(r.entries.length?table(['الوقت','المنفِّذ','العملية','الكائن'],r.entries.map(e=>[new Date(e.createdAt).toLocaleString('ar'),e.actorUserId?ctx.name(e.actorUserId):'النظام',AUDIT_ACTION[e.action]||e.action,AUDIT_OBJ[e.objectType]||e.objectType])):empty('لا عمليات مسجّلة.'))});
+  loadStats();loadRoster();loadAudit();
+}
 async function people(body,ctx){
   const PUR={audio_recording:'تسجيل صوتي',live_session_recording:'تسجيل جلسة مباشرة',ai_analysis:'تحليل بالذكاء الاصطناعي',data_processing:'معالجة البيانات'};
   body.append(el('div',{class:'card'},el('h2',{},'الأعضاء'),ctx.list.length?table(['الاسم','الدور'],ctx.list.map(p=>[p.displayName,ROLE[p.role]||p.role])):empty('لا أعضاء ظاهرون لك.')));

@@ -509,6 +509,67 @@ export function buildApp(d: Deps) {
       LEFT JOIN users u ON u.id = x.user_id ORDER BY x.role, u.display_name`));
     if (r) return { people: r.rows };
   });
+  // ---- institution administration: roster, suspension, headline numbers, audit trail ----
+  app.get('/i/:inst/roster', async (req, reply) => {
+    const r = await tenant(req, reply, async (tx, u, inst) => {
+      if (!(await tx.query(`SELECT 1 FROM memberships WHERE institution_id = $1 AND user_id = $2 AND role = 'tenant_admin' AND status = 'active'`, [inst, u])).rows.length) return null;
+      return tx.query<{ id: string; userId: string; role: string; status: string; createdAt: string }>(`SELECT m.id, m.user_id AS "userId", m.role, m.status, m.created_at AS "createdAt"
+        FROM memberships m WHERE m.institution_id = $1 ORDER BY m.role, m.created_at`, [inst]);
+    });
+    if (r === undefined) return;
+    if (r === null) return reply.code(403).send({ error: 'admin_only' });
+    // display names come through the service path: RLS hides users whose membership is suspended, and an admin still has to see who they suspended
+    const names = new Map((await d.service.query<{ id: string; display_name: string }>(`SELECT id, display_name FROM users WHERE id = ANY($1::uuid[])`, [[...new Set(r.rows.map(x => x.userId))]])).rows.map(x => [x.id, x.display_name]));
+    return { members: r.rows.map(x => ({ ...x, displayName: names.get(x.userId) ?? '—' })) };
+  });
+  app.post('/i/:inst/members/:mid/status', async (req, reply) => {
+    const mid = uuid.parse((req.params as { mid: string }).mid);
+    const b = z.object({ status: z.enum(['active', 'suspended']) }).parse(req.body);
+    const r = await tenant(req, reply, async (tx, u, inst) => {
+      if (!(await tx.query(`SELECT 1 FROM memberships WHERE institution_id = $1 AND user_id = $2 AND role = 'tenant_admin' AND status = 'active'`, [inst, u])).rows.length) return 'admin_only';
+      const m = (await tx.query<{ user_id: string; role: string; status: string }>(`SELECT user_id, role, status FROM memberships WHERE id = $1 AND institution_id = $2`, [mid, inst])).rows[0];
+      if (!m) return 'not_found';
+      if (b.status === 'suspended' && m.role === 'tenant_admin') {
+        if (m.user_id === u) return 'cannot_suspend_self';
+        const others = (await tx.query<{ n: string }>(`SELECT count(*)::text AS n FROM memberships WHERE institution_id = $1 AND role = 'tenant_admin' AND status = 'active' AND id <> $2`, [inst, mid])).rows[0]!.n;
+        if (Number(others) < 1) return 'last_admin';
+      }
+      await tx.query(`UPDATE memberships SET status = $1 WHERE id = $2 AND institution_id = $3`, [b.status, mid, inst]);
+      return 'ok';
+    });
+    if (r === undefined) return;
+    if (r === 'ok') return { ok: true };
+    return reply.code(r === 'admin_only' ? 403 : r === 'not_found' ? 404 : 409).send({ error: r });
+  });
+  app.get('/i/:inst/overview-stats', async (req, reply) => {
+    const r = await tenant(req, reply, async (tx, u, inst) => {
+      if (!(await tx.query(`SELECT 1 FROM memberships WHERE institution_id = $1 AND user_id = $2 AND role = 'tenant_admin' AND status = 'active'`, [inst, u])).rows.length) return null;
+      const c = async (sql: string) => Number((await tx.query<{ n: string }>(sql, [inst])).rows[0]!.n);
+      return {
+        students: await c(`SELECT count(*)::text AS n FROM student_profiles WHERE institution_id = $1`),
+        qaris: await c(`SELECT count(*)::text AS n FROM memberships WHERE institution_id = $1 AND role = 'qari' AND status = 'active'`),
+        suspended: await c(`SELECT count(*)::text AS n FROM memberships WHERE institution_id = $1 AND status = 'suspended'`),
+        halaqat: await c(`SELECT count(*)::text AS n FROM halaqat WHERE institution_id = $1`),
+        tracksPublished: await c(`SELECT count(*)::text AS n FROM learning_tracks WHERE institution_id = $1 AND status = 'published'`),
+        tracksDraft: await c(`SELECT count(*)::text AS n FROM learning_tracks WHERE institution_id = $1 AND status = 'draft'`),
+        submissionsOpen: await c(`SELECT count(*)::text AS n FROM recitation_submissions WHERE institution_id = $1 AND state IN ('submitted','under_review','reassessment_requested')`),
+        assessments: await c(`SELECT count(*)::text AS n FROM assessments WHERE institution_id = $1`),
+        certificates: await c(`SELECT count(*)::text AS n FROM certificates WHERE institution_id = $1`),
+      };
+    });
+    if (r === undefined) return;
+    if (r === null) return reply.code(403).send({ error: 'admin_only' });
+    return r;
+  });
+  app.get('/i/:inst/audit-trail', async (req, reply) => {
+    const r = await tenant(req, reply, async (tx, u, inst) => {
+      if (!(await tx.query(`SELECT 1 FROM memberships WHERE institution_id = $1 AND user_id = $2 AND role IN ('tenant_admin','safeguarding_officer') AND status = 'active'`, [inst, u])).rows.length) return null;
+      return tx.query(`SELECT id, actor_user_id AS "actorUserId", action, object_type AS "objectType", created_at AS "createdAt" FROM audit_logs WHERE institution_id = $1 ORDER BY id DESC LIMIT 100`, [inst]);
+    });
+    if (r === undefined) return;
+    if (r === null) return reply.code(403).send({ error: 'admin_only' });
+    return { entries: r.rows };
+  });
   app.get('/i/:inst/sessions-upcoming', async (req, reply) => {
     const r = await tenant(req, reply, tx => tx.query(`SELECT s.id, s.halaqah_id AS "halaqahId", h.name AS "halaqah", s.starts_at AS "startsAt", s.ends_at AS "endsAt", s.topic FROM halaqah_sessions s JOIN halaqat h ON h.id = s.halaqah_id WHERE s.ends_at > now() - interval '15 minutes' ORDER BY s.starts_at LIMIT 20`));
     if (r) return { sessions: r.rows };
