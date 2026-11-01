@@ -1,11 +1,12 @@
 import Fastify, { type FastifyReply, type FastifyRequest } from 'fastify';
 import { z } from 'zod';
+import { readFileSync } from 'node:fs';
 import { withContext, type Executor, type TransactionalDb, type TxLike } from '@tartil/database';
 import { hashPassword, verifyPassword, signToken, verifyToken } from './auth.ts';
 
 /** `service` = privileged owner/service connection (registration, login, bootstrap, email lookup only).
  *  `app` = connection used ONLY through withContext() as the unprivileged app_user role. */
-export interface Deps { service: Executor & Pick<TransactionalDb, 'transaction'>; app: TransactionalDb; jwtSecret: string }
+export interface Deps { service: Executor & Pick<TransactionalDb, 'transaction'>; app: TransactionalDb; jwtSecret: string; webIndexPath?: string }
 const uuid = z.string().uuid();
 const ROLES = ['tenant_admin', 'scholarly_reviewer', 'qari', 'student', 'guardian', 'safeguarding_officer'] as const;
 
@@ -119,6 +120,104 @@ export function buildApp(d: Deps) {
     const r = await tenant(req, reply, tx => tx.query(`UPDATE recitation_submissions SET state = $2 WHERE id = $1 RETURNING id`, [id, b.state]));
     if (r) return r.rows.length ? { ok: true } : reply.code(404).send({ error: 'not_found' });
   });
+
+  // ---- who am I (service path: reads only the caller's own memberships; no tenant data) ----
+  app.get('/me', async (req, reply) => {
+    let userId: string; try { userId = authUser(req); } catch { return reply.code(401).send({ error: 'unauthenticated' }); }
+    const u = (await d.service.query<{ id: string; display_name: string }>(`SELECT id, display_name FROM users WHERE id = $1`, [userId])).rows[0];
+    if (!u) return reply.code(401).send({ error: 'unauthenticated' });
+    const m = await d.service.query(`SELECT i.id AS "institutionId", i.name, i.slug, m.role FROM memberships m JOIN institutions i ON i.id = m.institution_id WHERE m.user_id = $1 AND m.status = 'active' AND i.status = 'active' ORDER BY i.name, m.role`, [userId]);
+    return { id: u.id, displayName: u.display_name, memberships: m.rows };
+  });
+
+  // ---- halaqat / sessions / attendance ----
+  app.post('/i/:inst/halaqat', async (req, reply) => {
+    const b = z.object({ name: z.string().min(2).max(200), qariUserId: uuid }).parse(req.body);
+    const r = await tenant(req, reply, (tx, _u, inst) => tx.query(`INSERT INTO halaqat (institution_id, name, qari_user_id) VALUES ($1,$2,$3) RETURNING id`, [inst, b.name, b.qariUserId]));
+    if (r) return reply.code(201).send({ id: (r.rows[0] as { id: string }).id });
+  });
+  app.get('/i/:inst/halaqat', async (req, reply) => {
+    const r = await tenant(req, reply, tx => tx.query(`SELECT id, name, qari_user_id AS "qariUserId", status FROM halaqat ORDER BY created_at`));
+    if (r) return { halaqat: r.rows };
+  });
+  app.post('/i/:inst/halaqat/:hid/members', async (req, reply) => {
+    const hid = uuid.parse((req.params as { hid: string }).hid);
+    const b = z.object({ studentUserId: uuid }).parse(req.body);
+    const r = await tenant(req, reply, (tx, _u, inst) => tx.query(`INSERT INTO halaqah_members (institution_id, halaqah_id, student_user_id) VALUES ($1,$2,$3) RETURNING id`, [inst, hid, b.studentUserId]));
+    if (r) return reply.code(201).send({ id: (r.rows[0] as { id: string }).id });
+  });
+  app.get('/i/:inst/halaqat/:hid/members', async (req, reply) => {
+    const hid = uuid.parse((req.params as { hid: string }).hid);
+    const r = await tenant(req, reply, tx => tx.query(`SELECT student_user_id AS "studentUserId" FROM halaqah_members WHERE halaqah_id = $1`, [hid]));
+    if (r) return { members: r.rows };
+  });
+  app.post('/i/:inst/halaqat/:hid/sessions', async (req, reply) => {
+    const hid = uuid.parse((req.params as { hid: string }).hid);
+    const b = z.object({ startsAt: z.string().datetime(), endsAt: z.string().datetime(), topic: z.string().max(300).optional() }).parse(req.body);
+    const r = await tenant(req, reply, (tx, _u, inst) => tx.query(`INSERT INTO halaqah_sessions (institution_id, halaqah_id, starts_at, ends_at, topic) VALUES ($1,$2,$3,$4,$5) RETURNING id`, [inst, hid, b.startsAt, b.endsAt, b.topic ?? null]));
+    if (r) return reply.code(201).send({ id: (r.rows[0] as { id: string }).id });
+  });
+  app.get('/i/:inst/halaqat/:hid/sessions', async (req, reply) => {
+    const hid = uuid.parse((req.params as { hid: string }).hid);
+    const r = await tenant(req, reply, tx => tx.query(`SELECT id, starts_at AS "startsAt", ends_at AS "endsAt", topic FROM halaqah_sessions WHERE halaqah_id = $1 ORDER BY starts_at DESC`, [hid]));
+    if (r) return { sessions: r.rows };
+  });
+  app.post('/i/:inst/sessions/:sid/attendance', async (req, reply) => {
+    const sid = uuid.parse((req.params as { sid: string }).sid);
+    const b = z.object({ studentUserId: uuid, status: z.enum(['present', 'absent', 'late', 'excused']) }).parse(req.body);
+    const r = await tenant(req, reply, (tx, u, inst) => tx.query(
+      `INSERT INTO attendance (institution_id, session_id, halaqah_id, student_user_id, status, marked_by)
+       SELECT $1, s.id, s.halaqah_id, $3, $4, $5 FROM halaqah_sessions s WHERE s.id = $2
+       ON CONFLICT (session_id, student_user_id) DO UPDATE SET status = EXCLUDED.status, marked_by = EXCLUDED.marked_by, marked_at = now() RETURNING id`, [inst, sid, b.studentUserId, b.status, u]));
+    if (r) return r.rows.length ? reply.code(201).send({ id: (r.rows[0] as { id: string }).id }) : reply.code(404).send({ error: 'not_found' });
+  });
+  app.get('/i/:inst/sessions/:sid/attendance', async (req, reply) => {
+    const sid = uuid.parse((req.params as { sid: string }).sid);
+    const r = await tenant(req, reply, tx => tx.query(`SELECT student_user_id AS "studentUserId", status, marked_at AS "markedAt" FROM attendance WHERE session_id = $1`, [sid]));
+    if (r) return { attendance: r.rows };
+  });
+
+  // ---- human qari assessments (append-only; observation levels 1-4; not a ruling or ijazah) ----
+  app.post('/i/:inst/assessments', async (req, reply) => {
+    const lvl = z.number().int().min(1).max(4).optional();
+    const b = z.object({ studentUserId: uuid, submissionId: uuid.optional(), surah: z.number().int().min(1).max(114), ayahStart: z.number().int().min(1), ayahEnd: z.number().int().min(1),
+      makharij: lvl, sifat: lvl, ahkamTajweed: lvl, fluency: lvl, memorisation: lvl, note: z.string().max(4000).optional() })
+      .refine(v => [v.makharij, v.sifat, v.ahkamTajweed, v.fluency, v.memorisation].some(x => x !== undefined), 'at least one dimension is required').parse(req.body);
+    const r = await tenant(req, reply, (tx, u, inst) => tx.query(
+      `INSERT INTO assessments (institution_id, student_user_id, assessor_user_id, submission_id, surah, ayah_start, ayah_end, makharij, sifat, ahkam_tajweed, fluency, memorisation, note)
+       VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13) RETURNING id`,
+      [inst, b.studentUserId, u, b.submissionId ?? null, b.surah, b.ayahStart, b.ayahEnd, b.makharij ?? null, b.sifat ?? null, b.ahkamTajweed ?? null, b.fluency ?? null, b.memorisation ?? null, b.note ?? null]));
+    if (r) return reply.code(201).send({ id: (r.rows[0] as { id: string }).id });
+  });
+  app.get('/i/:inst/assessments', async (req, reply) => {
+    const r = await tenant(req, reply, tx => tx.query(`SELECT id, student_user_id AS "studentUserId", assessor_user_id AS "assessorUserId", surah, ayah_start AS "ayahStart", ayah_end AS "ayahEnd", makharij, sifat, ahkam_tajweed AS "ahkamTajweed", fluency, memorisation, note, created_at AS "createdAt" FROM assessments ORDER BY created_at DESC`));
+    if (r) return { assessments: r.rows };
+  });
+
+  // ---- Quran Core read API: nothing is served until a human has APPROVED an edition (enforced by RLS, not by this code) ----
+  app.get('/quran/reference', async () => {
+    const r = await withContext(d.app, {}, tx => tx.query(`SELECT surah, ayah_count AS "ayahCount" FROM quran_reference_counts ORDER BY surah`));
+    return { surahs: r.rows };
+  });
+  app.get('/quran/editions', async () => {
+    const r = await withContext(d.app, {}, tx => tx.query(`SELECT code, name, riwayah, script_style AS "scriptStyle", provider, provider_version AS "providerVersion", attribution_text AS "attribution" FROM quran_editions ORDER BY code`));
+    return { editions: r.rows };
+  });
+  app.get('/quran/:edition/:surah', async (req, reply) => {
+    const p = z.object({ edition: z.string().min(3).max(64), surah: z.coerce.number().int().min(1).max(114) }).parse(req.params);
+    const r = await withContext(d.app, {}, async tx => {
+      const ed = await tx.query<{ attribution: string; riwayah: string }>(`SELECT attribution_text AS attribution, riwayah FROM quran_editions WHERE code = $1`, [p.edition]);
+      if (!ed.rows.length) return null;
+      const a = await tx.query(`SELECT ayah, text_raw AS text FROM quran_ayahs WHERE edition_code = $1 AND surah = $2 ORDER BY ayah`, [p.edition, p.surah]);
+      return { edition: p.edition, riwayah: ed.rows[0]!.riwayah, attribution: ed.rows[0]!.attribution, surah: p.surah, ayat: a.rows };
+    });
+    return r ?? reply.code(404).send({ error: 'edition_not_available' });
+  });
+  if (d.webIndexPath) {
+    const html = readFileSync(d.webIndexPath, 'utf8');
+    app.get('/', async (_req, reply) => reply.header('content-type', 'text/html; charset=utf-8').header('x-content-type-options', 'nosniff').header('referrer-policy', 'no-referrer')
+      .header('content-security-policy', "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; connect-src 'self'; frame-ancestors 'none'").send(html));
+  }
   app.get('/health', async () => ({ ok: true }));
   return app;
 }
