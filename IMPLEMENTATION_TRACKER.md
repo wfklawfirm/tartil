@@ -21,7 +21,7 @@
 | 17 AI services | PARTIAL (supervised drafts via OpenAI; human accept/reject gate) |
 | 18 Content management & review | PARTIAL (DB workflow gate + scholarly review workspace UI; no reviewer appointed, nothing reviewed) |
 | 19 DB & APIs | PARTIAL (10 migrations; API covers auth, institutions, tracks, hifz, scholarly, sanad, admin; no password recovery) |
-| 20 Automated tests | PARTIAL (38 DB + 27 API tests; ad-hoc Chromium journeys not committed; no a11y suite, no Safari/Firefox) |
+| 20 Automated tests | PARTIAL (axe-core WCAG A/AA audit script over 13 signed-in + 6 public routes, clean in light and dark (manual screen-reader testing pending); 38 DB + 27 API tests; ad-hoc Chromium journeys not committed; no a11y suite, no Safari/Firefox) |
 | 21 Documentation | PARTIAL (governance registers) |
 | 22 Deploy files | PARTIAL (deployed to Supabase Edge + Vercel behind Vercel Authentication; not public) |
 | 23 Licence report | PARTIAL (LICENSE_REGISTER) |

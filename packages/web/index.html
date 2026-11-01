@@ -10,8 +10,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Amiri+Quran&family=Noto+Naskh+Arabic:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#f7f4ec;--card:#fff;--ink:#1b2a24;--mute:#5b6b63;--line:#e3ddcc;--accent:#1c6b50;--accent2:#0f4a38;--accent-ink:#fff;--gold:#b88a2e;--soft:#eef5f0;--warn:#8a5a00;--bad:#a12c2c;--ok:#1c6b50;--shadow:0 1px 2px rgba(0,0,0,.05),0 6px 20px rgba(20,40,30,.06)}
-@media (prefers-color-scheme:dark){:root{--bg:#0f1512;--card:#17211c;--ink:#e8efe9;--mute:#9bb0a6;--line:#2a3932;--accent:#4fb08c;--accent2:#7bd1ae;--accent-ink:#06130e;--gold:#d9ad54;--soft:#1b2a23;--warn:#e0b04a;--bad:#e27a7a;--ok:#6fd0a8;--shadow:none}}
+:root{--goldtx:#8a6416;--bg:#f7f4ec;--card:#fff;--ink:#1b2a24;--mute:#5b6b63;--line:#e3ddcc;--accent:#1c6b50;--accent2:#0f4a38;--accent-ink:#fff;--gold:#b88a2e;--soft:#eef5f0;--warn:#8a5a00;--bad:#a12c2c;--ok:#1c6b50;--shadow:0 1px 2px rgba(0,0,0,.05),0 6px 20px rgba(20,40,30,.06)}
+@media (prefers-color-scheme:dark){:root{--goldtx:#d9ad54;--bg:#0f1512;--card:#17211c;--ink:#e8efe9;--mute:#9bb0a6;--line:#2a3932;--accent:#4fb08c;--accent2:#7bd1ae;--accent-ink:#06130e;--gold:#d9ad54;--soft:#1b2a23;--warn:#e0b04a;--bad:#e27a7a;--ok:#6fd0a8;--shadow:none}}
 *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.8 "Noto Naskh Arabic",system-ui,sans-serif}
 a{color:var(--accent2)}button,input,select,textarea{font:inherit}
 header.top{position:sticky;top:0;z-index:10;background:var(--card);border-bottom:1px solid var(--line);box-shadow:var(--shadow)}
@@ -51,7 +51,7 @@ table{width:100%;border-collapse:collapse}th,td{text-align:right;padding:7px 9px
 .mushaf{max-width:780px;margin:0 auto;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px 20px;box-shadow:var(--shadow);text-align:justify;text-align-last:center}
 .mushaf .ayah{font-size:var(--fs,30px)}.mushaf .a{cursor:pointer;border-radius:8px;padding:0 2px}.mushaf .a:hover{background:var(--soft)}.mushaf .a.bm{background:rgba(184,138,46,.22)}.mushaf .a.hit{background:rgba(28,107,80,.22)}
 .mushaf.lines .a{display:block;padding:4px 6px;border-bottom:1px dashed var(--line)}
-.num{color:var(--gold);font-family:"Noto Naskh Arabic",serif;font-size:.7em;margin:0 3px}
+.num{color:var(--goldtx);font-family:"Noto Naskh Arabic",serif;font-size:.7em;margin:0 3px}
 .sname{text-align:center;border:2px solid var(--gold);border-radius:12px;padding:6px;margin:0 0 12px;font-size:26px;color:var(--accent2);font-weight:700}
 .bsm{text-align:center;font-size:calc(var(--fs,30px) + 2px)}
 .progress{height:10px;background:var(--soft);border-radius:999px;overflow:hidden;border:1px solid var(--line)}.progress i{display:block;height:100%;background:linear-gradient(90deg,var(--accent),var(--gold))}
@@ -82,7 +82,8 @@ async function api(method,url,body){let r;try{r=await fetch(BASE+url,{method,hea
 function setToken(t){token=t;try{t?sessionStorage.setItem('t',t):sessionStorage.removeItem('t')}catch{}if(!t)ME=null}
 const note=(box,text,cls='')=>{box.replaceChildren(el('div',{class:'msg '+cls},text))};
 const run=async(box,fn)=>{try{await fn()}catch(e){note(box,e.message,'err');if(e.status===401&&!token)setTimeout(route,300)}};
-const field=(l,i)=>el('div',{},el('label',{},l),i);
+let fieldN=0;
+const field=(l,i)=>{const id='f'+(++fieldN);if(i&&i.nodeType===1&&!i.id)i.id=id;return el('div',{},el('label',{for:i&&i.id||id},l),i)};
 const table=(heads,rows)=>el('div',{style:'overflow-x:auto'},el('table',{},el('thead',{},el('tr',{},heads.map(h=>el('th',{},h)))),el('tbody',{},rows.map(r=>el('tr',{},r.map(c=>el('td',{},c)))))));
 const fmt=d=>d?new Date(d).toLocaleString('ar',{dateStyle:'medium',timeStyle:'short'}):'—';
 const ar=n=>Number(n).toLocaleString('ar-EG');
@@ -203,8 +204,8 @@ async function reader(app,n,focus){
   const spans=d.ayat.map(a=>el('span',{class:'a'+(marks.has(n+':'+a.ayah)?' bm':''),id:'a'+a.ayah,title:'اضغط لوضع/إزالة إشارة مرجعية',on:{click:ev=>{const on=toggleBm(n,a.ayah);ev.currentTarget.classList.toggle('bm',on);store.set('last',{s:n,a:a.ayah})}}},tjOn?tajweedNodes(a.text):a.text,el('span',{class:'num'},'﴿'+ar(a.ayah)+'﴾'),' '));
   text.append(...spans);
   box.append(el('div',{class:'sname'},surahName(n)),(n!==1&&n!==9&&bsm)?el('p',{class:'ayah bsm'},bsm):'',text,el('p',{class:'small',style:'text-align:center'},d.attribution));
-  const sel=surahSelect(n);sel.addEventListener('change',()=>{location.hash='#/quran/'+sel.value});
-  const rng=el('input',{type:'range',min:20,max:56,value:fs});rng.addEventListener('input',()=>{box.style.setProperty('--fs',rng.value+'px');store.set('fs',+rng.value)});
+  const sel=surahSelect(n);sel.setAttribute('aria-label','السورة');sel.addEventListener('change',()=>{location.hash='#/quran/'+sel.value});
+  const rng=el('input',{type:'range',min:20,max:56,value:fs,'aria-label':'حجم الخط'});rng.addEventListener('input',()=>{box.style.setProperty('--fs',rng.value+'px');store.set('fs',+rng.value)});
   const jump=el('input',{type:'number',min:1,max:d.ayat.length,placeholder:'رقم الآية'});
   const go=a=>{const t=document.getElementById('a'+a);if(t){t.scrollIntoView({block:'center'});t.classList.add('hit');setTimeout(()=>t.classList.remove('hit'),2500)}};
   jump.addEventListener('change',()=>go(+jump.value));
@@ -277,7 +278,7 @@ async function dashboard(app,parts){
 }
 const peopleOpts=(ctx,role,ph='— اختر —')=>[el('option',{value:''},ph),...ctx.list.filter(p=>!role||p.role===role).map(p=>el('option',{value:p.userId},p.displayName+' ('+(ROLE[p.role]||p.role)+')'))];
 const uniq=a=>[...new Map(a.map(x=>[x.userId,x])).values()];
-const studentSelect=ctx=>{const s=el('select',{});const st=uniq(ctx.list.filter(p=>p.role==='student'));s.append(el('option',{value:''},'— اختر الطالب —'),...st.map(p=>el('option',{value:p.userId},p.displayName)));if(ctx.has('student')&&!ctx.staff&&!st.some(p=>p.userId===ME.id))s.append(el('option',{value:ME.id},ME.displayName));return s};
+const studentSelect=ctx=>{const s=el('select',{'aria-label':'الطالب'});const st=uniq(ctx.list.filter(p=>p.role==='student'));s.append(el('option',{value:''},'— اختر الطالب —'),...st.map(p=>el('option',{value:p.userId},p.displayName)));if(ctx.has('student')&&!ctx.staff&&!st.some(p=>p.userId===ME.id))s.append(el('option',{value:ME.id},ME.displayName));return s};
 
 async function overview(body,ctx){
   const sBox=el('div'),pBox=el('div'),aBox=el('div'),gBox=el('div');
@@ -308,7 +309,7 @@ function sessionRow(s,ctx,box){
 async function tracks(body,ctx){
   const list=el('div'),box=el('div'),ST={draft:'مسودة',published:'منشور',archived:'مؤرشف'},KIND={recitation:'تلاوة',memorization:'حفظ',tajweed:'تجويد',review:'مراجعة'};
   const trackCard=(t,msg)=>{
-    const stu=studentSelect(ctx),un=el('select',{},t.units.map(u=>el('option',{value:u.id},ar(u.position)+'. '+u.title)));
+    const stu=studentSelect(ctx),un=el('select',{'aria-label':'الوحدة'},t.units.map(u=>el('option',{value:u.id},ar(u.position)+'. '+u.title)));
     const rows=t.units.map(u=>[ar(u.position),u.title,KIND[u.kind]||u.kind,u.surah?(surahName(u.surah)+(u.fromAyah?(' : '+ar(u.fromAyah)+'–'+ar(u.toAyah||u.fromAyah)):'')):'—']);
     const card=el('div',{class:'card'},el('h2',{},t.title,' ',el('span',{class:'chip'},ST[t.status]||t.status)));
     if(t.description)card.append(el('p',{class:'small'},t.description));
@@ -329,7 +330,7 @@ async function tracks(body,ctx){
     body.append(el('div',{class:'card'},el('h2',{},'قوالب مسارات جاهزة'),el('div',{class:'msg warn'},'قوالب مبدئية قيد المراجعة العلمية؛ تُنشأ كمسودة تعدّلها ثم تنشرها.'),tg,tm))}
   if(ctx.staff){
     const title=el('input'),desc=el('textarea',{rows:2}),rows=el('div'),m=el('div');
-    const addRow=()=>{const t=el('input',{placeholder:'عنوان الوحدة'}),k=el('select',{},Object.entries(KIND).map(([v,x])=>el('option',{value:v},x))),s=el('select',{},el('option',{value:''},'— بلا سورة —'),SURAH.map((x,i)=>el('option',{value:i+1},ar(i+1)+'. '+x))),f=el('input',{type:'number',min:1,placeholder:'من آية'}),e=el('input',{type:'number',min:1,placeholder:'إلى آية'});
+    const addRow=()=>{const t=el('input',{placeholder:'عنوان الوحدة'}),k=el('select',{'aria-label':'نوع الوحدة'},Object.entries(KIND).map(([v,x])=>el('option',{value:v},x))),s=el('select',{'aria-label':'السورة'},el('option',{value:''},'— بلا سورة —'),SURAH.map((x,i)=>el('option',{value:i+1},ar(i+1)+'. '+x))),f=el('input',{type:'number',min:1,placeholder:'من آية'}),e=el('input',{type:'number',min:1,placeholder:'إلى آية'});
       const r=el('div',{class:'row',style:'margin:8px 0;padding:8px;border:1px dashed var(--line);border-radius:10px'},t,k,s,f,e,el('button',{class:'ghost sm',on:{click:()=>r.remove()}},'حذف'));r._g=()=>({title:t.value.trim(),kind:k.value,...(s.value?{surah:+s.value}:{}),...(f.value?{fromAyah:+f.value}:{}),...(e.value?{toAyah:+e.value}:{})});rows.append(r)};
     addRow();
     body.append(el('div',{class:'card'},el('h2',{},'مسار جديد'),el('p',{class:'small'},'يُنشأ كمسودة، ثم ينشره مدير المؤسسة ليراه الطلاب.'),field('عنوان المسار',title),field('وصف',desc),el('h3',{},'الوحدات'),rows,el('button',{class:'ghost',on:{click:addRow}},'+ وحدة'),' ',
