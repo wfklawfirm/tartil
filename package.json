@@ -2,7 +2,7 @@
   "name": "quran-global-platform",
   "private": true,
   "version": "0.0.1",
-  "description": "Tilawa (working name): global Quranic learning & mastery platform - monorepo",
+  "description": "Tartil - ترتيل (working name): global Quranic learning & mastery platform - monorepo",
   "workspaces": [
     "packages/*"
   ],

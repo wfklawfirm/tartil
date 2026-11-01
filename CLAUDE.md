@@ -1,4 +1,4 @@
-# CLAUDE.md - standing instructions (Tilawa, working name)
+# CLAUDE.md - standing instructions (Tartil, working name)
 
 Project: global Quranic learning & mastery platform (Arabic-first RTL + English LTR). Owner: Wissam Khaled (AIJUR FZCO). Full brief: the "MASTER PROMPT V2" the owner supplied.
 

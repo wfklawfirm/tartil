@@ -1,6 +1,6 @@
 # KNOWN_LIMITATIONS (honest list)
 
-1. **No product surface yet**: no API, auth, UI. Only schema + pipelines + tests exist.
+1. **No user interface yet.** API slice 1 exists (tested on PGlite); `pg.ts` adapter is untested against a live Postgres/Supabase. No rate limiting, email verification, password reset, MFA, refresh tokens, or token revocation yet - login tokens last 1 hour and cannot be revoked.
 2. **No Quran text imported.** All 3,906 book citations are unverified against any Quran text (statuses RESOLVED_UNVERIFIED etc.). Ayah-count table is my reference list (self-checked to sum to 6,236); it is not provider metadata.
 3. **Triage is title-based**, validated only by term density; no scholar reviewed it. 9764 is uncertain.
 4. **No printed page numbers** in the source exports; citations to "page X" cannot be produced - only section/paragraph locators.

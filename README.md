@@ -1,4 +1,4 @@
-# Tilawa (working name) - Global Quranic Learning & Mastery Platform
+# Tartil - ترتيل (working name) - Global Quranic Learning & Mastery Platform
 
 Status: **foundation stage**. See `PROJECT_STATE.md` for exactly what exists and what does not.
 
