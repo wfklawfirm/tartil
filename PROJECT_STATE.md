@@ -61,3 +61,6 @@ Reader has a collapsible tafsir panel (Jalalayn, Ibn Kathir, Qurtubi, Baghawi, T
 
 ## 2026-11-02 advisor pass
 Migration 0012 applied live and committed: search_path pinned on app.is_staff and app.translation_ayah_in_range, 18 covering FK indexes. Security advisor now shows only `rate_limits` (RLS on, no policy: intentional, service path only). Unused-index and multiple-permissive-policy (scholarly_items read policies) notes remain INFO/WARN and are deliberate at this data size. DB tests 38/38; live API smoke OK (health, translation, 6236 reference).
+
+## 2026-11-02 search
+`GET /search?q=&lang=ar|en` live in edge function v18 (verified on real data: "الحمد لله" 23 hits incl. 1:2; English "mercy" 138). UI: `#/search` and a "بحث" nav item; each result links to the ayah in the reader. API tests 30/30.

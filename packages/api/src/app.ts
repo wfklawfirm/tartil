@@ -679,6 +679,28 @@ export function buildApp(d: Deps) {
     });
     return r ?? reply.code(404).send({ error: 'edition_not_available' });
   });
+  // ---- whole-Quran search: Arabic (diacritics/alef/ya/ta-marbuta insensitive) or English (translation); read-only over approved editions (RLS) ----
+  const NORM_SQL = `regexp_replace(regexp_replace(regexp_replace(regexp_replace(text_raw, '[\u0610-\u061A\u064B-\u065F\u0670\u06D6-\u06ED\u0640]', '', 'g'), '[\u0622\u0623\u0625\u0671]', '\u0627', 'g'), '\u0649', '\u064A', 'g'), '\u0629', '\u0647', 'g')`;
+  const normAr = (t: string) => t.normalize('NFC').replace(/[\u0610-\u061A\u064B-\u065F\u0670\u06D6-\u06ED\u0640]/g, '').replace(/[\u0622\u0623\u0625\u0671]/g, '\u0627').replace(/\u0649/g, '\u064A').replace(/\u0629/g, '\u0647').replace(/\s+/g, ' ').trim();
+  app.get('/search', async (req, reply) => {
+    const q = z.object({ q: z.string().trim().min(2).max(60), lang: z.enum(['ar', 'en']).default('ar') }).parse(req.query);
+    const r = await withContext(d.app, {}, async tx => {
+      if (q.lang === 'ar') {
+        const ed = (await tx.query<{ code: string }>(`SELECT code FROM quran_editions ORDER BY code LIMIT 1`)).rows[0];
+        if (!ed) return null;
+        const needle = normAr(q.q);
+        if (needle.length < 2) return { total: 0, results: [] };
+        const rows = (await tx.query<{ surah: number; ayah: number; text: string }>(`SELECT surah, ayah, text_raw AS text FROM quran_ayahs WHERE edition_code = $1 AND strpos(${NORM_SQL}, $2) > 0 ORDER BY surah, ayah`, [ed.code, needle])).rows;
+        return { edition: ed.code, total: rows.length, results: rows.slice(0, 50).map(x => ({ surah: x.surah, ayah: x.ayah, text: x.ayah === 1 ? stripBasmalaPrefix(x.text, x.surah) : x.text })) };
+      }
+      const ed = (await tx.query<{ code: string; attribution: string }>(`SELECT code, attribution_text AS attribution FROM translation_editions WHERE language = 'en' ORDER BY code LIMIT 1`)).rows[0];
+      if (!ed) return null;
+      const like = '%' + q.q.replace(/[\\%_]/g, m => '\\' + m) + '%';
+      const rows = (await tx.query<{ surah: number; ayah: number; text: string }>(`SELECT surah, ayah, text_raw AS text FROM translation_ayahs WHERE edition_code = $1 AND text_raw ILIKE $2 ORDER BY surah, ayah`, [ed.code, like])).rows;
+      return { edition: ed.code, attribution: ed.attribution, total: rows.length, results: rows.slice(0, 50) };
+    });
+    return r ?? reply.code(404).send({ error: 'edition_not_available' });
+  });
   app.get('/health', async () => ({ ok: true }));
   return app;
 }

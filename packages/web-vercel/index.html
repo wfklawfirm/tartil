@@ -104,7 +104,7 @@ function toggleBm(s,a){const b=bm(),k=s+':'+a;b.has(k)?b.delete(k):b.add(k);stor
 /* ---------- shell ---------- */
 let ME=null;
 function renderNav(active){
-  const items=[['#/','الرئيسية','home'],['#/quran','القرآن الكريم','quran'],['#/tajweed','التجويد','tajweed'],['#/qiraat','القراءات','qiraat']];
+  const items=[['#/','الرئيسية','home'],['#/quran','القرآن الكريم','quran'],['#/search','بحث','search'],['#/tajweed','التجويد','tajweed'],['#/qiraat','القراءات','qiraat']];
   if(token)items.push(['#/me','رحلتي','me'],['#/app','لوحتي','app']);
   if(token&&isScholar())items.push(['#/review','المراجعة العلمية','review']);
   $('#nav').replaceChildren(...items.map(([h,t,k])=>el('a',{href:h,class:k===active?'on':''},t)));
@@ -121,6 +121,7 @@ async function route(){
   const top=parts[0]||'';
   try{
     if(top==='quran'){renderNav('quran');await quranRoute(app,parts)}
+    else if(top==='search'){renderNav('search');await searchView(app,parts)}
     else if(top==='tajweed'){renderNav('tajweed');await tajweedView(app,parts)}
     else if(top==='qiraat'){renderNav('qiraat');qiraatView(app)}
     else if(top==='review'){renderNav('review');await reviewView(app,parts)}
@@ -274,6 +275,25 @@ async function reader(app,n,focus){
   if(store.get('tr',false))showTranslation(app,n);
   if(!store.get('last',null)||store.get('last').s!==n)store.set('last',{s:n,a:1});
   if(focus)setTimeout(()=>go(focus),150);
+}
+
+/* ---------- whole-Quran search ---------- */
+async function searchView(app,parts){
+  const q0=decodeURIComponent(parts[1]||''),lang0=parts[2]==='en'?'en':'ar';
+  const q=el('input',{type:'search',value:q0,placeholder:'اكتب كلمة أو جزءًا من آية…','aria-label':'نص البحث'}),lg=el('select',{'aria-label':'لغة البحث'},el('option',{value:'ar'},'في النص العربي (دون تشكيل)'),el('option',{value:'en'},'في الترجمة الإنجليزية'));lg.value=lang0;
+  const out=el('div'),go=()=>{const v=q.value.trim();if(v.length<2){note(out,'اكتب حرفين على الأقل.','warn');return}location.hash='#/search/'+encodeURIComponent(v)+'/'+lg.value};
+  q.addEventListener('keydown',e=>{if(e.key==='Enter')go()});
+  app.replaceChildren(el('div',{class:'card'},el('h2',{style:'margin-top:0'},'البحث في القرآن الكريم'),el('div',{class:'toolbar'},el('div',{},el('label',{},'ابحث عن'),q),el('div',{},el('label',{},'اللغة'),lg),el('button',{on:{click:go}},'بحث')),
+    el('p',{class:'small'},'البحث العربي يتجاهل التشكيل وأشكال الألف والياء والتاء المربوطة. النتائج تعرض نص المصحف كما هو؛ والبحث الإنجليزي يجري في الترجمة وليس في القرآن نفسه.')),out);
+  if(q0.length<2)return;
+  await run(out,async()=>{
+    const r=await api('GET','/search?q='+encodeURIComponent(q0)+'&lang='+lang0);
+    const hl=t=>t;
+    out.replaceChildren(el('div',{class:'card'},el('p',{},r.total?('عدد النتائج: '+ar(r.total)+(r.total>r.results.length?' (تظهر أول '+ar(r.results.length)+')':'')):'لا نتائج مطابقة.'),
+      ...r.results.map(x=>el('div',{style:'padding:10px 0;border-top:1px solid var(--line,#e5e5e5)'},
+        el('a',{href:'#/quran/'+x.surah+'/'+x.ayah,style:'font-weight:700'},surahName(x.surah)+' — الآية '+ar(x.ayah)),
+        lang0==='ar'?el('div',{class:'ayah',style:'font-size:24px;line-height:2.1;margin-top:4px'},hl(x.text)):el('div',{dir:'ltr',lang:'en',style:'text-align:left;margin-top:4px'},hl(x.text)))),
+      lang0==='en'&&r.attribution?el('p',{class:'small',dir:'ltr',lang:'en',style:'text-align:left'},r.attribution):''))})
 }
 
 /* ---------- public certificate verification ---------- */
