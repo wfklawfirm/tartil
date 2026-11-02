@@ -49,3 +49,6 @@ Halaqah + attendance + assessment-record journey; Quran Core read API (hidden un
 
 ## 2026-11-02 translation layer
 Migration 0011 (translation tables, immutability, hash, range checks, RLS) applied live. Clear Quran imported (6236 verses, hash verified) and provisionally APPROVED. API routes `/translations/editions` and `/translations/:edition/:surah` live in edge function v17; verified live (edition listed, surah 1 = 7 verses, surah 2 = 286, unknown edition 404, Quran reference total 6236). Reader has an opt-in English translation toggle. Tests: API 29/29, DB 38/38. Bundle tartil-v.
+
+## 2026-11-02 recitation audio
+Reader now has a player (115 Hafs reciters, speed, repeat-ayah, start-from-ayah, live ayah highlight) streaming from mp3quran.net; CSP updated (connect-src www.mp3quran.net, media-src *.mp3quran.net). Browser-tested against the live APIs: list loads, audio plays, ayah highlighted, playback stops on navigation. Terms unstated: see LICENSE_REGISTER.

@@ -49,7 +49,7 @@ table{width:100%;border-collapse:collapse}th,td{text-align:right;padding:7px 9px
 .surahs .n{min-width:34px;height:34px;border-radius:10px;background:var(--soft);color:var(--accent2);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px}
 .surahs b{display:block;font-size:17px;line-height:1.3}.surahs span.c{font-size:12px;color:var(--mute)}
 .mushaf{max-width:780px;margin:0 auto;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px 20px;box-shadow:var(--shadow);text-align:justify;text-align-last:center}
-.mushaf .ayah{font-size:var(--fs,30px)}.mushaf .a{cursor:pointer;border-radius:8px;padding:0 2px}.mushaf .a:hover{background:var(--soft)}.mushaf .a.bm{background:rgba(184,138,46,.22)}.mushaf .a.hit{background:rgba(28,107,80,.22)}
+.mushaf .ayah{font-size:var(--fs,30px)}.mushaf .a{cursor:pointer;border-radius:8px;padding:0 2px}.mushaf .a:hover{background:var(--soft)}.mushaf .a.bm{background:rgba(184,138,46,.22)}.mushaf .a.hit{background:rgba(28,107,80,.22)}.mushaf .a.playing{background:rgba(184,138,46,.38);box-shadow:0 0 0 2px rgba(184,138,46,.55)}
 .mushaf.lines .a{display:block;padding:4px 6px;border-bottom:1px dashed var(--line)}
 .num{color:var(--goldtx);font-family:"Noto Naskh Arabic",serif;font-size:.7em;margin:0 3px}
 .sname{text-align:center;border:2px solid var(--gold);border-radius:12px;padding:6px;margin:0 0 12px;font-size:26px;color:var(--accent2);font-weight:700}
@@ -114,6 +114,7 @@ function renderNav(active){
   else who.replaceChildren(el('a',{class:'btn sm',href:'#/auth',style:'margin:0'},'دخول / تسجيل'));
 }
 async function route(){
+  if(!/^#\/quran\/\d/.test(location.hash))stopAudio();
   const parts=location.hash.replace(/^#\/?/,'').split('/').filter(Boolean),app=$('#app');
   window.scrollTo(0,0);
   if(token&&!ME){try{ME=await api('GET','/me')}catch{ME=null}}
@@ -196,7 +197,42 @@ async function quranRoute(app,parts){
     el('div',{class:'card'},el('h2',{},'بحث'),el('div',{class:'row'},sin,el('button',{style:'margin:0',on:{click:doSearch}},'بحث في المصحف كله')),sbox,sres),
     el('div',{class:'card'},q,el('div',{style:'height:12px'}),list));
 }
+
+/* ---------- recitation audio: streamed live from mp3quran.net's public API; nothing is stored by us ---------- */
+let RC=null,AUD=null;
+const stopAudio=()=>{if(AUD){try{AUD.pause();AUD.removeAttribute('src');AUD.load()}catch{}AUD=null}};
+async function reciters(){if(RC)return RC;const r=await fetch('https://www.mp3quran.net/api/v3/ayat_timing/reads');if(!r.ok)throw new Error('x');RC=(await r.json()).map(x=>({id:x.id,name:x.name,folder:x.folder_url}));return RC}
+function audioPanel(n,count){
+  const msg=el('div',{class:'small'},'جارٍ تحميل قائمة القرّاء…'),panel=el('div',{class:'card'},el('h2',{style:'margin-top:0'},'استمع إلى التلاوة'),msg);
+  (async()=>{
+    let list;try{list=await reciters()}catch{msg.textContent='تعذّر تحميل قائمة القرّاء الآن. تحقّق من الاتصال ثم أعد فتح الصفحة.';return}
+    const sel=el('select',{'aria-label':'القارئ'},list.map(x=>el('option',{value:x.id},x.name)));
+    const sv=store.get('rc',null);if(sv&&list.some(x=>x.id===sv))sel.value=String(sv);
+    const au=el('audio',{controls:true,preload:'none',style:'width:100%;margin-top:8px','aria-label':'تلاوة السورة'});
+    const rep=el('input',{type:'checkbox'}),spd=el('select',{'aria-label':'السرعة'},['0.75','1','1.25'].map(v=>el('option',{value:v},v+'×')));spd.value='1';
+    const info=el('div',{class:'small'});let T=[],cur=0;
+    const hl=a=>{if(a===cur)return;document.querySelectorAll('.mushaf .a.playing').forEach(x=>x.classList.remove('playing'));cur=a;const t=document.getElementById('a'+a);if(t){t.classList.add('playing');t.scrollIntoView({block:'center',behavior:'smooth'})}};
+    const load=async()=>{
+      store.set('rc',+sel.value);const rc=list.find(x=>String(x.id)===sel.value);cur=0;T=[];au.pause();
+      au.src=rc.folder+String(n).padStart(3,'0')+'.mp3';info.textContent='';
+      try{const r=await fetch('https://www.mp3quran.net/api/v3/ayat_timing?surah='+n+'&read='+rc.id);const j=r.ok?await r.json():[];T=Array.isArray(j)?j.filter(x=>x.ayah>0&&x.end_time>x.start_time):[]}catch{}
+      if(!T.length)info.textContent='لا تتوفر بيانات توقيت الآيات لهذا القارئ في هذه السورة؛ تُشغَّل السورة كاملة دون تمييز الآية.'};
+    sel.addEventListener('change',load);
+    spd.addEventListener('change',()=>{au.playbackRate=+spd.value});
+    au.addEventListener('loadedmetadata',()=>{au.playbackRate=+spd.value});
+    au.addEventListener('timeupdate',()=>{if(!T.length)return;const ms=au.currentTime*1000,x=T.find(y=>ms>=y.start_time&&ms<y.end_time);if(!x)return;
+      if(rep.checked&&cur&&x.ayah!==cur){const c=T.find(y=>y.ayah===cur);if(c){au.currentTime=c.start_time/1000;return}}hl(x.ayah)});
+    au.addEventListener('ended',()=>{document.querySelectorAll('.mushaf .a.playing').forEach(x=>x.classList.remove('playing'));cur=0});
+    const from=el('input',{type:'number',min:1,max:count,placeholder:'رقم الآية','aria-label':'ابدأ من الآية',style:'max-width:120px'});
+    const play=el('button',{class:'sm',on:{click:()=>{const x=T.find(y=>y.ayah===+from.value);if(x)au.currentTime=x.start_time/1000;au.play().catch(()=>{})}}},'ابدأ من الآية');
+    panel.replaceChildren(el('h2',{style:'margin-top:0'},'استمع إلى التلاوة'),
+      el('div',{class:'toolbar'},el('div',{},el('label',{},'القارئ (رواية حفص عن عاصم)'),sel),el('div',{},el('label',{},'السرعة'),spd),el('div',{},el('label',{},'ابدأ من'),from,play),el('label',{style:'display:inline-flex;gap:6px;align-items:center;margin:0;color:var(--ink)'},rep,'كرّر الآية الجارية (للحفظ)')),
+      au,info,el('p',{class:'small'},'التلاوة تُبثّ مباشرة من خدمة mp3quran.net العامة ولا نخزّنها ولا نعدّلها. حقوق التلاوات لأصحابها. لم نوقّع اتفاقًا مع الخدمة، وشروط استخدامها غير منشورة؛ فالبثّ المباشر مؤقت إلى أن يُستكمل ذلك.'));
+    AUD=au;load();
+  })();
+  return panel}
 async function reader(app,n,focus){
+  stopAudio();
   const d=await surahData(n),fs=store.get('fs',30),mode=store.get('mode','flow'),marks=bm(),tjOn=store.get('tj',false);
   const box=el('div',{class:'mushaf'+(mode==='lines'?' lines':''),style:'--fs:'+fs+'px'});
   const text=el('p',{class:'ayah'});
@@ -216,6 +252,7 @@ async function reader(app,n,focus){
     el('div',{class:'card'},el('div',{class:'toolbar'},el('div',{},el('label',{},'السورة'),sel),el('div',{},el('label',{},'الانتقال إلى آية'),jump),el('div',{},el('label',{},'حجم الخط'),rng),el('div',{},el('label',{},'بحث'),find)),fres,
       el('div',{style:'display:flex;gap:8px;flex-wrap:wrap;align-items:center'},n>1?el('a',{class:'btn ghost sm',href:'#/quran/'+(n-1)},'→ السابقة'):'',n<114?el('a',{class:'btn ghost sm',href:'#/quran/'+(n+1)},'التالية ←'):'',el('a',{class:'btn ghost sm',href:'#/quran'},'فهرس السور'),modeBtn,el('label',{style:'display:inline-flex;gap:6px;align-items:center;margin:0;color:var(--ink)'},el('input',{type:'checkbox',...(tjOn?{checked:true}:{}),on:{change:ev=>{store.set('tj',ev.target.checked);route()}}}),'تلوين التجويد'),el('label',{style:'display:inline-flex;gap:6px;align-items:center;margin:0;color:var(--ink)'},el('input',{type:'checkbox',...(store.get('tr',false)?{checked:true}:{}),on:{change:ev=>{store.set('tr',ev.target.checked);route()}}}),'عرض الترجمة الإنجليزية'),el('span',{class:'small'},'اضغط على أي آية لحفظ موضعك وإشارتها.')),tjOn?tjLegend():''),
     box);
+  app.insertBefore(audioPanel(n,d.ayat.length),box);
   if(store.get('tr',false))showTranslation(app,n);
   if(!store.get('last',null)||store.get('last').s!==n)store.set('last',{s:n,a:1});
   if(focus)setTimeout(()=>go(focus),150);
