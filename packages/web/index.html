@@ -48,7 +48,8 @@ table{width:100%;border-collapse:collapse}th,td{text-align:right;padding:7px 9px
 .surahs a{display:flex;gap:10px;align-items:center;padding:10px 12px;border:1px solid var(--line);border-radius:12px;background:var(--card);text-decoration:none;color:var(--ink)}.surahs a:hover{border-color:var(--accent);background:var(--soft)}
 .surahs .n{min-width:34px;height:34px;border-radius:10px;background:var(--soft);color:var(--accent2);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px}
 .surahs b{display:block;font-size:17px;line-height:1.3}.surahs span.c{font-size:12px;color:var(--mute)}
-.mushaf{max-width:780px;margin:0 auto;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px 20px;box-shadow:var(--shadow);text-align:justify;text-align-last:center}
+.mushaf{max-width:780px;margin:0 auto;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px 20px;box-shadow:var(--shadow);text-align:start;text-align-last:center}
+@supports (text-justify:inter-word){.mushaf:not(.lines){text-align:justify;text-justify:inter-word}}   /* WebKit has no inter-word justification and stretches Arabic inside words, so it keeps start alignment */
 .mushaf .ayah{font-size:var(--fs,30px)}.mushaf .a{cursor:pointer;border-radius:8px;padding:0 2px}.mushaf .a:hover{background:var(--soft)}.mushaf .a.bm{background:rgba(184,138,46,.22)}.mushaf .a.hit{background:rgba(28,107,80,.22)}.mushaf .a.playing{background:rgba(184,138,46,.38);box-shadow:0 0 0 2px rgba(184,138,46,.55)}
 .mushaf.lines .a{display:block;padding:4px 6px;border-bottom:1px dashed var(--line)}
 .num{color:var(--goldtx);font-family:"Noto Naskh Arabic",serif;font-size:.7em;margin:0 3px}

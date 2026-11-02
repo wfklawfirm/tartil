@@ -67,3 +67,6 @@ Migration 0012 applied live and committed: search_path pinned on app.is_staff an
 
 ## 2026-11-02 letter joining
 Reported from an iPhone: letters looked detached in tajweed-coloured text. Cause: WebKit breaks joining at inline-element boundaries. Fix: `tajweedJoin` adds zero-width joiners at styled boundaries where letters connect (display only, tested). Verified in Chromium; unverified on real Safari.
+
+## 2026-11-02 justification
+iPhone check after the joiner fix: coloured letters now connect. Remaining odd gaps and over-stretched word spacing came from `text-align: justify` (WebKit stretches Arabic inside words). Mushaf now uses start alignment, with inter-word justification only where the browser supports `text-justify`. Verified in Chromium; the iPhone result is for the owner to confirm.
