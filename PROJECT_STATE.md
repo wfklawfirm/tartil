@@ -64,3 +64,6 @@ Migration 0012 applied live and committed: search_path pinned on app.is_staff an
 
 ## 2026-11-02 search
 `GET /search?q=&lang=ar|en` live in edge function v18 (verified on real data: "الحمد لله" 23 hits incl. 1:2; English "mercy" 138). UI: `#/search` and a "بحث" nav item; each result links to the ayah in the reader. API tests 30/30.
+
+## 2026-11-02 letter joining
+Reported from an iPhone: letters looked detached in tajweed-coloured text. Cause: WebKit breaks joining at inline-element boundaries. Fix: `tajweedJoin` adds zero-width joiners at styled boundaries where letters connect (display only, tested). Verified in Chromium; unverified on real Safari.

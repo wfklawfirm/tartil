@@ -832,8 +832,20 @@ function tajweedClassify(text){
       if(nx.c.b==='ب')out[i]='ikhfa';else if(nx.c.b==='م'&&nx.crossed)out[i]='idg_g'}
   }
   return cl.map((c,i)=>({t:c.t,cls:out[i]}))}
+const TJ_DUAL=new Set('بتثجحخسشصضطظعغفقكلمنهيئى');
+/** WebKit (iPhone/Safari) cuts Arabic letter-joining at the edge of an inline element, so every coloured letter looked detached.
+ *  A zero-width joiner on BOTH sides of a styled boundary, only where the letters really connect, restores the joined forms.
+ *  Display layer only: nothing stored changes, and removing the joiners gives back the original text exactly. */
+function tajweedJoin(items){
+  const out=items.map(x=>({t:x.t,cls:x.cls})),bs=items.map(x=>x.t[0]||''),L=/[ء-غف-يٱ]/;
+  for(let i=0;i+1<out.length;i++){
+    if(!out[i].cls&&!out[i+1].cls)continue;
+    const a=bs[i],b=bs[i+1];
+    if(!L.test(a)||!L.test(b)||!TJ_DUAL.has(a)||b==='ء')continue;
+    out[i].t+='\u200D';out[i+1].t='\u200D'+out[i+1].t}
+  return out}
 function tajweedNodes(text){
-  return tajweedClassify(text).map(x=>x.cls?el('span',{class:'tj tj-'+x.cls,title:TJC[x.cls][0]},x.t):x.t)}
+  return tajweedJoin(tajweedClassify(text)).map(x=>x.cls?el('span',{class:'tj tj-'+x.cls,title:TJC[x.cls][0]},x.t):x.t)}
 async function showTranslation(app,n){
   const c=el('div',{class:'card'},el('h2',{},'الترجمة الإنجليزية'),el('p',{class:'small'},'جارٍ التحميل…'));app.append(c);
   try{
