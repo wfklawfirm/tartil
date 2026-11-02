@@ -52,3 +52,6 @@ Migration 0011 (translation tables, immutability, hash, range checks, RLS) appli
 
 ## 2026-11-02 recitation audio
 Reader now has a player (115 Hafs reciters, speed, repeat-ayah, start-from-ayah, live ayah highlight) streaming from mp3quran.net; CSP updated (connect-src www.mp3quran.net, media-src *.mp3quran.net). Browser-tested against the live APIs: list loads, audio plays, ayah highlighted, playback stops on navigation. Terms unstated: see LICENSE_REGISTER.
+
+## 2026-11-02 onboarding and discoverability
+Landing cards are now clickable (14 cards: audio and translation added; sign-in-only features are labelled). A signed-in user with no institution sees a "start for yourself" block (hifz, quizzes, mastery map, audio, sanad) and a one-click "create my institution" that also installs the eight draft curriculum templates (optional checkbox) and lands on the overview checklist. Browser-tested end to end on PGlite (register, create, templates installed, no page errors).

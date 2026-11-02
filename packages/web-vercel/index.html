@@ -136,21 +136,23 @@ window.addEventListener('hashchange',route);
 /* ---------- landing ---------- */
 async function landing(app){
   const todayBox=el('div',{class:'ayat'});
-  const feat=(ic,t,d)=>el('div',{class:'feat'},el('div',{class:'ic'},ic),el('b',{},t),el('span',{class:'small'},d));
+  const feat=(ic,t,d,h,l)=>el('div',{class:'feat'},el('div',{class:'ic'},ic),el('b',{},t),el('span',{class:'small'},d),h?el('a',{class:'btn ghost sm',style:'margin-top:8px;align-self:flex-start',href:h},l||'افتح'):'');
   app.replaceChildren(
     el('section',{class:'hero'},el('h1',{},'تعلّم القرآن وأتقن تلاوته'),
       el('p',{},'منصة عربية تجمع قراءة المصحف كاملًا، ومسارات تعلّم مرتّبة، وحلقات مباشرة، وتسجيل التلاوة وتقييمها على يد مقرئ بشري.'),
       el('div',{},el('a',{class:'btn',href:'#/quran'},'اقرأ القرآن الآن'),el('a',{class:'btn alt',href:'#/tajweed'},'تعلّم التجويد'),token?el('a',{class:'btn alt',href:'#/app'},'افتح لوحتي'):el('a',{class:'btn alt',href:'#/auth'},'أنشئ حسابك مجانًا')),todayBox),
     el('h2',{},'ما الذي تجده هنا؟'),
     el('div',{class:'grid'},
-      feat('📖','المصحف كاملًا','114 سورة بالرسم العثماني، رواية حفص عن عاصم، مع بحث وإشارات مرجعية وتكبير الخط ومتابعة القراءة.'),
-      feat('🔤','مكتبة التجويد','مخارج الحروف السبعة عشر، وصفاتها، وأحكام النون والميم والمدود، ومستكشف للحروف، مع أمثلة تُعرض من نص المصحف نفسه. (محتوى تمهيدي قيد المراجعة العلمية)'),
-      feat('🔁','حفظ ومراجعة ذكية','أضف المقاطع التي تحفظها فتجدول المنصة مراجعتها بتباعد تدريجي، وتتابع أيامك المتتالية وما بلغ حفظه من كل سورة.'),
-      feat('✅','اختبر نفسك','اختبارات في المخارج والصفات وأحكام النون والميم والمدود، واختبار «أكمل الآية» يُولَّد من نص المصحف. (تمهيدية قيد المراجعة العلمية)'),
-      feat('🗺️','خريطة الإتقان','لوحة بالسور الـ114 تُظهر تقدّم حفظك، ومهارات التجويد من نتائج اختباراتك.'),
+      feat('🎧','استمع إلى التلاوة','أكثر من مئة قارئ برواية حفص، مع تمييز الآية الجارية وتكرارها للحفظ وتغيير السرعة. تُبثّ التلاوة من خدمة mp3quran.net العامة.','#/quran/1','استمع الآن'),
+      feat('🌐','ترجمة المعاني بالإنجليزية','ترجمة Clear Quran (Talal Itani) تُعرض اختياريًّا تحت المصحف مع النسبة إلى مترجمها. ليست قرآنًا، ولم يراجعها مراجع شرعي بعد.','#/quran/1','جرّبها في القارئ'),
+      feat('📖','المصحف كاملًا','114 سورة بالرسم العثماني، رواية حفص عن عاصم، مع بحث وإشارات مرجعية وتكبير الخط ومتابعة القراءة.','#/quran','اقرأ'),
+      feat('🔤','مكتبة التجويد','مخارج الحروف السبعة عشر، وصفاتها، وأحكام النون والميم والمدود، ومستكشف للحروف، مع أمثلة تُعرض من نص المصحف نفسه. (محتوى تمهيدي قيد المراجعة العلمية)','#/tajweed','افتح المكتبة'),
+      feat('🔁','حفظ ومراجعة ذكية','أضف المقاطع التي تحفظها فتجدول المنصة مراجعتها بتباعد تدريجي، وتتابع أيامك المتتالية وما بلغ حفظه من كل سورة.','#/me/hifz','ابدأ الحفظ (يتطلب حسابًا)'),
+      feat('✅','اختبر نفسك','اختبارات في المخارج والصفات وأحكام النون والميم والمدود، واختبار «أكمل الآية» يُولَّد من نص المصحف. (تمهيدية قيد المراجعة العلمية)','#/me/quiz','اختبر نفسك (يتطلب حسابًا)'),
+      feat('🗺️','خريطة الإتقان','لوحة بالسور الـ114 تُظهر تقدّم حفظك، ومهارات التجويد من نتائج اختباراتك.','#/me/map','خريطتي (يتطلب حسابًا)'),
       feat('📱','تثبيت على الهاتف','تُثبَّت كتطبيق على هاتفك، ويُقرأ المصحف الذي فتحته من قبل دون اتصال.'),
-      feat('📜','القراءات والإسناد','تعريف بالقراءات العشر ورواتها، وسجلّ لتدوين سندك يوثّقه مراجع علمي بشري عند الاطّلاع على ما يثبته. المنصة لا تُصدر إجازات.'),
-      feat('🧭','مسارات ومناهج','تضع المؤسسة مسارات من وحدات (تلاوة، حفظ، تجويد، مراجعة) ويتابع الطالب تقدّمه وحدة بعد وحدة.'),
+      feat('📜','القراءات والإسناد','تعريف بالقراءات العشر ورواتها، وسجلّ لتدوين سندك يوثّقه مراجع علمي بشري عند الاطّلاع على ما يثبته. المنصة لا تُصدر إجازات.','#/qiraat','القراءات'),
+      feat('🧭','مسارات ومناهج','تضع المؤسسة مسارات من وحدات (تلاوة، حفظ، تجويد، مراجعة) ويتابع الطالب تقدّمه وحدة بعد وحدة.','#/app','لوحة المؤسسة (يتطلب حسابًا)'),
       feat('🕌','حلقات مباشرة','جلسات بموعد وحضور، وغرفة اتصال مرئي لا تُفتح إلا قبل الموعد، وبحضور المقرئ.'),
       feat('🎙️','تلاوتك أمام مقرئ','سجّل تلاوتك من المتصفح، يستمع إليها المقرئ المعيّن لك ويكتب ملاحظاته ومستويات الملاحظة.'),
       feat('🪪','جواز التعلّم والشهادات','سجلّ تقدّمك وشهادات إتمام المساق، قابلة للتحقق برمز عام، وهي ليست إجازة.'),
@@ -292,13 +294,18 @@ async function dashboard(app,parts){
   if(!ME){try{ME=await api('GET','/me')}catch(e){setToken(null);location.hash='#/auth';return}}
   renderNav('app');
   const insts=[...new Map(ME.memberships.map(m=>[m.institutionId,m])).values()];
-  const newInst=()=>{const box=el('div'),name=el('input'),slug=el('input',{dir:'ltr',placeholder:'dar-example'});
-    return el('div',{},el('h2',{},'إنشاء مؤسسة جديدة (أكاديمية / مدرسة / حلقة)'),el('p',{class:'small'},'تصبح أنت مديرها، وتضيف إليها المقرئين والطلاب بالبريد الإلكتروني (يجب أن يكونوا مسجّلين في المنصة).'),
-      el('div',{class:'row'},field('اسم المؤسسة',name),field('المعرّف بالإنجليزية (حروف صغيرة وأرقام وشرطة)',slug)),
-      el('button',{on:{click:()=>run(box,async()=>{await api('POST','/institutions',{name:name.value.trim(),slug:slug.value.trim()});ME=await api('GET','/me');route()})}},'إنشاء'),box)};
+  const newInst=()=>{const box=el('div'),name=el('input'),slug=el('input',{dir:'ltr',placeholder:'اتركه فارغًا للتوليد التلقائي'}),tpl=el('input',{type:'checkbox',checked:true});
+    return el('div',{},el('h2',{},'أنشئ مؤسستك (أكاديمية / مدرسة / حلقة)'),el('p',{class:'small'},'تصبح أنت مديرها، وتضيف إليها المقرئين والطلاب بالبريد الإلكتروني (يجب أن يكونوا مسجّلين في المنصة).'),
+      el('div',{class:'row'},field('اسم المؤسسة',name),field('المعرّف بالإنجليزية (اختياري)',slug)),
+      el('label',{style:'display:flex;gap:8px;align-items:flex-start;color:var(--ink)'},tpl,'أنشئ معها المسارات الجاهزة الثمانية كمسوّدات (مبدئية، قيد المراجعة العلمية؛ تراجعها وتنشرها بنفسك).'),
+      el('button',{on:{click:()=>run(box,async()=>{
+        const sg=slug.value.trim()||('inst-'+Math.random().toString(36).slice(2,10));
+        const r=await api('POST','/institutions',{name:name.value.trim(),slug:sg});
+        if(tpl.checked)for(const t of TEMPLATES)await api('POST','/i/'+r.id+'/tracks',{title:t.title,description:t.description,units:t.units});
+        ME=await api('GET','/me');location.hash='#/app/'+r.id+'/overview';route()})}},'إنشاء مؤسستي'),box)};
   if(!insts.length){
     app.replaceChildren(el('div',{class:'card'},el('h2',{},'أهلًا '+ME.displayName),el('p',{},'حسابك جاهز. لم تُضَف إلى أي مؤسسة بعد. لديك خياران:'),
-      el('ul',{},el('li',{},'أن يضيفك مدير مؤسستك بالبريد الذي سجّلت به (بدور طالب أو مقرئ أو وليّ أمر).'),el('li',{},'أو تنشئ مؤسستك بنفسك أدناه فتكون مديرها.')),el('p',{},'وفي الأثناء يمكنك ',el('a',{href:'#/quran'},'قراءة القرآن'),'.')),el('div',{class:'card'},newInst()));return}
+      el('ul',{},el('li',{},'أن يضيفك مدير مؤسستك بالبريد الذي سجّلت به (بدور طالب أو مقرئ أو وليّ أمر).'),el('li',{},'أو تنشئ مؤسستك بنفسك أدناه فتكون مديرها.')),el('p',{},'وفي الأثناء يمكنك ',el('a',{href:'#/quran'},'قراءة القرآن'),'.')),el('div',{class:'card'},el('h2',{},'ابدأ لنفسك الآن (دون مؤسسة)'),el('div',{class:'grid'},[['🔁','أضف مقاطع للحفظ ليجدول لك مراجعتها','#/me/hifz'],['✅','اختبر نفسك في التجويد','#/me/quiz'],['🗺️','خريطة إتقانك','#/me/map'],['🎧','استمع وكرّر الآية للحفظ','#/quran/1'],['📜','سجّل سندك للمراجعة العلمية','#/me/sanad']].map(([i,t,h])=>el('div',{class:'feat'},el('div',{class:'ic'},i),el('b',{},t),el('a',{class:'btn ghost sm',style:'margin-top:8px;align-self:flex-start',href:h},'افتح'))))),el('div',{class:'card'},newInst()));return}
   const id=parts[1]&&insts.some(i=>i.institutionId===parts[1])?parts[1]:insts[0].institutionId,sec=SECTIONS.some(s=>s[0]===parts[2])?parts[2]:'overview';
   const inst=insts.find(i=>i.institutionId===id),roles=ME.memberships.filter(m=>m.institutionId===id).map(m=>m.role);
   const ctx={inst,id,b:'/i/'+id,roles,has:r=>roles.includes(r),staff:roles.includes('tenant_admin')||roles.includes('qari'),admin:roles.includes('tenant_admin'),people:new Map(),list:[]};
