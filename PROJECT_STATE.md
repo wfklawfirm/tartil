@@ -70,3 +70,6 @@ Reported from an iPhone: letters looked detached in tajweed-coloured text. Cause
 
 ## 2026-11-02 justification
 iPhone check after the joiner fix: coloured letters now connect. Remaining odd gaps and over-stretched word spacing came from `text-align: justify` (WebKit stretches Arabic inside words). Mushaf now uses start alignment, with inter-word justification only where the browser supports `text-justify`. Verified in Chromium; the iPhone result is for the owner to confirm.
+
+## 2026-11-02 tajweed colouring via Highlight API
+Owner reported the detached letters/gaps remained on iPhone after joiner and alignment fixes. Colouring now uses CSS Custom Highlight API ranges over a single text node (fallback: spans + joiners). Chromium check: 7 highlight classes, 0 spans.

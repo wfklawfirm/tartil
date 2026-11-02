@@ -256,7 +256,7 @@ async function reader(app,n,focus){
   const box=el('div',{class:'mushaf'+(mode==='lines'?' lines':''),style:'--fs:'+fs+'px'});
   const text=el('p',{class:'ayah'});
   let bsm='';try{bsm=(await surahData(1)).ayat[0].text}catch{}
-  const spans=d.ayat.map(a=>el('span',{class:'a'+(marks.has(n+':'+a.ayah)?' bm':''),id:'a'+a.ayah,title:'اضغط لوضع/إزالة إشارة مرجعية',on:{click:ev=>{const on=toggleBm(n,a.ayah);ev.currentTarget.classList.toggle('bm',on);store.set('last',{s:n,a:a.ayah})}}},tjOn?tajweedNodes(a.text):a.text,el('span',{class:'num'},'﴿'+ar(a.ayah)+'﴾'),' '));
+  tajweedReset();const spans=d.ayat.map(a=>el('span',{class:'a'+(marks.has(n+':'+a.ayah)?' bm':''),id:'a'+a.ayah,title:'اضغط لوضع/إزالة إشارة مرجعية',on:{click:ev=>{const on=toggleBm(n,a.ayah);ev.currentTarget.classList.toggle('bm',on);store.set('last',{s:n,a:a.ayah})}}},tjOn?tajweedNodes(a.text):a.text,el('span',{class:'num'},'﴿'+ar(a.ayah)+'﴾'),' '));
   text.append(...spans);
   box.append(el('div',{class:'sname'},surahName(n)),(n!==1&&n!==9&&bsm)?el('p',{class:'ayah bsm'},bsm):'',text,el('p',{class:'small',style:'text-align:center'},d.attribution));
   const sel=surahSelect(n);sel.setAttribute('aria-label','السورة');sel.addEventListener('change',()=>{location.hash='#/quran/'+sel.value});
@@ -845,7 +845,19 @@ function tajweedJoin(items){
     if(!L.test(a)||!L.test(b)||!TJ_DUAL.has(a)||b==='ء')continue;
     out[i].t+='\u200D';out[i+1].t='\u200D'+out[i+1].t}
   return out}
+/** Preferred path: CSS Custom Highlight API. The verse stays ONE plain text node and the colours are painted over character ranges,
+ *  so the browser shapes every word exactly as it would uncoloured (no inline-element boundaries, no joiners). Fallback: spans + joiners. */
+const TJ_HL=typeof CSS!=='undefined'&&CSS.highlights&&typeof Highlight!=='undefined';
+if(TJ_HL){const st=document.createElement('style');st.textContent=Object.entries(TJC).map(([k,v])=>'::highlight(tj-'+k+'){color:'+v[1]+'}').join('\n');document.head.append(st)}
+function tajweedReset(){if(TJ_HL)for(const k in TJC)CSS.highlights.delete('tj-'+k)}
 function tajweedNodes(text){
+  if(TJ_HL){
+    const node=document.createTextNode(text);let off=0;
+    for(const x of tajweedClassify(text)){
+      if(x.cls){const r=new Range();r.setStart(node,off);r.setEnd(node,off+x.t.length);
+        let h=CSS.highlights.get('tj-'+x.cls);if(!h){h=new Highlight();CSS.highlights.set('tj-'+x.cls,h)}h.add(r)}
+      off+=x.t.length}
+    return [node]}
   return tajweedJoin(tajweedClassify(text)).map(x=>x.cls?el('span',{class:'tj tj-'+x.cls,title:TJC[x.cls][0]},x.t):x.t)}
 async function showTranslation(app,n){
   const c=el('div',{class:'card'},el('h2',{},'الترجمة الإنجليزية'),el('p',{class:'small'},'جارٍ التحميل…'));app.append(c);
