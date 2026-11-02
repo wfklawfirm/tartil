@@ -55,3 +55,6 @@ Reader now has a player (115 Hafs reciters, speed, repeat-ayah, start-from-ayah,
 
 ## 2026-11-02 onboarding and discoverability
 Landing cards are now clickable (14 cards: audio and translation added; sign-in-only features are labelled). A signed-in user with no institution sees a "start for yourself" block (hifz, quizzes, mastery map, audio, sanad) and a one-click "create my institution" that also installs the eight draft curriculum templates (optional checkbox) and lands on the overview checklist. Browser-tested end to end on PGlite (register, create, templates installed, no page errors).
+
+## 2026-11-02 tafsir panel
+Reader has a collapsible tafsir panel (Jalalayn, Ibn Kathir, Qurtubi, Baghawi, Tabari), fetched on demand from tafsir_api (jsDelivr/raw GitHub), CSP extended. Browser-tested live (Jalalayn and Ibn Kathir for 2:255). Terms unstated, see LICENSE_REGISTER.

@@ -233,6 +233,21 @@ function audioPanel(n,count){
     AUD=au;load();
   })();
   return panel}
+
+/* ---------- classical tafsir: fetched on demand from the public tafsir_api repository; nothing is stored by us ---------- */
+const TAFSIRS=[['ar-tafsir-al-jalalayn','تفسير الجلالين','jd'],['ar-tafsir-ibn-kathir','تفسير ابن كثير','raw'],['ar-tafseer-al-qurtubi','تفسير القرطبي','raw'],['ar-tafsir-al-baghawi','تفسير البغوي','jd'],['ar-tafsir-al-tabari','تفسير الطبري','jd']];
+function tafsirPanel(n,count){
+  const sel=el('select',{'aria-label':'التفسير'},TAFSIRS.map(([v,t])=>el('option',{value:v},t))),sv=store.get('tf',null);if(sv&&TAFSIRS.some(x=>x[0]===sv))sel.value=sv;
+  const last=store.get('last',null),num=el('input',{type:'number',min:1,max:count,value:last&&last.s===n?last.a:1,'aria-label':'رقم الآية',style:'max-width:110px'}),out=el('div');
+  const show=()=>{const a=Math.min(count,Math.max(1,+num.value||1)),ed=TAFSIRS.find(x=>x[0]===sel.value);store.set('tf',sel.value);
+    const url=ed[2]==='jd'?'https://cdn.jsdelivr.net/gh/spa5k/tafsir_api@main/tafsir/'+ed[0]+'/'+n+'/'+a+'.json':'https://raw.githubusercontent.com/spa5k/tafsir_api/main/tafsir/'+ed[0]+'/'+n+'/'+a+'.json';
+    out.replaceChildren(el('div',{class:'small'},'جارٍ التحميل…'));
+    fetch(url).then(r=>{if(!r.ok)throw new Error('x');return r.json()}).then(j=>{const t=String(j.text||'').trim();
+      out.replaceChildren(el('h3',{style:'margin:10px 0 4px'},ed[1]+' — '+surahName(n)+'، الآية '+ar(a)),t?el('div',{style:'white-space:pre-wrap;line-height:2;max-height:420px;overflow:auto;border:1px solid var(--line,#ddd);border-radius:10px;padding:10px'},t):el('div',{class:'small'},'لا يتوفر نص لهذه الآية في هذا التفسير (قد يكون تفسيرها مدمجًا مع آية مجاورة).'))})
+     .catch(()=>out.replaceChildren(el('div',{class:'msg err'},'تعذّر تحميل التفسير الآن. أعد المحاولة لاحقًا.')))};
+  return el('details',{class:'card'},el('summary',{style:'cursor:pointer;font-weight:700'},'التفسير (كتب التفسير الكلاسيكية)'),
+    el('div',{class:'toolbar',style:'margin-top:10px'},el('div',{},el('label',{},'الكتاب'),sel),el('div',{},el('label',{},'رقم الآية'),num),el('button',{class:'sm',on:{click:show}},'اعرض التفسير')),out,
+    el('p',{class:'small'},'نصوص التفاسير تُجلب عند الطلب من مستودع tafsir_api العام (مصدرها qul.tarteel.ai وquran.com) ولا نخزّنها ولا نعدّلها. لم نوقّع اتفاقًا مع أحد، وتراخيص النسخ الرقمية غير منصوصة. هي مرجع للدراسة غير مراجَع علميًّا في المنصة، وليست فتوى ولا حكمًا شرعيًّا.'))}
 async function reader(app,n,focus){
   stopAudio();
   const d=await surahData(n),fs=store.get('fs',30),mode=store.get('mode','flow'),marks=bm(),tjOn=store.get('tj',false);
@@ -255,6 +270,7 @@ async function reader(app,n,focus){
       el('div',{style:'display:flex;gap:8px;flex-wrap:wrap;align-items:center'},n>1?el('a',{class:'btn ghost sm',href:'#/quran/'+(n-1)},'→ السابقة'):'',n<114?el('a',{class:'btn ghost sm',href:'#/quran/'+(n+1)},'التالية ←'):'',el('a',{class:'btn ghost sm',href:'#/quran'},'فهرس السور'),modeBtn,el('label',{style:'display:inline-flex;gap:6px;align-items:center;margin:0;color:var(--ink)'},el('input',{type:'checkbox',...(tjOn?{checked:true}:{}),on:{change:ev=>{store.set('tj',ev.target.checked);route()}}}),'تلوين التجويد'),el('label',{style:'display:inline-flex;gap:6px;align-items:center;margin:0;color:var(--ink)'},el('input',{type:'checkbox',...(store.get('tr',false)?{checked:true}:{}),on:{change:ev=>{store.set('tr',ev.target.checked);route()}}}),'عرض الترجمة الإنجليزية'),el('span',{class:'small'},'اضغط على أي آية لحفظ موضعك وإشارتها.')),tjOn?tjLegend():''),
     box);
   app.insertBefore(audioPanel(n,d.ayat.length),box);
+  app.insertBefore(tafsirPanel(n,d.ayat.length),box);
   if(store.get('tr',false))showTranslation(app,n);
   if(!store.get('last',null)||store.get('last').s!==n)store.set('last',{s:n,a:1});
   if(focus)setTimeout(()=>go(focus),150);
