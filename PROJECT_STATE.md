@@ -58,3 +58,6 @@ Landing cards are now clickable (14 cards: audio and translation added; sign-in-
 
 ## 2026-11-02 tafsir panel
 Reader has a collapsible tafsir panel (Jalalayn, Ibn Kathir, Qurtubi, Baghawi, Tabari), fetched on demand from tafsir_api (jsDelivr/raw GitHub), CSP extended. Browser-tested live (Jalalayn and Ibn Kathir for 2:255). Terms unstated, see LICENSE_REGISTER.
+
+## 2026-11-02 advisor pass
+Migration 0012 applied live and committed: search_path pinned on app.is_staff and app.translation_ayah_in_range, 18 covering FK indexes. Security advisor now shows only `rate_limits` (RLS on, no policy: intentional, service path only). Unused-index and multiple-permissive-policy (scholarly_items read policies) notes remain INFO/WARN and are deliberate at this data size. DB tests 38/38; live API smoke OK (health, translation, 6236 reference).
