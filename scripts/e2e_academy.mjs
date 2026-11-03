@@ -41,7 +41,9 @@ for (const u of Object.values(lessonsDoc.units)) {
 
 const fails = [];
 const fail = (id, msg) => { fails.push(`${id}: ${msg}`); };
-const BANNED = ['درجة', 'نقطة', 'ترتيبك'];
+// لغة التقييم الموجَّهة للمتعلم فقط (لا «درجة الحرارة» ولا «نقطة» بمعنى فكرة، ولا الأسئلة التي جوابها نفي)
+const BANNED = ['درجتك', 'درجاتك', 'نقاطك', 'ترتيبك بين', 'ترتيبك في الصف', 'حصلت على \\d+ نقطة', 'لوحة المتصدرين'];
+const hit = (t, w) => { const m = new RegExp(w + '(?![\\u0621-\\u064A])').exec(t); return m ? m.index : -1; };
 const ALLOWED = /لا درجات[^.\n]*\.?/g;
 let pageErrors = [];
 let browser;
@@ -57,8 +59,8 @@ try {
 
   const scanText = async id => {
     const t = (await page.locator('#app').innerText()).replace(ALLOWED, '');
-    for (const w of BANNED) if (t.includes(w)) {
-      const i = t.indexOf(w); fail(id, `كلمة محظورة «${w}» … ${t.slice(Math.max(0, i - 25), i + 25).replace(/\s+/g, ' ')}`);
+    for (const w of BANNED) if (hit(t, w) >= 0) {
+      const i = hit(t, w); fail(id, `كلمة محظورة «${w}» … ${t.slice(Math.max(0, i - 25), i + 25).replace(/\s+/g, ' ')}`);
     }
   };
   const hOverflow = async id => {
@@ -68,10 +70,10 @@ try {
   const go = async (hash, waitSel) => {
     if (process.env.E2E_VERBOSE) console.error("->", hash);
     pageErrors = [];
-    await page.goto(`${BASE}/index.html#${hash}`);
-    await page.evaluate(h => { location.hash = h; }, hash).catch(() => {});
+    if (page.url().startsWith(BASE)) await page.evaluate(h => { location.hash = h; }, hash);
+    else await page.goto(`${BASE}/index.html#${hash}`);
     await page.waitForSelector(waitSel || '#app .acx', { timeout: 8000 });
-    await page.waitForTimeout(60);
+    await page.waitForTimeout(30);
   };
   const noErrs = id => { if (pageErrors.length) fail(id, 'أخطاء JS: ' + pageErrors.join(' | ')); };
 
@@ -98,14 +100,25 @@ try {
     const id = 'lesson/' + l;
     try {
       await go('/academy/l/' + l, '.acx h1');
-      await scanText(id); await hOverflow(id);
-      for (let i = 0; i < 40; i++) {
-        const next = page.locator('.nav2 button:not(.ghost)').filter({ hasText: 'التالي' });
-        if (!(await next.count())) break;
-        await next.first().click(); await scanText(id + '#' + (i + 1)); await hOverflow(id + '#' + (i + 1));
-      }
-      const t = await page.locator('#app').innerText();
-      if (!t.includes('ختام الدرس')) fail(id, 'لم يصل إلى «ختام الدرس»');
+      // الخطوات كلها داخل الصفحة: نص كل خطوة + أكبر تجاوز أفقي
+      const r = await page.evaluate(async () => {
+        const texts = [], over = [];
+        const snap = () => { texts.push(document.querySelector('#app').innerText);
+          over.push(document.documentElement.scrollWidth - document.documentElement.clientWidth); };
+        snap();
+        for (let i = 0; i < 40; i++) {
+          const nx = [...document.querySelectorAll('.nav2 button')].find(b => b.textContent.trim() === 'التالي');
+          if (!nx) break; nx.click(); snap();
+        }
+        return { texts, over };
+      });
+      r.texts.forEach((t0, i) => {
+        const t = t0.replace(ALLOWED, '');
+        for (const w of BANNED) if (hit(t, w) >= 0) { const k = hit(t, w);
+          fail(`${id}#${i}`, `كلمة محظورة «${w}» … ${t.slice(Math.max(0, k - 25), k + 25).replace(/\s+/g, ' ')}`); }
+      });
+      const mo = Math.max(...r.over); if (mo > 0) fail(id, `تمرير أفقي بمقدار ${mo}px عند 390`);
+      if (!r.texts[r.texts.length - 1].includes('ختام الدرس')) fail(id, 'لم يصل إلى «ختام الدرس»');
       noErrs(id);
     } catch (e) { fail(id, e.message.split('\n')[0]); }
   }
