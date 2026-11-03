@@ -5,7 +5,7 @@ Writes docs/human-formation/sessions/<PXX>.json (status draft-unreviewed).
 Nothing is invented: titles/objectives/step texts come from the lesson files;
 minutes come from the lesson guide_script offsets (lessons) or from the
 decision depth of the scenario (see SESSIONS.md)."""
-import json, glob, os, sys
+import json, re, glob, os, sys
 ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..')
 HF = os.path.join(ROOT, 'docs/human-formation')
 AR = str.maketrans('٠١٢٣٤٥٦٧٨٩', '0123456789')
@@ -65,6 +65,8 @@ def sessions_per_week(rhythm):
     t = rhythm.translate(AR)
     if 'جلستان' in t: return 2
     if 'ثلاث جلسات' in t: return 3
+    m = re.search(r'(\d+)\s*جلسات', t)
+    if m: return int(m.group(1))
     return 1
 
 def draft(prog):

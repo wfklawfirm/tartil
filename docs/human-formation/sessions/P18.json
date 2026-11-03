@@ -1,0 +1,1153 @@
+{
+ "program": "P18",
+ "status": "draft-unreviewed",
+ "total_sessions": 18,
+ "sessions": [
+  {
+   "session_number": 1,
+   "week": 1,
+   "stage": "P18-A",
+   "title": "أسمع بهدوء",
+   "competency": "K4",
+   "competency_title": "أسمع وأردّد: لحظات قصيرة مع القرآن",
+   "objective": "أن يجلس الطفل بهدوء بجانب وليّ أمره، ويسمع تلاوة بطيئة قصيرة دقيقة أو دقيقتين.",
+   "min_age": 5,
+   "duration_min": 6,
+   "components": [
+    {
+     "type": "intro",
+     "minutes": 2,
+     "ref": {
+      "kind": "lesson",
+      "id": "Y1-L7"
+     },
+     "text": "افتتاحية قصيرة، ثم لعبة الصوتين دقيقة واحدة."
+    },
+    {
+     "type": "source_teaching",
+     "minutes": 2,
+     "ref": {
+      "kind": "lesson",
+      "id": "Y1-L7"
+     },
+     "text": "اجلسا للاستماع إلى تلاوة بطيئة يختارها المعلم، ولا تصحّح شيئًا."
+    },
+    {
+     "type": "interactive_practice",
+     "minutes": 1,
+     "ref": {
+      "kind": "lesson",
+      "id": "Y1-L7"
+     },
+     "text": "اسأل الطفل ماذا أحب، وقل شكرًا للمعلم أو القارئ إن كان حاضرًا."
+    },
+    {
+     "type": "assessment",
+     "minutes": 0,
+     "embedded_in": "interactive_practice",
+     "ref": {
+      "kind": "lesson",
+      "id": "Y1-L7"
+     },
+     "text": "ملاحظة تكوينية وصفية أثناء الممارسة، دون درجات.",
+     "criteria": {
+      "ظهر": "يجلس بهدوء وينتبه للتلاوة القصيرة، ويقول ما أحبه فيها.",
+      "يتدرب": "ينتبه لحظات ثم يتحرك، ويحتاج تذكيرًا لطيفًا بالجلوس.",
+      "يحتاج_دعما": "يحتاج جلسات أقصر وجلوسًا قريبًا من وليّه ومعلّمًا متقنًا يطمئنه."
+     }
+    },
+    {
+     "type": "reflection",
+     "minutes": 1,
+     "ref": {
+      "kind": "lesson",
+      "id": "Y1-L7"
+     },
+     "text": "اختم بالجملة الجامعة والسؤال البيتي."
+    }
+   ],
+   "homework": {
+    "optional": true,
+    "out_of_session": true,
+    "text": "يجلس الطفل مع وليّ أمره دقيقة أو دقيقتين لسماع تلاوة هادئة يختارها المعلم.",
+    "estimated_minutes": 10,
+    "ref": {
+     "kind": "lesson",
+     "id": "Y1-L7"
+    }
+   },
+   "review_status": "unreviewed"
+  },
+  {
+   "session_number": 2,
+   "week": 1,
+   "stage": "P18-A",
+   "title": "أردّد بعده",
+   "competency": "K4",
+   "competency_title": "أسمع وأردّد: لحظات قصيرة مع القرآن",
+   "objective": "أن يردّد الطفل بعد معلمه مقطعًا قصيرًا جدًّا ببطء وصوت واضح، دون أي حكم على أدائه.",
+   "min_age": 5,
+   "duration_min": 8,
+   "components": [
+    {
+     "type": "intro",
+     "minutes": 2,
+     "ref": {
+      "kind": "lesson",
+      "id": "Y1-L8"
+     },
+     "text": "افتتح بلعبة الصدى بكلمات من البيت، وابتسم."
+    },
+    {
+     "type": "source_teaching",
+     "minutes": 4,
+     "ref": {
+      "kind": "lesson",
+      "id": "Y1-L8"
+     },
+     "text": "اجلسوا مع المعلم؛ يقرأ هو مقطعًا قصيرًا ببطء ويردّد الطفل."
+    },
+    {
+     "type": "interactive_practice",
+     "minutes": 1,
+     "ref": {
+      "kind": "lesson",
+      "id": "Y1-L8"
+     },
+     "text": "توقفوا عند أول علامة تعب، وقل شكرًا للمعلم."
+    },
+    {
+     "type": "assessment",
+     "minutes": 0,
+     "embedded_in": "interactive_practice",
+     "ref": {
+      "kind": "lesson",
+      "id": "Y1-L8"
+     },
+     "text": "ملاحظة تكوينية وصفية أثناء الممارسة، دون درجات.",
+     "criteria": {
+      "ظهر": "يردّد بعد المعلم ببطء ويجلس بهدوء أغلب الجلسة.",
+      "يتدرب": "يردّد بعض الكلمات ويحتاج إعادة من المعلم.",
+      "يحتاج_دعما": "يحتاج مقطعًا أقصر وجلسة أقصر وإعادة من المعلم بصبر."
+     }
+    },
+    {
+     "type": "reflection",
+     "minutes": 1,
+     "ref": {
+      "kind": "lesson",
+      "id": "Y1-L8"
+     },
+     "text": "اختم بالجملة الجامعة، دون أي تقييم."
+    }
+   ],
+   "homework": {
+    "optional": true,
+    "out_of_session": true,
+    "text": "يردّد الطفل مع معلمه أو أحد كبار أسرته مقطعًا قصيرًا جدًّا يختاره المعلم.",
+    "estimated_minutes": 10,
+    "ref": {
+     "kind": "lesson",
+     "id": "Y1-L8"
+    }
+   },
+   "review_status": "unreviewed"
+  },
+  {
+   "session_number": 3,
+   "week": 1,
+   "stage": "P18-A",
+   "title": "موعدي القصير",
+   "competency": "K4",
+   "competency_title": "أسمع وأردّد: لحظات قصيرة مع القرآن",
+   "objective": "أن يعرف الطفل أن له موعدًا قصيرًا ثابتًا مع وليّ أمره للاستماع والترديد، وأنه يمكن تعويضه بلا لوم إن فات.",
+   "min_age": 5,
+   "duration_min": 8,
+   "components": [
+    {
+     "type": "intro",
+     "minutes": 1,
+     "ref": {
+      "kind": "lesson",
+      "id": "Y1-L9"
+     },
+     "text": "افتتح بالسؤال واسمع."
+    },
+    {
+     "type": "source_teaching",
+     "minutes": 4,
+     "ref": {
+      "kind": "lesson",
+      "id": "Y1-L9"
+     },
+     "text": "اصنعا معًا ورقة الموعد: الوقت والمكان، دون عدّ."
+    },
+    {
+     "type": "interactive_practice",
+     "minutes": 2,
+     "ref": {
+      "kind": "lesson",
+      "id": "Y1-L9"
+     },
+     "text": "اسأل الطفل أسئلة التأمل، واكتب جوابه إن أحب."
+    },
+    {
+     "type": "assessment",
+     "minutes": 0,
+     "embedded_in": "interactive_practice",
+     "ref": {
+      "kind": "lesson",
+      "id": "Y1-L9"
+     },
+     "text": "ملاحظة تكوينية وصفية أثناء الممارسة، دون درجات.",
+     "criteria": {
+      "ظهر": "يعرف موعده ويجلس فيه مع وليّه بهدوء أغلب الأيام، ويقول ما أحبه.",
+      "يتدرب": "يحتاج تذكيرًا بالموعد ويجلس بعد التذكير.",
+      "يحتاج_دعما": "يحتاج موعدًا أقصر وفي وقت يكون فيه مرتاحًا، وتذكيرًا بصريًّا بسيطًا."
+     }
+    },
+    {
+     "type": "reflection",
+     "minutes": 1,
+     "ref": {
+      "kind": "lesson",
+      "id": "Y1-L9"
+     },
+     "text": "اختم بالجملة الجامعة وذكّره بأن الفوات يُعوَّض بلا لوم."
+    }
+   ],
+   "homework": {
+    "optional": true,
+    "out_of_session": true,
+    "text": "يجلس الطفل في موعده القصير مع وليّ أمره، وإن فاته الموعد يعوّضه في وقت آخر.",
+    "estimated_minutes": 10,
+    "ref": {
+     "kind": "lesson",
+     "id": "Y1-L9"
+    }
+   },
+   "review_status": "unreviewed"
+  },
+  {
+   "session_number": 4,
+   "week": 2,
+   "stage": "P18-A",
+   "title": "موقف: تعبتُ قليلًا",
+   "competency": "K4",
+   "competency_title": "أسمع وأردّد: لحظات قصيرة مع القرآن",
+   "objective": "أن يقرر المتعلم في موقف «تعبتُ قليلًا» ويرى عاقبة اختياره.",
+   "min_age": 5,
+   "duration_min": 6,
+   "components": [
+    {
+     "type": "intro",
+     "minutes": 2,
+     "ref": {
+      "kind": "scenario",
+      "id": "Y1-S4"
+     },
+     "text": "قراءة مقدمة الموقف."
+    },
+    {
+     "type": "interactive_practice",
+     "minutes": 2,
+     "ref": {
+      "kind": "scenario",
+      "id": "Y1-S4"
+     },
+     "text": "يختار المتعلمون في 1 قرارات متتابعة ويقرؤون عاقبة كل اختيار."
+    },
+    {
+     "type": "reflection",
+     "minutes": 2,
+     "ref": {
+      "kind": "scenario",
+      "id": "Y1-S4"
+     },
+     "text": "حديث عن النهاية التي وصلوا إليها وسؤال التأمل في آخر الموقف."
+    }
+   ],
+   "review_status": "unreviewed"
+  },
+  {
+   "session_number": 5,
+   "week": 2,
+   "stage": "P18-B",
+   "title": "لكل متكلم نوبة",
+   "competency": "R1",
+   "competency_title": "أسمع بأذني وعيني: لكل متكلم نوبة",
+   "objective": "أن يعرف الطفل أن لكل متكلم نوبة، وأن ينتظر نوبته ويطلبها بلطف.",
+   "min_age": 6,
+   "duration_min": 8,
+   "components": [
+    {
+     "type": "intro",
+     "minutes": 1,
+     "ref": {
+      "kind": "lesson",
+      "id": "Y1-L10"
+     },
+     "text": "افتتح بالسؤال، واسمع جواب الطفل بلا حكم."
+    },
+    {
+     "type": "source_teaching",
+     "minutes": 3,
+     "ref": {
+      "kind": "lesson",
+      "id": "Y1-L10"
+     },
+     "text": "اقرأ قصة الملعقة ببطء، ثم اسأل سؤالين."
+    },
+    {
+     "type": "interactive_practice",
+     "minutes": 3,
+     "ref": {
+      "kind": "lesson",
+      "id": "Y1-L10"
+     },
+     "text": "العبوا «من يمسك الملعقة يتكلم» وشاركه اللعب."
+    },
+    {
+     "type": "assessment",
+     "minutes": 0,
+     "embedded_in": "interactive_practice",
+     "ref": {
+      "kind": "lesson",
+      "id": "Y1-L10"
+     },
+     "text": "ملاحظة تكوينية وصفية أثناء الممارسة، دون درجات.",
+     "criteria": {
+      "ظهر": "ينتظر نوبته في اللعبة ويطلبها بلطف.",
+      "يتدرب": "ينتظر قليلًا ثم يقاطع، ويقبل التذكير اللطيف.",
+      "يحتاج_دعما": "يحتاج لعبة قصيرة جدًّا مع الكبير وإشارة بصرية للنوبة."
+     }
+    },
+    {
+     "type": "reflection",
+     "minutes": 1,
+     "ref": {
+      "kind": "lesson",
+      "id": "Y1-L10"
+     },
+     "text": "اختم بالجملة الجامعة واسأل السؤال البيتي."
+    }
+   ],
+   "homework": {
+    "optional": true,
+    "out_of_session": true,
+    "text": "يجرّب الطفل في وجبة أو جلسة عائلية أن ينتظر نوبته في الكلام.",
+    "estimated_minutes": 10,
+    "ref": {
+     "kind": "lesson",
+     "id": "Y1-L10"
+    }
+   },
+   "review_status": "unreviewed"
+  },
+  {
+   "session_number": 6,
+   "week": 2,
+   "stage": "P18-B",
+   "title": "لماذا ننتظر؟",
+   "competency": "R1",
+   "competency_title": "أسمع بأذني وعيني: لكل متكلم نوبة",
+   "objective": "أن يقول الطفل لماذا ننتظر المتكلم، ويفرّق بين من سكت فقط ومن أنصت بعينيه وأذنيه.",
+   "min_age": 6,
+   "duration_min": 8,
+   "components": [
+    {
+     "type": "intro",
+     "minutes": 1,
+     "ref": {
+      "kind": "lesson",
+      "id": "Y1-L11"
+     },
+     "text": "افتتح بالسؤال، واسمع الجواب."
+    },
+    {
+     "type": "source_teaching",
+     "minutes": 4,
+     "ref": {
+      "kind": "lesson",
+      "id": "Y1-L11"
+     },
+     "text": "مثّل المشهدين في لعبة «هل أنصت؟» ثم بدّلا الأدوار."
+    },
+    {
+     "type": "interactive_practice",
+     "minutes": 2,
+     "ref": {
+      "kind": "lesson",
+      "id": "Y1-L11"
+     },
+     "text": "ناقشا «عيناي وأذناي معك» بسؤالين."
+    },
+    {
+     "type": "assessment",
+     "minutes": 0,
+     "embedded_in": "interactive_practice",
+     "ref": {
+      "kind": "lesson",
+      "id": "Y1-L11"
+     },
+     "text": "ملاحظة تكوينية وصفية أثناء الممارسة، دون درجات.",
+     "criteria": {
+      "ظهر": "يفرّق بين السكوت والإنصات ويقول لماذا ننتظر بكلماته.",
+      "يتدرب": "يفرّق بعد مثال ويحتاج تذكيرًا بالنظر إلى المتكلم.",
+      "يحتاج_دعما": "يحتاج تمثيلًا بالدمى ولعبة أقصر، ولا يُلام على الحركة."
+     }
+    },
+    {
+     "type": "reflection",
+     "minutes": 1,
+     "ref": {
+      "kind": "lesson",
+      "id": "Y1-L11"
+     },
+     "text": "اختم بالجملة الجامعة."
+    }
+   ],
+   "homework": {
+    "optional": true,
+    "out_of_session": true,
+    "text": "يجرب الطفل اليوم أن ينصت لأحد بعينيه وأذنيه دقيقة واحدة.",
+    "estimated_minutes": 10,
+    "ref": {
+     "kind": "lesson",
+     "id": "Y1-L11"
+    }
+   },
+   "review_status": "unreviewed"
+  },
+  {
+   "session_number": 7,
+   "week": 3,
+   "stage": "P18-B",
+   "title": "أقول ما سمعت",
+   "competency": "R1",
+   "competency_title": "أسمع بأذني وعيني: لكل متكلم نوبة",
+   "objective": "أن يعيد الطفل بكلماته جملة قصيرة سمعها بتوجيه من وليّ أمره، ويسأل إن لم يفهم.",
+   "min_age": 6,
+   "duration_min": 10,
+   "components": [
+    {
+     "type": "intro",
+     "minutes": 1,
+     "ref": {
+      "kind": "lesson",
+      "id": "Y1-L12"
+     },
+     "text": "افتتح بالسؤال، واسمع جواب الطفل."
+    },
+    {
+     "type": "source_teaching",
+     "minutes": 2,
+     "ref": {
+      "kind": "lesson",
+      "id": "Y1-L12"
+     },
+     "text": "اشرح قاعدة «أسمع وأتحقق» بمثال واحد."
+    },
+    {
+     "type": "interactive_practice",
+     "minutes": 6,
+     "ref": {
+      "kind": "lesson",
+      "id": "Y1-L12"
+     },
+     "text": "العبا اللعبة، بدّلا الأدوار، ولا تعدّ الأخطاء. ثم جرّبا «أسأل إن لم أفهم» ثلاث مرات."
+    },
+    {
+     "type": "assessment",
+     "minutes": 0,
+     "embedded_in": "interactive_practice",
+     "ref": {
+      "kind": "lesson",
+      "id": "Y1-L12"
+     },
+     "text": "ملاحظة تكوينية وصفية أثناء الممارسة، دون درجات.",
+     "criteria": {
+      "ظهر": "يعيد جملة قصيرة بكلماته ويسأل إن لم يفهم.",
+      "يتدرب": "يعيد الجملة بمساعدة جملة ابتداء مثل «سمعتُ أنك ...».",
+      "يحتاج_دعما": "يحتاج جملًا أقصر وترديدًا مشتركًا مع الكبير قبل الإعادة بكلماته."
+     }
+    },
+    {
+     "type": "reflection",
+     "minutes": 1,
+     "ref": {
+      "kind": "lesson",
+      "id": "Y1-L12"
+     },
+     "text": "اختم بالجملة الجامعة."
+    }
+   ],
+   "homework": {
+    "optional": true,
+    "out_of_session": true,
+    "text": "يعيد الطفل بكلماته جملة سمعها من أحد أفراد أسرته ويتأكد أنه فهمها.",
+    "estimated_minutes": 10,
+    "ref": {
+     "kind": "lesson",
+     "id": "Y1-L12"
+    }
+   },
+   "review_status": "unreviewed"
+  },
+  {
+   "session_number": 8,
+   "week": 3,
+   "stage": "P18-B",
+   "title": "موقف: أريد أن أتكلم الآن",
+   "competency": "R1",
+   "competency_title": "أسمع بأذني وعيني: لكل متكلم نوبة",
+   "objective": "أن يقرر المتعلم في موقف «أريد أن أتكلم الآن» ويرى عاقبة اختياره.",
+   "min_age": 6,
+   "duration_min": 8,
+   "components": [
+    {
+     "type": "intro",
+     "minutes": 2,
+     "ref": {
+      "kind": "scenario",
+      "id": "Y1-S5"
+     },
+     "text": "قراءة مقدمة الموقف."
+    },
+    {
+     "type": "interactive_practice",
+     "minutes": 4,
+     "ref": {
+      "kind": "scenario",
+      "id": "Y1-S5"
+     },
+     "text": "يختار المتعلمون في 2 قرارات متتابعة ويقرؤون عاقبة كل اختيار."
+    },
+    {
+     "type": "reflection",
+     "minutes": 2,
+     "ref": {
+      "kind": "scenario",
+      "id": "Y1-S5"
+     },
+     "text": "حديث عن النهاية التي وصلوا إليها وسؤال التأمل في آخر الموقف."
+    }
+   ],
+   "review_status": "unreviewed"
+  },
+  {
+   "session_number": 9,
+   "week": 3,
+   "stage": "P18-C",
+   "title": "البذرة الصغيرة",
+   "competency": "S3",
+   "competency_title": "عادة صغيرة تنمو",
+   "objective": "أن يسمّي الطفل عادة حسنة يفعلها ويعرف أن الأفعال الصغيرة المتكررة تنمو.",
+   "min_age": 6,
+   "duration_min": 20,
+   "components": [
+    {
+     "type": "intro",
+     "minutes": 4,
+     "ref": {
+      "kind": "lesson",
+      "id": "S3-L1"
+     },
+     "text": "اسأل: هل تعرف شيئًا تفعله كل يوم دون تفكير؟ واستمع لإجابة أو اثنتين."
+    },
+    {
+     "type": "source_teaching",
+     "minutes": 6,
+     "ref": {
+      "kind": "lesson",
+      "id": "S3-L1"
+     },
+     "text": "اقرأ قصة شهد والبذرة ببطء، وتوقف بعد كل يوم لتسأل: هل ظهر شيء؟"
+    },
+    {
+     "type": "interactive_practice",
+     "minutes": 8,
+     "ref": {
+      "kind": "lesson",
+      "id": "S3-L1"
+     },
+     "text": "اطرح أسئلة القصة ثم نقاش «ماذا أفعل دون تفكير؟». ثم العب لعبة البطاقات: لكل طفل بطاقة يحبها، ولا خطأ في الاختيار. ثم اختم: الأشياء الصغيرة التي نكررها تكبر مثل البذرة. ثم ملاحظة للمعلم (تأصيل S3-02، يحتاج مراجعة): الفعل الصغير المتكرر يقوّي نفسه فيسهل مع الأيام، كالبذرة التي تنمو بالسقي المنتظم. نأخذ هذه الفكرة التربوية وحدها، ولا نربط العادة بالإيمان أو بحال القلب ولا نذكر آثارًا لم تُخرَّج. [مبدأ يحتاج مراجعة؛ ملاحظة للمعلم لا تُعرض على المتعلم]"
+    },
+    {
+     "type": "assessment",
+     "minutes": 0,
+     "embedded_in": "interactive_practice",
+     "ref": {
+      "kind": "lesson",
+      "id": "S3-L1"
+     },
+     "text": "ملاحظة تكوينية وصفية أثناء الممارسة، دون درجات.",
+     "criteria": {
+      "ظهر": "يسمّي عادة يفعلها ويربطها بالتكرار.",
+      "يتدرب": "يسمّي عادة بمساعدة صورة أو مثال ويحتاج إلى استمرار الحديث عنها.",
+      "يحتاج_دعما": "لا يجد عادة يذكرها أو يبدو قلقًا من السؤال، فيُسأل بأسلوب أخف ويُشرك الأهل."
+     }
+    },
+    {
+     "type": "reflection",
+     "minutes": 2,
+     "ref": {
+      "kind": "lesson",
+      "id": "S3-L1"
+     },
+     "text": "تأصيل S3-06: نبدأ بفعل إيجابي صغير نفعله، لا بشيء نمتنع عنه؛ فبناء سلوك جديد أيسر من حذف سلوك قائم. ولهذا نصوغ بطاقات العادات بصيغة «أفعل» لا «لا أفعل»."
+    }
+   ],
+   "homework": {
+    "optional": true,
+    "out_of_session": true,
+    "text": "ألاحظ عادة صغيرة أفعلها كل يوم وأحكيها لأسرتي إن أحببت.",
+    "estimated_minutes": 10,
+    "ref": {
+     "kind": "lesson",
+     "id": "S3-L1"
+    }
+   },
+   "review_status": "unreviewed"
+  },
+  {
+   "session_number": 10,
+   "week": 4,
+   "stage": "P18-C",
+   "title": "لكل شيء مكانٌ أعرفه",
+   "competency": "S3",
+   "competency_title": "عاداتي اليومية: مكاني وأدواتي ونومي",
+   "objective": "أن يسمّي الطفل مكانًا ثابتًا لثلاثة أشياء من أغراضه، ويعيدها إليه بعد اللعب بخطوات يذكرها.",
+   "min_age": 6,
+   "duration_min": 25,
+   "components": [
+    {
+     "type": "intro",
+     "minutes": 3,
+     "ref": {
+      "kind": "lesson",
+      "id": "X4-L1"
+     },
+     "text": "ترحيب هادئ، ثم الافتتاحية وسماع جوابين أو ثلاثة بلا تعليق."
+    },
+    {
+     "type": "source_teaching",
+     "minutes": 7,
+     "ref": {
+      "kind": "lesson",
+      "id": "X4-L1"
+     },
+     "text": "رواية القصة مع التوقف عند البحث عن القلم."
+    },
+    {
+     "type": "interactive_practice",
+     "minutes": 12,
+     "ref": {
+      "kind": "lesson",
+      "id": "X4-L1"
+     },
+     "text": "أسئلة القصة، وتُقبل كل الإجابات. ثم لعبة بيت لكل غرض بدقيقتين، وتُعاد مرة."
+    },
+    {
+     "type": "assessment",
+     "minutes": 0,
+     "embedded_in": "interactive_practice",
+     "ref": {
+      "kind": "lesson",
+      "id": "X4-L1"
+     },
+     "text": "ملاحظة تكوينية وصفية أثناء الممارسة، دون درجات.",
+     "criteria": {
+      "ظهر": "يعيد غرضه أو أكثر إلى مكانه المتفق عليه بعد اللعب ويقول أين مكانه.",
+      "يتدرب": "يعيد الغرض بعد تذكير هادئ أو في موقف دون آخر (في البيت لا في الحلقة أو العكس).",
+      "يحتاج_دعما": "لا يجد مكانًا يضع فيه أغراضه أو يتعثر في الخطوات؛ يُقسَّم العمل إلى غرض واحد، ويُقترح وعاء بسيط مما هو متاح، ويُعاد النشاط في مجموعة صغيرة."
+     }
+    },
+    {
+     "type": "reflection",
+     "minutes": 3,
+     "ref": {
+      "kind": "lesson",
+      "id": "X4-L1"
+     },
+     "text": "خلاصة قصيرة من الأطفال وسؤال البيت."
+    }
+   ],
+   "homework": {
+    "optional": true,
+    "out_of_session": true,
+    "text": "أختار هذا الأسبوع ثلاثة أغراض من أغراضي، وأعطي كل غرض مكانًا ثابتًا بما عندي في البيت، وأعيده إليه بعد استعماله.",
+    "estimated_minutes": 10,
+    "ref": {
+     "kind": "lesson",
+     "id": "X4-L1"
+    }
+   },
+   "review_status": "unreviewed"
+  },
+  {
+   "session_number": 11,
+   "week": 4,
+   "stage": "P18-C",
+   "title": "كيف تنمو العادة؟",
+   "competency": "S3",
+   "competency_title": "عادة صغيرة تنمو",
+   "objective": "أن يشرح الطفل كيف تتكوّن العادة بتكرار صغير ثابت ويختار عادة صغيرة جدًّا بمساعدة أهله.",
+   "min_age": 6,
+   "duration_min": 25,
+   "components": [
+    {
+     "type": "intro",
+     "minutes": 4,
+     "ref": {
+      "kind": "lesson",
+      "id": "S3-L2"
+     },
+     "text": "ابدأ بسؤال: ما شيء كان صعبًا ثم صار سهلًا؟"
+    },
+    {
+     "type": "source_teaching",
+     "minutes": 6,
+     "ref": {
+      "kind": "lesson",
+      "id": "S3-L2"
+     },
+     "text": "ناقشوا اختلاف السرعات، وأكد أن لا مقارنة بين الأطفال."
+    },
+    {
+     "type": "interactive_practice",
+     "minutes": 13,
+     "ref": {
+      "kind": "lesson",
+      "id": "S3-L2"
+     },
+     "text": "ساعد كل طفل على الإجابة عن الأسئلة الثلاثة مع شخص كبير، وتأكد من صغر الخطوة. ثم اعرض خطوات ورقة العادة، وليرسم الأطفال ورقتهم. ثم اختم: خطوة صغيرة كل يوم، وكل واحد بسرعته. ثم تأصيل S3-06: نعرف نقطة البداية بسؤال بسيط: هل أفعلها الآن أحيانًا أم لا؟ ثم نقسّم الخطوة حتى تصير أصغر من أن نرفضها، فالنجاح في الخطوة الصغيرة يحمي من الإحباط. ثم تأصيل S3-07: العادة تثبت إذا كان لها موعد معلوم (بعد حدث ثابت كتنظيف الأسنان) ومكان يذكّر بها، وإذا اختارها الطفل بنفسه مع كبير لا فُرضت عليه؛ والعلامة وحدها لا تكفي، فنقرنها بشيء لطيف غير مادي (كلمة طيبة، أو رسمة، أو أن يحكي لأسرته)."
+    },
+    {
+     "type": "assessment",
+     "minutes": 0,
+     "embedded_in": "interactive_practice",
+     "ref": {
+      "kind": "lesson",
+      "id": "S3-L2"
+     },
+     "text": "ملاحظة تكوينية وصفية أثناء الممارسة، دون درجات.",
+     "criteria": {
+      "ظهر": "يشرح بكلماته أن العادة تتكوّن بالتكرار ويختار عادة صغيرة.",
+      "يتدرب": "يختار عادة بمساعدة ويحتاج إلى تذكير بأن تكون صغيرة جدًّا.",
+      "يحتاج_دعما": "يختار عادة كبيرة أو يضغط على نفسه، فتُصغَّر الخطوة ويُشرك الأهل بلطف."
+     }
+    },
+    {
+     "type": "reflection",
+     "minutes": 2,
+     "ref": {
+      "kind": "lesson",
+      "id": "S3-L2"
+     },
+     "text": "ملاحظة للمعلم (تأصيل S3-05، يحتاج مراجعة): نشكر الفعل الجميل بصدق، ونتغافل عن الزلة الأولى، وننبّه عليها بيننا وبين الطفل دون فضيحة أمام غيره، ونقلّل العتاب ونكثّر التشجيع، ولا تُستعمل أي صورة تخويف أو قسوة. [مبدأ يحتاج مراجعة؛ ملاحظة للمعلم لا تُعرض على المتعلم]"
+    }
+   ],
+   "homework": {
+    "optional": true,
+    "out_of_session": true,
+    "text": "أختار عادة صغيرة جدًّا مع أحد أفراد أسرتي.",
+    "estimated_minutes": 10,
+    "ref": {
+     "kind": "lesson",
+     "id": "S3-L2"
+    }
+   },
+   "review_status": "unreviewed"
+  },
+  {
+   "session_number": 12,
+   "week": 4,
+   "stage": "P18-C",
+   "title": "موقف: السلسلة المقطوعة",
+   "competency": "S3",
+   "competency_title": "عادة صغيرة تنمو",
+   "objective": "أن يقرر المتعلم في موقف «السلسلة المقطوعة» ويرى عاقبة اختياره.",
+   "min_age": 6,
+   "duration_min": 8,
+   "components": [
+    {
+     "type": "intro",
+     "minutes": 2,
+     "ref": {
+      "kind": "scenario",
+      "id": "S3-S1"
+     },
+     "text": "قراءة مقدمة الموقف."
+    },
+    {
+     "type": "interactive_practice",
+     "minutes": 4,
+     "ref": {
+      "kind": "scenario",
+      "id": "S3-S1"
+     },
+     "text": "يختار المتعلمون في 2 قرارات متتابعة ويقرؤون عاقبة كل اختيار."
+    },
+    {
+     "type": "reflection",
+     "minutes": 2,
+     "ref": {
+      "kind": "scenario",
+      "id": "S3-S1"
+     },
+     "text": "حديث عن النهاية التي وصلوا إليها وسؤال التأمل في آخر الموقف."
+    }
+   ],
+   "review_status": "unreviewed"
+  },
+  {
+   "session_number": 13,
+   "week": 5,
+   "stage": "P18-C",
+   "title": "أدواتي وعنايتي بنفسي",
+   "competency": "S3",
+   "competency_title": "عاداتي اليومية: مكاني وأدواتي ونومي",
+   "objective": "أن يختار الطفل ثلاث خطوات صغيرة يجهّز بها أدواته أو يعتني بنفسه كل يوم، ويذكر من يطلب منه المساعدة إن نقص شيء.",
+   "min_age": 7,
+   "duration_min": 25,
+   "components": [
+    {
+     "type": "intro",
+     "minutes": 3,
+     "ref": {
+      "kind": "lesson",
+      "id": "X4-L2"
+     },
+     "text": "ترحيب، والافتتاحية، وسماع إجابتين أو ثلاث."
+    },
+    {
+     "type": "source_teaching",
+     "minutes": 6,
+     "ref": {
+      "kind": "lesson",
+      "id": "X4-L2"
+     },
+     "text": "رواية القصة بنبرة هادئة."
+    },
+    {
+     "type": "interactive_practice",
+     "minutes": 13,
+     "ref": {
+      "kind": "lesson",
+      "id": "X4-L2"
+     },
+     "text": "أسئلة القصة، وتُقبل كل الإجابات. ثم نشاط البطاقة بصمت وهدوء؛ ويدور المعلم بلا تعليق على أحد."
+    },
+    {
+     "type": "assessment",
+     "minutes": 0,
+     "embedded_in": "interactive_practice",
+     "ref": {
+      "kind": "lesson",
+      "id": "X4-L2"
+     },
+     "text": "ملاحظة تكوينية وصفية أثناء الممارسة، دون درجات.",
+     "criteria": {
+      "ظهر": "يجهّز أداته أو خطوته المختارة بلا تذكير في يومين أو أكثر، أو يذكر من يطلب منه العون.",
+      "يتدرب": "يجهّز حين يذكّره أحد بالبطاقة، وينسى في أيام الازدحام.",
+      "يحتاج_دعما": "يتعثر في اختيار الخطوات أو لا يملك ما يحتاجه؛ يُختصر إلى خطوة واحدة، ويُناقش مع الأهل ما هو متاح، ولا يُلام."
+     }
+    },
+    {
+     "type": "reflection",
+     "minutes": 3,
+     "ref": {
+      "kind": "lesson",
+      "id": "X4-L2"
+     },
+     "text": "خلاصة وسؤال البيت."
+    }
+   ],
+   "homework": {
+    "optional": true,
+    "out_of_session": true,
+    "text": "أجهّز هذا الأسبوع شيئًا واحدًا من أدواتي في المساء، وأضع علامة على بطاقتي كلما فعلت.",
+    "estimated_minutes": 10,
+    "ref": {
+     "kind": "lesson",
+     "id": "X4-L2"
+    }
+   },
+   "review_status": "unreviewed"
+  },
+  {
+   "session_number": 14,
+   "week": 5,
+   "stage": "P18-C",
+   "title": "موقف: أين ذهب القلم؟",
+   "competency": "S3",
+   "competency_title": "عاداتي اليومية: مكاني وأدواتي ونومي",
+   "objective": "أن يقرر المتعلم في موقف «أين ذهب القلم؟» ويرى عاقبة اختياره.",
+   "min_age": 6,
+   "duration_min": 8,
+   "components": [
+    {
+     "type": "intro",
+     "minutes": 2,
+     "ref": {
+      "kind": "scenario",
+      "id": "X4-S1"
+     },
+     "text": "قراءة مقدمة الموقف."
+    },
+    {
+     "type": "interactive_practice",
+     "minutes": 4,
+     "ref": {
+      "kind": "scenario",
+      "id": "X4-S1"
+     },
+     "text": "يختار المتعلمون في 2 قرارات متتابعة ويقرؤون عاقبة كل اختيار."
+    },
+    {
+     "type": "reflection",
+     "minutes": 2,
+     "ref": {
+      "kind": "scenario",
+      "id": "X4-S1"
+     },
+     "text": "حديث عن النهاية التي وصلوا إليها وسؤال التأمل في آخر الموقف."
+    }
+   ],
+   "review_status": "unreviewed"
+  },
+  {
+   "session_number": 15,
+   "week": 5,
+   "stage": "P18-D",
+   "title": "أتابع عادتي سبعة أيام",
+   "competency": "S3",
+   "competency_title": "عادة صغيرة تنمو",
+   "objective": "أن يتابع المتعلم عادة واحدة سبعة أيام، ويتعلم أن يوم الفوات لا يمحو ما مضى.",
+   "min_age": 6,
+   "duration_min": 25,
+   "components": [
+    {
+     "type": "intro",
+     "minutes": 4,
+     "ref": {
+      "kind": "lesson",
+      "id": "S3-L3"
+     },
+     "text": "اسأل: ماذا تظن أنه سيحدث بعد سبعة أيام من فعل شيء صغير؟"
+    },
+    {
+     "type": "source_teaching",
+     "minutes": 6,
+     "ref": {
+      "kind": "lesson",
+      "id": "S3-L3"
+     },
+     "text": "اشرح العدّاد الأسبوعي وقاعدة: إن فاتني يوم أكمل غدًا ولا أبدأ من الصفر."
+    },
+    {
+     "type": "interactive_practice",
+     "minutes": 12,
+     "ref": {
+      "kind": "lesson",
+      "id": "S3-L3"
+     },
+     "text": "اطلب من المتعلمين أن يتفقوا مع أسرهم على موعد العادة، ويبدأوا التجربة. ثم بعد انتهاء الأسبوع: جلسة التأمل: ما الذي أعانني؟ وما الذي صعّب عليّ؟ ثم للأكبر سنًّا: قصة النواة والنخلة ونقاش «هل نستطيع أن ننمو؟». ثم تأصيل S3-10: أدوات التنظيم (الورقة والعدّاد والتطبيق) لا تصنع عادة بذاتها؛ كثيرون يملؤون الخانات ثم تفتر العادة. تنفع الأداة حين يفهم صاحبها لماذا يفعل الشيء ويقتنع بقيمته. فنسأل في التأمل: هل فهمتُ لماذا أفعل هذه العادة؟"
+    },
+    {
+     "type": "assessment",
+     "minutes": 0,
+     "embedded_in": "interactive_practice",
+     "ref": {
+      "kind": "lesson",
+      "id": "S3-L3"
+     },
+     "text": "ملاحظة تكوينية وصفية أثناء الممارسة، دون درجات.",
+     "criteria": {
+      "ظهر": "يتابع عادته معظم الأيام ويستأنف بعد يوم الفوات دون لوم.",
+      "يتدرب": "يتابع عادته في بعض الأيام ويحتاج إلى تذكير ودعم عند الانقطاع.",
+      "يحتاج_دعما": "يتألم أو يقلق بشدة عند فوات يوم أو يصرّ على طقس قهري، فتتوقف الأنشطة ويُشاور ولي الأمر ومختص."
+     }
+    },
+    {
+     "type": "reflection",
+     "minutes": 3,
+     "ref": {
+      "kind": "lesson",
+      "id": "S3-L3"
+     },
+     "text": "تأصيل S3-07: يبقى العدّاد مرتبطًا بموعد ثابت، وتدوم المعايير التي يضعها الطفل لنفسه أكثر من المفروضة عليه، فنترك له أن يقرر هل يحتاج إلى خطوة أصغر."
+    }
+   ],
+   "homework": {
+    "optional": true,
+    "out_of_session": true,
+    "text": "أتابع عادة واحدة صغيرة سبعة أيام.",
+    "estimated_minutes": 10,
+    "ref": {
+     "kind": "lesson",
+     "id": "S3-L3"
+    }
+   },
+   "review_status": "unreviewed"
+  },
+  {
+   "session_number": 16,
+   "week": 6,
+   "stage": "P18-D",
+   "title": "ليلتي وصباحي بلا عجلة",
+   "competency": "S3",
+   "competency_title": "عاداتي اليومية: مكاني وأدواتي ونومي",
+   "objective": "أن يرتّب الطفل ثلاث خطوات هادئة قبل النوم وثلاثًا في الصباح، ويذكر ما يقوله لوليّ أمره إن صعب عليه النوم.",
+   "min_age": 7,
+   "duration_min": 25,
+   "components": [
+    {
+     "type": "intro",
+     "minutes": 3,
+     "ref": {
+      "kind": "lesson",
+      "id": "X4-L3"
+     },
+     "text": "ترحيب، والافتتاحية، وإجابتان أو ثلاث بلا تعليق."
+    },
+    {
+     "type": "source_teaching",
+     "minutes": 7,
+     "ref": {
+      "kind": "lesson",
+      "id": "X4-L3"
+     },
+     "text": "رواية القصة بصوت هادئ."
+    },
+    {
+     "type": "interactive_practice",
+     "minutes": 12,
+     "ref": {
+      "kind": "lesson",
+      "id": "X4-L3"
+     },
+     "text": "أسئلة القصة؛ ولا يُسأل أحد عن بيته. ثم لوحة المساء والصباح بصمت."
+    },
+    {
+     "type": "assessment",
+     "minutes": 0,
+     "embedded_in": "interactive_practice",
+     "ref": {
+      "kind": "lesson",
+      "id": "X4-L3"
+     },
+     "text": "ملاحظة تكوينية وصفية أثناء الممارسة، دون درجات.",
+     "criteria": {
+      "ظهر": "يذكر خطوتين أو أكثر من روتينه المسائي أو الصباحي ويفعل واحدة منها في أكثر من يوم.",
+      "يتدرب": "يفعل الخطوة بتذكير أو في بعض الأيام دون بعض.",
+      "يحتاج_دعما": "تتعذّر عليه الخطوات لظروف بيته أو يتعثر في اختيارها؛ تُقلَّص إلى خطوة واحدة ويُنسَّق مع الأهل، ولا يُلام."
+     }
+    },
+    {
+     "type": "reflection",
+     "minutes": 3,
+     "ref": {
+      "kind": "lesson",
+      "id": "X4-L3"
+     },
+     "text": "خلاصة وسؤال البيت."
+    }
+   ],
+   "homework": {
+    "optional": true,
+    "out_of_session": true,
+    "text": "أختار هذا الأسبوع خطوة هادئة واحدة قبل النوم وأفعلها ما استطعت، وأخبر شخصًا أثق به إن صعب عليّ النوم.",
+    "estimated_minutes": 10,
+    "ref": {
+     "kind": "lesson",
+     "id": "X4-L3"
+    }
+   },
+   "review_status": "unreviewed"
+  },
+  {
+   "session_number": 17,
+   "week": 6,
+   "stage": "P18-D",
+   "title": "موقف: كل واحد وسرعته",
+   "competency": "S3",
+   "competency_title": "عادة صغيرة تنمو",
+   "objective": "أن يقرر المتعلم في موقف «كل واحد وسرعته» ويرى عاقبة اختياره.",
+   "min_age": 6,
+   "duration_min": 8,
+   "components": [
+    {
+     "type": "intro",
+     "minutes": 2,
+     "ref": {
+      "kind": "scenario",
+      "id": "S3-S2"
+     },
+     "text": "قراءة مقدمة الموقف."
+    },
+    {
+     "type": "interactive_practice",
+     "minutes": 4,
+     "ref": {
+      "kind": "scenario",
+      "id": "S3-S2"
+     },
+     "text": "يختار المتعلمون في 2 قرارات متتابعة ويقرؤون عاقبة كل اختيار."
+    },
+    {
+     "type": "reflection",
+     "minutes": 2,
+     "ref": {
+      "kind": "scenario",
+      "id": "S3-S2"
+     },
+     "text": "حديث عن النهاية التي وصلوا إليها وسؤال التأمل في آخر الموقف."
+    }
+   ],
+   "review_status": "unreviewed"
+  },
+  {
+   "session_number": 18,
+   "week": 6,
+   "stage": "P18-D",
+   "title": "موقف: ركن الألعاب الذي نتشاركه",
+   "competency": "S3",
+   "competency_title": "عاداتي اليومية: مكاني وأدواتي ونومي",
+   "objective": "أن يقرر المتعلم في موقف «ركن الألعاب الذي نتشاركه» ويرى عاقبة اختياره.",
+   "min_age": 7,
+   "duration_min": 8,
+   "components": [
+    {
+     "type": "intro",
+     "minutes": 2,
+     "ref": {
+      "kind": "scenario",
+      "id": "X4-S2"
+     },
+     "text": "قراءة مقدمة الموقف."
+    },
+    {
+     "type": "interactive_practice",
+     "minutes": 4,
+     "ref": {
+      "kind": "scenario",
+      "id": "X4-S2"
+     },
+     "text": "يختار المتعلمون في 2 قرارات متتابعة ويقرؤون عاقبة كل اختيار."
+    },
+    {
+     "type": "reflection",
+     "minutes": 2,
+     "ref": {
+      "kind": "scenario",
+      "id": "X4-S2"
+     },
+     "text": "حديث عن النهاية التي وصلوا إليها وسؤال التأمل في آخر الموقف."
+    }
+   ],
+   "review_status": "unreviewed"
+  }
+ ]
+}

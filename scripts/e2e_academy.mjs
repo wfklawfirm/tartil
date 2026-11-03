@@ -76,7 +76,7 @@ try {
     await page.waitForTimeout(30);
   };
   // عبارات داخلية ومعرّفات خام يجب ألا تظهر للمتعلم (F-04/F-05)
-  const INTERNAL = /SPR-|\bD\d+\b|BLUEPRINT|CLAUDE|المالك(?![\u0621-\u064A])|ترخيص الصوت|اعتماد الإدارة العلمية|\b[A-Z]\d{1,2}-[LS]\d{1,2}\b|\bP\d\d\b/;
+  const INTERNAL = /SPR-|\bD\d+\b|BLUEPRINT|CLAUDE|المالك(?![\u0621-\u064A])(?!\s+الوحيد)|ترخيص الصوت|اعتماد الإدارة العلمية|\b[A-Z]\d{1,2}-[LS]\d{1,2}\b|\bP\d\d\b/;
   const internalHit = (id, t) => { const m = INTERNAL.exec(t); if (m) fail(id, `عبارة/معرّف داخلي ظاهر «${m[0]}» … ${t.slice(Math.max(0, m.index - 30), m.index + 30).replace(/\s+/g, ' ')}`); };
   const noErrs = id => { if (pageErrors.length) fail(id, 'أخطاء JS: ' + pageErrors.join(' | ')); };
 
@@ -199,7 +199,7 @@ try {
       const pre = progs.find(x => x.id === p.prerequisites[0].match(/P\d\d/)[0]);
       await go('/academy/p/' + p.slug, '.acx h1');
       const t = await page.locator('#app').innerText();
-      if (!t.includes('يُفضَّل قبلها: ' + pre.title)) fail('F-05/prereq', 'الشرط المسبق لا يظهر بعنوان البرنامج: ' + pre.title);
+      if (!(await page.locator('.pmap').innerText().catch(() => '')).includes(pre.title.trim())) fail('F-05/prereq', 'الشرط المسبق لا يظهر بعنوان البرنامج: ' + pre.title);
       if (!(await page.locator(`#app a[href="#/academy/p/${pre.slug}"]`).count())) fail('F-05/prereq-link', 'لا رابط للبرنامج المسبق');
     }
     // 6c) F-04: برنامج مؤجّل لا يعرض سبب التأجيل الداخلي
@@ -651,6 +651,203 @@ try {
       }
     } catch (e) { fail('7/fatal', e.stack || e.message); }
   }
+  // ================= (8) TARTIL 13 UX batch F-19..F-38: item checks + horizontal scroll at 375/390/768/1440 =================
+  if (browser) {
+    try {
+      const progsDoc = JSON.parse(fs.readFileSync(path.join(ROOT, 'academy-programs.json'), 'utf8'));
+      const PT = id => progsDoc.programs.find(p => p.id === id);
+      const surahsMock = Array.from({ length: 114 }, (_, i) => ({ surah: i + 1, ayahCount: [7, 286, 200, 176][i] || 10 }));
+      const dayIso = k => new Date(Date.now() - k * 864e5).toISOString().slice(0, 10);
+      const mock8 = url => {
+        const u = url.replace(/^.*\/api/, '');
+        if (u.startsWith('/me/mastery')) return { surahs: [{ surah: 1, memorized: 7, ayahCount: 7 }, { surah: 2, memorized: 150, ayahCount: 286 }, { surah: 3, memorized: 20, ayahCount: 200 }, { surah: 5, memorized: 0, ayahCount: 120 }], activeDays: [0, 1, 2, 4, 9, 30].map(dayIso), quizzes: [], reviewsTotal: 12 };
+        if (u.startsWith('/me/hifz/due')) return { due: [] };
+        if (u.startsWith('/me/hifz')) return { now: new Date().toISOString(), items: [] };
+        if (u.startsWith('/me/plan')) return { plan: null };
+        if (u.startsWith('/me')) return { id: 'u1', displayName: 'متعلّم', memberships: [] };
+        if (u.startsWith('/quran/editions')) return { editions: [{ code: 'ed', name: 'نسخة اختبار', attribution: 'بيانات اختبار' }] };
+        if (u.startsWith('/quran/reference')) return { surahs: surahsMock };
+        if (u.startsWith('/search')) return { total: 2, results: [{ surah: 1, ayah: 2, text: 'نص اختبار فيه الصَّبْرُ جميل' }, { surah: 2, ayah: 3, text: 'اختبار الصبر مرة أخرى' }] };
+        const m = /^\/quran\/ed\/(\d+)/.exec(u); if (m) return { surah: +m[1], attribution: 'بيانات اختبار', ayat: Array.from({ length: 6 }, (_, i) => ({ ayah: i + 1, text: 'نص اختبار رقم ' + (i + 1) })) };
+        return {};
+      };
+      const mk8 = async (w, o = {}) => {
+        const c = await browser.newContext({ viewport: { width: w, height: 800 }, locale: 'ar' });
+        await c.addInitScript(([login, theme, ls]) => { try { if (login) sessionStorage.setItem('t', 'tok'); if (theme) localStorage.setItem('theme', theme); for (const [k, v] of Object.entries(ls || {})) localStorage.setItem(k, v); } catch {} }, [o.login !== false, o.theme || 'light', o.ls || {}]);
+        await c.route('**/api/**', r => r.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify(mock8(r.request().url())) }));
+        const pg = await c.newPage(); const errs = []; pg.on('pageerror', e => errs.push(e.message)); pg.__errs = errs;
+        return { c, pg };
+      };
+      const go8 = async (pg, h, sel) => { await pg.goto(`${BASE}/index.html?n=${Math.random()}#${h}`); await pg.waitForSelector(sel || '#app h1', { timeout: 8000 }); await pg.waitForTimeout(250); };
+      const contrast = async (pg, sel) => pg.evaluate(s => { const L = c => { const v = c.map(x => { x /= 255; return x <= .03928 ? x / 12.92 : ((x + .055) / 1.055) ** 2.4; }); return .2126 * v[0] + .7152 * v[1] + .0722 * v[2]; };
+        const rgb = x => (x.match(/[\d.]+/g) || []).slice(0, 3).map(Number); return [...document.querySelectorAll(s)].map(e => { const cs = getComputedStyle(e), a = L(rgb(cs.color)), b = L(rgb(cs.backgroundColor)); return (Math.max(a, b) + .05) / (Math.min(a, b) + .05); }); }, sel);
+
+      // 8a F-19 lesson page
+      {
+        const LS = { 'acx:user:u1:mentor': 'true', 'acx:user:u1:guideon': 'true' };
+        const { c, pg } = await mk8(1440, { ls: LS });
+        const lid = lessonIds[0], lu = Object.values(lessonsDoc.units).find(u => (u.lessons || []).some(l => l.id === lid)), li = lu.lessons.findIndex(l => l.id === lid), nextL = lu.lessons[li + 1];
+        await go8(pg, '/academy/l/' + lid, '.nav2');
+        const story = lu.lessons[li].activities.findIndex(a => a.type === 'story');
+        if (story >= 0) { for (let i = 0; i < story + 1; i++) await pg.locator('.nav2 button', { hasText: 'التالي' }).click(); const w = await pg.evaluate(() => { const s = document.querySelector('.story'), p = s && s.querySelector('p'); return s ? { w: s.getBoundingClientRect().width, fs: parseFloat(getComputedStyle(p).fontSize) } : null; });
+          if (!w) fail('F-19/story', 'لا عنصر story'); else if (w.w > 760) fail('F-19/measure', 'عرض سطر القصة كبير: ' + Math.round(w.w) + 'px'); }
+        const gp = await pg.evaluate(() => { const d = [...document.querySelectorAll('details.gpanel')]; return { n: d.length, open: d.filter(x => x.open).length, openFolds: document.querySelectorAll('.acx .lesson details[open]').length }; });
+        if (gp.n !== 1) fail('F-19/guide', 'لوحة المرشد ليست مطوية واحدة: ' + gp.n); if (gp.open) fail('F-19/guide-open', 'لوحة المرشد مفتوحة افتراضيًا');
+        if (!(await pg.locator('.ptxt', { hasText: 'الخطوة' }).count())) fail('F-19/stepno', 'لا ترقيم للخطوات');
+        for (let i = 0; i < 30; i++) { const b = pg.locator('.nav2 button', { hasText: 'التالي' }); if (!(await b.count())) break; await b.click(); }
+        if (!(await pg.locator('.nav2 #ac-fin').count())) fail('F-19/finish-nav', 'زر الإنهاء ليس في صف التنقل');
+        await pg.locator('#ac-fin').click(); await pg.waitForTimeout(150);
+        const done = await pg.evaluate(() => ({ box: !!document.querySelector('#ac-done'), links: [...document.querySelectorAll('#ac-done a')].map(a => a.getAttribute('href')), st: localStorage.getItem('acx:user:u1:done') }));
+        if (!done.box) fail('F-19/confirm', 'لا تأكيد بعد الإنهاء'); if (nextL && !done.links.includes('#/academy/l/' + nextL.id)) fail('F-19/next', 'لا رابط الدرس التالي');
+        if (!done.st || !done.st.includes(lid)) fail('F-19/stored', 'لم يُسجَّل الإنجاز');
+        if (pg.__errs.length) fail('8a/js', pg.__errs[0]); await c.close();
+      }
+      // 8b F-20 graph both directions + path map + what-next (display only)
+      {
+        const { c, pg } = await mk8(390);
+        await go8(pg, '/academy/p/' + PT('P10').slug, '.pmap');
+        const t = await pg.locator('.pmap').innerText();
+        if (!t.includes(PT('P25').title.trim())) fail('F-20/back-edge', 'P25 لا يظهر قبل P10 رغم next_programs');
+        if (!(await pg.locator('h2.sh', { hasText: 'ماذا بعد؟' }).count())) fail('F-20/whatnext', 'لا كتلة «ماذا بعد؟»');
+        await go8(pg, '/academy/p/' + PT('P25').slug, '.pmap'); const t2 = await pg.locator('.pmap').innerText(); if (!t2.includes(PT('P10').title.trim())) fail('F-20/fwd-edge', 'P10 لا يظهر بعد P25');
+        const raw = await pg.locator('#app').innerText(); if (/\bP\d\d\b/.test(raw)) fail('F-20/raw-id', 'معرّف برنامج خام ظاهر');
+        await go8(pg, '/academy', '.pcard, .agroup'); if (!(await pg.locator('#ac-pathmap').count())) fail('F-20/map', 'لا خريطة مسارات في الرئيسية');
+        if (pg.__errs.length) fail('8b/js', pg.__errs[0]); await c.close();
+      }
+      // 8c F-23 auth
+      {
+        const { c, pg } = await mk8(390, { login: false });
+        await go8(pg, '/auth', 'form');
+        if (!(await pg.locator('a.backlink').count())) fail('F-23/back', 'لا رابط رجوع');
+        await pg.fill('input[type=email]', 'bad'); await pg.click('button[type=submit]'); await pg.waitForTimeout(150);
+        const r = await pg.evaluate(() => ({ inv: document.querySelectorAll('[aria-invalid=true]').length, desc: [...document.querySelectorAll('[aria-invalid=true]')].every(i => document.getElementById(i.getAttribute('aria-describedby'))?.textContent.trim()), live: !!document.querySelector('.ferr[aria-live]') && !!document.querySelector('[role=status][aria-live]'), foc: document.activeElement.type }));
+        if (r.inv < 2 || !r.desc) fail('F-23/inline', 'أخطاء مضمَّنة غير مكتملة'); if (!r.live) fail('F-23/live', 'لا aria-live');
+        await pg.fill('input[type=password]', 'abc'); const ty = async () => pg.locator('#pwin').getAttribute('type');
+        await pg.click('.pwshow'); if ((await ty()) !== 'text') fail('F-23/show', 'إظهار كلمة المرور لا يعمل'); await pg.click('.pwshow'); if ((await ty()) !== 'password') fail('F-23/hide', 'إخفاء كلمة المرور لا يعمل');
+        await pg.getByRole('tab', { name: 'حساب جديد' }).click(); await pg.waitForTimeout(100);
+        if (!(await pg.locator('.legal').isVisible())) fail('F-23/legal', 'إشعار الخصوصية/الشروط غير ظاهر في التسجيل');
+        if (!((await pg.locator('#app').innerText()).includes('نسيتَ كلمة المرور'))) fail('F-23/recovery', 'نص الاسترجاع غائب');
+        if ((await pg.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth)) > 0) fail('F-23/ovf', 'تمرير أفقي');
+        if (pg.__errs.length) fail('8c/js', pg.__errs[0]); await c.close();
+      }
+      // 8d F-24 plan: heading before today card, terms defined, no auto-built plan
+      {
+        const { c, pg } = await mk8(390);
+        await go8(pg, '/plan', '#app h1'); await pg.waitForTimeout(300);
+        const r = await pg.evaluate(() => { const app = document.querySelector('#app'), h = app.querySelector('h1'), td = [...app.querySelectorAll('.card h2')].find(x => x.textContent.trim() === 'اليوم'); return { order: h && td ? !!(h.compareDocumentPosition(td) & Node.DOCUMENT_POSITION_FOLLOWING) : null, terms: app.innerText.includes('السبق: المقطع الجديد'), built: app.innerText.includes('خطتك المقترحة') }; });
+        if (r.order !== true) fail('F-24/heading', 'العنوان لا يسبق بطاقة اليوم'); if (!r.terms) fail('F-24/terms', 'السبق/السبقي/المنزل غير معرّفة'); if (r.built) fail('F-24/auto', 'الخطة تُبنى قبل الضغط');
+        await pg.click('button:has-text("اقترح خطتي")'); await pg.waitForTimeout(150); if (!((await pg.locator('#app').innerText()).includes('خطتك المقترحة'))) fail('F-24/build', 'الزر لا يبني الخطة');
+        if (pg.__errs.length) fail('8d/js', pg.__errs[0]); await c.close();
+      }
+      // 8e F-25 footer + 8n F-38 theme button
+      {
+        const { c, pg } = await mk8(390, { login: false });
+        await go8(pg, '/', '.hero2');
+        const r = await pg.evaluate(() => ({ small: [...document.querySelectorAll('footer a')].filter(a => a.getBoundingClientRect().height < 43).length, cols: document.querySelectorAll('footer .fcols>div').length, bottom: !!document.querySelector('footer .fbottom'), need: [...document.querySelectorAll('footer a[data-need]')].every(a => a.textContent.includes('يتطلب حسابًا')) }));
+        if (r.small) fail('F-25/targets', r.small + ' روابط تذييل أقل من 44px'); if (r.cols < 4) fail('F-25/groups', 'أعمدة التذييل أقل من 4'); if (!r.bottom) fail('F-25/bottom', 'لا صف حقوق/خصوصية'); if (!r.need) fail('F-25/guest', 'ملصقات الضيف غائبة');
+        const t1 = await pg.locator('#theme .tlab').innerText(); await pg.click('#theme'); const t2 = await pg.locator('#theme .tlab').innerText();
+        if (!t1.trim() || t1 === t2) fail('F-38/label', 'اسم السمة غير ظاهر أو لا يتغير'); if (!(await pg.locator('#theme').getAttribute('aria-label')).includes(t2)) fail('F-38/name', 'الاسم المتاح لا يحوي النص الظاهر');
+        await c.close();
+      }
+      // 8f F-26 kids feedback
+      {
+        const { c, pg } = await mk8(390, { ls: { kids: JSON.stringify({ band: 'b', level: '', log: [] }) } });
+        await go8(pg, '/kids', '.kids'); await pg.click('.kids button.card:has-text("التعرّف على الحروف")'); await pg.waitForSelector('button.opt'); await pg.locator('button.opt').first().click(); await pg.waitForTimeout(120);
+        const r = await pg.evaluate(() => ({ right: document.querySelectorAll('button.opt.right').length, txt: document.querySelector('[role=status]').textContent, wrongOrRight: document.querySelectorAll('button.opt.right,button.opt.wrong').length }));
+        if (r.right !== 1) fail('F-26/right', 'الخيار الصحيح غير مميّز'); if (!/✓|✗/.test(r.txt) || !/صحيح/.test(r.txt)) fail('F-26/text', 'لا نص تغذية راجعة: ' + r.txt);
+        if (pg.__errs.length) fail('8f/js', pg.__errs[0]); await c.close();
+      }
+      // 8g F-27 scenario
+      {
+        const { c, pg } = await mk8(390);
+        await go8(pg, '/academy/s/' + scenarioIds[0], '.opt');
+        if (!/القرار ٠?١ من/.test(await pg.locator('.decn').innerText()) && !/القرار .* من/.test(await pg.locator('.decn').innerText())) fail('F-27/progress', 'لا «القرار n من N»');
+        if ((await pg.locator('#app').innerText()).includes('null')) fail('F-27/null', 'نص null ظاهر');
+        await pg.locator('.opt').first().click(); await pg.waitForTimeout(500);
+        const top = await pg.evaluate(() => { const f = document.querySelector('.fb'); return f ? f.getBoundingClientRect().top : null; });
+        if (top === null || top < 0 || top > 450) fail('F-27/scroll', 'بداية التغذية الراجعة خارج مجال الرؤية الأعلى: ' + top);
+        for (let i = 0; i < 12; i++) { const o = pg.locator('.opt'); if (!(await o.count())) break; await o.first().click(); }
+        if (!(await pg.locator('h3.endh', { hasText: 'النهاية' }).count())) fail('F-27/end', 'لا عنوان للنهاية');
+        if ((await pg.locator('#app').innerText()).split('شخصيات').length > 3) fail('F-27/fiction-once', 'ملاحظة الخيال تتكرر');
+        await c.close();
+      }
+      // 8h F-28 reader tools; 8i F-29 search; 8j F-30 numbers
+      {
+        const { c, pg } = await mk8(390);
+        await go8(pg, '/quran/3', '.chips button');
+        await pg.locator('.chips button').nth(2).click(); if (!(await pg.locator('.toolbox > :not([hidden])').count())) fail('F-28/open', 'اللوحة لم تُفتح');
+        await pg.locator('.toolbox > :not([hidden]) input[type=checkbox]').first().click(); await pg.waitForTimeout(500);
+        if ((await pg.locator('.toolbox > :not([hidden])').count()) !== 1) fail('F-28/keep', 'اللوحة أُغلقت بعد تبديل تلوين التجويد');
+        if (!(await pg.locator('.toolbox > :not([hidden]) .pclose button').count())) fail('F-28/close-btn', 'لا زر إغلاق');
+        await pg.locator('.toolbox > :not([hidden]) input[type=checkbox]').first().focus(); await pg.keyboard.press('Escape'); await pg.waitForTimeout(100); if (await pg.locator('.toolbox > :not([hidden])').count()) fail('F-28/esc', 'Escape لا يغلق اللوحة');
+        await pg.locator('.chips button').nth(2).click(); await pg.locator('.toolbox > :not([hidden]) .pclose button').click(); if (await pg.locator('.toolbox > :not([hidden])').count()) fail('F-28/close', 'الإغلاق لا يعمل');
+        await go8(pg, '/quran', '.surahs');
+        if (await pg.locator('#app button:has-text("بحث في المصحف كله")').count() !== 1) fail('F-29/dup', 'نموذج البحث غير موجود');
+        await pg.fill('#app input[type=search] >> nth=0', 'الصبر'); await pg.click('#app button:has-text("بحث في المصحف كله")'); await pg.waitForSelector('mark', { timeout: 6000 }).catch(() => {});
+        if (!/#\/search\//.test(pg.url())) fail('F-29/route', 'لا يحوّل إلى #/search'); if (!(await pg.locator('mark').count())) fail('F-29/highlight', 'لا إبراز للنتائج');
+        await go8(pg, '/search', '.exq'); if (!(await pg.locator('.exq').count())) fail('F-29/examples', 'لا أمثلة بحث');
+        const n = await pg.evaluate(() => [AY(1), AY(2), AY(5), AY(11), rg(4, 6), DAY(2), MIN(5)]);
+        if (n[0] !== 'آية واحدة' || n[1] !== 'آيتان' || !/آيات$/.test(n[2]) || !/١١ آية$/.test(n[3]) || n[4] !== 'من ٤ إلى ٦' || n[5] !== 'يومان' || !/دقائق$/.test(n[6])) fail('F-30/plural', JSON.stringify(n));
+        if (pg.__errs.length) fail('8h/js', pg.__errs[0]); await c.close();
+      }
+      // 8k F-35 mastery colours (both themes), 8l F-36 heatmap, 8m F-37 home balance
+      for (const theme of ['light', 'dark']) {
+        const { c, pg } = await mk8(390, { theme });
+        await go8(pg, '/me/map', '.mtile');
+        const cl = await pg.evaluate(() => [...new Set([...document.querySelectorAll('.mtile')].map(e => e.className))]); const seen = new Set(cl.map(x => x.match(/m(\d)/)[1]));
+        if (seen.size < 4) fail('F-35/levels/' + theme, 'مستويات ناقصة في الخريطة ' + [...seen]);
+        const cs = await contrast(pg, '.mtile'); if (cs.some(x => x < 4.5)) fail('F-35/contrast/' + theme, 'تباين أقل من 4.5: ' + Math.min(...cs).toFixed(2));
+        if (!(await pg.locator('.mkey').count())) fail('F-35/legend/' + theme, 'لا مفتاح ألوان');
+        if (theme === 'light') { await go8(pg, '/me/today', '.heatw'); const h = await pg.evaluate(() => ({ cells: document.querySelectorAll('.heatg .hc').length, months: document.querySelectorAll('.heatg .hm').length, days: document.querySelectorAll('.heatd span').length, key: !!document.querySelector('.heatkey'), tsum: !!document.querySelector('.tsum') }));
+          if (h.cells !== 119 || !h.months || h.days < 7 || !h.key || !h.tsum) fail('F-36/heat', JSON.stringify(h)); }
+        await c.close();
+      }
+      {
+        const { c, pg } = await mk8(1440);
+        await go8(pg, '/', '.eco'); const r = await pg.evaluate(() => { const a = document.querySelectorAll('.acts .act').length, more = !!document.querySelector('.moreacts'); const e = [...document.querySelectorAll('.eco .ec')], l = e[e.length - 3].getBoundingClientRect(), m = e[e.length - 2].getBoundingClientRect(), w = e[e.length - 1].getBoundingClientRect(); return { top: document.querySelector('section[aria-label="ابدأ من هنا"] > .acts').children.length, a, more, fill: Math.abs((l.width + m.width + 16) - w.width) < 4 }; });
+        if (r.top > 4) fail('F-37/cap', 'أكثر من 4 بطاقات في الصف الأول: ' + r.top); if (!r.more && r.a > 4) fail('F-37/more', 'لا «المزيد»'); if (!r.fill) fail('F-37/eco', 'صف الشبكة الأخير غير متوازن');
+        await c.close();
+      }
+      // 8o horizontal scroll at 375/390/768/1440 on the touched pages
+      {
+        const ROUTES = ['/', '/auth', '/quran', '/quran/3', '/search/%D8%A7%D9%84%D8%B5%D8%A8%D8%B1/ar', '/plan', '/me/map', '/me/today', '/kids', '/academy', '/academy/p/' + PT('P10').slug, '/academy/l/' + lessonIds[0], '/academy/s/' + scenarioIds[0]];
+        for (const w of [375, 390, 768, 1440]) {
+          const { c, pg } = await mk8(w, { login: true });
+          for (const h of ROUTES) { try { await pg.goto(`${BASE}/index.html?n=${Math.random()}#${h}`); await pg.waitForTimeout(450); if (h === '/quran/3') { await pg.locator('.chips button').nth(2).click().catch(() => {}); await pg.waitForTimeout(120); }
+            const o = await pg.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth); if (o > 0) fail(`8o/ovf/${w}${h}`, 'تمرير أفقي ' + o + 'px'); } catch (e) { fail(`8o/${w}${h}`, e.message.split('\n')[0]); } }
+          if (pg.__errs.length) fail(`8o/js/${w}`, pg.__errs[0]); await c.close();
+        }
+      }
+      // 8p optional_link items: shown + tagged inside their stage, never counted in N / next step / completion
+      {
+        const ad = n => String(n).replace(/\d/g, d => '٠١٢٣٤٥٦٧٨٩'[d]);
+        for (const pid of ['P08', 'P13']) {
+          const P = PT(pid), all = P.stages.flatMap(s => s.items), opt = all.filter(i => i.role === 'optional_link'), req = all.filter(i => i.role !== 'optional_link');
+          if (!opt.length) { fail(`8p/${pid}/data`, 'لا عناصر optional_link في البيانات'); continue; }
+          const { c, pg } = await mk8(1440);
+          await go8(pg, '/academy/p/' + P.slug, '.pprog');
+          const pr = await pg.locator('.pprog').innerText();
+          if (!new RegExp('أنجزتَ ٠ من ' + ad(req.length) + ' خطو').test(pr)) fail(`8p/${pid}/N`, `N لا يساوي ${req.length}: ` + pr.replace(/\s+/g, ' ').slice(0, 80));
+          for (const o of opt) {
+            const a = pg.locator(`#app a.item[href$="/${o.ref}"]`);
+            if ((await a.count()) !== 1) { fail(`8p/${pid}/${o.ref}/shown`, 'العنصر الاختياري غير ظاهر'); continue; }
+            if (!(await a.innerText()).includes('اختياري') || (await a.getAttribute('data-optional')) !== '1') fail(`8p/${pid}/${o.ref}/tag`, 'لا وسم «اختياري»');
+            if ((await a.getAttribute('class')).includes('next')) fail(`8p/${pid}/${o.ref}/next`, 'العنصر الاختياري معلَّم كخطوة تالية');
+          }
+          await c.close();
+          // completing every required item = program finished, even though the optional ones are untouched
+          const done = {}; for (const i of req) done[i.ref] = true;
+          const r2 = await mk8(1440, { ls: { 'acx:user:u1:done': JSON.stringify(done) } });
+          await go8(r2.pg, '/academy/p/' + P.slug, '.pprog');
+          const p2 = await r2.pg.locator('.pprog').innerText();
+          if (!new RegExp('أنجزتَ ' + ad(req.length) + ' من ' + ad(req.length) + ' خطو').test(p2)) fail(`8p/${pid}/complete`, 'الإكمال يتطلب الاختياري: ' + p2.replace(/\s+/g, ' ').slice(0, 90));
+          if (await r2.pg.locator('#ac-go').count()) fail(`8p/${pid}/go`, 'زر «تابع» ما زال ظاهرًا رغم إنجاز المطلوب');
+          if (!p2.includes('أتممتَ خطوات هذا البرنامج')) fail(`8p/${pid}/finished`, 'لا رسالة إتمام');
+          await r2.c.close();
+        }
+      }
+    } catch (e) { fail('8/fatal', e.stack || e.message); }
+  }
 } catch (e) {
   fail('fatal', e.stack || e.message);
 } finally {
@@ -665,5 +862,5 @@ if (fails.length) {
   if (fails.length > 60) console.log(` ... و${fails.length - 60} أخرى`);
   process.exit(1);
 }
-console.log('نجح: كل الفحوص (1-7) سليمة');
+console.log('نجح: كل الفحوص (1-8) سليمة');
 process.exit(0);

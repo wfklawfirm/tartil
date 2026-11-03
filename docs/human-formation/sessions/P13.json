@@ -1,0 +1,1221 @@
+{
+ "program": "P13",
+ "status": "draft-unreviewed",
+ "total_sessions": 18,
+ "sessions": [
+  {
+   "session_number": 1,
+   "week": 1,
+   "stage": "P13-A",
+   "title": "أدب المعلّم وحاجة المتعلم",
+   "competency": "M1",
+   "competency_title": "نعلّم بالسؤال لا بالتلقين",
+   "objective": "أن يذكر المتعلم أن للمعلّم أدبًا يقوم على الرفق وإتقان ما يعلّم وعدم إحراج المتعلم.",
+   "min_age": 16,
+   "duration_min": 40,
+   "components": [
+    {
+     "type": "intro",
+     "minutes": 5,
+     "ref": {
+      "kind": "lesson",
+      "id": "M1-L1"
+     },
+     "text": "ابدأ بالافتتاحية وأعطِ دقيقتين للكتابة الصامتة."
+    },
+    {
+     "type": "source_teaching",
+     "minutes": 12,
+     "ref": {
+      "kind": "lesson",
+      "id": "M1-L1"
+     },
+     "text": "النشاط الأول: اجمع السلوكات دون أسماء ودون ترتيب بين المشاركين."
+    },
+    {
+     "type": "interactive_practice",
+     "minutes": 19,
+     "ref": {
+      "kind": "lesson",
+      "id": "M1-L1"
+     },
+     "text": "ناقش الأسئلة وركّز على السلوكات لا على الأشخاص. وسجّل على السبورة سلوك الإصغاء إلى السؤال وقول «لا أدري» بوصفهما جزءًا من أدب المعلّم. ثم النشاط الثاني: التأمل الكتابي الفردي، ثم مشاركة طوعية."
+    },
+    {
+     "type": "assessment",
+     "minutes": 0,
+     "embedded_in": "interactive_practice",
+     "ref": {
+      "kind": "lesson",
+      "id": "M1-L1"
+     },
+     "text": "ملاحظة تكوينية وصفية أثناء الممارسة، دون درجات.",
+     "criteria": {
+      "ظهر": "يذكر سلوكين لمعلّم راعى متعلميه ويفسر أثرهما.",
+      "يتدرب": "يذكر سلوكًا واحدًا ويحتاج إلى ربطه بالأثر.",
+      "يحتاج_دعما": "يحتاج إلى أمثلة مصورة أو موقف مسرحي لفهم الأدب."
+     }
+    },
+    {
+     "type": "reflection",
+     "minutes": 4,
+     "ref": {
+      "kind": "lesson",
+      "id": "M1-L1"
+     },
+     "text": "اختم بتكليف الملاحظة في درس حقيقي، مع التذكير بأن التعليم هنا تحت إشراف بالغ."
+    }
+   ],
+   "homework": {
+    "optional": true,
+    "out_of_session": true,
+    "text": "يلاحظ المتعلم في درس حضره كيف سأل المعلّم عن الفهم.",
+    "estimated_minutes": 12,
+    "ref": {
+     "kind": "lesson",
+     "id": "M1-L1"
+    }
+   },
+   "review_status": "unreviewed"
+  },
+  {
+   "session_number": 2,
+   "week": 1,
+   "stage": "P13-A",
+   "title": "موقف: هل فهمتم؟",
+   "competency": "M1",
+   "competency_title": "نعلّم بالسؤال لا بالتلقين",
+   "objective": "أن يقرر المتعلم في موقف «هل فهمتم؟» ويرى عاقبة اختياره.",
+   "min_age": 16,
+   "duration_min": 8,
+   "components": [
+    {
+     "type": "intro",
+     "minutes": 2,
+     "ref": {
+      "kind": "scenario",
+      "id": "M1-S1"
+     },
+     "text": "قراءة مقدمة الموقف."
+    },
+    {
+     "type": "interactive_practice",
+     "minutes": 4,
+     "ref": {
+      "kind": "scenario",
+      "id": "M1-S1"
+     },
+     "text": "يختار المتعلمون في 2 قرارات متتابعة ويقرؤون عاقبة كل اختيار."
+    },
+    {
+     "type": "reflection",
+     "minutes": 2,
+     "ref": {
+      "kind": "scenario",
+      "id": "M1-S1"
+     },
+     "text": "حديث عن النهاية التي وصلوا إليها وسؤال التأمل في آخر الموقف."
+    }
+   ],
+   "review_status": "unreviewed"
+  },
+  {
+   "session_number": 3,
+   "week": 2,
+   "stage": "P13-A",
+   "title": "لماذا لا يكفي أن أسأل: هل فهمتم؟",
+   "competency": "M1",
+   "competency_title": "نعلّم بالسؤال لا بالتلقين",
+   "objective": "أن يشرح المتعلم لماذا لا يكفي سؤال «هل فهمتم؟» وكيف يكشف سؤال التطبيق الفهم الحقيقي.",
+   "min_age": 16,
+   "duration_min": 45,
+   "components": [
+    {
+     "type": "intro",
+     "minutes": 5,
+     "ref": {
+      "kind": "lesson",
+      "id": "M1-L2"
+     },
+     "text": "اطرح الافتتاحية، واترك للمتعلمين أن يتذكروا مواقف مرّت بهم."
+    },
+    {
+     "type": "source_teaching",
+     "minutes": 15,
+     "ref": {
+      "kind": "lesson",
+      "id": "M1-L2"
+     },
+     "text": "النشاط الأول: اقرأ الموقف، ثم اعرض السيناريو التفاعلي إن توافر، واطلب تحديد ما غاب."
+    },
+    {
+     "type": "interactive_practice",
+     "minutes": 20,
+     "ref": {
+      "kind": "lesson",
+      "id": "M1-L2"
+     },
+     "text": "نقاش أسئلة الموقف، وركّز على الأمان لا على لوم المعلّم. وركّز على أن سؤال الفهم الحقيقي يكشف ما أخفته كلمة «نعم»، وأن الشكر والإعادة يتمان بلطف. ثم النشاط الثاني: إعادة صياغة الأسئلة في أزواج، ثم مشاركة صيغ مختارة."
+    },
+    {
+     "type": "assessment",
+     "minutes": 0,
+     "embedded_in": "interactive_practice",
+     "ref": {
+      "kind": "lesson",
+      "id": "M1-L2"
+     },
+     "text": "ملاحظة تكوينية وصفية أثناء الممارسة، دون درجات.",
+     "criteria": {
+      "ظهر": "يشرح لماذا قد يجيب المتعلمون بنعم دون فهم ويقدم سؤالًا تطبيقيًّا مناسبًا.",
+      "يتدرب": "يشرح الفكرة ويحتاج إلى مساعدة في صياغة السؤال.",
+      "يحتاج_دعما": "يحتاج إلى نماذج إضافية للأسئلة وتدريب أولي."
+     }
+    },
+    {
+     "type": "reflection",
+     "minutes": 5,
+     "ref": {
+      "kind": "lesson",
+      "id": "M1-L2"
+     },
+     "text": "اختم بالتأكيد على أن الطالب القاصر لا يعلّم غيره دون حضور بالغ مسؤول."
+    }
+   ],
+   "homework": {
+    "optional": true,
+    "out_of_session": true,
+    "text": "يكتب المتعلم ثلاثة أسئلة تكشف الفهم لموضوع بسيط يعرفه.",
+    "estimated_minutes": 12,
+    "ref": {
+     "kind": "lesson",
+     "id": "M1-L2"
+    }
+   },
+   "review_status": "unreviewed"
+  },
+  {
+   "session_number": 4,
+   "week": 2,
+   "stage": "P13-A",
+   "title": "سلّم الأسئلة وتجربة على زميل",
+   "competency": "M1",
+   "competency_title": "نعلّم بالسؤال لا بالتلقين",
+   "objective": "أن يطرح المتعلم سؤالًا مفتوحًا على زميل ويصغي لإجابته، متدرجًا من التصور إلى المثال إلى السبب إلى التطبيق.",
+   "min_age": 16,
+   "duration_min": 50,
+   "components": [
+    {
+     "type": "intro",
+     "minutes": 6,
+     "ref": {
+      "kind": "lesson",
+      "id": "M1-L3"
+     },
+     "text": "اطرح الافتتاحية واعرض درجات السلّم الأربع على السبورة."
+    },
+    {
+     "type": "source_teaching",
+     "minutes": 12,
+     "ref": {
+      "kind": "lesson",
+      "id": "M1-L3"
+     },
+     "text": "النشاط الأول: يكتب كل متعلم أسئلته الأربعة لموضوع صغير."
+    },
+    {
+     "type": "interactive_practice",
+     "minutes": 27,
+     "ref": {
+      "kind": "lesson",
+      "id": "M1-L3"
+     },
+     "text": "النشاط الثاني: التجربة في أزواج بحضورك أنت وبهدوء، وتجوّل بين الأزواج. وأكّد أن السلّم يراعي قدرة كل زميل ولا يقارن بين المتعلمين. ثم النشاط الثالث: التأمل الكتابي الفردي."
+    },
+    {
+     "type": "assessment",
+     "minutes": 0,
+     "embedded_in": "interactive_practice",
+     "ref": {
+      "kind": "lesson",
+      "id": "M1-L3"
+     },
+     "text": "ملاحظة تكوينية وصفية أثناء الممارسة، دون درجات.",
+     "criteria": {
+      "ظهر": "يطرح سؤالًا مفتوحًا ويصغي لإجابة زميله ويعيد الشرح بلا ضجر.",
+      "يتدرب": "يطرح الأسئلة لكنه يقاطع الإجابة أحيانًا.",
+      "يحتاج_دعما": "يحتاج إلى تدرب على الصمت القصير بعد السؤال."
+     }
+    },
+    {
+     "type": "reflection",
+     "minutes": 5,
+     "ref": {
+      "kind": "lesson",
+      "id": "M1-L3"
+     },
+     "text": "اختم بتذكير: لا تعليم لصغير دون حضور بالغ مسؤول، ونحن في هذه التجربة نتدرب فقط."
+    }
+   ],
+   "homework": {
+    "optional": true,
+    "out_of_session": true,
+    "text": "يشرح المتعلم موضوعًا صغيرًا لأصغر منه بحضور بالغ مسؤول، ويصغي لأسئلته.",
+    "estimated_minutes": 12,
+    "ref": {
+     "kind": "lesson",
+     "id": "M1-L3"
+    }
+   },
+   "review_status": "unreviewed"
+  },
+  {
+   "session_number": 5,
+   "week": 3,
+   "stage": "P13-A",
+   "title": "اختياري: أعلّم الاستدلال",
+   "competency": "T3",
+   "competency_title": "الاستدلال المنهجي",
+   "objective": "أن يعلّم المتعلم زميلًا أصغر بطاقة الحجة بأسلوب مبسط.",
+   "min_age": 15,
+   "duration_min": 45,
+   "components": [
+    {
+     "type": "intro",
+     "minutes": 5,
+     "ref": {
+      "kind": "lesson",
+      "id": "T3-L5"
+     },
+     "text": "افتح بسؤال: متى فهمتُم شيئًا جيدًا لأنكم شرحتموه لغيركم؟"
+    },
+    {
+     "type": "source_teaching",
+     "minutes": 13,
+     "ref": {
+      "kind": "lesson",
+      "id": "T3-L5"
+     },
+     "text": "تصميم الدرس: يعمل كل متعلم على خطته، ومرّ بينهم لتقرأ الأسئلة الثلاثة."
+    },
+    {
+     "type": "interactive_practice",
+     "minutes": 20,
+     "ref": {
+      "kind": "lesson",
+      "id": "T3-L5"
+     },
+     "text": "تجربة التعليم: كل متعلم يشرح لزميل في دور المتعلم الأصغر (تمثيل)، ثم يتبادلان الأدوار. ثم أوراق الملاحظة: ما فهمه الصغير؟ وما الذي التبس؟ جلسة قصيرة."
+    },
+    {
+     "type": "assessment",
+     "minutes": 0,
+     "embedded_in": "interactive_practice",
+     "ref": {
+      "kind": "lesson",
+      "id": "T3-L5"
+     },
+     "text": "ملاحظة تكوينية وصفية أثناء الممارسة، دون درجات.",
+     "criteria": {
+      "ظهر": "يعلّم بوضوح ويستمع لأسئلة الزميل ويعدّل شرحه.",
+      "يتدرب": "يشرح الفكرة لكنه يحتاج تدريبًا على الاستماع.",
+      "يحتاج_دعما": "يفضّل أن يقنع الزميل بدل أن يعينه؛ يحتاج توجيهًا إلى معنى المساعدة."
+     }
+    },
+    {
+     "type": "reflection",
+     "minutes": 7,
+     "ref": {
+      "kind": "lesson",
+      "id": "T3-L5"
+     },
+     "text": "التأمل الكتابي، ثم شرح مهمة الأسبوع مع أخ أو صديق."
+    }
+   ],
+   "homework": {
+    "optional": true,
+    "out_of_session": true,
+    "text": "أن يساعد أخًا أو صديقًا على تقوية قراره بسؤال الدليل.",
+    "estimated_minutes": 10,
+    "ref": {
+     "kind": "lesson",
+     "id": "T3-L5"
+    }
+   },
+   "review_status": "unreviewed"
+  },
+  {
+   "session_number": 6,
+   "week": 3,
+   "stage": "P13-B",
+   "title": "النصيحة والتعيير: الفرق في القصد والأسلوب",
+   "competency": "M2",
+   "competency_title": "ملاحظة نافعة لا تعيير",
+   "objective": "أن يميّز المتعلم بين ملاحظة غرضها التحسين وكلام غرضه إظهار العيب.",
+   "min_age": 16,
+   "duration_min": 40,
+   "components": [
+    {
+     "type": "intro",
+     "minutes": 5,
+     "ref": {
+      "kind": "lesson",
+      "id": "M2-L1"
+     },
+     "text": "اطرح الافتتاحية، ثم اطلب من المتعلمين تخيّل شعورهم بكل صيغة."
+    },
+    {
+     "type": "source_teaching",
+     "minutes": 15,
+     "ref": {
+      "kind": "lesson",
+      "id": "M2-L1"
+     },
+     "text": "النشاط الأول: وزّع الصيغ الثلاث، ودع المجموعات تصنّفها وتناقش الأثر."
+    },
+    {
+     "type": "interactive_practice",
+     "minutes": 16,
+     "ref": {
+      "kind": "lesson",
+      "id": "M2-L1"
+     },
+     "text": "اجمع التصنيفات بلا ترتيب بين المجموعات واكتب العلامات على السبورة. وأضف علامة: فرصة التوضيح، وتجنب إعادة ذنب مضى وانتهى. ثم النشاط الثاني: صياغة العلامات الأربع بكلمات المتعلمين."
+    },
+    {
+     "type": "assessment",
+     "minutes": 0,
+     "embedded_in": "interactive_practice",
+     "ref": {
+      "kind": "lesson",
+      "id": "M2-L1"
+     },
+     "text": "ملاحظة تكوينية وصفية أثناء الممارسة، دون درجات.",
+     "criteria": {
+      "ظهر": "يفرّق بين نصيحة وتعيير بالقصد والأسلوب والمكان.",
+      "يتدرب": "يميّز في الأمثلة الواضحة ويتردد في الحالات المتداخلة.",
+      "يحتاج_دعما": "يحتاج إلى أمثلة محسوسة وتدرب على تحديد القصد."
+     }
+    },
+    {
+     "type": "reflection",
+     "minutes": 4,
+     "ref": {
+      "kind": "lesson",
+      "id": "M2-L1"
+     },
+     "text": "اختم بالتأكيد: لا نعيّر أحدًا، ولا نكشف أخطاء شخصية، وإن ظهر ضيق شديد على أحد فنوجّهه إلى بالغ موثوق."
+    }
+   ],
+   "homework": {
+    "optional": true,
+    "out_of_session": true,
+    "text": "يراجع المتعلم ملاحظة سمعها أو قالها سابقًا ويقيّمها بالمعايير دون تسمية أحد.",
+    "estimated_minutes": 12,
+    "ref": {
+     "kind": "lesson",
+     "id": "M2-L1"
+    }
+   },
+   "review_status": "unreviewed"
+  },
+  {
+   "session_number": 7,
+   "week": 4,
+   "stage": "P13-B",
+   "title": "موقف: عرض بلا ترتيب",
+   "competency": "M2",
+   "competency_title": "ملاحظة نافعة لا تعيير",
+   "objective": "أن يقرر المتعلم في موقف «عرض بلا ترتيب» ويرى عاقبة اختياره.",
+   "min_age": 16,
+   "duration_min": 10,
+   "components": [
+    {
+     "type": "intro",
+     "minutes": 2,
+     "ref": {
+      "kind": "scenario",
+      "id": "M2-S1"
+     },
+     "text": "قراءة مقدمة الموقف."
+    },
+    {
+     "type": "interactive_practice",
+     "minutes": 6,
+     "ref": {
+      "kind": "scenario",
+      "id": "M2-S1"
+     },
+     "text": "يختار المتعلمون في 3 قرارات متتابعة ويقرؤون عاقبة كل اختيار."
+    },
+    {
+     "type": "reflection",
+     "minutes": 2,
+     "ref": {
+      "kind": "scenario",
+      "id": "M2-S1"
+     },
+     "text": "حديث عن النهاية التي وصلوا إليها وسؤال التأمل في آخر الموقف."
+    }
+   ],
+   "review_status": "unreviewed"
+  },
+  {
+   "session_number": 8,
+   "week": 4,
+   "stage": "P13-B",
+   "title": "ما الذي يجعل الملاحظة نافعة",
+   "competency": "M2",
+   "competency_title": "ملاحظة نافعة لا تعيير",
+   "objective": "أن يشرح المتعلم خصائص ملاحظة نافعة: محددة، قابلة للتنفيذ، تحفظ الكرامة، وتراعي حسن الظن.",
+   "min_age": 16,
+   "duration_min": 45,
+   "components": [
+    {
+     "type": "intro",
+     "minutes": 6,
+     "ref": {
+      "kind": "lesson",
+      "id": "M2-L2"
+     },
+     "text": "اطرح الافتتاحية، ثم اعرض أسئلة فحص النية."
+    },
+    {
+     "type": "source_teaching",
+     "minutes": 14,
+     "ref": {
+      "kind": "lesson",
+      "id": "M2-L2"
+     },
+     "text": "النشاط الأول: نقاش قصير ثم كتابة عبارة التذكير."
+    },
+    {
+     "type": "interactive_practice",
+     "minutes": 18,
+     "ref": {
+      "kind": "lesson",
+      "id": "M2-L2"
+     },
+     "text": "اجمع عبارات التذكير على السبورة دون تقييم لها. وأضف عنصر التماس العذر قبل التنبيه. ثم النشاط الثاني: تحويل العبارات العامة في أزواج."
+    },
+    {
+     "type": "assessment",
+     "minutes": 0,
+     "embedded_in": "interactive_practice",
+     "ref": {
+      "kind": "lesson",
+      "id": "M2-L2"
+     },
+     "text": "ملاحظة تكوينية وصفية أثناء الممارسة، دون درجات.",
+     "criteria": {
+      "ظهر": "يحوّل العبارة العامة إلى ملاحظة محددة محترمة ويستقبل الملاحظة بهدوء.",
+      "يتدرب": "يحدد السلوك لكن يغفل عن الاقتراح العملي.",
+      "يحتاج_دعما": "يحتاج إلى نماذج وتوجيه لفصل السلوك عن الشخص."
+     }
+    },
+    {
+     "type": "reflection",
+     "minutes": 7,
+     "ref": {
+      "kind": "lesson",
+      "id": "M2-L2"
+     },
+     "text": "اختم بتوضيح أن هذا تدريب على التواصل لا إرشاد نفسي؛ ومن ظهر عليه ضيق شديد يُحال إلى بالغ موثوق."
+    }
+   ],
+   "homework": {
+    "optional": true,
+    "out_of_session": true,
+    "text": "يطلب المتعلم من صديق ملاحظة على عمل صغير ويصغي دون دفاع.",
+    "estimated_minutes": 12,
+    "ref": {
+     "kind": "lesson",
+     "id": "M2-L2"
+    }
+   },
+   "review_status": "unreviewed"
+  },
+  {
+   "session_number": 9,
+   "week": 5,
+   "stage": "P13-B",
+   "title": "قالب الملاحظة بثلاث خانات",
+   "competency": "M2",
+   "competency_title": "ملاحظة نافعة لا تعيير",
+   "objective": "أن يقدّم المتعلم ملاحظة بقالب: ما رأيته محددًا، وأثره، واقتراح واحد قابل للتنفيذ، في خصوصية.",
+   "min_age": 16,
+   "duration_min": 50,
+   "components": [
+    {
+     "type": "intro",
+     "minutes": 5,
+     "ref": {
+      "kind": "lesson",
+      "id": "M2-L3"
+     },
+     "text": "اطرح الافتتاحية، ثم اعرض القالب ذي الخانات الثلاث على السبورة."
+    },
+    {
+     "type": "source_teaching",
+     "minutes": 15,
+     "ref": {
+      "kind": "lesson",
+      "id": "M2-L3"
+     },
+     "text": "النشاط الأول: كتابة ملاحظة بالقالب لحالة خيالية، وتجوّل لتقرأ دون تعليق علني."
+    },
+    {
+     "type": "interactive_practice",
+     "minutes": 26,
+     "ref": {
+      "kind": "lesson",
+      "id": "M2-L3"
+     },
+     "text": "النشاط الثاني: مناقشة الحالتين في مجموعات صغيرة، ثم اعرض السيناريو التفاعلي إن توافر. وأضف ترتيب التماس العذر ثم التلميح ثم التصريح التدريجي. ثم النشاط الثالث: تأمل كتابي فردي ولا يُقرأ علنًا."
+    },
+    {
+     "type": "assessment",
+     "minutes": 0,
+     "embedded_in": "interactive_practice",
+     "ref": {
+      "kind": "lesson",
+      "id": "M2-L3"
+     },
+     "text": "ملاحظة تكوينية وصفية أثناء الممارسة، دون درجات.",
+     "criteria": {
+      "ظهر": "يقدّم الملاحظة بخاناتها الثلاث بخصوصية ويسأل عن رأي صاحب العمل.",
+      "يتدرب": "يستعمل القالب لكن يخلط أحيانًا بين السلوك والشخص.",
+      "يحتاج_دعما": "يحتاج إلى نموذج مكتوب وتدرب بدور تمثيلي أولًا."
+     }
+    },
+    {
+     "type": "reflection",
+     "minutes": 4,
+     "ref": {
+      "kind": "lesson",
+      "id": "M2-L3"
+     },
+     "text": "اختم بتذكير: الملاحظة لا تُنشر أمام الجماعة، ولا نكشف أخطاء شخصية."
+    }
+   ],
+   "homework": {
+    "optional": true,
+    "out_of_session": true,
+    "text": "يعطي المتعلم ملاحظة بالقالب لزميل على عمل صغير بإشراف المربي.",
+    "estimated_minutes": 12,
+    "ref": {
+     "kind": "lesson",
+     "id": "M2-L3"
+    }
+   },
+   "review_status": "unreviewed"
+  },
+  {
+   "session_number": 10,
+   "week": 5,
+   "stage": "P13-B",
+   "title": "اختياري: أعين غيري على قراره",
+   "competency": "T4",
+   "competency_title": "اتخاذ القرار",
+   "objective": "أن يعين المتعلم زميلًا أو قريبًا على قراره بالأسئلة لا بالأوامر.",
+   "min_age": 15,
+   "duration_min": 45,
+   "components": [
+    {
+     "type": "intro",
+     "minutes": 5,
+     "ref": {
+      "kind": "lesson",
+      "id": "T4-L5"
+     },
+     "text": "ابدأ بسؤال الافتتاح، وطلب إجابات مكتوبة قصيرة."
+    },
+    {
+     "type": "source_teaching",
+     "minutes": 5,
+     "ref": {
+      "kind": "lesson",
+      "id": "T4-L5"
+     },
+     "text": "شرح دور المستشار، وإعطاء أمثلة أسئلة جيدة وغير جيدة."
+    },
+    {
+     "type": "interactive_practice",
+     "minutes": 32,
+     "ref": {
+      "kind": "lesson",
+      "id": "T4-L5"
+     },
+     "text": "لعب الأدوار في ثنائيات، مع تبديل الأدوار بعد ثماني دقائق. ثم نقاش الحدود: اكتب القاعدة على اللوح: الخطر والأذى والعنف والدين الشخصي لهم بالغ أو مختص. ثم تأمل فردي ومهمة الأسبوع."
+    },
+    {
+     "type": "assessment",
+     "minutes": 0,
+     "embedded_in": "interactive_practice",
+     "ref": {
+      "kind": "lesson",
+      "id": "T4-L5"
+     },
+     "text": "ملاحظة تكوينية وصفية أثناء الممارسة، دون درجات.",
+     "criteria": {
+      "ظهر": "يطرح أسئلة معينة ويحترم قرار صاحبه ويشير لمختص عند اللزوم.",
+      "يتدرب": "يطرح بعض الأسئلة لكنه يميل إلى إعطاء الجواب.",
+      "يحتاج_دعما": "يعطي أوامر بدل الأسئلة؛ يحتاج تدريبًا على الإصغاء."
+     }
+    },
+    {
+     "type": "reflection",
+     "minutes": 3,
+     "ref": {
+      "kind": "lesson",
+      "id": "T4-L5"
+     },
+     "text": "ختام بجملة شكر لمن شارك."
+    }
+   ],
+   "homework": {
+    "optional": true,
+    "out_of_session": true,
+    "text": "أن يستمع لصديق أو قريب في قرار صغير ويسأله ثلاثة أسئلة دون توجيه.",
+    "estimated_minutes": 10,
+    "ref": {
+     "kind": "lesson",
+     "id": "T4-L5"
+    }
+   },
+   "review_status": "unreviewed"
+  },
+  {
+   "session_number": 11,
+   "week": 6,
+   "stage": "P13-C",
+   "title": "أدير اجتماعًا قصيرًا",
+   "competency": "L1",
+   "competency_title": "أستشير ثم أعزم: الشورى والقرار الجماعي",
+   "objective": "أن يدير المتعلم اجتماعًا قصيرًا لفريق صغير: يحدد جدولًا، ويعطي الجميع فرصة، ويلخص القرار ويوزع المسؤولية.",
+   "min_age": 15,
+   "duration_min": 55,
+   "components": [
+    {
+     "type": "intro",
+     "minutes": 6,
+     "ref": {
+      "kind": "lesson",
+      "id": "L1-L4"
+     },
+     "text": "اطرح الافتتاحية وأعطِ أمثلة على اجتماعات فاشلة وناجحة."
+    },
+    {
+     "type": "source_teaching",
+     "minutes": 16,
+     "ref": {
+      "kind": "lesson",
+      "id": "L1-L4"
+     },
+     "text": "وزّع الأدوار، ثم يجري الاجتماع (ست إلى عشر دقائق) بإشراف مباشر."
+    },
+    {
+     "type": "interactive_practice",
+     "minutes": 25,
+     "ref": {
+      "kind": "lesson",
+      "id": "L1-L4"
+     },
+     "text": "جلسة الأسئلة الأربعة داخل المجموعة. ثم تأمل: أستشير ثم أحسم وأتوكل وأتحمل."
+    },
+    {
+     "type": "assessment",
+     "minutes": 0,
+     "embedded_in": "interactive_practice",
+     "ref": {
+      "kind": "lesson",
+      "id": "L1-L4"
+     },
+     "text": "ملاحظة تكوينية وصفية أثناء الممارسة، دون درجات.",
+     "criteria": {
+      "ظهر": "يدير اجتماعًا منظمًا يتيح للجميع المشاركة ويلخص القرار.",
+      "يتدرب": "يدير الاجتماع ويحتاج دعمًا في تلخيص القرار أو توزيع المسؤولية.",
+      "يحتاج_دعما": "يسيطر على الحديث أو يتردد في القيادة، فيحتاج تدريبًا على المداولة بأدوار."
+     }
+    },
+    {
+     "type": "reflection",
+     "minutes": 8,
+     "ref": {
+      "kind": "lesson",
+      "id": "L1-L4"
+     },
+     "text": "ختام: وجّه إلى ممارسة مقرر الاجتماع الصغير في نشاط حقيقي. ملاحظة للمعلّم: مادة هذا الدرس مؤصَّلة بمبادئ مستخرجة (L1-02، L1-04) وهي مسودة غير مراجَعة، وما وُسم منها «يحتاج مراجعة» (L1-04) لا يُعمَّم قبل مراجعة المختصين؛ ولا يُنسب إلى مصدر نصٌّ بعينه."
+    }
+   ],
+   "homework": {
+    "optional": true,
+    "out_of_session": true,
+    "text": "مقرر الاجتماع الصغير",
+    "estimated_minutes": 12,
+    "ref": {
+     "kind": "lesson",
+     "id": "L1-L4"
+    }
+   },
+   "review_status": "unreviewed"
+  },
+  {
+   "session_number": 12,
+   "week": 6,
+   "stage": "P13-C",
+   "title": "لكل مسؤولية سؤال",
+   "competency": "L2",
+   "competency_title": "قيادة تخدم: المسؤولية العامة في الفريق الصغير",
+   "objective": "أن يذكر المتعلم أن من تولى أمرًا لجماعة يُسأل عنه، وأن يميّز بين ما يملكه وما لا يملكه.",
+   "min_age": 16,
+   "duration_min": 40,
+   "components": [
+    {
+     "type": "intro",
+     "minutes": 5,
+     "ref": {
+      "kind": "lesson",
+      "id": "L2-L1"
+     },
+     "text": "اطرح الافتتاحية: المسؤولية والخطأ."
+    },
+    {
+     "type": "source_teaching",
+     "minutes": 10,
+     "ref": {
+      "kind": "lesson",
+      "id": "L2-L1"
+     },
+     "text": "النقاش الأول: ما معنى أن أكون مسؤولًا؟"
+    },
+    {
+     "type": "interactive_practice",
+     "minutes": 21,
+     "ref": {
+      "kind": "lesson",
+      "id": "L2-L1"
+     },
+     "text": "اقرأ قصة خالد وناقشها بأسئلتها. ثم جملة حدود القدرة: كتابة قصيرة."
+    },
+    {
+     "type": "assessment",
+     "minutes": 0,
+     "embedded_in": "interactive_practice",
+     "ref": {
+      "kind": "lesson",
+      "id": "L2-L1"
+     },
+     "text": "ملاحظة تكوينية وصفية أثناء الممارسة، دون درجات.",
+     "criteria": {
+      "ظهر": "يذكر ما يملكه وما لا يملكه ويشرح أن المسؤولية قابلة للتقاسم.",
+      "يتدرب": "يذكر الفكرة ويحتاج تقريبها بأمثلة.",
+      "يحتاج_دعما": "يحمّل نفسه كل شيء أو يتنصل من المسؤولية، فيحتاج حوارًا هادئًا."
+     }
+    },
+    {
+     "type": "reflection",
+     "minutes": 4,
+     "ref": {
+      "kind": "lesson",
+      "id": "L2-L1"
+     },
+     "text": "ختام: وجّه إلى ممارسة «ما الذي أملكه؟». ملاحظة للمعلّم: مادة هذا الدرس مؤصَّلة بمبادئ مستخرجة (L2-01) وهي مسودة غير مراجَعة، وما وُسم منها «يحتاج مراجعة» (L2-01) لا يُعمَّم قبل مراجعة المختصين؛ ولا يُنسب إلى مصدر نصٌّ بعينه."
+    }
+   ],
+   "homework": {
+    "optional": true,
+    "out_of_session": true,
+    "text": "ما الذي أملكه؟",
+    "estimated_minutes": 12,
+    "ref": {
+     "kind": "lesson",
+     "id": "L2-L1"
+    }
+   },
+   "review_status": "unreviewed"
+  },
+  {
+   "session_number": 13,
+   "week": 7,
+   "stage": "P13-C",
+   "title": "القيادة خدمة",
+   "competency": "L2",
+   "competency_title": "قيادة تخدم: المسؤولية العامة في الفريق الصغير",
+   "objective": "أن يشرح المتعلم كيف يخدم القائد الجماعة ولا يستعلي عليها، وأن يعدد أسئلة القائد الخمسة.",
+   "min_age": 16,
+   "duration_min": 45,
+   "components": [
+    {
+     "type": "intro",
+     "minutes": 5,
+     "ref": {
+      "kind": "lesson",
+      "id": "L2-L2"
+     },
+     "text": "اطرح قائدَي الافتتاحية ودع المتعلمين يقارنون."
+    },
+    {
+     "type": "source_teaching",
+     "minutes": 12,
+     "ref": {
+      "kind": "lesson",
+      "id": "L2-L2"
+     },
+     "text": "نقاش المقارنة بين الموقفين."
+    },
+    {
+     "type": "interactive_practice",
+     "minutes": 24,
+     "ref": {
+      "kind": "lesson",
+      "id": "L2-L2"
+     },
+     "text": "بطاقة قائد الفريق الصغير: شرحها بإيجاز ثم تطبيق في أزواج. ثم تأمل: من يخدم من؟ كتابة قصيرة."
+    },
+    {
+     "type": "assessment",
+     "minutes": 0,
+     "embedded_in": "interactive_practice",
+     "ref": {
+      "kind": "lesson",
+      "id": "L2-L2"
+     },
+     "text": "ملاحظة تكوينية وصفية أثناء الممارسة، دون درجات.",
+     "criteria": {
+      "ظهر": "يشرح الخدمة ويطبق أسئلة القائد على موقف.",
+      "يتدرب": "يطبق بعض الأسئلة ويحتاج تذكيرًا بالبقية.",
+      "يحتاج_دعما": "يربط القيادة بالسيطرة، فيحتاج أمثلة لقيادات خدمية من حياته."
+     }
+    },
+    {
+     "type": "reflection",
+     "minutes": 4,
+     "ref": {
+      "kind": "lesson",
+      "id": "L2-L2"
+     },
+     "text": "ختام: وجّه إلى سؤال الخدمة العملي. ملاحظة للمعلّم: مادة هذا الدرس مؤصَّلة بمبادئ مستخرجة (L2-02، L2-04، L2-07) وهي مسودة غير مراجَعة، وما وُسم منها «يحتاج مراجعة» (L2-04) لا يُعمَّم قبل مراجعة المختصين؛ ولا يُنسب إلى مصدر نصٌّ بعينه."
+    }
+   ],
+   "homework": {
+    "optional": true,
+    "out_of_session": true,
+    "text": "سؤال الخدمة",
+    "estimated_minutes": 12,
+    "ref": {
+     "kind": "lesson",
+     "id": "L2-L2"
+    }
+   },
+   "review_status": "unreviewed"
+  },
+  {
+   "session_number": 14,
+   "week": 7,
+   "stage": "P13-C",
+   "title": "موقف: قائد فريق التطوع",
+   "competency": "L2",
+   "competency_title": "قيادة تخدم: المسؤولية العامة في الفريق الصغير",
+   "objective": "أن يقرر المتعلم في موقف «قائد فريق التطوع» ويرى عاقبة اختياره.",
+   "min_age": 16,
+   "duration_min": 10,
+   "components": [
+    {
+     "type": "intro",
+     "minutes": 2,
+     "ref": {
+      "kind": "scenario",
+      "id": "L2-S1"
+     },
+     "text": "قراءة مقدمة الموقف."
+    },
+    {
+     "type": "interactive_practice",
+     "minutes": 6,
+     "ref": {
+      "kind": "scenario",
+      "id": "L2-S1"
+     },
+     "text": "يختار المتعلمون في 3 قرارات متتابعة ويقرؤون عاقبة كل اختيار."
+    },
+    {
+     "type": "reflection",
+     "minutes": 2,
+     "ref": {
+      "kind": "scenario",
+      "id": "L2-S1"
+     },
+     "text": "حديث عن النهاية التي وصلوا إليها وسؤال التأمل في آخر الموقف."
+    }
+   ],
+   "review_status": "unreviewed"
+  },
+  {
+   "session_number": 15,
+   "week": 8,
+   "stage": "P13-C",
+   "title": "أتولى مهمة صغيرة",
+   "competency": "L2",
+   "competency_title": "قيادة تخدم: المسؤولية العامة في الفريق الصغير",
+   "objective": "أن يتولى المتعلم دورًا خدميًّا صغيرًا بإشراف بالغ، ويتحمل نتيجته ويتحقق من عمله بنفسه دون الاكتفاء بالتفويض.",
+   "min_age": 16,
+   "duration_min": 55,
+   "components": [
+    {
+     "type": "intro",
+     "minutes": 6,
+     "ref": {
+      "kind": "lesson",
+      "id": "L2-L3"
+     },
+     "text": "اطرح الافتتاحية واذكر أن الدور بإشراف بالغ."
+    },
+    {
+     "type": "source_teaching",
+     "minutes": 18,
+     "ref": {
+      "kind": "lesson",
+      "id": "L2-L3"
+     },
+     "text": "المشروع: كتابة الدور والميثاق. أعطِ الفرق نحو خمس عشرة دقيقة."
+    },
+    {
+     "type": "interactive_practice",
+     "minutes": 24,
+     "ref": {
+      "kind": "lesson",
+      "id": "L2-L3"
+     },
+     "text": "شغّل السيناريو وناقشه. ثم نقاش التفويض والمتابعة."
+    },
+    {
+     "type": "assessment",
+     "minutes": 0,
+     "embedded_in": "interactive_practice",
+     "ref": {
+      "kind": "lesson",
+      "id": "L2-L3"
+     },
+     "text": "ملاحظة تكوينية وصفية أثناء الممارسة، دون درجات.",
+     "criteria": {
+      "ظهر": "يؤدي دوره ويتحقق من عمله ويطلب العون عند الحاجة.",
+      "يتدرب": "يؤدي دوره ويحتاج تذكيرًا بالمتابعة.",
+      "يحتاج_دعما": "يتولى الدور بتردد أو يتركه، فيحتاج دورًا أصغر ودعمًا."
+     }
+    },
+    {
+     "type": "reflection",
+     "minutes": 7,
+     "ref": {
+      "kind": "lesson",
+      "id": "L2-L3"
+     },
+     "text": "ختام: ذكّر بالتسجيل اليومي، والمشرف مرجع في كل أذى. ملاحظة للمعلّم: مادة هذا الدرس مؤصَّلة بمبادئ مستخرجة (L2-05، L2-04) وهي مسودة غير مراجَعة، وما وُسم منها «يحتاج مراجعة» (L2-05، L2-04) لا يُعمَّم قبل مراجعة المختصين؛ ولا يُنسب إلى مصدر نصٌّ بعينه."
+    }
+   ],
+   "homework": {
+    "optional": true,
+    "out_of_session": true,
+    "text": "متابعة دوري الخدمي",
+    "estimated_minutes": 15,
+    "ref": {
+     "kind": "lesson",
+     "id": "L2-L3"
+    }
+   },
+   "review_status": "unreviewed"
+  },
+  {
+   "session_number": 16,
+   "week": 8,
+   "stage": "P13-C",
+   "title": "موقف: تعليمات تؤذي",
+   "competency": "L2",
+   "competency_title": "قيادة تخدم: المسؤولية العامة في الفريق الصغير",
+   "objective": "أن يقرر المتعلم في موقف «تعليمات تؤذي» ويرى عاقبة اختياره.",
+   "min_age": 16,
+   "duration_min": 12,
+   "components": [
+    {
+     "type": "intro",
+     "minutes": 2,
+     "ref": {
+      "kind": "scenario",
+      "id": "L2-S2"
+     },
+     "text": "قراءة مقدمة الموقف."
+    },
+    {
+     "type": "interactive_practice",
+     "minutes": 8,
+     "ref": {
+      "kind": "scenario",
+      "id": "L2-S2"
+     },
+     "text": "يختار المتعلمون في 4 قرارات متتابعة ويقرؤون عاقبة كل اختيار."
+    },
+    {
+     "type": "reflection",
+     "minutes": 2,
+     "ref": {
+      "kind": "scenario",
+      "id": "L2-S2"
+     },
+     "text": "حديث عن النهاية التي وصلوا إليها وسؤال التأمل في آخر الموقف."
+    }
+   ],
+   "review_status": "unreviewed"
+  },
+  {
+   "session_number": 17,
+   "week": 9,
+   "stage": "P13-C",
+   "title": "أقود فريقًا بإنصاف",
+   "competency": "L2",
+   "competency_title": "قيادة تخدم: المسؤولية العامة في الفريق الصغير",
+   "objective": "أن يقود المتعلم فريقًا صغيرًا بإنصاف، يشاور ويعدل وينصف المختلف، ويعرف متى يُبلغ عن أذى.",
+   "min_age": 16,
+   "duration_min": 55,
+   "components": [
+    {
+     "type": "intro",
+     "minutes": 6,
+     "ref": {
+      "kind": "lesson",
+      "id": "L2-L4"
+     },
+     "text": "اطرح الافتتاحية بهدوء، ولا تطلب مشاركات شخصية."
+    },
+    {
+     "type": "source_teaching",
+     "minutes": 16,
+     "ref": {
+      "kind": "lesson",
+      "id": "L2-L4"
+     },
+     "text": "شغّل السيناريو وناقش كل خيار."
+    },
+    {
+     "type": "interactive_practice",
+     "minutes": 26,
+     "ref": {
+      "kind": "lesson",
+      "id": "L2-L4"
+     },
+     "text": "المشروع: قيادة جلسة قصيرة في أزواج أو مجموعات صغيرة. ثم التأمل: طاعة بشرط."
+    },
+    {
+     "type": "assessment",
+     "minutes": 0,
+     "embedded_in": "interactive_practice",
+     "ref": {
+      "kind": "lesson",
+      "id": "L2-L4"
+     },
+     "text": "ملاحظة تكوينية وصفية أثناء الممارسة، دون درجات.",
+     "criteria": {
+      "ظهر": "يقود بإنصاف ويشاور ويعرف طريق الإبلاغ عن الأذى.",
+      "يتدرب": "يقود بإنصاف جزئي ويحتاج تذكيرًا بالإبلاغ.",
+      "يحتاج_دعما": "يخلط بين القيادة والسيطرة، فيحتاج مواقف بديلة وحوارًا."
+     }
+    },
+    {
+     "type": "reflection",
+     "minutes": 7,
+     "ref": {
+      "kind": "lesson",
+      "id": "L2-L4"
+     },
+     "text": "ختام: تأكّد أن كل متعلم يعرف إلى من يلجأ إن وقع أذى (المشرف، ولي الأمر). ملاحظة للمعلّم: مادة هذا الدرس مؤصَّلة بمبادئ مستخرجة (L2-10) وهي مسودة غير مراجَعة، وما وُسم منها «يحتاج مراجعة» (L2-10) لا يُعمَّم قبل مراجعة المختصين؛ ولا يُنسب إلى مصدر نصٌّ بعينه."
+    }
+   ],
+   "homework": {
+    "optional": true,
+    "out_of_session": true,
+    "text": "ميثاق الإنصاف",
+    "estimated_minutes": 12,
+    "ref": {
+     "kind": "lesson",
+     "id": "L2-L4"
+    }
+   },
+   "review_status": "unreviewed"
+  },
+  {
+   "session_number": 18,
+   "week": 9,
+   "stage": "P13-C",
+   "title": "اختياري: أرشد زميلًا في بحثه",
+   "competency": "T6",
+   "competency_title": "التعلّم الذاتي والبحث",
+   "objective": "أن يرشد المتعلم زميلًا أصغر في خطة بحث صغيرة.",
+   "min_age": 15,
+   "duration_min": 45,
+   "components": [
+    {
+     "type": "intro",
+     "minutes": 5,
+     "ref": {
+      "kind": "lesson",
+      "id": "T6-L5"
+     },
+     "text": "ابدأ بسؤال الافتتاح، واطلب مثالًا قصيرًا عن مساعدة سابقة."
+    },
+    {
+     "type": "source_teaching",
+     "minutes": 13,
+     "ref": {
+      "kind": "lesson",
+      "id": "T6-L5"
+     },
+     "text": "تصميم الدليل: يصنعه كل متعلم، مع عرض نموذج جاهز."
+    },
+    {
+     "type": "interactive_practice",
+     "minutes": 22,
+     "ref": {
+      "kind": "lesson",
+      "id": "T6-L5"
+     },
+     "text": "جلسة الإرشاد في أزواج بإشراف بالغ؛ تبادل الأدوار. ثم تأمل مكتوب."
+    },
+    {
+     "type": "assessment",
+     "minutes": 0,
+     "embedded_in": "interactive_practice",
+     "ref": {
+      "kind": "lesson",
+      "id": "T6-L5"
+     },
+     "text": "ملاحظة تكوينية وصفية أثناء الممارسة، دون درجات.",
+     "criteria": {
+      "ظهر": "يرشد بأسئلة معينة ويترك العمل لصاحبه.",
+      "يتدرب": "يرشد لكنه يميل إلى القيام بالعمل عن الزميل.",
+      "يحتاج_دعما": "يتجنب الإرشاد؛ يحتاج تهيئة وأمثلة."
+     }
+    },
+    {
+     "type": "reflection",
+     "minutes": 5,
+     "ref": {
+      "kind": "lesson",
+      "id": "T6-L5"
+     },
+     "text": "اشرح مهمة الأسبوع: إرشاد قريب أو صديق بخطة بحث قصيرة."
+    }
+   ],
+   "homework": {
+    "optional": true,
+    "out_of_session": true,
+    "text": "أن يرشد قريبًا أو صديقًا بخطة بحث قصيرة.",
+    "estimated_minutes": 10,
+    "ref": {
+     "kind": "lesson",
+     "id": "T6-L5"
+    }
+   },
+   "review_status": "unreviewed"
+  }
+ ]
+}
