@@ -380,7 +380,7 @@ function renderNav(active){
   const main=[['#/','الرئيسية','home','home'],['#/quran','المصحف','quran','book'],['#/search','بحث','search','search'],['#/tajweed','التجويد','tajweed','wave']];
   const more=el('button',{type:'button','aria-haspopup':'true','aria-expanded':'false',on:{click:()=>{const m=$('#more');m.hidden=!m.hidden;more.setAttribute('aria-expanded',String(!m.hidden))}}},ico('more'),'المزيد');
   $('#bnav').replaceChildren(...main.map(([h,t,k,i])=>el('a',{href:h,class:k===active?'on':'','aria-current':k===active?'page':null},ico(i),t)),more);
-  const rest=[['#/plan','خطتي'],['#/foundations','الأسس: الحروف والحركات'],['#/qiraat','القراءات والإسناد']];if(token&&ME&&ME.memberships&&ME.memberships.length)rest.push(['#/app/'+ME.memberships[0].institutionId+'/homework','الواجبات']);if(token)rest.push(['#/me','رحلتي'],['#/app','لوحتي']);if(token&&isScholar())rest.push(['#/review','المراجعة العلمية']);
+  const rest=[['#/demo','جولة في الواجبات'],['#/plan','خطتي'],['#/foundations','الأسس: الحروف والحركات'],['#/qiraat','القراءات والإسناد']];if(token&&ME&&ME.memberships&&ME.memberships.length)rest.push(['#/app/'+ME.memberships[0].institutionId+'/homework','الواجبات']);if(token)rest.push(['#/me','رحلتي'],['#/app','لوحتي']);if(token&&isScholar())rest.push(['#/review','المراجعة العلمية']);
   rest.push(token?['#/auth','حسابي']:['#/auth','دخول / تسجيل']);
   const mm=$('#more');mm.hidden=true;mm.replaceChildren(...rest.map(([h,t])=>el('a',{href:h,on:{click:()=>{mm.hidden=true}}},t)));
 }
@@ -399,6 +399,7 @@ async function route(){
     else if(top==='me'){renderNav('me');await meView(app,parts)}
     else if(top==='foundations'){renderNav('');foundationsView(app)}
     else if(top==='plan'){renderNav('');await planView(app)}
+    else if(top==='demo'){renderNav('');demoHomework(app)}
     else if(top==='gallery'){renderNav('');gallery(app)}
     else if(top==='auth'){renderNav('');authView(app)}
     else if(top==='verify'){renderNav('');await verifyView(app,parts[1])}
@@ -743,19 +744,25 @@ async function homeworkView(body,ctx){
     ({today:hwToday,assign:hwAssign,queue:hwQueue,track:hwTrack})[k](pane,ctx)};
   body.append(tabs,pane);show(cur);
 }
+/* ---------- offline queue for homework: only the two light actions (start, "I finished") are queued on this device and replayed in order when the network returns. Audio is never queued. The server remains the authority: a replay the server refuses (e.g. already closed) is dropped, not forced. ---------- */
+const HWQ={get:()=>store.get('hwq',[]),set(v){store.set('hwq',v)},
+  add(it){const q=this.get();q.push({...it,ts:Date.now()});this.set(q)},
+  async flush(){if(!token)return 0;const keep=[];let n=0;for(const it of this.get()){try{await api('POST',it.path,it.body);n++}catch(e){if(e.status===0||e.status===401)keep.push(it)}}this.set(keep);return n}};
+const hwSend=async(stat,path,body)=>{try{await api('POST',path,body);return true}catch(e){if(e.status===0){HWQ.add({path,body});note(stat,'لا يوجد اتصال. حُفظ ذلك على جهازك وسيُرسل تلقائيًا عند عودة الشبكة (بعد فتح الصفحة والاتصال).','ok');return false}throw e}};
+try{window.addEventListener('online',()=>HWQ.flush().then(n=>{if(n&&location.hash.includes('homework'))route()}))}catch{}
 async function hwToday(pane,ctx){
   const box=el('div'),sel=ctx.has('guardian')&&!ctx.has('student')?el('select',{'aria-label':'الطفل'},uniq(ctx.list.filter(p=>p.role==='student')).map(p=>el('option',{value:p.userId},p.displayName))):null;
   const out=el('div');pane.append(sel?el('div',{class:'card'},field('اختر الطفل',sel)):'',out,box);
   const load=()=>run(box,async()=>{
-    const q=sel&&sel.value?'?student='+sel.value:'';const r=await api('GET',ctx.b+'/homework/mine'+q);
+    await HWQ.flush().catch(()=>{});const q=sel&&sel.value?'?student='+sel.value:'';const r=await api('GET',ctx.b+'/homework/mine'+q);
     const open=r.homework.filter(hwOpen),done=r.homework.filter(h=>!hwOpen(h));
     if(!open.length){out.replaceChildren(el('div',{class:'card hwbig'},el('h2',{},'لا واجبات الآن'),el('p',{},done.length?'أحسنت! أنهيتَ ما كُلّفتَ به. سنخبرك حين يضيف معلّمك واجبًا جديدًا.':'لم يُسنَد إليك واجب بعد.'),done.length?el('p',{class:'small'},'واجبات مُنجزة: '+ar(done.length)+' — الإنجاز لا يعني الإتقان؛ حكم الإتقان لمعلّمك.'):''));return}
     const h=open[0];
     const hid=h.id;if(h.status==='assigned')api('POST',ctx.b+'/homework/'+hid+'/view').catch(()=>{});
     const stat=el('div');
     const act=[];
-    if(h.status==='assigned'||h.status==='viewed'||h.status==='needs_retry')act.push(el('button',{class:'btn lg',on:{click:()=>run(stat,async()=>{await api('POST',ctx.b+'/homework/'+hid+'/start');load()})}},'ابدأ الواجب'));
-    if(h.submissionMode==='mark_done')act.push(el('button',{class:'btn lg gold',on:{click:()=>run(stat,async()=>{await api('POST',ctx.b+'/homework/'+hid+'/submit',{kind:'done'});load()})}},'أنهيت الواجب'));
+    if(h.status==='assigned'||h.status==='viewed'||h.status==='needs_retry')act.push(el('button',{class:'btn lg',on:{click:()=>run(stat,async()=>{if(await hwSend(stat,ctx.b+'/homework/'+hid+'/start'))load()})}},'ابدأ الواجب'));
+    if(h.submissionMode==='mark_done')act.push(el('button',{class:'btn lg gold',on:{click:()=>run(stat,async()=>{if(await hwSend(stat,ctx.b+'/homework/'+hid+'/submit',{kind:'done'}))load()})}},'أنهيت الواجب'));
     if(h.submissionMode==='mark_done'&&h.surah&&ctx.has('student')&&!sel)act.push(el('button',{class:'btn lg ghost',on:{click:()=>run(stat,async()=>{
       const r=await api('GET','/me/recitations');const l=r.attempts.filter(a=>a.surah===h.surah);
       if(!l.length){note(stat,'لا توجد محاولات تسميع لهذه السورة. جرّب «تسميعي» أولًا (اختياري).');return}
@@ -1296,6 +1303,21 @@ async function todayTab(body){
       tr.addEventListener('revealed',e=>{rate.style.display='';const p=e.detail.peeks;rate.prepend(el('div',{class:'small'},p?('اطّلعتَ على '+ar(p)+' كلمة قبل الكشف الكامل.'):'لم تطّلع على أي كلمة قبل الكشف.'))});
       out.replaceChildren(tr,rate)})}},'ابدأ المراجعة (النص مخفيّ)');
     c.append(start);area.replaceChildren(c)};next()}
+/* ---------- homework demo: a static walk-through with INVENTED sample data, clearly labelled. No account, no network, nothing stored. ---------- */
+function demoHomework(app){
+  const steps=[
+    ['١. المعلّم يُسند واجبًا','تُحدَّد السورة والآيات وعدد التكرار والموعد، ويُختار: «أنهيتُ الواجب» أو تسجيل صوتي، وهل يلزم اعتماد المعلّم.',
+      ()=>el('div',{class:'card plain'},el('b',{},'احفظ سورة الإخلاص (١–٤)'),el('p',{class:'small'},'كرّر ٥ مرات · نحو ١٠ دقائق · الموعد: غدًا · يحتاج مراجعة المعلّم'))],
+    ['٢. الطفل يرى «واجبي اليوم»','شاشة واحدة بزر كبير، بلا ترتيب بين الأطفال ولا مقارنات.',
+      ()=>el('div',{class:'card hwbig'},el('span',{class:'small'},'واجبي اليوم'),el('h2',{},'احفظ سورة الإخلاص'),el('p',{class:'hwpass'},'الإخلاص ١–٤'),el('div',{class:'hwacts'},el('button',{class:'btn lg',type:'button',disabled:''},'ابدأ الواجب'),el('button',{class:'btn lg gold',type:'button',disabled:''},'أنهيت الواجب')))],
+    ['٣. المعلّم يراجع ويقرّر','الاعتماد قرار المعلّم وحده. أي تحليل آلي يُرفق كفرضية مُعنوَنة وليس درجة، ولا يمنع التسليم.',
+      ()=>el('div',{class:'card plain'},el('b',{},'طالب تجريبي — بانتظار المراجعة'),el('p',{class:'small'},'فرضية آلية (ليست درجة): ٤ كلمات مطابقة من ٤.'),el('div',{class:'hwacts'},el('button',{type:'button',disabled:''},'اعتماد'),el('button',{type:'button',class:'ghost',disabled:''},'يحتاج إعادة')))],
+    ['٤. التقدّم','يُحسب من الواجبات المعتمدة. الإنجاز لا يعني الإتقان، ولا ترتيب علنيًا.',
+      ()=>el('div',{class:'card plain'},el('p',{},'معتمد: ١ · بانتظار المراجعة: ٠ · متأخر: ٠'))]];
+  app.replaceChildren(el('div',{class:'card'},el('h1',{},'جولة في الواجبات'),el('div',{class:'msg'},'عرض توضيحي ببيانات مُختلَقة بالكامل. لا تُحفظ فيه أي بيانات، ولا يمثّل طلابًا ولا معلّمين حقيقيين.'),
+    el('p',{},'لاستخدام الواجبات فعليًا يلزم حساب ضمن مؤسسة (معلّم وطالب).'),el('a',{class:'btn',href:'#/auth'},'أنشئ حسابًا')),
+    ...steps.map(([t,d,mk])=>el('section',{class:'card'},el('h2',{},t),el('p',{},d),mk())));
+}
 /* ---------- personal study plan: a deterministic suggestion from the learner's own answers. Not AI, not a ruling; every number is an editable estimate. ---------- */
 async function planView(app){
   await quranMeta();const cnt=n=>(REF.find(x=>x.surah===n)||{}).ayahCount||7;
