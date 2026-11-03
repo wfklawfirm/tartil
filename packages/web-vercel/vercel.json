@@ -26,6 +26,19 @@
      "value": "microphone=(self), camera=(), geolocation=()"
     }
    ]
+  },
+  {
+   "source": "/academy.json",
+   "headers": [
+    {
+     "key": "X-Robots-Tag",
+     "value": "noindex, nofollow"
+    },
+    {
+     "key": "Cache-Control",
+     "value": "no-store"
+    }
+   ]
   }
  ]
 }

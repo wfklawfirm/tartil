@@ -277,6 +277,7 @@ footer{max-width:none;margin:30px 0 0;padding:30px 16px calc(40px + env(safe-are
 .hwbig{text-align:center;padding:22px}.hwbig h2{font-size:clamp(24px,5vw,34px);margin:6px 0}.hwpass{font-family:var(--deco,inherit);font-size:22px}.hwacts{display:flex;flex-direction:column;gap:10px;align-items:stretch;margin:12px auto;max-width:360px}.btn.lg,button.lg{min-height:56px;font-size:19px;border-radius:14px;width:100%}.chip.warn{background:var(--gold,#c9a24b);color:#1d1d1d}.feat.on{outline:2px solid var(--accent)}
 .fdg{display:grid;grid-template-columns:repeat(auto-fill,minmax(88px,1fr));gap:10px}.fdc{border:1px solid var(--line);border-radius:14px;padding:10px 6px;text-align:center;background:var(--card);display:flex;flex-direction:column;gap:2px}.fdl{font-size:44px;line-height:1.6;font-family:var(--quran,inherit)}.fdl.s{font-size:28px}.fdl.big{font-size:96px;text-align:center;display:block}.fdk .fdc{padding:18px 8px}.fdk .fdl{font-size:60px}.fda .fdc{padding:8px 4px}
 </style>
+<style>.ac-t{border-collapse:collapse;width:100%;font-size:.9rem}.ac-t th,.ac-t td{border:1px solid #d1d5db;padding:6px 8px;text-align:start;vertical-align:top}.ac-t th{background:#f3f4f6}</style>
 </head>
 <body>
 <a class="skip" href="#app">تخطَّ إلى المحتوى</a>
@@ -401,6 +402,7 @@ async function route(){
     else if(top==='plan'){renderNav('');await planView(app)}
     else if(top==='demo'){renderNav('');demoHomework(app)}
     else if(top==='kids'){renderNav('');kidsView(app)}
+    else if(top==='academy'){renderNav('');await academyView(app,parts)}
     else if(top==='gallery'){renderNav('');gallery(app)}
     else if(top==='auth'){renderNav('');authView(app)}
     else if(top==='verify'){renderNav('');await verifyView(app,parts[1])}
@@ -1353,6 +1355,49 @@ function kidsServer(){
       out.replaceChildren(el('p',{},'محاولات: '+ar(p.attempts)+' · حروف ثبتت: '+ar(p.masteredLetters.length)+(p.masteredLetters.length?' ('+p.masteredLetters.join(' ')+')':'')),
         el('p',{class:'small'},'هذه ملاحظات تدريب وليست درجة. اسأل المعلّم عن المستوى.'))});sel.addEventListener('change',show);show()});
   return box}
+/* Human Formation Academy (preview). DRAFT content: not reviewed scholarly or pedagogically. Unlisted route, sign-in required. Rendered with textContent only. */
+function acMd(text){
+  const out=[],lines=String(text||'').split('\n');let i=0;
+  const inl=(s)=>{const f=document.createDocumentFragment();String(s).split(/(\*\*[^*]+\*\*)/).forEach(p=>{if(/^\*\*[^*]+\*\*$/.test(p))f.append(el('b',{},p.slice(2,-2)));else if(p)f.append(document.createTextNode(p.replace(/`/g,'')))});return f};
+  while(i<lines.length){const l=lines[i];
+    if(/^\s*\|/.test(l)){const rows=[];while(i<lines.length&&/^\s*\|/.test(lines[i])){if(!/^\s*\|[\s:|-]+\|\s*$/.test(lines[i]))rows.push(lines[i].trim().replace(/^\||\|$/g,'').split('|').map(x=>x.trim()));i++}
+      out.push(el('div',{style:'overflow-x:auto'},el('table',{class:'ac-t'},...rows.map((r,k)=>el('tr',{},...r.map(c=>el(k?'td':'th',{},inl(c))))))));continue}
+    if(/^#{2,4}\s/.test(l)){out.push(el('h3',{style:'margin:14px 0 6px'},l.replace(/^#+\s*/,'')));i++;continue}
+    if(/^\s*(-|\d+\.)\s/.test(l)){const ul=el('ul',{style:'margin:6px 0;padding-inline-start:22px'});while(i<lines.length&&/^\s*(-|\d+\.)\s/.test(lines[i])){ul.append(el('li',{},inl(lines[i].replace(/^\s*(-|\d+\.)\s+/,''))));i++}out.push(ul);continue}
+    if(/^---+\s*$/.test(l)||!l.trim()){i++;continue}
+    out.push(el('p',{style:'margin:6px 0'},inl(l)));i++}
+  return out}
+async function academyView(app,parts){
+  if(!token){location.hash='#/auth';return}
+  let D;try{const r=await fetch('/academy.json',{cache:'no-store'});if(!r.ok)throw new Error('تعذّر تحميل البيانات ('+r.status+')');D=await r.json()}
+  catch(e){app.replaceChildren(el('div',{class:'card'},el('h1',{},'أكاديمية التكوين'),el('div',{class:'msg err'},e.message)));return}
+  const root=el('div',{class:'ac'});let dom='',open=(parts&&parts[1])||'';
+  const withRec=D.competencies.filter(c=>c.record).length;
+  const draw=()=>{
+    const chips=[['', 'الكل ('+D.competencies.length+')'],...Object.entries(D.domains).map(([k,v])=>[k,v+' ('+D.competencies.filter(c=>c.domain===k).length+')'])];
+    const list=D.competencies.filter(c=>!dom||c.domain===dom);
+    root.replaceChildren(
+      el('div',{class:'card',style:'border:2px solid #b45309;background:#fffbeb;color:#1f2937'},el('b',{},'نسخة تجريبية للمالك — مسودة غير معتمدة'),
+        el('p',{class:'small',style:'margin:6px 0 0'},'هذه مادة قيد التصميم: لم تُراجَع علميًّا ولا تربويًّا، وليست فتوى ولا حكمًا شرعيًّا ولا إرشادًا قانونيًّا أو ماليًّا. الصياغات من إعداد المنصة (لا نصوص منسوخة من الكتب)، والمراجع عناوين أبواب فقط. الأحاديث غير مخرَّجة والآيات تُراجَع من نص المصحف المُحقَّق. لا درجات رقمية ولا ترتيب بين المتعلمين.')),
+      el('div',{class:'card plain'},el('h1',{style:'margin:0 0 6px'},'أكاديمية التكوين الإنساني'),
+        el('p',{class:'small'},'سجل الكفايات الأربعين، و'+withRec+' منها له سجل مصدر مفصّل حتى الآن.'),
+        el('div',{style:'display:flex;flex-wrap:wrap;gap:6px;margin-top:8px'},...chips.map(([k,t])=>el('button',{class:'btn '+(dom===k?'':'ghost'),type:'button',on:{click:()=>{dom=k;open='';draw()}}},t)))),
+      ...list.map(c=>{const isOpen=open===c.id;
+        return el('div',{class:'card plain',id:'ac-'+c.id},
+          el('button',{type:'button',style:'all:unset;cursor:pointer;display:block;width:100%',on:{click:()=>{open=isOpen?'':c.id;draw();if(!isOpen)setTimeout(()=>{const n=document.getElementById('ac-'+c.id);n&&n.scrollIntoView({block:'start'})},0)}}},
+            el('b',{},c.id+' — '+c.name),el('span',{class:'small',style:'margin-inline-start:10px'},'من سنّ '+c.min_age+(c.record?' • له سجل مصدر':' • بطاقة فقط')),
+            el('div',{class:'small'},c.definition)),
+          isOpen?el('div',{style:'margin-top:10px'},
+            el('h3',{},'المستويات'),el('ol',{style:'padding-inline-start:22px'},...c.levels.map((t,i)=>el('li',{},'L'+(i+1)+' — '+t))),
+            el('p',{class:'small'},'المتطلبات السابقة: '+(c.prerequisites.length?c.prerequisites.join('، '):'لا شيء')),
+            el('h3',{},'النشاط والممارسة'),el('p',{},'النشاط: '+c.activity),el('p',{},'الممارسة الحياتية: '+c.life_practice),
+            el('p',{},'التقييم: وصفي فقط (ظهر / يتدرب / يحتاج دعمًا) مع ملاحظة نصية.'),
+            el('div',{class:'msg',style:'background:#fef2f2;color:#7f1d1d'},el('b',{},'حاجز الأمان: '),c.safeguard),
+            el('h3',{},'المراسي المصدرية (عناوين فقط)'),el('ul',{style:'padding-inline-start:22px'},...c.anchors.map(a=>el('li',{},a.book+' ← '+a.locator+' ('+(a.verification==='heading-only'?'عنوان فقط':'مقطع مقروء')+')'))),
+            c.record?el('div',{style:'margin-top:12px;border-top:1px solid #e5e7eb;padding-top:10px'},el('h3',{},'سجل المصدر'),...acMd(c.record)):el('p',{class:'small'},'لا يوجد سجل مصدر مفصّل لهذه الكفاية بعد.')):null)}));
+    history.replaceState(null,'','#/academy'+(open?'/'+open:''))};
+  draw();app.replaceChildren(root)}
+
 function kidsView(app){
   const S=kst.get(),root=el('div',{class:'kids'});
   const home=()=>{const s=kst.get();
