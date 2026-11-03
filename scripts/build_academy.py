@@ -24,7 +24,7 @@ print(len(comps), 'competencies;', sum(1 for c in comps if c['record']), 'with r
 units = {}
 for f in sorted((hf / 'lessons').glob('lessons_*.json')) if (hf / 'lessons').exists() else []:
     for u in json.loads(f.read_text(encoding='utf-8')).get('units', []):
-        units[u['competency']] = u
+        units[u.get('unit_id') or u['competency']] = u
 lo = {'status': 'draft-unreviewed', 'generated': '2026-11-03', 'units': units}
 for d in (root / 'packages' / 'web-vercel', root / 'packages' / 'web'):
     (d / 'academy-lessons.json').write_text(json.dumps(lo, ensure_ascii=False), encoding='utf-8')

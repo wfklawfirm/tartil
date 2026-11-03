@@ -6,7 +6,7 @@ ROOT=os.path.join(os.path.dirname(os.path.abspath(__file__)),'..')
 HF=os.path.join(ROOT,'docs/human-formation')
 BAD=re.compile(r'(\d+\s*/\s*\d+|\d+\s*(نقطة|نقاط|درجة|درجات)|ترتيب الأطفال|الأول على|المتصدر|لوحة الشرف|\bscore\b|leaderboard|\bpoints\b)')
 items={}
-for f in sorted(glob.glob(HF+'/lessons/lessons_G*.json')):
+for f in sorted(glob.glob(HF+'/lessons/lessons_*.json')):
     for u in json.load(open(f))['units']:
         for l in u['lessons']:
             items[l['id']]=('lesson',max(u['min_age'],int(re.match(r'\d+',l['age_range']).group())))

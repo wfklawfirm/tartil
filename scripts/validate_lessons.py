@@ -29,7 +29,7 @@ def main(files):
     for f in files:
         d=json.load(open(f));err=[]
         for u in d['units']:
-            cid=u.get('competency');where=cid
+            cid=u.get('competency');where=u.get('unit_id') or cid
             if cid not in comp: err.append(f'{cid}: unknown competency');continue
             ma=comp[cid]['min_age']
             need(u,['competency','title','summary','target_levels','min_age','lessons','scenarios','source_record','review_status'],where,err)
