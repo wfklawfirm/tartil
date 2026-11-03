@@ -256,6 +256,7 @@ body{position:relative;min-height:100vh}
 :root[data-theme=dark] .rp-foot .go{color:var(--accent)}
 @media (max-width:800px){.rprev{display:none}}
 @media (max-width:560px){.hero2 .hbtns{flex-direction:column;align-items:stretch;gap:10px}.hero2 .hbtns .btn{width:100%}.hero2 .hbtns .linkbtn{align-self:center;padding:10px}}
+.statepg{text-align:center;max-width:520px;margin:30px auto}.statepg h1{font-family:var(--deco);color:var(--accent2)}.statepg .hbtns{justify-content:center}
 .galrow{display:flex;flex-wrap:wrap;gap:16px}.gal{margin:0;width:200px}.gal .gs{height:130px;border:1px solid var(--line);border-radius:10px;background-color:var(--card)}.galrow .heroart{width:240px;justify-self:auto}
 footer{max-width:none;margin:30px 0 0;padding:30px 16px calc(40px + env(safe-area-inset-bottom));text-align:start;background:linear-gradient(180deg,transparent,var(--soft));border-top:1px solid var(--gold2)}
 .fcols{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr 1.6fr;gap:26px;font-size:15px}.fcols>div{display:flex;flex-direction:column;gap:6px}.fcols b{color:var(--accent2);font-size:16px}:root[data-theme=dark] .fcols b{color:var(--ink)}.fcols a{text-decoration:none;min-height:32px;display:inline-flex;align-items:center}.fcols span{color:var(--mute);line-height:1.8}
@@ -387,8 +388,9 @@ async function route(){
     else if(top==='auth'){renderNav('');authView(app)}
     else if(top==='verify'){renderNav('');await verifyView(app,parts[1])}
     else if(top==='app'){renderNav('app');if(!token){location.hash='#/auth';return}await dashboard(app,parts)}
-    else{renderNav('home');await landing(app)}
-  }catch(e){app.replaceChildren(el('div',{class:'card'},el('div',{class:'msg err'},e.message)))}
+    else if(top===''){renderNav('home');await landing(app)}
+    else{renderNav('');app.replaceChildren(el('div',{class:'card plain statepg'},el('span',{class:'pm','aria-hidden':'true'},medallion(84,'pmm')),el('h1',{},'الصفحة غير موجودة'),el('p',{},'لم نجد ما تبحث عنه. ربما تغيّر الرابط أو كُتب خطأً.'),el('div',{class:'hbtns'},el('a',{class:'btn',href:'#/'},'العودة إلى الرئيسية'),el('a',{class:'btn ghost',href:'#/quran'},'تصفّح المصحف'))))}
+  }catch(e){app.replaceChildren(el('div',{class:'card plain statepg'},el('span',{class:'pm','aria-hidden':'true'},medallion(64,'pmm')),el('h1',{},'تعذّر عرض الصفحة'),el('div',{class:'msg err'},e.message),el('div',{class:'hbtns'},el('a',{class:'btn',href:'#/'},'الرئيسية'),el('button',{class:'btn ghost',type:'button',on:{click:()=>route()}},'إعادة المحاولة'))))}
 }
 window.addEventListener('hashchange',route);
 
@@ -590,7 +592,7 @@ async function searchView(app,parts){
   const q=el('input',{type:'search',value:q0,placeholder:'اكتب كلمة أو جزءًا من آية…','aria-label':'نص البحث'}),lg=el('select',{'aria-label':'لغة البحث'},el('option',{value:'ar'},'في النص العربي (دون تشكيل)'),el('option',{value:'en'},'في الترجمة الإنجليزية'));lg.value=lang0;
   const out=el('div'),go=()=>{const v=q.value.trim();if(v.length<2){note(out,'اكتب حرفين على الأقل.','warn');return}location.hash='#/search/'+encodeURIComponent(v)+'/'+lg.value};
   q.addEventListener('keydown',e=>{if(e.key==='Enter')go()});
-  app.replaceChildren(el('div',{class:'card'},el('h2',{style:'margin-top:0'},'البحث في القرآن الكريم'),el('div',{class:'toolbar'},el('div',{},el('label',{},'ابحث عن'),q),el('div',{},el('label',{},'اللغة'),lg),el('button',{on:{click:go}},'بحث')),
+  app.replaceChildren(pageHead('البحث في القرآن الكريم'),el('div',{class:'card'},el('div',{class:'toolbar'},el('div',{},el('label',{},'ابحث عن'),q),el('div',{},el('label',{},'اللغة'),lg),el('button',{on:{click:go}},'بحث')),
     el('p',{class:'small'},'البحث العربي يتجاهل التشكيل وأشكال الألف والياء والتاء المربوطة. النتائج تعرض نص المصحف كما هو؛ والبحث الإنجليزي يجري في الترجمة وليس في القرآن نفسه.')),out);
   if(q0.length<2)return;
   await run(out,async()=>{
@@ -1068,7 +1070,7 @@ async function mapTab(body){
 /* ---------- qiraat library, sanad register, scholarly review workspace ---------- */
 const QIRAAT=[['نافع المدني','المدينة المنورة',['قالون','ورش']],['ابن كثير المكي','مكة المكرمة',['البزي','قنبل']],['أبو عمرو البصري','البصرة',['الدوري','السوسي']],['ابن عامر الدمشقي','دمشق',['هشام','ابن ذكوان']],['عاصم الكوفي','الكوفة',['شعبة','حفص']],['حمزة الكوفي','الكوفة',['خلف','خلّاد']],['الكسائي الكوفي','الكوفة',['أبو الحارث','الدوري']],['أبو جعفر المدني','المدينة المنورة',['ابن وردان','ابن جمّاز']],['يعقوب البصري','البصرة',['رويس','روح']],['خلف العاشر','بغداد',['إسحاق','إدريس']]];
 function qiraatView(app){
-  app.replaceChildren(el('h1',{style:'margin:0 0 10px'},'القراءات والروايات'),
+  app.replaceChildren(pageHead('القراءات والروايات'),
     el('div',{class:'card'},el('p',{},'القراءات العشر المتواترة: لكل قارئ راويان. وكل قراءة وروايتها وجه من وجوه أداء القرآن الكريم ثابت بالتلقّي والسند، ولا يجوز دمج روايتين في نص واحد؛ لذا تحفظ المنصة كل رواية في طبعة مستقلة.'),
       el('div',{class:'msg warn'},'نص المصحف المتاح في المنصة الآن برواية حفص عن عاصم فقط. لا تُعرض روايات أخرى قبل اعتماد طبعتها من مراجع علمي وانتهاء التحقق من ترخيصها. وهذه الصفحة تعريف تمهيدي قيد المراجعة العلمية، ولا تغني عن التلقّي من مقرئ مجاز.')),
     el('div',{class:'grid'},QIRAAT.map(([q,c,r],i)=>el('div',{class:'feat'},el('b',{},ar(i+1)+'. '+q),el('span',{class:'small'},'من '+c),el('div',{},r.map(x=>el('span',{class:'chip'},'رواية '+x)))))),
