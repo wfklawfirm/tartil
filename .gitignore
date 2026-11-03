@@ -9,3 +9,7 @@ scholarly-assets/_inputs/phase2_kit/
 
 # Derived concept drafts built from third-party book text: internal analysis only
 scholarly-assets/extraction-concepts/
+
+# owner-supplied formation books (third-party, internal analysis only)
+scholarly-assets/_inputs/formation-books/
+scholarly-assets/extraction-formation/

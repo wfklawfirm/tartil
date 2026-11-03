@@ -5,6 +5,10 @@ Generated 2026-11-01. Not legal advice. Default is NOT cleared.
 ## Books (74 files in the user folder)
 All `LICENSE_REVIEW_REQUIRED`. Permitted use now: internal analysis/extraction on the owner's machine. **Not permitted until cleared per title:** publishing text, quotations beyond fair use, redistribution, model training.
 
+## Owner instruction 2026-11-03 — formation-academy source books
+Owner (Wissam Khaled) stated in session: the books he supplied (folders `shamela_selected` and `shamela_selected2` on his machine) were purchased, the platform is a charitable project, and the authors/rights-holders have permitted its use; he instructed full extraction of their content for the formation academy. **Recorded as the owner's assertion; no permission documents are on file in the repo.** Action for owner: place the permission letters / purchase proofs with this register per title.
+Scope applied by us until documents are on file: (1) the book files stay on the owner's machine and in the gitignored `scholarly-assets/` only, never committed; (2) extracted content is our own paraphrase with exact locators (`SRC` / book number + heading); (3) verbatim quotation only if short and attributed; (4) no hadith/athar is given a grading by us (scholarly reviewer decides); (5) nothing is presented as approved by a scholar.
+
 ## External resources (from Phase-2 acquisition kit; none downloaded)
 | Resource | Terms (as recorded in kit, 2026-10-31) | Status |
 |---|---|---|
