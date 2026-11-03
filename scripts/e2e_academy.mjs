@@ -148,6 +148,28 @@ try {
       await scanText(id); noErrs(id);
     } catch (e) { fail(id, e.message.split('\n')[0]); }
   }
+  // (5) age gate: an institution-managed student account must not open adult-only programs/lessons; a plain adult account still can
+  {
+    const progs = JSON.parse(fs.readFileSync(path.join(ROOT, 'academy-programs.json'), 'utf8')).programs;
+    const isAdult = p => (p.age_min || 0) >= 16 || (p.gating && p.gating.adults_only);
+    const refsOf = p => (p.stages || []).flatMap(st => (st.items || []).map(i => i.ref));
+    const adultProg = progs.find(isAdult);
+    const adultOnlyRef = refsOf(adultProg).find(r => progs.filter(p => refsOf(p).includes(r)).every(isAdult));
+    const youthProg = progs.find(p => !isAdult(p));
+    const stuCtx = await browser.newContext({ viewport: { width: 390, height: 800 }, locale: 'ar' });
+    await stuCtx.addInitScript(() => { try { sessionStorage.setItem('t', 'e2e-token'); } catch {} });
+    await stuCtx.route('**/api/**', r => r.fulfill({ status: 200, contentType: 'application/json',
+      body: JSON.stringify({ id: 'u2', displayName: 'طالب', roles: [], memberships: [{ institutionId: 'i1', role: 'student' }] }) }));
+    const sp = await stuCtx.newPage();
+    const open = async h => { await sp.goto(`${BASE}/index.html#${h}`); await sp.waitForSelector('#app .acx', { timeout: 8000 }); await sp.waitForTimeout(150); return sp.locator('#app').innerText(); };
+    let t = await open('/academy/p/' + adultProg.slug); if (!t.includes('مخصّص للبالغين')) fail('gate/program', 'برنامج البالغين فُتح لحساب طالب');
+    if (adultOnlyRef) { t = await open('/academy/' + (adultOnlyRef.startsWith('S') && !adultOnlyRef.includes('-L') ? 's/' : 'l/') + adultOnlyRef);
+      if (!t.includes('مخصّص للبالغين') && !(lessonIds.includes(adultOnlyRef) || scenarioIds.includes(adultOnlyRef))) fail('gate/item', 'عنصر البالغين'); }
+    t = await open('/academy/p/' + youthProg.slug); if (t.includes('مخصّص للبالغين')) fail('gate/youth', 'برنامج مناسب للعمر حُجب');
+    await stuCtx.close();
+    const t2 = (await (async () => { await go('/academy/p/' + adultProg.slug, '.acx h1'); return page.locator('#app').innerText(); })());
+    if (t2.includes('مخصّص للبالغين') && !t2.includes('رحلتك')) fail('gate/adult-account', 'حساب بالغ حُجب');
+  }
 } catch (e) {
   fail('fatal', e.stack || e.message);
 } finally {

@@ -38,8 +38,8 @@ test('joiners restore letter joining at coloured boundaries, only where letters 
   }
   // dual-joining letter before a coloured letter: joined on both sides of the boundary
   const j = tajweedJoin([{ t: 'بَ', cls: null }, { t: 'نْ', cls: 'ikhfa' }, { t: 'ت', cls: null }]);
-  assert.equal(j[0].t, 'بَ' + ZWJ); assert.equal(j[1].t, ZWJ + 'نْ' + ZWJ); assert.equal(j[2].t, ZWJ + 'ت');
+  assert.equal(j[0]!.t, 'بَ' + ZWJ); assert.equal(j[1]!.t, ZWJ + 'نْ' + ZWJ); assert.equal(j[2]!.t, ZWJ + 'ت');
   // alef/dal/ra/waw do not connect forward, hamza connects to nothing: no joiner there
   const k = tajweedJoin([{ t: 'دَ', cls: null }, { t: 'نْ', cls: 'ikhfa' }, { t: 'ء', cls: 'madd' }, { t: 'ن', cls: null }]);
-  assert.equal(k[0].t, 'دَ'); assert.equal(k[1].t, 'نْ'); assert.equal(k[2].t, 'ء');
+  assert.equal(k[0]!.t, 'دَ'); assert.equal(k[1]!.t, 'نْ'); assert.equal(k[2]!.t, 'ء');
 });

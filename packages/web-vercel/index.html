@@ -1590,6 +1590,16 @@ function acReview(app,id){
     root.append(el('div',{class:'card plain',id:'rv-'+c.id},el('a',{href:'#/academy/review/'+(open?'':c.id),style:'display:block;color:var(--ink)'},el('b',{},c.id+' — '+c.name),el('span',{class:'small',style:'margin-inline-start:10px;color:var(--mute)'},'من سنّ '+c.min_age+(c.record?' • سجل مصدر':'')+(AC.U[c.id]?' • '+AC.U[c.id].lessons.length+' دروس':''))),
       open?el('div',{style:'margin-top:10px'},el('div',{class:'note safe'},el('b',{},'حاجز الأمان: '),c.safeguard),el('h3',{},'المراسي المصدرية (عناوين فقط)'),el('ul',{},...c.anchors.map(a=>el('li',{},a.book+' ← '+a.locator+' ('+(a.verification==='heading-only'?'عنوان فقط':'مقطع مقروء')+')'))),c.record?el('div',{class:'rec'},...acMd(c.record)):null,AC.U[c.id]&&AC.U[c.id].verse_refs&&AC.U[c.id].verse_refs.length?el('div',{class:'note'},'آيات تحتاج تحققًا من نص ترتيل: '+AC.U[c.id].verse_refs.join('، ')):null):null))});
   app.replaceChildren(root);if(id)setTimeout(()=>{const n=document.getElementById('rv-'+id);n&&n.scrollIntoView()},0)}
+// Age gate (UI level only: this content is static; real enforcement needs server-side age data, an owner decision).
+// Adult-only programs: age_min >= 16 or gating.adults_only. A lesson/scenario is gated only if EVERY program that uses it is adult-only.
+// Unknown age => conservative: an institution-managed student account (possible minor) is not shown adult-only content.
+function acAdultProg(p){return !!p&&((p.age_min||0)>=16||!!(p.gating&&p.gating.adults_only))}
+function acStudentAcct(){return !!(ME&&ME.memberships&&ME.memberships.some(m=>m.role==='student'))}
+function acGated(a,b){
+  if(!acStudentAcct()||!AC.P)return false;
+  if(a==='p')return acAdultProg(AC.P.find(x=>x.slug===b||x.id===b));
+  if(a==='l'||a==='s'){const using=AC.P.filter(p=>(p.stages||[]).some(s=>(s.items||[]).some(i=>i.ref===b)));return using.length>0&&using.every(acAdultProg)}
+  return false}
 async function academyView(app,parts){
   if(!token){location.hash='#/auth';return}
   try{localStorage.setItem('acx_seen','1')}catch{}
@@ -1597,6 +1607,8 @@ async function academyView(app,parts){
   await acLoad();
   if(!AC.D.competencies.length){app.replaceChildren(el('div',{class:'acx'},el('div',{class:'note'},'تعذّر تحميل بيانات الأكاديمية.')));return}
   const a=parts&&parts[1],b=parts&&parts[2];
+  if(!ME){try{ME=await api('GET','/me')}catch{}}
+  if(acGated(a,b)){app.replaceChildren(el('div',{class:'acx'},acCrumb({h:'#/academy',t:'الأكاديمية'},{t:'غير متاح لحسابك'}),el('div',{class:'note'},el('b',{},'هذا المحتوى مخصّص للبالغين.'),' الحسابات المرتبطة بمؤسسة كطالب (وقد يكون الطالب قاصرًا) لا تفتحه هنا. اطلب من معلّمك أو وليّ أمرك برنامجًا مناسبًا لعمرك.'),el('a',{href:'#/academy'},'← إلى الأكاديمية')));return}
   if(a==='p')acProgram(app,b);else if(a==='l')acLesson(app,b);else if(a==='s')acScenarioPage(app,b);else if(a==='c')acCompetencies(app,b);else if(a==='review')acReview(app,b);else if(a&&AC.D.competencies.some(c=>c.id===a))acReview(app,a);else acHome(app)}
 
 function kidsView(app){

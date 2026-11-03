@@ -104,6 +104,24 @@ test('AI assistant: 501 without a model; with one, drafts stay hidden until a hu
   assert.equal((await callAi('GET', `${b}/ai-suggestions`, stu.token)).body.suggestions.length, 1);
 });
 
+test('AI assistant: the model is never called for an unauthenticated caller or one without permission over that student', async () => {
+  let spy = 0; const spyApp = buildApp({ service: db as never, app: db as never, jwtSecret: 'test-secret-0123456789', rateLimit: { auth: 100000, general: 100000 }, ai: { name: 'spy', suggest: async () => { spy++; return 'x'; } } });
+  const sc: Call = async (m, u, t, pl) => { const r = await spyApp.inject({ method: m, url: u, payload: pl as never, headers: t ? { authorization: `Bearer ${t}` } : {} }); return { status: r.statusCode, body: r.body ? JSON.parse(r.body) : {} }; };
+  const admin = await user('sadmin'), qari = await user('sqari'), other = await user('sother'), stu = await user('sstu'), out = await user('sout');
+  const inst = (await call('POST', '/institutions', admin.token, { name: 'Dar S', slug: 'dar-s' })).body.id as string; const b = `/i/${inst}`;
+  for (const [u, role] of [[qari, 'qari'], [other, 'qari'], [stu, 'student']] as const) await call('POST', `${b}/members`, admin.token, { email: u.email, role });
+  await call('POST', `${b}/students`, admin.token, { userId: stu.id, isMinor: false });
+  await call('POST', `${b}/qari-assignments`, admin.token, { qariUserId: qari.id, studentUserId: stu.id });
+  const pl = { studentUserId: stu.id, prompt: 'تدرب على المد' };
+  assert.equal((await sc('POST', `${b}/ai-suggestions/generate`, undefined, pl)).status, 401);
+  assert.notEqual((await sc('POST', `${b}/ai-suggestions/generate`, out.token, pl)).status, 201);      // not a member
+  assert.equal((await sc('POST', `${b}/ai-suggestions/generate`, stu.token, pl)).status, 403);         // a student
+  assert.equal((await sc('POST', `${b}/ai-suggestions/generate`, other.token, pl)).status, 403);       // a qari not assigned to this student
+  assert.equal(spy, 0);                                                                                 // no model cost was incurred for any of them
+  assert.equal((await sc('POST', `${b}/ai-suggestions/generate`, qari.token, pl)).status, 201);
+  assert.equal(spy, 1);
+});
+
 test('halaqah join: window enforced, minor needs a verified guardian, room not guessable', async () => {
   const admin = await user('jadmin'), qari = await user('jqari'), kid = await user('jkid'), par = await user('jpar'), out = await user('jout');
   const inst = (await call('POST', '/institutions', admin.token, { name: 'Dar J', slug: 'dar-j' })).body.id as string;

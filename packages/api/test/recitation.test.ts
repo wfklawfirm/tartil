@@ -93,6 +93,21 @@ test('API: analysis is persisted for the owner only, audio is not stored, provid
   assert.equal((await call('DELETE', '/me/recitations/' + ok.body.id, a)).status, 200);
   assert.equal((await call('POST', '/me/recitations/analyze', a, body({ surah: 1, fromAyah: 1, toAyah: 7 }))).status, 404);   // passage not in the approved text
 });
+test('API: a minor (student profile or kid profile) cannot send a recording to the external provider from the personal path', async () => {
+  const m = await user('minor1'); const uid = (await db.query<{ id: string }>(`SELECT id FROM users WHERE email = 'minor1@example.test'`)).rows[0]!.id;
+  const inst = (await db.query<{ id: string }>(`INSERT INTO institutions (name, slug) VALUES ('Dar M','dar-m') RETURNING id`)).rows[0]!.id;
+  await db.query(`INSERT INTO memberships (institution_id, user_id, role) VALUES ($1,$2,'student')`, [inst, uid]);
+  await db.query(`INSERT INTO student_profiles (institution_id, user_id, is_minor) VALUES ($1,$2,true)`, [inst, uid]);
+  const before = calls;
+  assert.equal((await call('POST', '/me/recitations/analyze', m, body())).status, 403);
+  assert.equal(calls, before);                                                                          // the provider was never called
+  const k = await user('kid1'); const kid = (await db.query<{ id: string }>(`SELECT id FROM users WHERE email = 'kid1@example.test'`)).rows[0]!.id;
+  await db.query(`INSERT INTO memberships (institution_id, user_id, role) VALUES ($1,$2,'student')`, [inst, kid]);
+  await db.query(`INSERT INTO student_profiles (institution_id, user_id, is_minor) VALUES ($1,$2,false)`, [inst, kid]);
+  await db.query(`INSERT INTO kid_profiles (institution_id, student_user_id, band) VALUES ($1,$2,'a')`, [inst, kid]);
+  assert.equal((await call('POST', '/me/recitations/analyze', k, body())).status, 403);
+  assert.equal(calls, before);
+});
 test('API: without a configured provider the endpoint says so (501), it never fabricates an analysis', async () => {
   const bare = buildApp({ service: db as never, app: db as never, jwtSecret: 'test-secret-0123456789', rateLimit: { auth: 100000, general: 100000 } });
   const email = 'bare@example.test'; await bare.inject({ method: 'POST', url: '/auth/register', payload: { displayName: 'b', email, password: PW, adultConfirmed: true } });

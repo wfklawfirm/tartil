@@ -81,7 +81,8 @@ export function buildApp(d: Deps) {
   // Credential endpoints: shared counter in the database (works across serverless instances). Other routes: best-effort per-process limit.
   const hits = new Map<string, { n: number; reset: number }>();
   app.addHook('onRequest', async (req, reply) => {
-    const ip = String(req.headers['x-forwarded-for'] ?? req.ip ?? 'unknown').split(',')[0]!.trim().slice(0, 64);
+    // the LEFT-most X-Forwarded-For entry is client-supplied (spoofable); the right-most is appended by the nearest proxy
+    const ip = String(req.headers['x-forwarded-for'] ?? req.ip ?? 'unknown').split(',').map(x => x.trim()).filter(Boolean).pop()?.slice(0, 64) ?? 'unknown';
     const now = Date.now();
     if (req.url.startsWith('/auth/')) {
       const r = await d.service.query<{ n: number }>(
@@ -328,6 +329,9 @@ export function buildApp(d: Deps) {
     const b = z.object({ surah: z.number().int().min(1).max(114), fromAyah: z.number().int().min(1), toAyah: z.number().int().min(1), mime: z.string().max(60), audioBase64: z.string().min(4).max(11_500_000), consentExternalProcessing: z.literal(true) })
       .refine(x => x.toAyah >= x.fromAyah && x.toAyah - x.fromAyah < 40, { message: 'bad_range' }).parse(req.body);
     if (!d.recitation) return reply.code(501).send({ error: 'recitation_ai_unavailable' });
+    // A minor's voice must not go to an external provider from the personal path: any minor/kid profile blocks it (institution flow with verified guardian consent is the route).
+    const minor = await d.service.query(`SELECT 1 FROM student_profiles WHERE user_id = $1 AND is_minor UNION ALL SELECT 1 FROM kid_profiles WHERE student_user_id = $1 LIMIT 1`, [userId]);
+    if (minor.rows.length) return reply.code(403).send({ error: 'minor_external_ai_not_allowed' });
     const audio = new Uint8Array(Buffer.from(b.audioBase64, 'base64'));
     if (audio.length < 4 || audio.length > 8 * 1024 * 1024) return reply.code(400).send({ error: 'bad_audio_size' });
     const kind = sniffAudio(audio);
@@ -534,6 +538,9 @@ export function buildApp(d: Deps) {
     const b = z.object({ studentUserId: uuid, prompt: z.string().min(3).max(2000) }).parse(req.body);
     if (!d.ai) { const ok = await tenant(req, reply, async () => true); if (ok) return reply.code(501).send({ error: 'model_not_connected' }); return; }
     const ai = d.ai;
+    const pre = await tenant(req, reply, async (tx, _u, inst) => (await tx.query<{ ok: boolean }>(`SELECT (app.is_assigned_qari($1) OR app.has_role($2,'tenant_admin')) AS ok`, [b.studentUserId, inst])).rows[0]?.ok === true);   // authenticate + same permission the insert needs, BEFORE any model cost
+    if (pre === undefined) return;
+    if (!pre) return reply.code(403).send({ error: 'forbidden' });
     const text = await ai.suggest(b.prompt).catch(() => null);
     if (!text) return reply.code(502).send({ error: 'model_failed' });
     const r = await tenant(req, reply, (tx, u, inst) => tx.query(`INSERT INTO ai_suggestions (institution_id, student_user_id, body, source, created_by) VALUES ($1,$2,$3,$4,$5) RETURNING id`, [inst, b.studentUserId, text.slice(0, 4000), 'model:' + ai.name, u]));
