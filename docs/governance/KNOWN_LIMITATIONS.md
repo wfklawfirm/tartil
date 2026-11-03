@@ -67,3 +67,4 @@ Built: migration 0014 (applied live), homework API under `/i/:inst/homework*` (e
 - No real iPhone/Safari, screen-reader or device testing; WCAG 2.2 checked only with axe in Chromium.
 - OpenAI speech-to-text still returns 429 (see §37); owner must check billing/quota.
 - Added after the first bundle: the student-side "attach my tasmi' result" button (UI syntax-checked and API path tested, but the button itself was not exercised in a browser).
+- Discoverability fix (2026-11-03): the foundations page and the homework section were reachable only through a landing card / the dashboard tab. Added "الأسس" to the top nav, footer and "more" menu, a hero button "ابدأ من الحروف", "ابدأ من الصفر" in the start block, and (signed-in members) "واجباتي" shortcuts. Verified in Chromium (links present, foundations opens, no page errors).

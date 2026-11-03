@@ -283,7 +283,7 @@ footer{max-width:none;margin:30px 0 0;padding:30px 16px calc(40px + env(safe-are
 <header class="top"><div class="bar"><a class="brand" href="#/"><i></i>ترتيل</a><nav class="main" id="nav" aria-label="التنقل الرئيسي"></nav><div id="who"></div><button id="theme" type="button" aria-label="تبديل المظهر"></button></div></header>
 <main id="app" tabindex="-1"></main>
 <div id="more" hidden></div><nav id="bnav" aria-label="التنقل السفلي"></nav>
-<footer><div class="fcols"><div><b>المنصة</b><a href="#/">الرئيسية</a><a href="#/quran">القرآن الكريم</a><a href="#/search">بحث</a><a href="#/tajweed">التجويد</a><a href="#/qiraat">القراءات والإسناد</a></div><div><b>حسابي</b><a href="#/auth">دخول / تسجيل</a><a href="#/me">رحلتي</a><a href="#/app">لوحة المؤسسة</a></div><div><b>الثقة</b><span>لا تُصدر المنصة فتاوى ولا إجازات ولا أحكامًا شرعية؛ التقييمات يكتبها مقرئ بشري.</span><span>نص المصحف: رواية حفص عن عاصم من مشروع تنزيل (tanzil.net)، وهو قيد التدقيق العلمي النهائي.</span></div></div></footer>
+<footer><div class="fcols"><div><b>المنصة</b><a href="#/">الرئيسية</a><a href="#/quran">القرآن الكريم</a><a href="#/search">بحث</a><a href="#/tajweed">التجويد</a><a href="#/foundations">الأسس</a><a href="#/qiraat">القراءات والإسناد</a></div><div><b>حسابي</b><a href="#/auth">دخول / تسجيل</a><a href="#/me">رحلتي</a><a href="#/app">لوحة المؤسسة</a></div><div><b>الثقة</b><span>لا تُصدر المنصة فتاوى ولا إجازات ولا أحكامًا شرعية؛ التقييمات يكتبها مقرئ بشري.</span><span>نص المصحف: رواية حفص عن عاصم من مشروع تنزيل (tanzil.net)، وهو قيد التدقيق العلمي النهائي.</span></div></div></footer>
 <script>
 "use strict";
 const $=(s,r=document)=>r.querySelector(s);
@@ -368,7 +368,7 @@ function applyTheme(){let t='light';try{t=localStorage.getItem('theme')||'light'
 $('#theme').addEventListener('click',()=>{let t='light';try{t=localStorage.getItem('theme')||'light'}catch{}const n={light:'dark',dark:'auto',auto:'light'}[t]||'light';try{localStorage.setItem('theme',n)}catch{}applyTheme()});
 applyTheme();
 function renderNav(active){
-  const items=[['#/','الرئيسية','home'],['#/quran','القرآن الكريم','quran'],['#/search','بحث','search'],['#/tajweed','التجويد','tajweed'],['#/qiraat','القراءات','qiraat']];
+  const items=[['#/','الرئيسية','home'],['#/quran','القرآن الكريم','quran'],['#/search','بحث','search'],['#/tajweed','التجويد','tajweed'],['#/foundations','الأسس','foundations'],['#/qiraat','القراءات','qiraat']];
   if(token)items.push(['#/me','رحلتي','me'],['#/app','لوحتي','app']);
   if(token&&isScholar())items.push(['#/review','المراجعة العلمية','review']);
   $('#nav').replaceChildren(...items.map(([h,t,k])=>el('a',{href:h,class:k===active?'on':'','aria-current':k===active?'page':null},t)));
@@ -380,7 +380,7 @@ function renderNav(active){
   const main=[['#/','الرئيسية','home','home'],['#/quran','المصحف','quran','book'],['#/search','بحث','search','search'],['#/tajweed','التجويد','tajweed','wave']];
   const more=el('button',{type:'button','aria-haspopup':'true','aria-expanded':'false',on:{click:()=>{const m=$('#more');m.hidden=!m.hidden;more.setAttribute('aria-expanded',String(!m.hidden))}}},ico('more'),'المزيد');
   $('#bnav').replaceChildren(...main.map(([h,t,k,i])=>el('a',{href:h,class:k===active?'on':'','aria-current':k===active?'page':null},ico(i),t)),more);
-  const rest=[['#/qiraat','القراءات والإسناد']];if(token)rest.push(['#/me','رحلتي'],['#/app','لوحتي']);if(token&&isScholar())rest.push(['#/review','المراجعة العلمية']);
+  const rest=[['#/foundations','الأسس: الحروف والحركات'],['#/qiraat','القراءات والإسناد']];if(token&&ME&&ME.memberships&&ME.memberships.length)rest.push(['#/app/'+ME.memberships[0].institutionId+'/homework','الواجبات']);if(token)rest.push(['#/me','رحلتي'],['#/app','لوحتي']);if(token&&isScholar())rest.push(['#/review','المراجعة العلمية']);
   rest.push(token?['#/auth','حسابي']:['#/auth','دخول / تسجيل']);
   const mm=$('#more');mm.hidden=true;mm.replaceChildren(...rest.map(([h,t])=>el('a',{href:h,on:{click:()=>{mm.hidden=true}}},t)));
 }
@@ -420,8 +420,8 @@ const ECO=[['book','اقرأ المصحف','114 سورة برواية حفص ع�
  ['arch','الحلقات والمسارات','مسارات من وحدات، وحلقات مباشرة بموعد وحضور، وشهادات إتمام قابلة للتحقق (وليست إجازات). تنشئ المؤسسة مسارها وتدير مقرئيها وطلابها من لوحة واحدة.','#/app','لوحة المؤسسة','wide']];
 const STAGES=[['تعلّم','مكتبة التجويد والمخارج','#/tajweed'],['تدرّب','اختبارات وحفظ بمراجعة متباعدة','#/me/quiz'],['سمّع','سجّل تلاوتك وراجع الكلمات التي لم تُسمع','#/me/tasmi'],['تقيّم','ملاحظات المقرئ ومستوى كل ملاحظة','#/app'],['أتقن','خريطة الإتقان لسور المصحف','#/me/map']];
 function contBlock(){const l=store.get('last',null),act=(h,t,sub)=>el('a',{class:'act',href:h},el('b',{},t),el('span',{class:'small'},sub));
-  const items=token?[l&&l.s?act('#/quran/'+l.s+'/'+(l.a||1),'أكمل القراءة',surahName(l.s)+' — الآية '+ar(l.a||1)+' (آخر موضع على هذا الجهاز)'):act('#/quran','ابدأ القراءة','المصحف كاملًا'),act('#/me/hifz','راجع محفوظك','مراجعاتك المستحقة وتقدّمك'),act('#/me','رحلتي','اليوم، الحفظ، الاختبارات، الخريطة'),act('#/app','لوحتي','المؤسسات والحلقات والجلسات القادمة')]
-    :[act('#/auth','ابدأ التعلّم','أنشئ حسابًا مجانيًا لتُحفظ رحلتك'),act('#/tajweed','اكتشف المسارات','مكتبة التجويد والمخارج'),act('#/quran'+(l&&l.s?'/'+l.s+'/'+(l.a||1):''),l&&l.s?'أكمل من حيث توقفت':'تصفّح المصحف',l&&l.s?surahName(l.s)+' — الآية '+ar(l.a||1):'114 سورة')];
+  const items=token?[l&&l.s?act('#/quran/'+l.s+'/'+(l.a||1),'أكمل القراءة',surahName(l.s)+' — الآية '+ar(l.a||1)+' (آخر موضع على هذا الجهاز)'):act('#/quran','ابدأ القراءة','المصحف كاملًا'),act('#/me/hifz','راجع محفوظك','مراجعاتك المستحقة وتقدّمك'),act('#/me','رحلتي','اليوم، الحفظ، الاختبارات، الخريطة'),act('#/foundations','الأسس: الحروف والحركات','للمبتدئين صغارًا وكبارًا'),...(ME&&ME.memberships&&ME.memberships.length?[act('#/app/'+ME.memberships[0].institutionId+'/homework','واجباتي','واجب اليوم من معلّمك')]:[]),act('#/app','لوحتي','المؤسسات والحلقات والجلسات القادمة')]
+    :[act('#/auth','ابدأ التعلّم','أنشئ حسابًا مجانيًا لتُحفظ رحلتك'),act('#/foundations','ابدأ من الصفر','الحروف والحركات للصغار والكبار'),act('#/tajweed','اكتشف المسارات','مكتبة التجويد والمخارج'),act('#/quran'+(l&&l.s?'/'+l.s+'/'+(l.a||1):''),l&&l.s?'أكمل من حيث توقفت':'تصفّح المصحف',l&&l.s?surahName(l.s)+' — الآية '+ar(l.a||1):'114 سورة')];
   return el('section',{class:'acts','aria-label':'ابدأ من هنا'},...items)}
 async function landing(app){
   const todayBox=el('div',{class:'votd'});
@@ -430,7 +430,7 @@ async function landing(app){
     el('div',{class:'hmain'},el('span',{class:'mband','aria-hidden':'true'},medallion(84,'mm')),el('div',{class:'eyebrow'},'ترتيل · منصة تعلّم القرآن وإتقانه'),
       el('h1',{},'رحلتك مع القرآن، من التعلّم إلى الإتقان'),
       el('p',{},'منصة متكاملة لتعلّم القرآن الكريم وعلومه، تجمع المسارات التعليمية المتدرجة، والتدريب والتسميع، والتقييم، والتعليم بإشراف أهل الاختصاص.'),
-      el('div',{class:'hbtns'},el('a',{class:'btn',href:token?'#/me':'#/auth'},token?'تابع رحلتك':'ابدأ رحلتك'),el('a',{class:'btn ghost',href:'#/quran'},'اقرأ المصحف'),el('button',{class:'linkbtn',type:'button',on:{click:go('eco')}},'استكشف المنصة ↓'))),
+      el('div',{class:'hbtns'},el('a',{class:'btn',href:token?'#/me':'#/auth'},token?'تابع رحلتك':'ابدأ رحلتك'),el('a',{class:'btn ghost',href:'#/quran'},'اقرأ المصحف'),el('a',{class:'btn ghost',href:'#/foundations'},'ابدأ من الحروف'),el('button',{class:'linkbtn',type:'button',on:{click:go('eco')}},'استكشف المنصة ↓'))),
     readerPreview());
   const eco=el('section',{id:'eco',class:'zone zb'},el('h2',{class:'sec'},'مجالات التعلّم'),divider(),
     el('div',{class:'eco'},...ECO.map(([ic,t,d,h,l,k])=>el('a',{class:'ec'+(k==='lead'?' lead':k==='wide'?' wide':''),href:h},pathIcon(ic),el('b',{},t),el('span',{class:'small'},d),el('span',{class:'go'},l+' ←')))));
