@@ -11,10 +11,12 @@ Status key: **Redesigned** = layout rebuilt; **Restyled** = new tokens/component
 | `#/tajweed[...]` | plain cards | tokens, tabs, cards | screenshots, axe | Restyled |
 | `#/qiraat` | plain cards | tokens | screenshots, axe | Restyled |
 | `#/auth` | plain form | tokens, 44 px inputs | screenshots, axe | Restyled |
-| `#/verify/<code>` | plain card | tokens | not separately screenshotted | Restyled (unverified visually) |
+| `#/verify/<code>` | plain table | printable certificate frame (original ornament, no seal), print button | mocked-API screenshots 390/1440, axe | Redesigned |
 | `#/me/*` | cards/tables | tokens | mocked-API screenshots 360/1440 (empty data), no overflow | Restyled |
-| `#/app/<inst>/*` | cards/tables/forms | tokens, tabs | mocked-API screenshots 360/1440 (overview, tracks, people, admin), no overflow | Restyled |
-| `#/review/*` | tables/forms | tokens | not rendered (scholar role needs a real account) | Restyled (unverified visually) |
-| Certificates (print view) | — | print stylesheet hides chrome | not visually verified | Unverified |
+| `#/app/<inst>/*` | cards/tables/forms | tokens, tabs; **tracks: curriculum timeline** (numbered rosettes, kind, range); **passport: progress bars**; **certificates: ornamental frame** | mocked-API screenshots 360/390/1440, axe, no overflow | Restyled / tracks, certs redesigned |
+| `#/review/*` | tables/forms | tokens | mocked-API render 390 (empty queue), axe | Restyled |
+| Certificates (list in passport, public verify page) | plain box | frame with four corner motifs, star, serif title; print stylesheet prints only the certificate; no seal, signature or accreditation added | mocked-API screenshots, axe | Redesigned |
 
-Known gaps against the brief: no dedicated lesson workspace or curriculum timeline (the platform has no such pages — not invented); Meccan/Medinan data is not in the stored source, so the surah header omits it; the audio player is restyled, not rebuilt as a persistent mini-player; tafsir/translation use collapsible panels rather than a desktop side panel; certificate redesign not done.
+Added after the first report: **audio mini-player** (fixed bar: reciter, current ayah, previous/pause/next, close; sits above the bottom navigation and the page reserves room for it; playback still stops when leaving the reader, as before), **desktop side panel** (from 1180 px the open tool panel docks beside the text, sticky), curriculum timeline, certificate frame, passport progress bars.
+
+Known gaps against the brief: no dedicated lesson workspace (the platform has no lesson pages; units are progress records, so the timeline is the curriculum view); Meccan/Medinan data is not in the stored source, so the surah header omits it rather than copy it from memory; per-unit completion marks are not shown because the passport API returns only counts.

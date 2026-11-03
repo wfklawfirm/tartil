@@ -68,6 +68,7 @@ footer{max-width:1100px;margin:0 auto;padding:10px 16px 40px;color:var(--mute);f
 @media (prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#10231F;--card:#17312A;--ink:#F1EBD9;--mute:#C5CDBF;--line:#2C4A40;--accent:#5DB89A;--accent2:#9BDCC1;--accent-ink:#0A1E19;--gold:#CAB47A;--gold2:#CAB47A;--goldtx:#CAB47A;--soft:#1D3A32;--teal:#7FB4CC;--warn:#E0B04A;--bad:#EE9090;--ok:#7AD3AE;--shadow:none;--rose:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cg fill='none' stroke='%23CAB47A' stroke-width='1.7'%3E%3Crect x='8' y='8' width='24' height='24'/%3E%3Crect x='8' y='8' width='24' height='24' transform='rotate(45 20 20)'/%3E%3Ccircle cx='20' cy='20' r='9.4' stroke-width='1'/%3E%3C/g%3E%3C/svg%3E");--sheetbg:rgba(23,49,42,.97)}}
 :root[data-theme=dark]{--bg:#10231F;--card:#17312A;--ink:#F1EBD9;--mute:#C5CDBF;--line:#2C4A40;--accent:#5DB89A;--accent2:#9BDCC1;--accent-ink:#0A1E19;--gold:#CAB47A;--gold2:#CAB47A;--goldtx:#CAB47A;--soft:#1D3A32;--teal:#7FB4CC;--warn:#E0B04A;--bad:#EE9090;--ok:#7AD3AE;--shadow:none;--rose:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cg fill='none' stroke='%23CAB47A' stroke-width='1.7'%3E%3Crect x='8' y='8' width='24' height='24'/%3E%3Crect x='8' y='8' width='24' height='24' transform='rotate(45 20 20)'/%3E%3Ccircle cx='20' cy='20' r='9.4' stroke-width='1'/%3E%3C/g%3E%3C/svg%3E");--sheetbg:rgba(23,49,42,.97)}
 :root[data-theme=light]{--bg:#F5F0E4;--card:#FFFCF6;--ink:#312B26;--mute:#5C6861;--line:#E2D9C2;--accent:#173F35;--accent2:#102D28;--accent-ink:#FFFCF6;--gold:#B99A58;--gold2:#D4BE8A;--goldtx:#7A5F1E;--soft:#EFEBDC;--teal:#244F63;--warn:#7A4E00;--bad:#9B2C2C;--ok:#1E6B4F;--shadow:0 1px 2px rgba(49,43,38,.05),0 8px 24px rgba(49,43,38,.06);--rose:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cg fill='none' stroke='%23B99A58' stroke-width='1.7'%3E%3Crect x='8' y='8' width='24' height='24'/%3E%3Crect x='8' y='8' width='24' height='24' transform='rotate(45 20 20)'/%3E%3Ccircle cx='20' cy='20' r='9.4' stroke-width='1'/%3E%3C/g%3E%3C/svg%3E");--sheetbg:rgba(255,252,246,.96)}
+main{min-height:100vh}  /* keeps the footer below the fold while a route loads, so it cannot shift the layout */
 body{font-family:var(--ui);font-size:17px;line-height:1.85;padding-bottom:env(safe-area-inset-bottom)}
 h1,h2,h3{font-family:var(--ui);color:var(--accent2);font-weight:700}
 :root[data-theme=dark] h1,:root[data-theme=dark] h2,:root[data-theme=dark] h3{color:var(--ink)}
@@ -118,6 +119,7 @@ html[dir=rtl] .cn.tl{transform:scaleX(-1)}html[dir=rtl] .cn.tr{transform:none}ht
 .hero .btn{background:#F5F0E4;color:#102D28;font-weight:700;margin:10px 5px 0;padding:10px 22px}.hero .btn:hover{background:#fff}
 .hero .btn.alt{background:transparent;color:#F5F0E4;border:1px solid rgba(212,190,138,.8)}
 .hero .ayat{margin:26px auto 0;max-width:600px;background:rgba(245,240,228,.08);border:1px solid rgba(212,190,138,.35);border-radius:14px;padding:14px 16px}
+.hero .ayat{min-height:134px}
 .hero .ayat .small{color:#D4BE8A}.hero .ayat a{color:#F5F0E4}
 .cont{display:flex;gap:14px;align-items:center;justify-content:space-between;flex-wrap:wrap;border-color:var(--gold2)}
 .cont b{display:block;font-size:19px;color:var(--accent2)}:root[data-theme=dark] .cont b{color:var(--ink)}
@@ -174,6 +176,7 @@ html[dir=rtl] .cn.tl{transform:scaleX(-1)}html[dir=rtl] .cn.tr{transform:none}ht
   .cartouche{padding:12px 46px 10px;margin-inline:6px}.cartouche .med{width:34px;height:34px;margin-top:-17px;padding:4px}.cartouche .med.s{inset-inline-start:7px}.cartouche .med.e{inset-inline-end:7px}
   .mushaf{padding:28px 14px 22px;border-radius:14px}
   button.sm,.btn.sm{min-height:44px}
+  body #mini{bottom:calc(66px + env(safe-area-inset-bottom))}
 }
 @media (prefers-reduced-motion:no-preference){.card,.feat,.path,.hero{animation:rise .25s ease both}.mushaf{animation:none}}
 @keyframes rise{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
@@ -181,6 +184,23 @@ html[dir=rtl] .cn.tl{transform:scaleX(-1)}html[dir=rtl] .cn.tr{transform:none}ht
 @media print{header.top,#bnav,.chips,.toolbox,.rstrip,.readnav,footer{display:none!important}.mushaf,.card{box-shadow:none}}
 .cn{position:absolute}.mushaf .cn.tl,.mushaf .cn.tr{top:8px}.mushaf .cn.bl,.mushaf .cn.br{bottom:8px}.mushaf .cn.tl,.mushaf .cn.bl{inset-inline-start:8px}.mushaf .cn.tr,.mushaf .cn.br{inset-inline-end:8px}
 .tj-ghunna,.tj-ikhfa,.tj-idg_g,.tj-idg_n,.tj-iqlab,.tj-qalqala,.tj-madd{font-weight:inherit}@media (prefers-color-scheme:dark){:root:not([data-theme=light]) .tj-ghunna{color:#5fd3a0}:root:not([data-theme=light]) .tj-ikhfa{color:#82b6f2}:root:not([data-theme=light]) .tj-idg_g{color:#4fd6cc}:root:not([data-theme=light]) .tj-idg_n{color:#c9a0f2}:root:not([data-theme=light]) .tj-iqlab{color:#f0a860}:root:not([data-theme=light]) .tj-qalqala{color:#f28a8a}:root:not([data-theme=light]) .tj-madd{color:#e3b862}}
+
+/* mini player, desktop side panel, timeline, certificate */
+#mini{position:fixed;inset-inline:0;margin-inline:auto;bottom:14px;width:min(640px,calc(100% - 16px));z-index:19;display:flex;gap:6px;align-items:center;flex-wrap:wrap;background:var(--card);border:1px solid var(--gold);border-radius:14px;padding:8px 10px;box-shadow:0 8px 26px rgba(0,0,0,.18)}
+#mini[hidden]{display:none}#mini .ml{flex:1 1 160px;font-size:14px;font-weight:600;min-width:0}#mini button{margin:0}
+body.mini main{padding-bottom:170px}
+.rlayout{max-width:780px;margin:0 auto}.rlayout .toolbox{max-width:none;margin:0 0 12px}.rlayout .toolbox:empty{display:none}
+@media (min-width:1180px){.rlayout.side{max-width:1180px;display:grid;grid-template-columns:minmax(0,780px) 380px;gap:22px;justify-content:center;align-items:start}.rlayout.side .toolbox{order:2;position:sticky;top:96px;max-height:calc(100vh - 116px);overflow:auto;margin:0}.rlayout.side .rmain{order:1}}
+.tline{list-style:none;margin:8px 0 0;padding:0}.tline li{position:relative;display:flex;gap:12px;padding-bottom:14px}
+.tline li:not(:last-child)::after{content:"";position:absolute;inset-inline-start:21px;top:46px;bottom:2px;width:2px;background:var(--line)}
+.tline .tn{flex:none;display:flex;align-items:center;justify-content:center;width:44px;height:44px;background:var(--rose) center/contain no-repeat;color:var(--goldtx);font-weight:700;font-size:14px}
+.certf{position:relative;text-align:center;border:2px solid var(--gold);border-radius:6px;padding:40px 28px 30px;margin:12px 0;background:var(--card);outline:1px solid var(--gold2);outline-offset:-10px}
+.certf .cn{width:44px;height:44px;color:var(--gold)}.certf .cn.tl,.certf .cn.tr{top:6px}.certf .cn.bl,.certf .cn.br{bottom:6px}.certf .cn.tl,.certf .cn.bl{inset-inline-start:6px}.certf .cn.tr,.certf .cn.br{inset-inline-end:6px}
+.certf .cs{width:34px;height:34px;display:block;margin:0 auto 6px;color:var(--gold)}
+.certf .ct{font-family:var(--deco);font-size:clamp(26px,5vw,36px);color:var(--accent2);line-height:1.5}:root[data-theme=dark] .certf .ct{color:var(--ink)}
+.certf .cn2{font-family:var(--deco);font-size:26px;margin:2px 0 6px}.certf .cn3{font-size:20px;font-weight:700;color:var(--accent2);margin-bottom:6px}:root[data-theme=dark] .certf .cn3{color:var(--ink)}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]) .certf .ct,:root:not([data-theme=light]) .certf .cn3{color:var(--ink)}}
+@media print{body *{visibility:hidden}.printable,.printable *{visibility:visible}.printable{position:absolute;inset-inline:0;top:0;margin:0}#mini{display:none!important}@page{margin:14mm}}
 </style>
 </head>
 <body>
@@ -360,8 +380,8 @@ async function quranRoute(app,parts){
 }
 
 /* ---------- recitation audio: streamed live from mp3quran.net's public API; nothing is stored by us ---------- */
-let RC=null,AUD=null;
-const stopAudio=()=>{if(AUD){try{AUD.pause();AUD.removeAttribute('src');AUD.load()}catch{}AUD=null}};
+let RC=null,AUD=null,MINI=null;
+const stopAudio=()=>{if(MINI){MINI.hidden=true;document.body.classList.remove('mini')}if(AUD){try{AUD.pause();AUD.removeAttribute('src');AUD.load()}catch{}AUD=null}};
 async function reciters(){if(RC)return RC;const r=await fetch('https://www.mp3quran.net/api/v3/ayat_timing/reads');if(!r.ok)throw new Error('x');RC=(await r.json()).map(x=>({id:x.id,name:x.name,folder:x.folder_url}));return RC}
 function audioPanel(n,count){
   const msg=el('div',{class:'small'},'جارٍ تحميل قائمة القرّاء…'),panel=el('div',{class:'card'},el('h2',{style:'margin-top:0'},'استمع إلى التلاوة'),msg);
@@ -389,9 +409,21 @@ function audioPanel(n,count){
     panel.replaceChildren(el('h2',{style:'margin-top:0'},'استمع إلى التلاوة'),
       el('div',{class:'toolbar'},el('div',{},el('label',{},'القارئ (رواية حفص عن عاصم)'),sel),el('div',{},el('label',{},'السرعة'),spd),el('div',{},el('label',{},'ابدأ من'),from,play),el('label',{style:'display:inline-flex;gap:6px;align-items:center;margin:0;color:var(--ink)'},rep,'كرّر الآية الجارية (للحفظ)')),
       au,info,el('p',{class:'small'},'التلاوة تُبثّ مباشرة من خدمة mp3quran.net العامة ولا نخزّنها ولا نعدّلها. حقوق التلاوات لأصحابها. لم نوقّع اتفاقًا مع الخدمة، وشروط استخدامها غير منشورة؛ فالبثّ المباشر مؤقت إلى أن يُستكمل ذلك.'));
+    const mini=miniPlayer(),ml=mini.querySelector('.ml'),mt=mini.querySelector('.mt');
+    const cura=()=>{const ms=au.currentTime*1000,x=T.find(y=>ms>=y.start_time&&ms<y.end_time);return x?x.ayah:0};
+    const step=d=>{const i=T.findIndex(y=>y.ayah===cura()),x=T[i+d];if(x){au.currentTime=x.start_time/1000;au.play().catch(()=>{})}};
+    mini._bind({toggle:()=>{au.paused?au.play().catch(()=>{}):au.pause()},prev:()=>step(-1),next:()=>step(1),close:()=>{au.pause();mini.hidden=true;document.body.classList.remove('mini')}});
+    const lab=()=>{const rc=list.find(x=>String(x.id)===sel.value),a=cura();ml.textContent=(rc?rc.name:'')+(a?' — الآية '+ar(a):'')};
+    au.addEventListener('play',()=>{mini.hidden=false;document.body.classList.add('mini');mt.textContent='إيقاف مؤقت';lab()});
+    au.addEventListener('pause',()=>{mt.textContent='تشغيل'});
+    au.addEventListener('timeupdate',lab);
     AUD=au;load();
   })();
   return panel}
+
+function miniPlayer(){if(MINI)return MINI;
+  const m=el('div',{id:'mini',role:'region','aria-label':'مشغّل التلاوة',hidden:true},el('span',{class:'ml','aria-live':'off'}),el('button',{class:'ghost sm mp',type:'button'},'السابقة'),el('button',{class:'sm mt',type:'button'},'تشغيل'),el('button',{class:'ghost sm mn',type:'button'},'التالية'),el('button',{class:'ghost sm mx',type:'button','aria-label':'إغلاق المشغّل'},'✕'));
+  document.body.append(m);MINI=m;m._bind=h=>{m.querySelector('.mp').onclick=h.prev;m.querySelector('.mt').onclick=h.toggle;m.querySelector('.mn').onclick=h.next;m.querySelector('.mx').onclick=h.close};return m}
 
 /* ---------- classical tafsir: fetched on demand from the public tafsir_api repository; nothing is stored by us ---------- */
 const TAFSIRS=[['ar-tafsir-al-jalalayn','تفسير الجلالين','jd'],['ar-tafsir-ibn-kathir','تفسير ابن كثير','raw'],['ar-tafseer-al-qurtubi','تفسير القرطبي','raw'],['ar-tafsir-al-baghawi','تفسير البغوي','jd'],['ar-tafsir-al-tabari','تفسير الطبري','jd']];
@@ -432,10 +464,11 @@ async function reader(app,n,focus){
       el('div',{style:'display:flex;gap:6px 18px;flex-wrap:wrap;align-items:center'},chk(tjOn,'tj','تلوين التجويد'),chk(store.get('tr',false),'tr','عرض الترجمة الإنجليزية'),modeBtn),tjOn?tjLegend():'',el('p',{class:'small',style:'margin:6px 0 0'},'اضغط على أي آية لحفظ موضعك وإشارتها.')),
     defs=[['التلاوة',audioPanel(n,count)],['التفسير',tafsirPanel(n,count)],['العرض والبحث',viewPanel]];
   defs.forEach(([,pn])=>{pn.hidden=true});
-  const tbtn=defs.map(([t,pn])=>{const b=el('button',{type:'button',class:'ghost','aria-expanded':'false',on:{click:()=>{const open=pn.hidden;defs.forEach(([,q],j)=>{q.hidden=true;tbtn[j].setAttribute('aria-expanded','false')});if(open){pn.hidden=false;b.setAttribute('aria-expanded','true')}}}},t);return b});
+  const tbtn=defs.map(([t,pn])=>{const b=el('button',{type:'button',class:'ghost','aria-expanded':'false',on:{click:()=>{const open=pn.hidden;defs.forEach(([,q],j)=>{q.hidden=true;tbtn[j].setAttribute('aria-expanded','false')});if(open){pn.hidden=false;b.setAttribute('aria-expanded','true')}lay.classList.toggle('side',defs.some(([,q])=>!q.hidden))}}},t);return b});
   box.prepend(...corners());
   const nav2=el('div',{class:'readnav'},n>1?el('a',{class:'btn ghost',href:'#/quran/'+(n-1)},'→ '+surahName(n-1)):'',n<114?el('a',{class:'btn ghost',href:'#/quran/'+(n+1)},surahName(n+1)+' ←'):'');
-  app.replaceChildren(head,strip,el('div',{class:'chips',role:'group','aria-label':'أدوات القراءة'},...tbtn),el('div',{class:'toolbox'},...defs.map(x=>x[1])),box,nav2);
+  const lay=el('div',{class:'rlayout'},el('div',{class:'toolbox'},...defs.map(x=>x[1])),el('div',{class:'rmain'},box,nav2));
+  app.replaceChildren(head,strip,el('div',{class:'chips',role:'group','aria-label':'أدوات القراءة'},...tbtn),lay);
   if(store.get('tr',false))showTranslation(app,n);
   if(!store.get('last',null)||store.get('last').s!==n)store.set('last',{s:n,a:1});
   if(focus)setTimeout(()=>go(focus),150);
@@ -461,13 +494,15 @@ async function searchView(app,parts){
 }
 
 /* ---------- public certificate verification ---------- */
+const certFrame=(...kids)=>el('div',{class:'certf printable'},...corners(),orn('star','cs'),...kids);
 async function verifyView(app,code){
   const box=el('div',{class:'card'},el('h2',{},'التحقق من شهادة'));
   app.replaceChildren(box);
   if(!/^[0-9a-f]{32}$/.test(code||'')){box.append(el('div',{class:'msg err'},'رمز التحقق غير صالح.'));return}
   try{const r=await api('GET','/verify/'+code);
     box.append(el('div',{class:'msg '+(r.valid?'ok':'err')},r.valid?'شهادة سارية':'هذه الشهادة مسحوبة'),
-      table(['المسار','المؤسسة','تاريخ الإصدار','الحامل'],[[r.track,r.institution,fmt(r.issuedAt),r.holder||'(محجوب)']]),el('p',{class:'small'},r.note))
+      certFrame(el('div',{class:'ct'},'شهادة إتمام مساق'),el('p',{class:'small'},'تشهد المؤسسة أدناه بإتمام'),el('div',{class:'cn2'},r.holder||'(الاسم محجوب)'),el('p',{class:'small'},'المسار'),el('div',{class:'cn3'},r.track),el('div',{class:'small'},r.institution+' · '+fmt(r.issuedAt))),
+      el('p',{class:'small'},r.note),el('button',{class:'ghost sm',type:'button',on:{click:()=>window.print()}},'طباعة الشهادة'))
   }catch(e){box.append(el('div',{class:'msg err'},e.status===404?'لا توجد شهادة بهذا الرمز.':e.message))}
 }
 
@@ -553,12 +588,13 @@ function sessionRow(s,ctx,box){
 
 async function tracks(body,ctx){
   const list=el('div'),box=el('div'),ST={draft:'مسودة',published:'منشور',archived:'مؤرشف'},KIND={recitation:'تلاوة',memorization:'حفظ',tajweed:'تجويد',review:'مراجعة'};
+  const timeline=units=>el('ol',{class:'tline'},units.map(u=>el('li',{},el('span',{class:'tn'},ar(u.position)),el('div',{},el('b',{},u.title),el('div',{class:'small'},(KIND[u.kind]||u.kind)+(u.surah?(' · '+surahName(u.surah)+(u.fromAyah?(' : '+ar(u.fromAyah)+'–'+ar(u.toAyah||u.fromAyah)):'')):''))))));
   const trackCard=(t,msg)=>{
     const stu=studentSelect(ctx),un=el('select',{'aria-label':'الوحدة'},t.units.map(u=>el('option',{value:u.id},ar(u.position)+'. '+u.title)));
     const rows=t.units.map(u=>[ar(u.position),u.title,KIND[u.kind]||u.kind,u.surah?(surahName(u.surah)+(u.fromAyah?(' : '+ar(u.fromAyah)+'–'+ar(u.toAyah||u.fromAyah)):'')):'—']);
     const card=el('div',{class:'card'},el('h2',{},t.title,' ',el('span',{class:'chip'},ST[t.status]||t.status)));
     if(t.description)card.append(el('p',{class:'small'},t.description));
-    card.append(table(['#','الوحدة','النوع','النطاق'],rows));
+    card.append(timeline(t.units));
     if(ctx.admin&&t.status!=='published')card.append(el('button',{on:{click:()=>run(msg,async()=>{await api('POST',ctx.b+'/tracks/'+t.id+'/status',{status:'published'});load()})}},'نشر المسار'));
     if(ctx.staff&&t.status==='published'){
       const doneBtn=el('button',{style:'margin:0',on:{click:()=>run(msg,async()=>{if(!stu.value)throw new Error('اختر الطالب');await api('POST',ctx.b+'/tracks/'+t.id+'/progress',{unitId:un.value,studentUserId:stu.value});note(msg,'سُجّل الإنجاز','ok')})}},'تسجيل إنجاز');
@@ -636,8 +672,8 @@ async function recitation(body,ctx){
 async function certs(body,ctx){
   const pbox=el('div'),pl=el('div'),st=ctx.staff?studentSelect(ctx):null;
   const load=()=>run(pbox,async()=>{const q=st&&st.value?('?studentUserId='+encodeURIComponent(st.value)):'';const r=await api('GET',ctx.b+'/passport'+q);
-    pl.replaceChildren(el('h3',{},'التقدّم'),r.tracks.length?table(['المسار','المُنجَز','الإجمالي'],r.tracks.map(t=>[t.title,ar(t.done),ar(t.total)])):empty('لا مسارات منشورة.'),
-      el('h3',{},'الشهادات'),r.certificates.length?el('div',{},r.certificates.map(c=>{const link=location.origin+location.pathname+'#/verify/'+c.verificationCode;return el('div',{class:'cert'},el('b',{},c.revokedAt?'شهادة مسحوبة':'شهادة إتمام مساق'),el('div',{class:'small'},fmt(c.issuedAt)),el('div',{class:'mono'},link),el('a',{class:'btn ghost sm',style:'margin-top:6px',href:'#/verify/'+c.verificationCode},'صفحة التحقق'))})):empty('لا شهادات بعد.'),
+    pl.replaceChildren(el('h3',{},'التقدّم'),r.tracks.length?table(['المسار','التقدّم'],r.tracks.map(t=>[t.title,el('div',{},el('div',{class:'progress','aria-hidden':'true'},el('i',{style:'width:'+(t.total?Math.round(100*t.done/t.total):0)+'%'})),el('span',{class:'small'},ar(t.done)+' من '+ar(t.total)+' وحدة'))])):empty('لا مسارات منشورة.'),
+      el('h3',{},'الشهادات'),r.certificates.length?el('div',{},r.certificates.map(c=>{const link=location.origin+location.pathname+'#/verify/'+c.verificationCode;return certFrame(el('div',{class:'ct'},c.revokedAt?'شهادة مسحوبة':'شهادة إتمام مساق'),el('div',{class:'small'},'صدرت في '+fmt(c.issuedAt)),el('div',{class:'mono',style:'margin:8px 0'},link),el('a',{class:'btn ghost sm',href:'#/verify/'+c.verificationCode},'صفحة التحقق'))})):empty('لا شهادات بعد.'),
       el('p',{class:'small'},'الشهادة سجلّ إتمام مساق لدى المؤسسة، وليست إجازة ولا حكمًا شرعيًا.'))});
   body.append(el('div',{class:'card'},el('h2',{},'جواز التعلّم'),st?el('div',{class:'row'},field('عرض جواز طالب (اتركه فارغًا لنفسك)',st),el('div',{},el('label',{},' '),el('button',{style:'margin:0',on:{click:load}},'عرض'))):'',pl,pbox));load();
   if(ctx.admin){const tr=el('select',{}),s2=studentSelect(ctx),m=el('div');

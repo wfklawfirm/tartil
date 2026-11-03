@@ -76,3 +76,6 @@ Owner reported the detached letters/gaps remained on iPhone after joiner and ali
 
 ## 2026-11-03 Qur'anic visual redesign
 Owner supplied a full UI/UX master brief. Done: identity tokens (light/night, manual switch), original SVG ornament library, reader rebuilt (surah header, collapsed tools, reading canvas, rosette markers), home rebuilt, mobile bottom navigation, 44 px targets, focus, reduced motion, print. Docs: UI_UX_AUDIT, QURANIC_DESIGN_SYSTEM, PAGE_REDESIGN_REPORT, FINAL_DESIGN_QA; screenshots in docs/design-screens; `scripts/qa/reader_integrity.mjs` regression. Gaps listed in PAGE_REDESIGN_REPORT.
+
+## 2026-11-03 redesign completion
+Added mini-player, desktop side panel, timeline, certificate frame/print, progress bars, CLS fixes (lab CLS 0.006/0). Remaining gaps in docs/PAGE_REDESIGN_REPORT.md.
