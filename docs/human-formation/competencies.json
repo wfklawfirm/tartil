@@ -150,7 +150,7 @@
    {
     "book": "الذريعة",
     "locator": "الصدق ومدحه والكذب وذمه",
-    "verification": "heading-only"
+    "verification": "passage-read (see PILOT_SOURCE_RECORDS.md)"
    },
    {
     "book": "الذريعة",
@@ -301,7 +301,7 @@
    {
     "book": "الذريعة",
     "locator": "التواضع والكبر",
-    "verification": "heading-only"
+    "verification": "passage-read (see PILOT_SOURCE_RECORDS.md)"
    },
    {
     "book": "الذريعة",
@@ -522,12 +522,12 @@
    {
     "book": "الذريعة",
     "locator": "ثوران الغضب وفضل كظمه",
-    "verification": "heading-only"
+    "verification": "passage-read (see PILOT_SOURCE_RECORDS.md)"
    },
    {
     "book": "الذريعة",
     "locator": "الحلم والعفو",
-    "verification": "heading-only"
+    "verification": "passage-read (see PILOT_SOURCE_RECORDS.md)"
    },
    {
     "book": "الذريعة",
