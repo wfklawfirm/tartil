@@ -73,3 +73,6 @@ iPhone check after the joiner fix: coloured letters now connect. Remaining odd g
 
 ## 2026-11-02 tajweed colouring via Highlight API
 Owner reported the detached letters/gaps remained on iPhone after joiner and alignment fixes. Colouring now uses CSS Custom Highlight API ranges over a single text node (fallback: spans + joiners). Chromium check: 7 highlight classes, 0 spans.
+
+## 2026-11-03 Qur'anic visual redesign
+Owner supplied a full UI/UX master brief. Done: identity tokens (light/night, manual switch), original SVG ornament library, reader rebuilt (surah header, collapsed tools, reading canvas, rosette markers), home rebuilt, mobile bottom navigation, 44 px targets, focus, reduced motion, print. Docs: UI_UX_AUDIT, QURANIC_DESIGN_SYSTEM, PAGE_REDESIGN_REPORT, FINAL_DESIGN_QA; screenshots in docs/design-screens; `scripts/qa/reader_integrity.mjs` regression. Gaps listed in PAGE_REDESIGN_REPORT.
