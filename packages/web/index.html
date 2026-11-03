@@ -274,6 +274,8 @@ footer{max-width:none;margin:30px 0 0;padding:30px 16px calc(40px + env(safe-are
 @media (max-width:1023px){.ec.wide{flex-wrap:wrap}.ec{grid-column:span 6}.ec.lead{grid-column:span 12;min-height:0}.stages{grid-template-columns:1fr;gap:12px}.stages li a{flex-direction:row;text-align:start;gap:12px;align-items:center}.stages li:not(:last-child) a::after{display:none}.stages .sn{width:52px;height:52px;margin:0;flex:none}.stages li a>span.small{display:block}.inst{grid-template-columns:1fr}.fcols{grid-template-columns:1fr 1fr}}
 @media (max-width:800px){.hero2 .mband .mm{width:132px!important;height:132px!important}.ec:not(.lead){display:grid;grid-template-columns:46px 1fr;column-gap:14px;row-gap:2px;padding:14px 16px;align-items:start}.ec:not(.lead) .pi{grid-row:span 3;width:42px;height:42px}.ec:not(.lead) b{font-size:18px}.ec:not(.lead) .small{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;font-size:14px}.ec:not(.lead) .go{margin-top:4px;font-size:14px}.ec.wide{flex-wrap:nowrap}.ec.lead{min-height:0;padding:20px}.ec.lead .pi{width:48px;height:48px}.hero2 .hmain{text-align:center}.hero2 h1{font-size:34px;line-height:1.5;text-wrap:balance;margin:4px 0 8px}.hero2 p{margin-inline:auto;text-wrap:pretty}.hero2 .eyebrow{text-align:center}.hero2 .mband{justify-content:center;margin-bottom:6px}.hero2 .mband .mm{width:104px!important;height:104px!important}.hero2 .hbtns{justify-content:center;margin-top:18px}.hero2 .hbtns .btn{flex:none;padding:13px 28px;font-size:18px}.hero2{grid-template-columns:1fr;padding:6px 2px 0;gap:6px}.heroart{display:none}.hero2 .mband{display:flex;align-items:center;gap:10px;color:var(--gold);margin-bottom:2px}.hero2 .mband .mm{width:56px!important;height:56px!important}.hero2 p{font-size:17px}.hbtns .btn{flex:1;text-align:center}.ec{grid-column:span 12}.inst{padding:24px 16px}.fcols{grid-template-columns:1fr}.eco{gap:12px}}
 @media (min-width:1500px){.hero2,.zone,.acts,.trust,.fcols{max-width:1320px}}
+.hwbig{text-align:center;padding:22px}.hwbig h2{font-size:clamp(24px,5vw,34px);margin:6px 0}.hwpass{font-family:var(--deco,inherit);font-size:22px}.hwacts{display:flex;flex-direction:column;gap:10px;align-items:stretch;margin:12px auto;max-width:360px}.btn.lg,button.lg{min-height:56px;font-size:19px;border-radius:14px;width:100%}.chip.warn{background:var(--gold,#c9a24b);color:#1d1d1d}.feat.on{outline:2px solid var(--accent)}
+.fdg{display:grid;grid-template-columns:repeat(auto-fill,minmax(88px,1fr));gap:10px}.fdc{border:1px solid var(--line);border-radius:14px;padding:10px 6px;text-align:center;background:var(--card);display:flex;flex-direction:column;gap:2px}.fdl{font-size:44px;line-height:1.6;font-family:var(--quran,inherit)}.fdl.s{font-size:28px}.fdl.big{font-size:96px;text-align:center;display:block}.fdk .fdc{padding:18px 8px}.fdk .fdl{font-size:60px}.fda .fdc{padding:8px 4px}
 </style>
 </head>
 <body>
@@ -288,7 +290,7 @@ const $=(s,r=document)=>r.querySelector(s);
 const el=(t,a={},...k)=>{const e=document.createElement(t);for(const[x,v]of Object.entries(a)){if(v===undefined||v===null||v===false)continue;if(x==='on')for(const[ev,f]of Object.entries(v))e.addEventListener(ev,f);else if(x==='class')e.className=v;else if(x==='value')e.value=v;else e.setAttribute(x,v===true?'':v)}for(const c of k.flat(2))e.append(c instanceof Node?c:document.createTextNode(c??''));return e};
 let token=null;try{token=sessionStorage.getItem('t')}catch{}
 const store={get(k,d){try{const v=localStorage.getItem(k);return v===null?d:JSON.parse(v)}catch{return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch{}}};
-const ERR={recitation_ai_unavailable:'خدمة تحليل التلاوة غير مُفعّلة على الخادم بعد',unsupported_audio:'صيغة الملف الصوتي غير مدعومة (المدعوم: WebM وOgg وWAV وMP3 وM4A)',bad_audio_size:'حجم الملف الصوتي غير مقبول (الحد ٨ ميغابايت)',transcription_failed:'تعذّر على مزوّد التحليل معالجة التسجيل الآن، حاول لاحقًا',recording_too_long:'التسجيل أطول من الحد (٤ دقائق)',passage_not_available:'المقطع المطلوب غير متاح في النص المعتمد',payload_too_large:'التسجيل كبير جدًا، قصّره',unauthenticated:'انتهت الجلسة، سجّل الدخول مجددًا',forbidden:'غير مسموح لك بهذا الإجراء',guardian_consent_required:'يلزم موافقة وليّ الأمر قبل التسجيل',already_exists:'موجود مسبقًا',invalid_credentials:'بيانات الدخول غير صحيحة',validation_failed:'بيانات غير صالحة، راجع الحقول',user_not_found:'لا يوجد حساب بهذا البريد — اطلب من الشخص أن يسجّل أولًا',not_found:'غير موجود',session_revoked:'أُنهيت هذه الجلسة، سجّل الدخول مجددًا',model_not_connected:'لم يُربط نموذج ذكاء اصطناعي بعد',model_failed:'تعذّر على النموذج الرد الآن، حاول لاحقًا',guardian_required:'يلزم وليّ أمر موثَّق قبل انضمام القاصر',session_not_open:'الجلسة غير مفتوحة الآن (تُفتح قبل الموعد بـ15 دقيقة)',track_not_complete:'لم يُكمل الطالب كل وحدات المسار',track_not_published:'المسار غير منشور',track_empty:'المسار بلا وحدات',rate_limited:'محاولات كثيرة، انتظر دقيقة',invalid_reference:'مرجع غير صالح (تأكد من اختيار الطالب/الحلقة)',edition_not_available:'نص القرآن غير متاح بعد',storage_not_configured:'تخزين الصوت غير مُعدّ',bad_request:'طلب غير صالح',service_unavailable:'الخدمة غير متاحة مؤقتًا، حاول بعد قليل'};
+const ERR={homework_teacher_only:'اعتماد الواجب للمعلّم وحده',homework_closed:'أُغلق هذا الواجب',homework_illegal_transition:'لا يمكن هذا الإجراء في حالة الواجب الحالية',homework_review_required:'هذا الواجب يحتاج مراجعة المعلّم',homework_retry_not_allowed:'إعادة المحاولة غير مسموحة في هذا الواجب',retry_not_allowed:'إعادة المحاولة غير مسموحة في هذا الواجب',audio_required:'هذا الواجب يتطلب تسجيلًا صوتيًا',audio_submission_required:'أرفق التسجيل',submission_not_found:'التسجيل غير موجود',no_recipients:'اختر حلقة أو طلابًا',passage_required:'حدّد المقطع من المصحف',bad_range:'نطاق الآيات غير صحيح',recitation_ai_unavailable:'خدمة تحليل التلاوة غير مُفعّلة على الخادم بعد',unsupported_audio:'صيغة الملف الصوتي غير مدعومة (المدعوم: WebM وOgg وWAV وMP3 وM4A)',bad_audio_size:'حجم الملف الصوتي غير مقبول (الحد ٨ ميغابايت)',transcription_failed:'تعذّر على مزوّد التحليل معالجة التسجيل الآن، حاول لاحقًا',recording_too_long:'التسجيل أطول من الحد (٤ دقائق)',passage_not_available:'المقطع المطلوب غير متاح في النص المعتمد',payload_too_large:'التسجيل كبير جدًا، قصّره',unauthenticated:'انتهت الجلسة، سجّل الدخول مجددًا',forbidden:'غير مسموح لك بهذا الإجراء',guardian_consent_required:'يلزم موافقة وليّ الأمر قبل التسجيل',already_exists:'موجود مسبقًا',invalid_credentials:'بيانات الدخول غير صحيحة',validation_failed:'بيانات غير صالحة، راجع الحقول',user_not_found:'لا يوجد حساب بهذا البريد — اطلب من الشخص أن يسجّل أولًا',not_found:'غير موجود',session_revoked:'أُنهيت هذه الجلسة، سجّل الدخول مجددًا',model_not_connected:'لم يُربط نموذج ذكاء اصطناعي بعد',model_failed:'تعذّر على النموذج الرد الآن، حاول لاحقًا',guardian_required:'يلزم وليّ أمر موثَّق قبل انضمام القاصر',session_not_open:'الجلسة غير مفتوحة الآن (تُفتح قبل الموعد بـ15 دقيقة)',track_not_complete:'لم يُكمل الطالب كل وحدات المسار',track_not_published:'المسار غير منشور',track_empty:'المسار بلا وحدات',rate_limited:'محاولات كثيرة، انتظر دقيقة',invalid_reference:'مرجع غير صالح (تأكد من اختيار الطالب/الحلقة)',edition_not_available:'نص القرآن غير متاح بعد',storage_not_configured:'تخزين الصوت غير مُعدّ',bad_request:'طلب غير صالح',service_unavailable:'الخدمة غير متاحة مؤقتًا، حاول بعد قليل'};
 const BASE=(document.querySelector('meta[name=api-base]')||{}).content||'';
 async function api(method,url,body){let r;try{r=await fetch(BASE+url,{method,headers:{'content-type':'application/json',...(token?{authorization:'Bearer '+token}:{})},body:body?JSON.stringify(body):undefined})}catch{throw Object.assign(new Error('تعذّر الاتصال بالخادم، تحقق من الشبكة'),{status:0})}
   let j={};try{j=await r.json()}catch{}
@@ -395,6 +397,7 @@ async function route(){
     else if(top==='qiraat'){renderNav('qiraat');qiraatView(app)}
     else if(top==='review'){renderNav('review');await reviewView(app,parts)}
     else if(top==='me'){renderNav('me');await meView(app,parts)}
+    else if(top==='foundations'){renderNav('');foundationsView(app)}
     else if(top==='gallery'){renderNav('');gallery(app)}
     else if(top==='auth'){renderNav('');authView(app)}
     else if(top==='verify'){renderNav('');await verifyView(app,parts[1])}
@@ -410,6 +413,7 @@ const ECO=[['book','اقرأ المصحف','114 سورة برواية حفص ع�
  ['wave','التجويد','أحكام النون والميم والمدود وغيرها، بأمثلة تُعرض من نص المصحف. (محتوى تمهيدي قيد المراجعة العلمية)','#/tajweed','افتح المكتبة'],
  ['mouth','مخارج الحروف وصفاتها','المخارج السبعة عشر والصفات ومستكشف للحروف. (قيد المراجعة العلمية)','#/tajweed/makharij','استكشف'],
  ['repeat','الحفظ والمراجعة','أضف ما تحفظه فتجدول المنصة مراجعته بتباعد تدريجي وتتابع أيامك وتقدّمك في كل سورة. (يتطلب حسابًا)','#/me/hifz','ابدأ الحفظ'],
+ ['book','الأساس: الحروف والحركات','لمن يبدأ من الصفر — صغارًا وكبارًا: الحروف وأشكالها والحركات والمقاطع بخطوات هادئة وتدريب ذاتي. (منهج مسوّدة قيد الاعتماد؛ بلا صوت حتى تتوفر تسجيلات بشرية معتمدة)','#/foundations','ابدأ من الأساس'],
  ['mic','التسميع والتصحيح','سجّل تلاوتك فتُحلَّل كلمةً كلمةً مقابل نص المصحف مع تظليل متزامن مع صوتك. (يتطلب حسابًا)','#/me/tasmi','جرّب التسميع'],
  ['scroll','القراءات والإسناد','تعريف بالقراءات العشر ورواتها، وسجلّ لتدوين سندك يوثّقه مراجع علمي بشري.','#/qiraat','تصفّح'],
  ['check','اختبر نفسك','اختبارات في التجويد والمخارج، واختبار «أكمل الآية» من نص المصحف. (تمهيدية قيد المراجعة)','#/me/quiz','ابدأ الاختبار'],
@@ -654,7 +658,7 @@ function authView(app){
 }
 
 /* ---------- dashboard ---------- */
-const SECTIONS=[['overview','نظرة عامة'],['tracks','المسارات'],['halaqat','الحلقات'],['recitation','التلاوة والتقييم'],['certs','الشهادات'],['assistant','المساعد'],['people','الأسرة والأعضاء'],['admin','الإدارة']];
+const SECTIONS=[['overview','نظرة عامة'],['tracks','المسارات'],['halaqat','الحلقات'],['homework','الواجبات'],['recitation','التلاوة والتقييم'],['certs','الشهادات'],['assistant','المساعد'],['people','الأسرة والأعضاء'],['admin','الإدارة']];
 async function dashboard(app,parts){
   if(!ME){try{ME=await api('GET','/me')}catch(e){setToken(null);location.hash='#/auth';return}}
   renderNav('app');
@@ -682,7 +686,7 @@ async function dashboard(app,parts){
   app.replaceChildren(el('div',{class:'card',style:'display:flex;gap:14px;flex-wrap:wrap;align-items:center;justify-content:space-between'},
       el('div',{},el('h2',{style:'margin:0'},inst.name),roles.map(r=>el('span',{class:'chip'},ROLE[r]||r))),insts.length>1?instSel:''),
     el('div',{class:'tabs'},SECTIONS.filter(([k])=>k!=='admin'||ctx.admin).map(([k,t])=>el('a',{href:'#/app/'+id+'/'+k,class:k===sec?'on':''},t))),body);
-  const views={overview,tracks,halaqat,recitation,certs,assistant,people,admin:adminView};
+  const views={overview,tracks,halaqat,homework:homeworkView,recitation,certs,assistant,people,admin:adminView};
   try{await views[sec](body,ctx)}catch(e){body.replaceChildren(el('div',{class:'msg err'},e.message))}
   if(sec==='overview'){const d=el('details',{class:'card'},el('summary',{style:'cursor:pointer;font-weight:700'},'إنشاء مؤسسة جديدة'),newInst());body.append(d)}
 }
@@ -690,6 +694,154 @@ const peopleOpts=(ctx,role,ph='— اختر —')=>[el('option',{value:''},ph),.
 const uniq=a=>[...new Map(a.map(x=>[x.userId,x])).values()];
 const studentSelect=ctx=>{const s=el('select',{'aria-label':'الطالب'});const st=uniq(ctx.list.filter(p=>p.role==='student'));s.append(el('option',{value:''},'— اختر الطالب —'),...st.map(p=>el('option',{value:p.userId},p.displayName)));if(ctx.has('student')&&!ctx.staff&&!st.some(p=>p.userId===ME.id))s.append(el('option',{value:ME.id},ME.displayName));return s};
 
+/* ---------- foundations: letters -> forms -> harakat -> syllables. Draft curriculum pending management's scholarly approval; NO audio is played until human-reviewed recordings exist. Progress stays on this device. ---------- */
+const FD_LET=[['ا','ألف'],['ب','باء'],['ت','تاء'],['ث','ثاء'],['ج','جيم'],['ح','حاء'],['خ','خاء'],['د','دال'],['ذ','ذال'],['ر','راء'],['ز','زاي'],['س','سين'],['ش','شين'],['ص','صاد'],['ض','ضاد'],['ط','طاء'],['ظ','ظاء'],['ع','عين'],['غ','غين'],['ف','فاء'],['ق','قاف'],['ك','كاف'],['ل','لام'],['م','ميم'],['ن','نون'],['ه','هاء'],['و','واو'],['ي','ياء']];
+const FD_NOJOIN='ادذرزو',FD_HAR=[['َ','فتحة'],['ُ','ضمة'],['ِ','كسرة'],['ْ','سكون'],['ّ','شدّة'],['ً','تنوين فتح'],['ٌ','تنوين ضم'],['ٍ','تنوين كسر']];
+const fdShuffle=a=>{a=[...a];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+function foundationsView(app){
+  let mode='';try{mode=localStorage.getItem('fdMode')||''}catch{}
+  const root=el('div'),draw=()=>{
+    if(!mode){root.replaceChildren(el('div',{class:'card plain statepg'},el('h1',{},'ابدأ من الأساس'),el('p',{},'اختر ما يناسبك. يمكنك التغيير في أي وقت.'),
+      el('div',{class:'hbtns'},[['kids','للصغار: بطاقات كبيرة وخطوة واحدة في كل مرة'],['adult','للكبار: عرض هادئ ومحترم وبوتيرتك أنت'],['reg','لدي معرفة بالحروف: أريد الاختبار مباشرة']].map(([k,t])=>el('button',{class:'btn lg'+(k==='adult'?' gold':''),type:'button',on:{click:()=>{mode=k;try{localStorage.setItem('fdMode',k)}catch{}draw()}}},t)))));return}
+    const T=[['letters','الحروف'],['forms','أشكال الحرف'],['harakat','الحركات'],['syll','المقاطع'],['quiz','اختبر نفسك']];let cur=mode==='reg'?'quiz':'letters';
+    const tabs=el('div',{class:'tabs'}),pane=el('div',{class:'fd '+(mode==='kids'?'fdk':'fda')});
+    const show=k=>{cur=k;tabs.replaceChildren(...T.map(([key,t])=>el('a',{href:'javascript:void 0',class:key===cur?'on':'',on:{click:()=>show(key)}},t)));pane.replaceChildren(({letters:fdLetters,forms:fdForms,harakat:fdHarakat,syll:fdSyll,quiz:fdQuiz})[k]())};
+    root.replaceChildren(el('h1',{style:'margin:0 0 6px'},'الأساس: الحروف والحركات'),
+      el('p',{class:'small'},'منهج مسوّدة بانتظار اعتماد الإدارة العلمية. لا صوت هنا قبل توفّر تسجيلات بشرية معتمدة؛ فلا نستعمل نطقًا آليًا في تعليم الحروف. تقدّمك محفوظ على هذا الجهاز فقط.'),
+      el('button',{class:'ghost sm',type:'button',on:{click:()=>{mode='';try{localStorage.removeItem('fdMode')}catch{}draw()}}},'تغيير النمط'),tabs,pane);show(cur)};
+  const cell=(big,small)=>el('div',{class:'fdc',role:'group','aria-label':small||big},el('span',{class:'fdl',lang:'ar'},big),small?el('span',{class:'small'},small):'');
+  function fdLetters(){return el('div',{class:'fdg'},FD_LET.map(([l,n])=>cell(l,n)))}
+  function fdForms(){return el('div',{},el('p',{class:'small'},'للحرف أربعة أشكال بحسب موضعه في الكلمة. الحروف «ا د ذ ر ز و» لا تتصل بما بعدها فلها شكلان فقط.'),
+    table(['الحرف','منفصل','أول الكلمة','وسطها','آخرها'],FD_LET.map(([l,n])=>{const nj=FD_NOJOIN.includes(l);return[n,el('span',{class:'fdl s',lang:'ar'},l),nj?'—':el('span',{class:'fdl s',lang:'ar'},l+'‍'),nj?'—':el('span',{class:'fdl s',lang:'ar'},'‍'+l+'‍'),el('span',{class:'fdl s',lang:'ar'},'‍'+l)]})))}
+  function fdHarakat(){return el('div',{},el('p',{class:'small'},'الحركات علامات صغيرة فوق الحرف أو تحته تحدّد طريقة نطقه.'),el('div',{class:'fdg'},FD_HAR.map(([h,n])=>cell('ـ'+h,n))))}
+  function fdSyll(){const L=['ب','ت','ن','م','ل','ك'];return el('div',{},el('p',{class:'small'},'اجمع الحرف مع الحركة تحصل على مقطع.'),
+    table(['الحرف','فتحة','ضمة','كسرة','سكون'],L.map(l=>[l,...FD_HAR.slice(0,4).map(([h])=>el('span',{class:'fdl s',lang:'ar'},l+h))])))}
+  function fdQuiz(){
+    let n=0,score=0;const box=el('div'),stat=el('div');
+    const ask=()=>{
+      if(n>=10){box.replaceChildren(el('div',{class:'card plain'},el('h2',{},'أنهيت الاختبار'),el('p',{},mode==='kids'?'أحسنت! أكملت ١٠ أسئلة.':'أكملتَ عشرة أسئلة.'),el('p',{class:'small'},'هذا تدريب ذاتي لا يُحتسب تقييمًا؛ الحكم على إتقانك لمعلّمك.'),el('button',{type:'button',on:{click:()=>{n=0;score=0;ask()}}},'جولة جديدة')));return}
+      const harQ=n%2===1,L=fdShuffle(FD_LET),t=L[0],opts=fdShuffle(harQ?FD_HAR.slice(0,4):L.slice(0,4)),correct=harQ?FD_HAR[Math.floor(Math.random()*3)]:t;
+      const show=harQ?t[0]+correct[0]:t[0];
+      box.replaceChildren(el('p',{class:'small'},'السؤال '+ar(n+1)+' من ١٠'),el('div',{class:'fdl big',lang:'ar','aria-label':harQ?'حرف بحركة':'حرف'},show),el('p',{},harQ?'ما اسم الحركة؟':'ما اسم هذا الحرف؟'),
+        el('div',{class:'hbtns'},(harQ?opts:[correct,...L.slice(1,4)].sort(()=>Math.random()-.5)).map(o=>el('button',{class:'btn lg ghost',type:'button',on:{click:()=>{const ok=harQ?o[1]===correct[1]:o[1]===correct[1];if(ok)score++;note(stat,ok?'صحيح':'الصواب: '+correct[1],ok?'ok':'err');n++;setTimeout(()=>{stat.replaceChildren();ask()},ok?500:1400)}}},o[1]))))};
+    ask();return el('div',{},box,stat)}
+  app.replaceChildren(root);draw();
+}
+/* ---------- homework & home practice (TARTIL 5.1): one clear task for the learner, a short flow for the teacher; completion is not mastery ---------- */
+const HW_KIND={memorization:'حفظ جديد',revision:'مراجعة',reading:'قراءة',makharij:'مخارج الحروف',listening:'استماع',tajweed:'تجويد',recitation:'تلاوة',assessment:'تقييم',custom:'مهمة مخصصة'};
+const HW_ST={assigned:'جديد',viewed:'اطّلعتَ عليه',in_progress:'قيد العمل',pending_review:'بانتظار المعلّم',needs_retry:'يحتاج إعادة',approved:'اعتمده المعلّم',completed:'مكتمل',excused:'معذور'};
+const hwOpen=h=>!['approved','completed','excused'].includes(h.status);
+const hwPassage=h=>h.surah?surahName(h.surah)+' — الآيات '+ar(h.fromAyah)+'–'+ar(h.toAyah):'';
+const hwStatusChip=h=>el('span',{class:'chip'+(h.status==='needs_retry'?' warn':'')},HW_ST[h.status]||h.status,h.overdue?' · متأخر':'');
+async function homeworkView(body,ctx){
+  const learner=ctx.has('student')||ctx.has('guardian'),T=[];
+  if(learner)T.push(['today','واجبي اليوم']);
+  if(ctx.staff)T.push(['assign','تكليف جديد'],['queue','بانتظار المراجعة'],['track','المتابعة']);
+  let cur=T[0][0];const tabs=el('div',{class:'tabs'}),pane=el('div');
+  const show=k=>{cur=k;tabs.replaceChildren(...T.map(([key,t])=>el('a',{href:'javascript:void 0',class:key===cur?'on':'',on:{click:()=>show(key)}},t)));pane.replaceChildren();
+    ({today:hwToday,assign:hwAssign,queue:hwQueue,track:hwTrack})[k](pane,ctx)};
+  body.append(tabs,pane);show(cur);
+}
+async function hwToday(pane,ctx){
+  const box=el('div'),sel=ctx.has('guardian')&&!ctx.has('student')?el('select',{'aria-label':'الطفل'},uniq(ctx.list.filter(p=>p.role==='student')).map(p=>el('option',{value:p.userId},p.displayName))):null;
+  const out=el('div');pane.append(sel?el('div',{class:'card'},field('اختر الطفل',sel)):'',out,box);
+  const load=()=>run(box,async()=>{
+    const q=sel&&sel.value?'?student='+sel.value:'';const r=await api('GET',ctx.b+'/homework/mine'+q);
+    const open=r.homework.filter(hwOpen),done=r.homework.filter(h=>!hwOpen(h));
+    if(!open.length){out.replaceChildren(el('div',{class:'card hwbig'},el('h2',{},'لا واجبات الآن'),el('p',{},done.length?'أحسنت! أنهيتَ ما كُلّفتَ به. سنخبرك حين يضيف معلّمك واجبًا جديدًا.':'لم يُسنَد إليك واجب بعد.'),done.length?el('p',{class:'small'},'واجبات مُنجزة: '+ar(done.length)+' — الإنجاز لا يعني الإتقان؛ حكم الإتقان لمعلّمك.'):''));return}
+    const h=open[0];
+    const hid=h.id;if(h.status==='assigned')api('POST',ctx.b+'/homework/'+hid+'/view').catch(()=>{});
+    const stat=el('div');
+    const act=[];
+    if(h.status==='assigned'||h.status==='viewed'||h.status==='needs_retry')act.push(el('button',{class:'btn lg',on:{click:()=>run(stat,async()=>{await api('POST',ctx.b+'/homework/'+hid+'/start');load()})}},'ابدأ الواجب'));
+    if(h.submissionMode==='mark_done')act.push(el('button',{class:'btn lg gold',on:{click:()=>run(stat,async()=>{await api('POST',ctx.b+'/homework/'+hid+'/submit',{kind:'done'});load()})}},'أنهيت الواجب'));
+    else if(ctx.has('student')){
+      let blob=null,mr=null;const prev=el('audio',{controls:'',style:'width:100%;margin-top:8px;display:none'});
+      const rec=el('button',{class:'btn lg',on:{click:async()=>{try{const s=await navigator.mediaDevices.getUserMedia({audio:true});const ch=[];mr=new MediaRecorder(s);mr.ondataavailable=e=>ch.push(e.data);mr.onstop=()=>{blob=new Blob(ch,{type:'audio/webm'});s.getTracks().forEach(t=>t.stop());prev.src=URL.createObjectURL(blob);prev.style.display='block';note(stat,'تم التسجيل. استمع إليه ثم أرسله.')};mr.start();note(stat,'🔴 جارٍ التسجيل… اضغط «إيقاف» عند الانتهاء')}catch{note(stat,'تعذّر الوصول إلى الميكروفون. اسمح للمتصفح باستخدامه.','err')}}}},'🎙️ سجّل تلاوتك');
+      const stop=el('button',{class:'btn lg ghost',on:{click:()=>{if(mr&&mr.state==='recording')mr.stop()}}},'إيقاف');
+      const send=el('button',{class:'btn lg gold',on:{click:()=>run(stat,async()=>{if(!blob)throw new Error('سجّل أولًا');const{ed}=await quranMeta();if(!ed)throw new Error('لا يوجد نص قرآني معتمد');
+        const c=await api('POST',ctx.b+'/submissions',{editionCode:ed.code,riwayah:ed.riwayah,surah:h.surah||1,ayahStart:h.fromAyah||1,ayahEnd:h.toAyah||1,audioObjectKey:ctx.id+'/'+ME.id+'/pending.webm'});
+        const up=await api('POST',ctx.b+'/submissions/'+c.id+'/upload-url');const fd=new FormData();fd.append('cacheControl','3600');fd.append('',blob);const u=await fetch(up.uploadUrl,{method:'PUT',body:fd});if(!u.ok)throw new Error('فشل رفع التسجيل');
+        await api('POST',ctx.b+'/homework/'+hid+'/submit',{kind:'audio',recitationSubmissionId:c.id});load()})}},'أرسل إلى معلّمي');
+      act.push(rec,stop,send,prev);
+    }else act.push(el('p',{class:'small'},'هذا الواجب يتطلب تسجيلًا صوتيًا من الطفل نفسه على جهازه.'));
+    const why=el('button',{class:'btn ghost',on:{click:()=>{const n=el('input',{placeholder:'اكتب سببًا قصيرًا (اختياري)',maxlength:500});const kind=el('select',{},el('option',{value:'extension'},'أحتاج وقتًا إضافيًا'),el('option',{value:'obstacle'},'لديّ عائق'));
+      stat.replaceChildren(el('div',{class:'card plain'},field('ماذا تريد؟',kind),field('ملاحظة',n),el('button',{on:{click:()=>run(stat,async()=>{await api('POST',ctx.b+'/homework/'+hid+'/request',{kind:kind.value,note:n.value.trim()||undefined});note(stat,'أُرسل طلبك إلى المعلّم.','ok')})}},'إرسال')))}}},'أحتاج مساعدة أو وقتًا');
+    const waiting=h.status==='pending_review';
+    out.replaceChildren(el('div',{class:'card hwbig'},el('span',{class:'small'},'واجبي اليوم'),el('h2',{},h.title),hwStatusChip(h),
+      h.surah?el('p',{class:'hwpass'},el('a',{href:'#/quran/'+h.surah+'/'+h.fromAyah},hwPassage(h))):'',
+      el('p',{},HW_KIND[h.kind]+' · كرّر '+ar(h.repeatCount)+' مرات · نحو '+ar(h.estMinutes)+' دقائق'+(h.dueAt?' · حتى '+fmt(h.dueAt):'')),
+      h.instructions?el('p',{},h.instructions):'',h.status==='needs_retry'&&h.teacherNote?el('div',{class:'msg'},'ملاحظة المعلّم: '+h.teacherNote):'',
+      waiting?el('div',{class:'msg ok'},'أُرسل واجبك. ينتظر مراجعة معلّمك.'):el('div',{class:'hwacts'},...act),why,stat),
+      open.length>1?el('div',{class:'card'},el('b',{},'واجبات أخرى ('+ar(open.length-1)+')'),el('ul',{},open.slice(1).map(x=>el('li',{},x.title+' — '+(HW_ST[x.status]||x.status))))):'');
+  });
+  if(sel)sel.addEventListener('change',load);load();
+}
+async function hwAssign(pane,ctx){
+  const box=el('div'),F={kind:'memorization',surah:1,fromAyah:1,toAyah:7,repeatCount:3,estMinutes:10,submissionMode:'mark_done',requiresReview:true,allowRetry:true,title:'',instructions:'',dueAt:'',halaqahId:'',students:new Set()};
+  let step=1,tpls=[],halaqat=[];
+  try{tpls=(await api('GET',ctx.b+'/homework-templates')).templates}catch{}
+  try{halaqat=(await api('GET',ctx.b+'/halaqat')).halaqat}catch{}
+  const draw=()=>{
+    const card=el('div',{class:'card'},el('span',{class:'small'},'الخطوة '+ar(step)+' من ٣'));
+    if(step===1){
+      card.append(el('h2',{},'ما نوع الواجب؟'),el('div',{class:'grid'},Object.entries(HW_KIND).map(([k,t])=>el('button',{class:'feat'+(F.kind===k?' on':''),type:'button',on:{click:()=>{F.kind=k;if(!F.title)F.title=t;step=2;draw()}}},t))));
+      if(tpls.length){const s=el('select',{'aria-label':'قالب'},el('option',{value:''},'— أو ابدأ من قالب محفوظ —'),...tpls.map(t=>el('option',{value:t.id},t.name)));
+        s.addEventListener('change',()=>{const t=tpls.find(x=>x.id===s.value);if(t){Object.assign(F,t.payload);F.title=F.title||t.name;step=2;draw()}});card.append(el('div',{style:'margin-top:10px'},s))}
+    }else if(step===2){
+      const su=surahSelect(F.surah||1),a1=el('input',{type:'number',min:1,value:F.fromAyah||1}),a2=el('input',{type:'number',min:1,value:F.toAyah||1}),tt=el('input',{value:F.title,maxlength:200}),ins=el('textarea',{rows:2,maxlength:2000},F.instructions||''),
+        rp=el('input',{type:'number',min:1,max:100,value:F.repeatCount}),em=el('input',{type:'number',min:1,max:240,value:F.estMinutes}),due=el('input',{type:'date',value:F.dueAt}),
+        mode=el('select',{},el('option',{value:'mark_done'},'يؤكد الإنجاز بضغطة'),el('option',{value:'audio',...(F.submissionMode==='audio'?{selected:true}:{})},'يسجّل تلاوة صوتية')),
+        rv=el('input',{type:'checkbox',...(F.requiresReview?{checked:true}:{})}),rt=el('input',{type:'checkbox',...(F.allowRetry?{checked:true}:{})}),nopass=['reading','makharij','listening','tajweed','assessment','custom'].includes(F.kind),usep=el('input',{type:'checkbox',...(F.surah||!nopass?{checked:true}:{})});
+      const grab=()=>{F.title=tt.value.trim();F.instructions=ins.value.trim();F.repeatCount=+rp.value||1;F.estMinutes=+em.value||10;F.dueAt=due.value;F.submissionMode=mode.value;F.requiresReview=rv.checked;F.allowRetry=rt.checked;
+        if(usep.checked||!nopass){F.surah=+su.value;F.fromAyah=+a1.value;F.toAyah=+a2.value}else{F.surah=F.fromAyah=F.toAyah=undefined}};
+      const nm=el('input',{placeholder:'اسم القالب',maxlength:120});
+      card.append(el('h2',{},HW_KIND[F.kind]),field('عنوان قصير',tt),nopass?el('label',{style:'display:flex;gap:8px'},usep,'يرتبط بمقطع من المصحف'):'',
+        el('div',{class:'row'},field('السورة',su),field('من آية',a1),field('إلى آية',a2)),el('div',{class:'row'},field('عدد التكرار',rp),field('الدقائق المتوقعة',em),field('موعد التسليم',due)),
+        field('كيف يسلّم الطالب؟',mode),el('label',{style:'display:flex;gap:8px'},rv,'يراجعه المعلّم قبل الاعتماد'),el('label',{style:'display:flex;gap:8px'},rt,'يُسمح بإعادة المحاولة'),field('تعليمات (اختياري)',ins),
+        el('div',{class:'hbtns'},el('button',{class:'ghost',type:'button',on:{click:()=>{grab();step=1;draw()}}},'رجوع'),el('button',{type:'button',on:{click:()=>run(box,async()=>{grab();if(F.title.length<2)throw new Error('اكتب عنوانًا');step=3;draw()})}},'التالي')),
+        el('details',{style:'margin-top:8px'},el('summary',{},'حفظ كقالب'),field('اسم القالب',nm),el('button',{class:'ghost sm',type:'button',on:{click:()=>run(box,async()=>{grab();if(nm.value.trim().length<2)throw new Error('اكتب اسم القالب');
+          const{title,instructions,dueAt,halaqahId,students,...p}=F;await api('POST',ctx.b+'/homework-templates',{name:nm.value.trim(),payload:Object.fromEntries(Object.entries({...p,instructions}).filter(([,v])=>v!==undefined&&v!==''))});tpls=(await api('GET',ctx.b+'/homework-templates')).templates;note(box,'حُفظ القالب.','ok')})}},'حفظ')))
+    }else{
+      const hs=el('select',{'aria-label':'الحلقة'},el('option',{value:''},'— بلا حلقة —'),...halaqat.map(h=>el('option',{value:h.id,...(F.halaqahId===h.id?{selected:true}:{})},h.name)));
+      const sts=uniq(ctx.list.filter(p=>p.role==='student'));
+      const boxes=sts.map(p=>{const c=el('input',{type:'checkbox',...(F.students.has(p.userId)?{checked:true}:{})});c.addEventListener('change',()=>{c.checked?F.students.add(p.userId):F.students.delete(p.userId)});return el('label',{style:'display:flex;gap:8px'},c,p.displayName)});
+      card.append(el('h2',{},'لمن هذا الواجب؟'),field('كل طلاب حلقة',hs),el('b',{},'أو اختر طلابًا بأسمائهم'),boxes.length?el('div',{},boxes):empty('لا طلاب ظاهرون لك.'),
+        el('p',{class:'small'},'لواجب مختلف لكل مجموعة (حسب المستوى) كرّر هذه الخطوات لكل مجموعة؛ لا يُعلَن أي ترتيب بين الطلاب.'),
+        el('div',{class:'hbtns'},el('button',{class:'ghost',type:'button',on:{click:()=>{F.halaqahId=hs.value;step=2;draw()}}},'رجوع'),
+          el('button',{class:'gold',type:'button',on:{click:()=>run(box,async()=>{F.halaqahId=hs.value;
+            const body={kind:F.kind,title:F.title,instructions:F.instructions||undefined,repeatCount:F.repeatCount,estMinutes:F.estMinutes,submissionMode:F.submissionMode,requiresReview:F.requiresReview,allowRetry:F.allowRetry,
+              dueAt:F.dueAt?new Date(F.dueAt+'T23:59:00').toISOString():undefined,halaqahId:F.halaqahId||undefined,studentUserIds:[...F.students]};
+            if(F.surah){body.surah=F.surah;body.fromAyah=F.fromAyah;body.toAyah=F.toAyah}
+            const r=await api('POST',ctx.b+'/homework',body);note(box,'كُلّف '+ar(r.recipients)+' طالبًا.','ok');F.students.clear();step=1;F.title='';setTimeout(draw,1200)})}},'تكليف')))}
+    pane.replaceChildren(card,box)};
+  draw();
+}
+async function hwQueue(pane,ctx){
+  const box=el('div'),list=el('div');pane.append(el('p',{class:'small'},'اعتمادك وحدك يجعل الواجب «معتمدًا». أي تحليل آلي مرفق هو فرضية غير معتمدة وليس تقديرًا.'),list,box);
+  const load=()=>run(box,async()=>{const r=await api('GET',ctx.b+'/homework/review-queue');
+    list.replaceChildren(r.queue.length?el('div',{},r.queue.map(h=>{
+      const det=el('div'),nt=el('input',{placeholder:'ملاحظة للطالب (اختياري)',maxlength:1000});
+      const dec=(d)=>run(det,async()=>{await api('POST',ctx.b+'/homework/'+h.id+'/review',{decision:d,note:nt.value.trim()||undefined});load()});
+      const open=()=>run(det,async()=>{const d=await api('GET',ctx.b+'/homework/'+h.id);const s=d.submissions[0];
+        det.replaceChildren(s?el('div',{},s.note?el('p',{},'ملاحظة الطالب: '+s.note):'',s.recitationSubmissionId?(()=>{const pl=el('span');return el('span',{},el('button',{class:'ghost sm',type:'button',on:{click:()=>run(det,async()=>{const u=await api('GET',ctx.b+'/submissions/'+s.recitationSubmissionId+'/audio-url');pl.replaceChildren(el('audio',{controls:'',src:u.url,style:'max-width:260px'}))})}},'استماع إلى التسجيل'),pl)})():el('p',{class:'small'},'تأكيد إنجاز بدون تسجيل.'),
+          s.aiHypothesis?el('div',{class:'msg'},'فرضية آلية غير معتمدة (ليست تقديرًا): '+JSON.stringify(s.aiHypothesis.summary||{})):''):'',
+          field('ملاحظتك',nt),el('div',{class:'hbtns'},el('button',{class:'gold',type:'button',on:{click:()=>dec('approved')}},'اعتماد'),el('button',{class:'ghost',type:'button',on:{click:()=>dec('needs_retry')}},'يحتاج إعادة'),el('button',{class:'ghost',type:'button',on:{click:()=>dec('excused')}},'إعفاء')))});
+      return el('div',{class:'card'},el('b',{},h.studentName||'طالب'),' — ',h.title,el('div',{class:'small'},hwPassage(h)+' · أُرسل '+fmt(h.submittedAt)),el('button',{class:'sm',type:'button',style:'margin-top:6px',on:{click:open}},'فتح للمراجعة'),det)})):empty('لا واجبات بانتظار مراجعتك.'))});
+  load();
+}
+async function hwTrack(pane,ctx){
+  const box=el('div'),sum=el('div'),list=el('div'),reqs=el('div');pane.append(sum,el('div',{class:'card'},el('h2',{},'التكليفات'),list),el('div',{class:'card'},el('h2',{},'طلبات الأسر والطلاب'),reqs),box);
+  const load=()=>run(box,async()=>{
+    const s=await api('GET',ctx.b+'/homework/summary');const n=k=>(s.byStatus.find(x=>x.status===k)||{n:0}).n;
+    sum.replaceChildren(el('div',{class:'card'},el('h2',{},'نظرة سريعة'),el('div',{class:'grid'},[['جديد',n('assigned')+n('viewed')],['قيد العمل',n('in_progress')],['بانتظار مراجعتك',n('pending_review')],['يحتاج إعادة',n('needs_retry')],['معتمد/مكتمل',n('approved')+n('completed')],['متأخر',s.overdue]].map(([t,v])=>el('div',{class:'feat'},el('b',{style:'font-size:28px'},ar(v)),el('span',{class:'small'},t)))),el('p',{class:'small'},'أعداد فقط — لا ترتيب بين الطلاب ولا لوحة صدارة.')));
+    const a=await api('GET',ctx.b+'/homework');
+    list.replaceChildren(a.assignments.length?table(['الواجب','المقطع','الموعد','الطلاب','بانتظار','منجز','متأخر',''],a.assignments.map(x=>[x.title,x.surah?surahName(x.surah)+' '+ar(x.fromAyah)+'–'+ar(x.toAyah):'—',x.dueAt?fmt(x.dueAt):'—',ar(x.recipients),ar(x.pendingReview),ar(x.done),ar(x.overdue),
+      el('span',{},el('button',{class:'ghost sm',type:'button',on:{click:()=>run(box,async()=>{const d=new Date((x.dueAt?new Date(x.dueAt):new Date()).getTime()+7*864e5).toISOString();await api('POST',ctx.b+'/homework/assignments/'+x.id+'/extend',{dueAt:d});load()})}},'تمديد أسبوع'),' ',x.pendingReview?el('button',{class:'ghost sm',type:'button',on:{click:()=>{if(confirm('اعتماد كل المسلَّم في هذا التكليف؟ راجع التسجيلات أولًا إن لزم.'))run(box,async()=>{await api('POST',ctx.b+'/homework/assignments/'+x.id+'/approve-pending');load()})}}},'اعتماد المسلَّم'):'')])):empty('لا تكليفات بعد.'));
+    const q=await api('GET',ctx.b+'/homework-requests');
+    reqs.replaceChildren(q.requests.length?table(['الطالب','الواجب','النوع','ملاحظة','التاريخ'],q.requests.map(x=>[x.studentName||'—',x.title,x.kind==='extension'?'طلب وقت':'عائق',x.note||'—',fmt(x.createdAt)])):empty('لا طلبات.'))});
+  load();
+}
 async function overview(body,ctx){
   const sBox=el('div'),pBox=el('div'),aBox=el('div'),gBox=el('div');
   const quick=[];

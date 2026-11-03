@@ -1,0 +1,5 @@
+# Child safety and access
+
+Enforced in the database (not the UI): minors' audio requires a live guardian consent (trigger `app.enforce_recording_consent`); guardians act only through a verified, non-revoked link; RLS on every homework table; no unsupervised adult-child contact is introduced (homework notes are teacher -> student/guardian text inside the institution; teachers cannot message outside it); audit logging of assignment/recipient/review changes.
+Access today: a child signs in with an account created by their institution; the guardian-managed model is: the guardian creates/verifies the link and consent, and the child records on a guardian-managed device. **Not built:** temporary access codes / short-lived QR for young children, revocable device list (requires an auth design + owner decision on child credentials). Until built, children under the account age rules should use a guardian-held account; this is a stated limitation, not a solved problem.
+Never stored: children's real data in dev/test (tests use synthetic users). No public profiles, rankings or photos.

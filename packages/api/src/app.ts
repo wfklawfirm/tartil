@@ -16,6 +16,11 @@ function mapError(e: unknown): { status: number; code: string } {
   const m = e instanceof Error ? e.message : String(e);
   if (m.includes('guardian_consent_required')) return { status: 409, code: 'guardian_consent_required' };
   if (m.includes('revoked_consent_is_final')) return { status: 409, code: 'revoked_consent_is_final' };
+  if (m.includes('homework_teacher_only')) return { status: 403, code: 'homework_teacher_only' };
+  if (m.includes('homework_review_required')) return { status: 409, code: 'homework_review_required' };
+  if (m.includes('homework_closed')) return { status: 409, code: 'homework_closed' };
+  if (m.includes('homework_retry_not_allowed')) return { status: 409, code: 'homework_retry_not_allowed' };
+  if (m.includes('homework_illegal_transition')) return { status: 409, code: 'homework_illegal_transition' };
   if (m.includes('row-level security') || m.includes('permission denied')) return { status: 403, code: 'forbidden' };
   if (m.includes('duplicate key')) return { status: 409, code: 'already_exists' };
   if (m.includes('foreign key')) return { status: 422, code: 'invalid_reference' };
@@ -694,6 +699,216 @@ export function buildApp(d: Deps) {
   app.get('/i/:inst/assessments', async (req, reply) => {
     const r = await tenant(req, reply, tx => tx.query(`SELECT id, student_user_id AS "studentUserId", assessor_user_id AS "assessorUserId", surah, ayah_start AS "ayahStart", ayah_end AS "ayahEnd", makharij, sifat, ahkam_tajweed AS "ahkamTajweed", fluency, memorisation, note, created_at AS "createdAt" FROM assessments ORDER BY created_at DESC`));
     if (r) return { assessments: r.rows };
+  });
+
+  // ---- Homework & home practice (TARTIL 5.1). Completion is never mastery: approval is a human teacher decision; machine analysis is only an attached, labelled hypothesis. ----
+  const HW_KINDS = ['memorization', 'revision', 'reading', 'makharij', 'listening', 'tajweed', 'recitation', 'assessment', 'custom'] as const;
+  const hwObj = z.object({
+    kind: z.enum(HW_KINDS), title: z.string().min(2).max(200), instructions: z.string().max(2000).optional(),
+    surah: z.number().int().min(1).max(114).optional(), fromAyah: z.number().int().min(1).optional(), toAyah: z.number().int().min(1).optional(),
+    repeatCount: z.number().int().min(1).max(100).default(3), estMinutes: z.number().int().min(1).max(240).default(10),
+    dueAt: z.string().datetime().optional(), submissionMode: z.enum(['mark_done', 'audio']).default('mark_done'),
+    requiresReview: z.boolean().default(true), allowRetry: z.boolean().default(true),
+    halaqahId: uuid.optional(), studentUserIds: z.array(uuid).max(200).default([]),
+  });
+  const hwBody = hwObj.refine(v => (v.surah === undefined) === (v.fromAyah === undefined) && (v.fromAyah === undefined) === (v.toAyah === undefined), { message: 'passage_incomplete' })
+    .refine(v => v.toAyah === undefined || v.fromAyah === undefined || v.toAyah >= v.fromAyah, { message: 'bad_range' });
+  const RECIP_SQL = `SELECT r.id, r.assignment_id AS "assignmentId", r.student_user_id AS "studentUserId", su.display_name AS "studentName", r.status, r.teacher_note AS "teacherNote",
+      r.viewed_at AS "viewedAt", r.submitted_at AS "submittedAt", r.reviewed_at AS "reviewedAt",
+      a.kind, a.title, a.instructions, a.surah, a.from_ayah AS "fromAyah", a.to_ayah AS "toAyah", a.repeat_count AS "repeatCount", a.est_minutes AS "estMinutes",
+      a.due_at AS "dueAt", a.submission_mode AS "submissionMode", a.requires_review AS "requiresReview", a.allow_retry AS "allowRetry", a.halaqah_id AS "halaqahId",
+      (a.due_at IS NOT NULL AND a.due_at < now() AND r.status IN ('assigned','viewed','in_progress','needs_retry')) AS overdue
+    FROM homework_recipients r JOIN homework_assignments a ON a.id = r.assignment_id LEFT JOIN users su ON su.id = r.student_user_id`;
+  app.post('/i/:inst/homework', async (req, reply) => {
+    const b = hwBody.parse(req.body);
+    const r = await tenant(req, reply, async (tx, u, inst) => {
+      if (b.surah !== undefined) {
+        const c = (await tx.query<{ ayah_count: number }>(`SELECT ayah_count FROM quran_reference_counts WHERE surah = $1`, [b.surah])).rows[0];
+        if (!c || b.toAyah! > c.ayah_count) return { bad: 'bad_range' as const };
+      } else if (['memorization', 'revision', 'recitation'].includes(b.kind)) return { bad: 'passage_required' as const };
+      const ids = new Set(b.studentUserIds);
+      if (b.halaqahId) for (const m of (await tx.query<{ student_user_id: string }>(`SELECT student_user_id FROM halaqah_members WHERE halaqah_id = $1`, [b.halaqahId])).rows) ids.add(m.student_user_id);
+      if (!ids.size) return { bad: 'no_recipients' as const };
+      const a = (await tx.query<{ id: string }>(
+        `INSERT INTO homework_assignments (institution_id, halaqah_id, created_by, kind, title, instructions, surah, from_ayah, to_ayah, repeat_count, est_minutes, due_at, submission_mode, requires_review, allow_retry)
+         VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15) RETURNING id`,
+        [inst, b.halaqahId ?? null, u, b.kind, b.title, b.instructions ?? null, b.surah ?? null, b.fromAyah ?? null, b.toAyah ?? null, b.repeatCount, b.estMinutes, b.dueAt ?? null, b.submissionMode, b.requiresReview, b.allowRetry])).rows[0]!.id;
+      for (const s of ids) await tx.query(`INSERT INTO homework_recipients (institution_id, assignment_id, student_user_id) VALUES ($1,$2,$3)`, [inst, a, s]);
+      return { id: a, recipients: ids.size };
+    });
+    if (!r) return;
+    if ('bad' in r) return reply.code(400).send({ error: r.bad });
+    return reply.code(201).send(r);
+  });
+  app.get('/i/:inst/homework', async (req, reply) => {
+    const r = await tenant(req, reply, tx => tx.query(
+      `SELECT a.id, a.kind, a.title, a.surah, a.from_ayah AS "fromAyah", a.to_ayah AS "toAyah", a.due_at AS "dueAt", a.submission_mode AS "submissionMode", a.status, a.halaqah_id AS "halaqahId", a.created_at AS "createdAt",
+         count(r.id)::int AS recipients,
+         count(*) FILTER (WHERE r.status = 'pending_review')::int AS "pendingReview",
+         count(*) FILTER (WHERE r.status IN ('approved','completed'))::int AS done,
+         count(*) FILTER (WHERE a.due_at < now() AND r.status IN ('assigned','viewed','in_progress','needs_retry'))::int AS overdue
+       FROM homework_assignments a LEFT JOIN homework_recipients r ON r.assignment_id = a.id WHERE a.created_by = app.current_user_id() OR app.has_role(a.institution_id, 'tenant_admin')
+       GROUP BY a.id ORDER BY a.created_at DESC LIMIT 100`));
+    if (r) return { assignments: r.rows };
+  });
+  // The student's own list, or (guardian) a verified child's list with ?student=<id>.
+  app.get('/i/:inst/homework/mine', async (req, reply) => {
+    const q = z.object({ student: uuid.optional() }).parse(req.query);
+    const r = await tenant(req, reply, (tx, u) => tx.query(`${RECIP_SQL} WHERE r.student_user_id = $1 ORDER BY (r.status IN ('approved','completed','excused')), a.due_at NULLS LAST, r.created_at DESC LIMIT 100`, [q.student ?? u]));
+    if (r) return { homework: r.rows, now: new Date().toISOString() };
+  });
+  app.get('/i/:inst/homework/review-queue', async (req, reply) => {
+    const r = await tenant(req, reply, tx => tx.query(`${RECIP_SQL} WHERE r.status = 'pending_review' AND (app.is_teacher_of(r.student_user_id) OR app.has_role(r.institution_id, 'tenant_admin')) ORDER BY r.submitted_at LIMIT 100`));
+    if (r) return { queue: r.rows };
+  });
+  app.get('/i/:inst/homework/summary', async (req, reply) => {   // school / halaqah operations: counts only, no rankings
+    const r = await tenant(req, reply, async tx => ({
+      byStatus: (await tx.query(`SELECT r.status, count(*)::int AS n FROM homework_recipients r WHERE app.is_teacher_of(r.student_user_id) OR app.has_role(r.institution_id, 'tenant_admin') GROUP BY r.status`)).rows,
+      overdue: (await tx.query<{ n: number }>(`SELECT count(*)::int AS n FROM homework_recipients r JOIN homework_assignments a ON a.id = r.assignment_id WHERE a.due_at < now() AND r.status IN ('assigned','viewed','in_progress','needs_retry') AND (app.is_teacher_of(r.student_user_id) OR app.has_role(r.institution_id, 'tenant_admin'))`)).rows[0]!.n,
+      openRequests: (await tx.query<{ n: number }>(`SELECT count(*)::int AS n FROM homework_requests q JOIN homework_recipients r ON r.id = q.recipient_id WHERE app.is_teacher_of(r.student_user_id) OR app.has_role(r.institution_id, 'tenant_admin')`)).rows[0]!.n,
+    }));
+    if (r) return r;
+  });
+  app.get('/i/:inst/homework/:rid', async (req, reply) => {
+    const rid = uuid.parse((req.params as { rid: string }).rid);
+    const r = await tenant(req, reply, async tx => {
+      const row = (await tx.query(`${RECIP_SQL} WHERE r.id = $1`, [rid])).rows[0];
+      if (!row) return null;
+      return { item: row,
+        submissions: (await tx.query(`SELECT id, kind, recitation_submission_id AS "recitationSubmissionId", note, ai_hypothesis AS "aiHypothesis", submitted_by AS "submittedBy", created_at AS "createdAt" FROM homework_submissions WHERE recipient_id = $1 ORDER BY created_at DESC`, [rid])).rows,
+        reviews: (await tx.query(`SELECT id, decision, note, reviewer_user_id AS "reviewerUserId", created_at AS "createdAt" FROM homework_reviews WHERE recipient_id = $1 ORDER BY created_at DESC`, [rid])).rows,
+        requests: (await tx.query(`SELECT id, kind, note, created_at AS "createdAt" FROM homework_requests WHERE recipient_id = $1 ORDER BY created_at DESC`, [rid])).rows };
+    });
+    if (r !== undefined) return r ?? reply.code(404).send({ error: 'not_found' });
+  });
+  const setStatus = async (tx: TxLike, rid: string, to: string, extra = '') =>
+    (await tx.query(`UPDATE homework_recipients SET status = $2${extra} WHERE id = $1 RETURNING id`, [rid, to])).rows.length > 0;
+  app.post('/i/:inst/homework/:rid/view', async (req, reply) => {
+    const rid = uuid.parse((req.params as { rid: string }).rid);
+    const r = await tenant(req, reply, async tx => {
+      const cur = (await tx.query<{ status: string }>(`SELECT status FROM homework_recipients WHERE id = $1`, [rid])).rows[0];
+      if (!cur) return null;
+      if (cur.status === 'assigned') await setStatus(tx, rid, 'viewed', ', viewed_at = now()');
+      return true;
+    });
+    if (r !== undefined) return r ? { ok: true } : reply.code(404).send({ error: 'not_found' });
+  });
+  app.post('/i/:inst/homework/:rid/start', async (req, reply) => {
+    const rid = uuid.parse((req.params as { rid: string }).rid);
+    const r = await tenant(req, reply, async tx => {
+      const cur = (await tx.query<{ status: string }>(`SELECT status FROM homework_recipients WHERE id = $1`, [rid])).rows[0];
+      if (!cur) return null;
+      if (cur.status !== 'in_progress') await setStatus(tx, rid, 'in_progress');
+      return true;
+    });
+    if (r !== undefined) return r ? { ok: true } : reply.code(404).send({ error: 'not_found' });
+  });
+  // Submit: "done" (mark_done) or audio (an existing recitation_submissions row; consent trigger already guards minors). AI analysis NEVER blocks or decides this.
+  app.post('/i/:inst/homework/:rid/submit', async (req, reply) => {
+    const rid = uuid.parse((req.params as { rid: string }).rid);
+    const b = z.object({ kind: z.enum(['done', 'audio']), note: z.string().max(500).optional(), recitationSubmissionId: uuid.optional(), attemptId: uuid.optional() })
+      .refine(v => v.kind !== 'audio' || v.recitationSubmissionId !== undefined, { message: 'audio_submission_required' }).parse(req.body);
+    const r = await tenant(req, reply, async (tx, u, inst) => {
+      const cur = (await tx.query<{ student_user_id: string; status: string; requires_review: boolean; submission_mode: string }>(
+        `SELECT r.student_user_id, r.status, a.requires_review, a.submission_mode FROM homework_recipients r JOIN homework_assignments a ON a.id = r.assignment_id WHERE r.id = $1`, [rid])).rows[0];
+      if (!cur) return { code: 404, error: 'not_found' };
+      if (['approved', 'completed', 'excused', 'pending_review'].includes(cur.status)) return { code: 409, error: 'homework_closed' };
+      if (cur.submission_mode === 'audio' && b.kind !== 'audio') return { code: 400, error: 'audio_required' };
+      if (b.recitationSubmissionId) {
+        const s = (await tx.query(`SELECT 1 FROM recitation_submissions WHERE id = $1 AND student_user_id = $2`, [b.recitationSubmissionId, cur.student_user_id])).rows;
+        if (!s.length) return { code: 404, error: 'submission_not_found' };
+      }
+      let hyp: string | null = null;
+      if (b.attemptId && cur.student_user_id === u) {   // only the student's own attempt, copied server-side; a hypothesis, not a grade
+        const at = (await tx.query<{ status: string; summary: unknown }>(`SELECT status, result->'summary' AS summary FROM recitation_attempts WHERE id = $1`, [b.attemptId])).rows[0];
+        if (at) hyp = JSON.stringify({ kind: 'machine_hypothesis', notAGrade: true, attemptId: b.attemptId, status: at.status, summary: at.summary });
+      }
+      await tx.query(`INSERT INTO homework_submissions (institution_id, recipient_id, student_user_id, submitted_by, kind, recitation_submission_id, note, ai_hypothesis) VALUES ($1,$2,$3,$4,$5,$6,$7,$8::jsonb)`,
+        [inst, rid, cur.student_user_id, u, b.kind, b.recitationSubmissionId ?? null, b.note ?? null, hyp]);
+      const to = cur.requires_review ? 'pending_review' : 'completed';
+      await setStatus(tx, rid, to, ', submitted_at = now()');
+      return { code: 201, status: to };
+    });
+    if (!r) return;
+    if ('error' in r) return reply.code(r.code).send({ error: r.error });
+    return reply.code(201).send({ status: r.status });
+  });
+  app.post('/i/:inst/homework/:rid/review', async (req, reply) => {
+    const rid = uuid.parse((req.params as { rid: string }).rid);
+    const b = z.object({ decision: z.enum(['approved', 'needs_retry', 'excused']), note: z.string().max(1000).optional() }).parse(req.body);
+    const r = await tenant(req, reply, async (tx, u, inst) => {
+      const cur = (await tx.query<{ allow_retry: boolean; status: string }>(`SELECT a.allow_retry, r.status FROM homework_recipients r JOIN homework_assignments a ON a.id = r.assignment_id WHERE r.id = $1`, [rid])).rows[0];
+      if (!cur) return { code: 404, error: 'not_found' };
+      if (b.decision !== 'excused' && cur.status !== 'pending_review') return { code: 409, error: 'homework_illegal_transition' };
+      if (b.decision === 'needs_retry' && !cur.allow_retry) return { code: 409, error: 'retry_not_allowed' };
+      const sub = (await tx.query<{ id: string }>(`SELECT id FROM homework_submissions WHERE recipient_id = $1 ORDER BY created_at DESC LIMIT 1`, [rid])).rows[0];
+      // the status guard trigger (teacher-only, pending_review -> decision) is the authority; RLS decides who can even see the row
+      await tx.query(`UPDATE homework_recipients SET status = $2, teacher_note = $3, reviewed_at = now() WHERE id = $1`, [rid, b.decision, b.note ?? null]);
+      await tx.query(`INSERT INTO homework_reviews (institution_id, recipient_id, submission_id, reviewer_user_id, decision, note) VALUES ($1,$2,$3,$4,$5,$6)`, [inst, rid, sub?.id ?? null, u, b.decision, b.note ?? null]);
+      return { code: 200 };
+    });
+    if (!r) return;
+    return r.code === 200 ? { ok: true } : reply.code(r.code).send({ error: (r as { error: string }).error });
+  });
+  // Teacher closes an approved item (progress is counted from approved + completed). Student self-completion exists only when no review is required (see /submit).
+  app.post('/i/:inst/homework/:rid/complete', async (req, reply) => {
+    const rid = uuid.parse((req.params as { rid: string }).rid);
+    const r = await tenant(req, reply, tx => tx.query(`UPDATE homework_recipients SET status = 'completed' WHERE id = $1 AND status = 'approved' RETURNING id`, [rid]));
+    if (r) return r.rows.length ? { ok: true } : reply.code(409).send({ error: 'homework_illegal_transition' });
+  });
+  // Guardian / student: report an obstacle or ask for more time. Notifies the teacher via the review queue + summary; never changes status.
+  app.post('/i/:inst/homework/:rid/request', async (req, reply) => {
+    const rid = uuid.parse((req.params as { rid: string }).rid);
+    const b = z.object({ kind: z.enum(['obstacle', 'extension']), note: z.string().max(500).optional() }).parse(req.body);
+    const r = await tenant(req, reply, (tx, u, inst) => tx.query(`INSERT INTO homework_requests (institution_id, recipient_id, requester_user_id, kind, note) VALUES ($1,$2,$3,$4,$5) RETURNING id`, [inst, rid, u, b.kind, b.note ?? null]));
+    if (r) return reply.code(201).send({ id: (r.rows[0] as { id: string }).id });
+  });
+  app.get('/i/:inst/homework-requests', async (req, reply) => {
+    const r = await tenant(req, reply, tx => tx.query(
+      `SELECT q.id, q.kind, q.note, q.created_at AS "createdAt", r.id AS "recipientId", a.title, su.display_name AS "studentName"
+       FROM homework_requests q JOIN homework_recipients r ON r.id = q.recipient_id JOIN homework_assignments a ON a.id = r.assignment_id LEFT JOIN users su ON su.id = r.student_user_id
+       WHERE app.is_teacher_of(r.student_user_id) OR app.has_role(r.institution_id, 'tenant_admin') ORDER BY q.created_at DESC LIMIT 50`));
+    if (r) return { requests: r.rows };
+  });
+  // Teacher extends the due date of an assignment (batch action).
+  app.post('/i/:inst/homework/assignments/:id/extend', async (req, reply) => {
+    const id = uuid.parse((req.params as { id: string }).id);
+    const b = z.object({ dueAt: z.string().datetime() }).parse(req.body);
+    const r = await tenant(req, reply, tx => tx.query(`UPDATE homework_assignments SET due_at = $2 WHERE id = $1 RETURNING id`, [id, b.dueAt]));
+    if (r) return r.rows.length ? { ok: true } : reply.code(404).send({ error: 'not_found' });
+  });
+  // Batch: approve every pending item in one assignment that the caller may review (each still goes through the guard trigger).
+  app.post('/i/:inst/homework/assignments/:id/approve-pending', async (req, reply) => {
+    const id = uuid.parse((req.params as { id: string }).id);
+    const r = await tenant(req, reply, async (tx, u, inst) => {
+      const rows = (await tx.query<{ id: string }>(`SELECT r.id FROM homework_recipients r WHERE r.assignment_id = $1 AND r.status = 'pending_review'`, [id])).rows;
+      for (const x of rows) {
+        await tx.query(`UPDATE homework_recipients SET status = 'approved', reviewed_at = now() WHERE id = $1`, [x.id]);
+        await tx.query(`INSERT INTO homework_reviews (institution_id, recipient_id, reviewer_user_id, decision) VALUES ($1,$2,$3,'approved')`, [inst, x.id, u]);
+      }
+      return rows.length;
+    });
+    if (r !== undefined) return { approved: r };
+  });
+  // Student progress from homework only: counts, never a grade, never a rank.
+  app.get('/i/:inst/homework/progress/:student', async (req, reply) => {
+    const sid = uuid.parse((req.params as { student: string }).student);
+    const r = await tenant(req, reply, tx => tx.query(`SELECT r.status, count(*)::int AS n FROM homework_recipients r WHERE r.student_user_id = $1 GROUP BY r.status`, [sid]));
+    if (r) return { byStatus: r.rows, note: 'completion_is_not_mastery' };
+  });
+  app.get('/i/:inst/homework-templates', async (req, reply) => {
+    const r = await tenant(req, reply, tx => tx.query(`SELECT id, name, payload, created_at AS "createdAt" FROM homework_templates ORDER BY created_at DESC LIMIT 100`));
+    if (r) return { templates: r.rows };
+  });
+  app.post('/i/:inst/homework-templates', async (req, reply) => {
+    const b = z.object({ name: z.string().min(2).max(120), payload: hwObj.omit({ halaqahId: true, studentUserIds: true, dueAt: true }).partial({ title: true }) }).parse(req.body);
+    const r = await tenant(req, reply, (tx, u, inst) => tx.query(`INSERT INTO homework_templates (institution_id, owner_user_id, name, payload) VALUES ($1,$2,$3,$4::jsonb) RETURNING id`, [inst, u, b.name, JSON.stringify(b.payload)]));
+    if (r) return reply.code(201).send({ id: (r.rows[0] as { id: string }).id });
+  });
+  app.delete('/i/:inst/homework-templates/:id', async (req, reply) => {
+    const id = uuid.parse((req.params as { id: string }).id);
+    const r = await tenant(req, reply, tx => tx.query(`DELETE FROM homework_templates WHERE id = $1 RETURNING id`, [id]));
+    if (r) return r.rows.length ? { ok: true } : reply.code(404).send({ error: 'not_found' });
   });
 
   // ---- Quran Core read API: nothing is served until a human has APPROVED an edition (enforced by RLS, not by this code) ----

@@ -57,3 +57,12 @@ Built: migration 0013 (applied live), `recitation.ts` (word-level alignment), AP
 - LIVE BLOCKER (observed): the OpenAI speech-to-text call from the live function returns HTTP 429 (quota / billing / rate limit on the configured key). Capabilities endpoint reports available, but a real analysis has NOT succeeded end-to-end live. The owner must check the OpenAI account (billing/quota) or supply another STT provider key.
 - Live smoke found and fixed a real defect the local tests could not catch: `Buffer` is not a global in the Supabase edge runtime (explicit `node:buffer` import added).
 - Pronunciation and tajweed are NOT assessed; no calibrated confidence; no teacher-review UI for attempts yet; Whisper accuracy on tajweed recitation unmeasured; real microphone/Safari not exercised.
+
+## 38. TARTIL 5.1 slice: homework system + foundations (2026-11-03)
+Built: migration 0014 (applied live), homework API under `/i/:inst/homework*` (edge function v22 deployed), UI `#/homework` (student "my homework today", 3-step teacher wizard, review queue, tracking) and `#/foundations` (letters, forms, harakat, syllables, quiz; kids / adult / regular modes), 9 docs in `docs/`. Tests: API 42 pass, database 38 pass, real-browser journey and axe/overflow checks in Chromium.
+- Live smoke (v22): assign, view, start, submit, teacher approve, re-approve 409, student self-approve 409/403, review queue, progress and summary all behaved as designed. Temporary smoke rows (institution slug `smk...`, 3 users `smk...@example.com`) were NOT confirmed deleted: the cleanup SQL awaited an owner confirmation that timed out. Delete them manually.
+- Completion is not mastery: approval is a human teacher decision; machine analysis is only an attached, labelled hypothesis and never blocks submission.
+- Not built: audio playback of reviewed recordings, offline queue, notifications, temporary child access codes/QR, teacher voice feedback, makharij 3D lab, personalised hifz plan/onboarding, UI button to attach a tasmi' result to homework (API supports it). Guardian-side audio must be recorded by the child.
+- The foundations curriculum is a DRAFT: no scholarly review recorded; it must go through a scholarly_reviewer before being presented as approved.
+- No real iPhone/Safari, screen-reader or device testing; WCAG 2.2 checked only with axe in Chromium.
+- OpenAI speech-to-text still returns 429 (see §37); owner must check billing/quota.
