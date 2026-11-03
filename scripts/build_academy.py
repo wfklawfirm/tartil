@@ -14,7 +14,7 @@ for f in files:
         m = re.match(r'SPR-([A-Z]\d)', p)
         if m: rec[m.group(1)] = '## ' + p.strip().rstrip('-').strip()
 for c in comps: c['record'] = rec.get(c['id'])
-dom = {'K': 'المعرفة والفهم', 'C': 'الخلق والقيم', 'S': 'إدارة الذات', 'T': 'التفكير والتعلّم', 'R': 'العلاقات والأسرة', 'W': 'العمل والحياة الاقتصادية', 'L': 'القيادة والمجتمع', 'M': 'التعليم والإرشاد'}
+dom = {'Q': 'نواة القرآن', 'H': 'المعرفة النبوية', 'K': 'المعرفة والفهم', 'C': 'الخلق والقيم', 'S': 'إدارة الذات', 'T': 'التفكير والتعلّم', 'R': 'العلاقات والأسرة', 'W': 'العمل والحياة الاقتصادية', 'L': 'القيادة والمجتمع', 'M': 'التعليم والإرشاد'}
 out = {'status': 'draft-unreviewed', 'generated': '2026-11-03', 'domains': dom, 'competencies': comps}
 for d in (root / 'packages' / 'web-vercel', root / 'packages' / 'web'):
     (d / 'academy.json').write_text(json.dumps(out, ensure_ascii=False), encoding='utf-8')

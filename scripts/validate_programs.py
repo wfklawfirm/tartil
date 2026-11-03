@@ -18,7 +18,7 @@ for k in ['version','status','generated','bands','programs']:
     if k not in d: err.append('missing top '+k)
 bands={b['id']:b for b in d['bands']}
 pids={p['id'] for p in d['programs']}
-if not 12<=len(d['programs'])<=16: err.append(f'programs count {len(d["programs"])} not in 12..16')
+if not 12<=len(d["programs"])<=24: err.append(f'programs count {len(d["programs"])} not in 12..24')
 REQ=['id','slug','title','tagline','band','audience','age_min','age_max','status','promise','outcomes','competencies','duration_weeks','rhythm','prerequisites','next_programs','stages','capstone','guide_notes','safeguards','review_gate','gating']
 seen=set()
 for p in d['programs']:

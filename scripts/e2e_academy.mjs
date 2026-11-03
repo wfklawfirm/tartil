@@ -80,7 +80,8 @@ try {
   // (1) home
   await go('/academy', '.pcard');
   const cards = await page.locator('.pcard').count();
-  if (cards !== 16) fail('home', `عدد بطاقات البرامج ${cards} بدل 16`);
+  const expectedCards = JSON.parse(fs.readFileSync(path.join(ROOT, 'academy-programs.json'), 'utf8')).programs.length;
+  if (cards !== expectedCards) fail('home', `عدد بطاقات البرامج ${cards} بدل ${expectedCards}`);
   noErrs('home'); await scanText('home'); await hOverflow('home');
   const slugs = await page.locator('.pcard').evaluateAll(a => a.map(x => x.getAttribute('href').split('/').pop()));
 
@@ -177,7 +178,7 @@ try {
   server.close();
 }
 
-console.log(`برامج: 16 متوقعة | دروس: ${lessonIds.length} | سيناريوهات: ${scenarioIds.length}`);
+console.log(`برامج متوقعة | دروس: ${lessonIds.length} | سيناريوهات: ${scenarioIds.length}`);
 if (fails.length) {
   console.log(`فشل (${fails.length}):`);
   for (const f of fails.slice(0, 60)) console.log(' - ' + f);

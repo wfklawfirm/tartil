@@ -1463,7 +1463,7 @@ async function acLoad(){
   AC.ok=true}
 const acCrumb=(...a)=>el('div',{class:'crumbs'},...a.flatMap((x,i)=>[i?' ‹ ':'',x.h?el('a',{href:x.h},x.t):x.t]));
 const acDraft=()=>el('span',{class:'ribbon',title:'لم تُراجَع علميًّا ولا تربويًّا بعد'},'مسودة قيد المراجعة');
-const ACG=[['k','الصغار','من 5 إلى 12 سنة',p=>p.age_min<=12],['t','الناشئة','من 13 إلى 17 سنة',p=>p.age_min>=13&&p.age_max<=17&&!['P12','P13'].includes(p.id)],['y','الشباب والحياة المهنية','من 16 سنة فأكثر',p=>['P12','P14'].includes(p.id)],['f','الأسرة والمعلمون','للبالغين ولمن يرعى ويعلّم',p=>['P13','P15','P16'].includes(p.id)]];
+const ACG=[['k','الصغار','من 5 إلى 12 سنة',p=>p.age_min<=12],['t','الناشئة','من 13 إلى 17 سنة',p=>p.age_min>=13&&p.age_max<=17&&!['P12','P13'].includes(p.id)],['y','الشباب والحياة المهنية','من 16 سنة فأكثر',p=>['P12','P14','P24'].includes(p.id)],['f','الأسرة والمعلمون','للبالغين ولمن يرعى ويعلّم',p=>['P13','P15','P16'].includes(p.id)]];
 const acAge=(a,b)=>b>=90?'من '+a+' سنة فأكثر':a===b?a+' سنوات':'من '+a+' إلى '+b+' سنة';
 const acAgeStr=r=>{const m=String(r||'').match(/(\d+)\s*[-–]\s*(\d+)/);if(m)return acAge(+m[1],+m[2]);const n=String(r||'').match(/(\d+)\s*\+/);return n?acAge(+n[1],99):String(r||'')+' سنة'};
 const acLv=l=>'المستوى '+String(l).replace(/\D/g,'');
