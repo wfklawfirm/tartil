@@ -78,8 +78,8 @@ a{color:var(--accent2);text-underline-offset:3px}
 :focus-visible{outline:3px solid var(--gold);outline-offset:2px;border-radius:6px}
 .skip{position:absolute;inset-inline-start:8px;top:-60px;background:var(--accent);color:var(--accent-ink);padding:8px 14px;border-radius:8px;z-index:50}.skip:focus{top:8px}
 /* header */
-header.top{background:var(--card);border-bottom:0;box-shadow:0 1px 0 var(--gold2),0 3px 0 var(--card),0 4px 0 var(--line)}
-.brand{font-family:var(--deco);font-size:30px;letter-spacing:0}
+header.top{background:color-mix(in srgb,var(--card) 94%,transparent);border-bottom:1px solid var(--line);box-shadow:none;-webkit-backdrop-filter:saturate(1.2) blur(8px);backdrop-filter:saturate(1.2) blur(8px)}.bar{min-height:72px}
+.brand{font-family:var(--deco);font-size:36px;letter-spacing:0}.brand i{width:38px;height:38px}
 nav.main a{font-weight:600;border:1px solid transparent}nav.main a.on{background:var(--soft);border-color:var(--gold2);color:var(--accent2)}
 :root[data-theme=dark] nav.main a.on{color:var(--ink)}
 #theme{background:transparent;border:1px solid var(--line);color:var(--ink);width:44px;height:44px;margin:0;padding:0;border-radius:999px;font-size:18px;line-height:1}
@@ -246,11 +246,21 @@ body{position:relative;min-height:100vh}
 .trust{max-width:1180px;margin:22px auto 10px}
 .rs{position:absolute;inset:0;display:block;pointer-events:none}.rs svg{display:block}.aym i,.sn i,.tn i{position:relative;font-style:normal}.aym .rs{color:var(--gold)}.sn .rs,.tn .rs{color:var(--gold)}
 .phead{text-align:center;margin:4px 0 14px}.phead h1{font-family:var(--deco);font-size:clamp(32px,6vw,46px);margin:2px 0 4px;color:var(--accent2)}:root[data-theme=dark] .phead h1{color:var(--ink)}.phead .small{margin:0 0 6px}.pm{display:block;color:var(--gold);text-align:center}.pmm{width:64px!important;height:64px!important}.authwrap .pm{margin-top:8px}.tjn{cursor:pointer}.tjn summary{font-weight:700}.tjn p{font-weight:400}.authcard .tabs{margin-bottom:10px}.authcard button:not(.linkbtn){width:100%;margin-top:6px}
+.rprev{position:relative;justify-self:center;width:min(440px,100%)}
+.rprev .rbg{position:absolute;inset:-60px -40px;z-index:0;background:var(--pC) center/84px;opacity:.9;-webkit-mask-image:radial-gradient(closest-side,#000 40%,transparent 100%);mask-image:radial-gradient(closest-side,#000 40%,transparent 100%)}
+.rprev::before{content:"";position:absolute;z-index:1;inset:16px -16px -16px 16px;border:1px solid var(--gold2);border-radius:20px;background:var(--soft);transform:rotate(2deg)}
+.rcard{position:relative;z-index:2;display:block;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px 24px 16px;text-decoration:none;color:var(--ink);box-shadow:0 18px 40px rgba(23,63,53,.12);transition:transform .2s}
+.rcard:hover{transform:translateY(-3px)}
+.rp-head{display:flex;justify-content:space-between;align-items:baseline;gap:10px}.rp-name{font-family:var(--deco);font-size:26px;color:var(--accent2);font-weight:700}:root[data-theme=dark] .rp-name{color:var(--ink)}
+.rp-body{min-height:250px;padding:4px 0}.rp-body .ayah{font-size:25px;line-height:2.1;margin:0;text-align:center}.rp-foot{display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--line);padding-top:10px;margin-top:6px}.rp-foot .go{font-weight:700;color:var(--accent2)}
+:root[data-theme=dark] .rp-foot .go{color:var(--accent)}
+@media (max-width:800px){.rprev{display:none}}
+@media (max-width:560px){.hero2 .hbtns{flex-direction:column;align-items:stretch;gap:10px}.hero2 .hbtns .btn{width:100%}.hero2 .hbtns .linkbtn{align-self:center;padding:10px}}
 .galrow{display:flex;flex-wrap:wrap;gap:16px}.gal{margin:0;width:200px}.gal .gs{height:130px;border:1px solid var(--line);border-radius:10px;background-color:var(--card)}.galrow .heroart{width:240px;justify-self:auto}
 footer{max-width:none;margin:30px 0 0;padding:30px 16px calc(40px + env(safe-area-inset-bottom));text-align:start;background:linear-gradient(180deg,transparent,var(--soft));border-top:1px solid var(--gold2)}
 .fcols{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr 1.6fr;gap:26px;font-size:15px}.fcols>div{display:flex;flex-direction:column;gap:6px}.fcols b{color:var(--accent2);font-size:16px}:root[data-theme=dark] .fcols b{color:var(--ink)}.fcols a{text-decoration:none;min-height:32px;display:inline-flex;align-items:center}.fcols span{color:var(--mute);line-height:1.8}
 @media (max-width:1023px){.ec.wide{flex-wrap:wrap}.ec{grid-column:span 6}.ec.lead{grid-column:span 12;min-height:0}.stages{grid-template-columns:1fr;gap:12px}.stages li a{flex-direction:row;text-align:start;gap:12px;align-items:center}.stages li:not(:last-child) a::after{display:none}.stages .sn{width:52px;height:52px;margin:0;flex:none}.stages li a>span.small{display:block}.inst{grid-template-columns:1fr}.fcols{grid-template-columns:1fr 1fr}}
-@media (max-width:800px){.hero2 .mband .mm{width:132px!important;height:132px!important}.ec:not(.lead){display:grid;grid-template-columns:46px 1fr;column-gap:14px;row-gap:2px;padding:14px 16px;align-items:start}.ec:not(.lead) .pi{grid-row:span 3;width:42px;height:42px}.ec:not(.lead) b{font-size:18px}.ec:not(.lead) .small{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;font-size:14px}.ec:not(.lead) .go{margin-top:4px;font-size:14px}.ec.wide{flex-wrap:nowrap}.ec.lead{min-height:0;padding:20px}.ec.lead .pi{width:48px;height:48px}.hero2 .hmain{text-align:center}.hero2 h1{font-size:34px;line-height:1.5;text-wrap:balance;margin:4px 0 8px}.hero2 p{margin-inline:auto;text-wrap:pretty}.hero2 .eyebrow{text-align:center}.hero2 .mband{justify-content:center;margin-bottom:6px}.hero2 .mband .mm{width:104px!important;height:104px!important}.hero2 .hbtns{flex-direction:column;align-items:stretch;gap:10px;margin-top:18px}.hero2 .hbtns .btn{flex:none;width:100%;padding:14px 18px;font-size:18px}.hero2 .hbtns .linkbtn{align-self:center;padding:10px}.hero2{grid-template-columns:1fr;padding:6px 2px 0;gap:6px}.heroart{display:none}.hero2 .mband{display:flex;align-items:center;gap:10px;color:var(--gold);margin-bottom:2px}.hero2 .mband .mm{width:56px!important;height:56px!important}.hero2 p{font-size:17px}.hbtns .btn{flex:1;text-align:center}.ec{grid-column:span 12}.inst{padding:24px 16px}.fcols{grid-template-columns:1fr}.eco{gap:12px}}
+@media (max-width:800px){.hero2 .mband .mm{width:132px!important;height:132px!important}.ec:not(.lead){display:grid;grid-template-columns:46px 1fr;column-gap:14px;row-gap:2px;padding:14px 16px;align-items:start}.ec:not(.lead) .pi{grid-row:span 3;width:42px;height:42px}.ec:not(.lead) b{font-size:18px}.ec:not(.lead) .small{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;font-size:14px}.ec:not(.lead) .go{margin-top:4px;font-size:14px}.ec.wide{flex-wrap:nowrap}.ec.lead{min-height:0;padding:20px}.ec.lead .pi{width:48px;height:48px}.hero2 .hmain{text-align:center}.hero2 h1{font-size:34px;line-height:1.5;text-wrap:balance;margin:4px 0 8px}.hero2 p{margin-inline:auto;text-wrap:pretty}.hero2 .eyebrow{text-align:center}.hero2 .mband{justify-content:center;margin-bottom:6px}.hero2 .mband .mm{width:104px!important;height:104px!important}.hero2 .hbtns{justify-content:center;margin-top:18px}.hero2 .hbtns .btn{flex:none;padding:13px 28px;font-size:18px}.hero2{grid-template-columns:1fr;padding:6px 2px 0;gap:6px}.heroart{display:none}.hero2 .mband{display:flex;align-items:center;gap:10px;color:var(--gold);margin-bottom:2px}.hero2 .mband .mm{width:56px!important;height:56px!important}.hero2 p{font-size:17px}.hbtns .btn{flex:1;text-align:center}.ec{grid-column:span 12}.inst{padding:24px 16px}.fcols{grid-template-columns:1fr}.eco{gap:12px}}
 @media (min-width:1500px){.hero2,.zone,.acts,.trust,.fcols{max-width:1320px}}
 </style>
 </head>
@@ -404,7 +414,7 @@ async function landing(app){
       el('h1',{},'رحلتك مع القرآن، من التعلّم إلى الإتقان'),
       el('p',{},'منصة متكاملة لتعلّم القرآن الكريم وعلومه، تجمع المسارات التعليمية المتدرجة، والتدريب والتسميع، والتقييم، والتعليم بإشراف أهل الاختصاص.'),
       el('div',{class:'hbtns'},el('a',{class:'btn',href:token?'#/me':'#/auth'},token?'تابع رحلتك':'ابدأ رحلتك'),el('a',{class:'btn ghost',href:'#/quran'},'اقرأ المصحف'),el('button',{class:'linkbtn',type:'button',on:{click:go('eco')}},'استكشف المنصة ↓'))),
-    heroArt());
+    readerPreview());
   const eco=el('section',{id:'eco',class:'zone zb'},el('h2',{class:'sec'},'مجالات التعلّم'),divider(),
     el('div',{class:'eco'},...ECO.map(([ic,t,d,h,l,k])=>el('a',{class:'ec'+(k==='lead'?' lead':k==='wide'?' wide':''),href:h},pathIcon(ic),el('b',{},t),el('span',{class:'small'},d),el('span',{class:'go'},l+' ←')))));
   const jr=el('section',{class:'zone'},el('h2',{class:'sec'},'رحلة المتعلّم'),divider(),
@@ -431,6 +441,16 @@ async function landing(app){
   }catch{todayBox.remove()}
 }
 
+/* hero visual: a live preview of the real reader (verses come from the stored text; nothing here is mocked) */
+function readerPreview(){
+  const body=el('div',{class:'rp-body'},el('p',{class:'ayah rp-sk'},'\u00A0'));
+  const card=el('a',{class:'rcard',href:'#/quran/1','aria-label':'افتح سورة الفاتحة في المصحف'},
+    el('div',{class:'rp-head'},el('span',{class:'rp-name'},'سورة الفاتحة'),el('span',{class:'small'},'معاينة حيّة من المصحف')),
+    divider(),body,el('div',{class:'rp-foot'},el('span',{class:'small'},'الفاتحة · الآيات ١–٤'),el('span',{class:'go'},'افتح السورة ←')));
+  const root=el('div',{class:'rprev'},el('span',{class:'rbg','aria-hidden':'true'}),card);
+  (async()=>{try{const d=await surahData(1);body.replaceChildren(...d.ayat.slice(0,4).map(a=>el('p',{class:'ayah'},a.text,ayahMarker(a.ayah))))}catch{root.remove()}})();
+  return root;
+}
 /* ---------- ornament design gallery (development aid, not linked from the UI): every pattern with its parameters, in the two themes ---------- */
 function gallery(app){
   const swatch=(t,bg,sz,note)=>el('figure',{class:'gal'},el('div',{class:'gs',style:'background:'+bg+' center/'+sz+'px'}),el('figcaption',{class:'small'},t,el('br'),el('span',{class:'mono'},note)));
