@@ -1431,7 +1431,7 @@ const acP=(t)=>String(t||'').split(/\n{2,}|\r?\n/).filter(x=>x.trim());
 async function acLoad(){
   if(AC.ok)return;
   const g=async u=>{try{const r=await fetch(u,{cache:'no-store'});return r.ok?await r.json():null}catch{return null}};
-  const [d,l,p]=await Promise.all([g('/academy.json'),g('/academy-lessons.json'),g('/academy-programs.json')]);
+  const [d,l,p,gg]=await Promise.all([g('/academy.json'),g('/academy-lessons.json'),g('/academy-programs.json'),g('/academy-guides.json')]);AC.G=(gg&&gg.guides)||{};
   AC.D=d||{competencies:[],domains:{}};AC.U=(l&&l.units)||{};AC.P=(p&&p.programs)||[];AC.B=(p&&p.bands)||[];
   AC.les={};AC.scn={};
   Object.values(AC.U).forEach(u=>{u.lessons.forEach(x=>AC.les[x.id]={l:x,u});u.scenarios.forEach(x=>AC.scn[x.id]={s:x,u})});
@@ -1457,6 +1457,18 @@ function acHome(app){
       el('h2',{class:'sh'},'كيف تعمل الجلسة؟'),
       el('div',{class:'grid'},...[['١ ابدأ بسؤال','سؤال أو موقف قصير يفتح الموضوع.'],['٢ اقرأ أو استمع','قصة أو موقف من الحياة بشخصيات خيالية.'],['٣ تحاور','أسئلة مفتوحة، بلا إجابة وحيدة صحيحة.'],['٤ قرّر وجرّب','سيناريو بخيارات، وتدريب صغير.'],['٥ طبّق وتأمّل','ممارسة في يومك وتأمّل خاص لا يراه أحد.']].map(([a,b])=>el('div',{class:'idea'},el('b',{},a),el('div',{class:'small'},b)))))};
   draw();app.replaceChildren(root)}
+function acGuideBox(g){const li=a=>el('ul',{},...(a||[]).map(x=>el('li',{},x)));const G=g.for_guide||{},P=g.for_parent||{};
+  const sec=(t,...k)=>[el('h4',{style:'margin:14px 0 4px'},t),...k];
+  const guideEl=[el('p',{},G.overview||''),...sec('قبل البدء',li(G.before_start)),
+    ...sec('أسبوعًا بأسبوع',el('ol',{},...(G.week_by_week||[]).map(w=>el('li',{},el('b',{},w.focus+': '),w.tip)))),
+    ...sec('كيف تردّ في المواقف',...(G.how_to_respond||[]).map(h=>el('div',{class:'note',style:'margin:6px 0'},el('div',{},el('b',{},'الموقف: '),h.situation),el('div',{},el('b',{},'قل: '),h.say),el('div',{style:'color:var(--mute)'},el('b',{},'تجنّب: '),h.avoid)))),
+    ...sec('متى تُحيل الأمر',li(G.when_to_refer)),...sec('ما تحتاجه',li(G.materials))];
+  const parentEl=P.not_applicable?[]:[el('p',{},P.overview||''),...sec('ماذا تتوقعون',li(P.what_to_expect)),...sec('كيف تدعمونه في البيت',li(P.how_to_support_at_home)),...sec('نرجو تجنّب',li(P.please_avoid)),...sec('الخصوصية',el('p',{},P.privacy||''))];
+  const faqEl=(g.faq||[]).map(f=>el('details',{class:'fold'},el('summary',{},f.q),el('p',{},f.a)));
+  return el('div',{},el('h2',{class:'sh'},'دليل المرشد'),el('details',{class:'fold'},el('summary',{},'افتح دليل المرشد'),...guideEl),
+    parentEl.length?el('details',{class:'fold'},el('summary',{},'دليل ولي الأمر'),...parentEl):null,
+    faqEl.length?el('div',{},el('h2',{class:'sh'},'أسئلة شائعة'),...faqEl):null,
+    el('div',{class:'note draft'},'هذه الأدلة مسودة آلية لم تُراجَع بعد، وليست فتوى ولا استشارة متخصصة.'))}
 function acProgram(app,slug){
   const p=AC.P.find(x=>x.slug===slug||x.id===slug);
   if(!p){app.replaceChildren(el('div',{class:'acx'},el('div',{class:'note'},'لم أجد هذا البرنامج.'),el('a',{href:'#/academy'},'← إلى الأكاديمية')));return}
@@ -1476,7 +1488,7 @@ function acProgram(app,slug){
       s.check?el('div',{class:'check'},'كيف يُرى التقدّم؟ '+s.check):null))),
     p.capstone?el('div',{class:'note'},el('b',{},'ختام البرنامج: '+p.capstone.title),el('div',{},p.capstone.brief),el('div',{class:'small',style:'color:var(--mute)'},p.capstone.deliverable)):null,
     p.next_programs&&p.next_programs.length?el('p',{},'بعد هذا البرنامج: ',...p.next_programs.flatMap((id,i)=>{const q=AC.P.find(x=>x.id===id||x.slug===id);return q?[i?'، ':'',el('a',{href:'#/academy/p/'+q.slug},q.title)]:[]})):null,
-    el('details',{class:'fold'},el('summary',{},'للمرشد وولي الأمر'),el('p',{},p.guide_notes||''),...(p.safeguards&&p.safeguards.length?[el('b',{},'حواجز الأمان'),el('ul',{},...p.safeguards.map(x=>el('li',{},x)))]:[]),el('p',{class:'small'},'جهة المراجعة المطلوبة قبل الاعتماد: '+(p.review_gate||'—'))),
+    AC.G&&AC.G[p.id]?acGuideBox(AC.G[p.id]):null,el('details',{class:'fold'},el('summary',{},'للمرشد وولي الأمر'),el('p',{},p.guide_notes||''),...(p.safeguards&&p.safeguards.length?[el('b',{},'حواجز الأمان'),el('ul',{},...p.safeguards.map(x=>el('li',{},x)))]:[]),el('p',{class:'small'},'جهة المراجعة المطلوبة قبل الاعتماد: '+(p.review_gate||'—'))),
     el('div',{class:'note draft'},'مسودة: لم تُراجَع هذه المادة علميًّا ولا تربويًّا ولا من جهة حماية الطفل بعد، وليست فتوى.')))}
 function acScenarioBox(sc){const box=el('div',{class:'lesson',style:'padding:16px'});let cur=sc.start,trail=[];
   const draw=()=>{const n=sc.nodes[cur];const k=[el('h3',{style:'margin:0 0 4px'},sc.title),el('div',{class:'small',style:'color:var(--mute)'},sc.fictional_note||'')];

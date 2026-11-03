@@ -36,3 +36,13 @@ if pf.exists():
     for d in (root / 'packages' / 'web-vercel', root / 'packages' / 'web'):
         (d / 'academy-programs.json').write_text(json.dumps(json.loads(pf.read_text(encoding='utf-8')), ensure_ascii=False), encoding='utf-8')
     print('programs:', len(json.loads(pf.read_text(encoding='utf-8'))['programs']))
+
+# guides: docs/human-formation/guides/P*.json -> academy-guides.json (draft, unreviewed)
+gd = hf / 'guides'
+if gd.exists():
+    gs = {}
+    for f in sorted(gd.glob('P*.json')):
+        g = json.loads(f.read_text(encoding='utf-8')); gs[g['program']] = g
+    for d in (root / 'packages' / 'web-vercel', root / 'packages' / 'web'):
+        (d / 'academy-guides.json').write_text(json.dumps({'status': 'draft-unreviewed', 'guides': gs}, ensure_ascii=False), encoding='utf-8')
+    print('guides:', len(gs))
