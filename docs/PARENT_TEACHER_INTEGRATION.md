@@ -1,0 +1,3 @@
+# Parent and teacher integration
+Works today through homework: teacher assigns (including to a halaqah), the child sees one task, a verified guardian can open the child's list and send requests, teacher reviews and approves (completion is not mastery). Saved study plans can be shared with the teacher for approval (migration 0015; API not yet deployed at the time of writing).
+Not built for the Academy: teacher view of Academy mastery, assigning letter lessons or makharij drills as typed homework with Academy content, remedial exercise suggestions, a parent dashboard for Academy progress, institution foundation halaqat and competency reports.

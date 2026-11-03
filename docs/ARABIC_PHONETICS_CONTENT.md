@@ -1,0 +1,2 @@
+# Arabic phonetics content
+Status: no phonetic content is authored here. The Academy shows letter names and shapes only. Sound-comparison pairs in `KPAIRS` are grouped by shape similarity (visual recognition), not by claims about articulation. Any statement about how a letter is produced, its sifat, or the difference between near sounds (e.g. s/sad, t/ta) must come from a reviewed source and is pending. Reference audio per letter and per sound variant is pending licensed human recordings.

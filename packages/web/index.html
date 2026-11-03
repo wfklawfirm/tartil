@@ -283,7 +283,7 @@ footer{max-width:none;margin:30px 0 0;padding:30px 16px calc(40px + env(safe-are
 <header class="top"><div class="bar"><a class="brand" href="#/"><i></i>ترتيل</a><nav class="main" id="nav" aria-label="التنقل الرئيسي"></nav><div id="who"></div><button id="theme" type="button" aria-label="تبديل المظهر"></button></div></header>
 <main id="app" tabindex="-1"></main>
 <div id="more" hidden></div><nav id="bnav" aria-label="التنقل السفلي"></nav>
-<footer><div class="fcols"><div><b>المنصة</b><a href="#/">الرئيسية</a><a href="#/quran">القرآن الكريم</a><a href="#/search">بحث</a><a href="#/tajweed">التجويد</a><a href="#/foundations">الأسس</a><a href="#/qiraat">القراءات والإسناد</a></div><div><b>حسابي</b><a href="#/auth">دخول / تسجيل</a><a href="#/me">رحلتي</a><a href="#/app">لوحة المؤسسة</a></div><div><b>الثقة</b><span>لا تُصدر المنصة فتاوى ولا إجازات ولا أحكامًا شرعية؛ التقييمات يكتبها مقرئ بشري.</span><span>نص المصحف: رواية حفص عن عاصم من مشروع تنزيل (tanzil.net)، وهو قيد التدقيق العلمي النهائي.</span></div></div></footer>
+<footer><div class="fcols"><div><b>المنصة</b><a href="#/">الرئيسية</a><a href="#/quran">القرآن الكريم</a><a href="#/search">بحث</a><a href="#/tajweed">التجويد</a><a href="#/foundations">الأسس</a><a href="#/kids">أكاديمية الصغار</a><a href="#/qiraat">القراءات والإسناد</a></div><div><b>حسابي</b><a href="#/auth">دخول / تسجيل</a><a href="#/me">رحلتي</a><a href="#/app">لوحة المؤسسة</a></div><div><b>الثقة</b><span>لا تُصدر المنصة فتاوى ولا إجازات ولا أحكامًا شرعية؛ التقييمات يكتبها مقرئ بشري.</span><span>نص المصحف: رواية حفص عن عاصم من مشروع تنزيل (tanzil.net)، وهو قيد التدقيق العلمي النهائي.</span></div></div></footer>
 <script>
 "use strict";
 const $=(s,r=document)=>r.querySelector(s);
@@ -368,7 +368,7 @@ function applyTheme(){let t='light';try{t=localStorage.getItem('theme')||'light'
 $('#theme').addEventListener('click',()=>{let t='light';try{t=localStorage.getItem('theme')||'light'}catch{}const n={light:'dark',dark:'auto',auto:'light'}[t]||'light';try{localStorage.setItem('theme',n)}catch{}applyTheme()});
 applyTheme();
 function renderNav(active){
-  const items=[['#/','الرئيسية','home'],['#/quran','القرآن الكريم','quran'],['#/search','بحث','search'],['#/tajweed','التجويد','tajweed'],['#/foundations','الأسس','foundations'],['#/qiraat','القراءات','qiraat']];
+  const items=[['#/','الرئيسية','home'],['#/quran','القرآن الكريم','quran'],['#/search','بحث','search'],['#/tajweed','التجويد','tajweed'],['#/foundations','الأسس','foundations'],['#/kids','أكاديمية الصغار','kids'],['#/qiraat','القراءات','qiraat']];
   if(token)items.push(['#/me','رحلتي','me'],['#/app','لوحتي','app']);
   if(token&&isScholar())items.push(['#/review','المراجعة العلمية','review']);
   $('#nav').replaceChildren(...items.map(([h,t,k])=>el('a',{href:h,class:k===active?'on':'','aria-current':k===active?'page':null},t)));
@@ -380,7 +380,7 @@ function renderNav(active){
   const main=[['#/','الرئيسية','home','home'],['#/quran','المصحف','quran','book'],['#/search','بحث','search','search'],['#/tajweed','التجويد','tajweed','wave']];
   const more=el('button',{type:'button','aria-haspopup':'true','aria-expanded':'false',on:{click:()=>{const m=$('#more');m.hidden=!m.hidden;more.setAttribute('aria-expanded',String(!m.hidden))}}},ico('more'),'المزيد');
   $('#bnav').replaceChildren(...main.map(([h,t,k,i])=>el('a',{href:h,class:k===active?'on':'','aria-current':k===active?'page':null},ico(i),t)),more);
-  const rest=[['#/demo','جولة في الواجبات'],['#/plan','خطتي'],['#/foundations','الأسس: الحروف والحركات'],['#/qiraat','القراءات والإسناد']];if(token&&ME&&ME.memberships&&ME.memberships.length)rest.push(['#/app/'+ME.memberships[0].institutionId+'/homework','الواجبات']);if(token)rest.push(['#/me','رحلتي'],['#/app','لوحتي']);if(token&&isScholar())rest.push(['#/review','المراجعة العلمية']);
+  const rest=[['#/kids','أكاديمية الصغار'],['#/demo','جولة في الواجبات'],['#/plan','خطتي'],['#/foundations','الأسس: الحروف والحركات'],['#/qiraat','القراءات والإسناد']];if(token&&ME&&ME.memberships&&ME.memberships.length)rest.push(['#/app/'+ME.memberships[0].institutionId+'/homework','الواجبات']);if(token)rest.push(['#/me','رحلتي'],['#/app','لوحتي']);if(token&&isScholar())rest.push(['#/review','المراجعة العلمية']);
   rest.push(token?['#/auth','حسابي']:['#/auth','دخول / تسجيل']);
   const mm=$('#more');mm.hidden=true;mm.replaceChildren(...rest.map(([h,t])=>el('a',{href:h,on:{click:()=>{mm.hidden=true}}},t)));
 }
@@ -400,6 +400,7 @@ async function route(){
     else if(top==='foundations'){renderNav('');foundationsView(app)}
     else if(top==='plan'){renderNav('');await planView(app)}
     else if(top==='demo'){renderNav('');demoHomework(app)}
+    else if(top==='kids'){renderNav('');kidsView(app)}
     else if(top==='gallery'){renderNav('');gallery(app)}
     else if(top==='auth'){renderNav('');authView(app)}
     else if(top==='verify'){renderNav('');await verifyView(app,parts[1])}
@@ -1311,6 +1312,65 @@ async function todayTab(body){
       tr.addEventListener('revealed',e=>{rate.style.display='';const p=e.detail.peeks;rate.prepend(el('div',{class:'small'},p?('اطّلعتَ على '+ar(p)+' كلمة قبل الكشف الكامل.'):'لم تطّلع على أي كلمة قبل الكشف.'))});
       out.replaceChildren(tr,rate)})}},'ابدأ المراجعة (النص مخفيّ)');
     c.append(start);area.replaceChildren(c)};next()}
+/* ---------- Tartil Kids Academy hub (Kids Academy 1.0, first slice). Visual/text activities only: NO audio (no human-reviewed recordings exist), NO anatomical animation (needs scholarly sources). Progress stays on this device; the teacher cannot see it yet. ---------- */
+const KB={a:{n:'٤–٦ سنوات',opts:3,q:6,t:'بطاقات كبيرة، أقلّ قراءة، وبمساعدة وليّ الأمر'},b:{n:'٧–١٠ سنوات',opts:4,q:8,t:'قراءة أكثر وتدريب موجّه'},c:{n:'١١–١٤ سنة',opts:5,q:10,t:'واجهة أهدأ واستقلال أكبر'}};
+const KPAIRS=[['ب','ت','ث','ن'],['ج','ح','خ'],['د','ذ'],['ر','ز'],['س','ش'],['ص','ض'],['ط','ظ'],['ع','غ'],['ف','ق']];
+const kst={get:()=>store.get('kids',{band:'',level:'',log:[]}),set(v){v.log=v.log.slice(-600);store.set('kids',v)}};
+const kLog=(act,item,ok,extra)=>{const s=kst.get();s.log.push({t:Date.now(),act,item,ok:!!ok,...(extra?{x:extra}:{})});kst.set(s)};
+const kDay=t=>new Date(t).toISOString().slice(0,10);
+function kStats(){const s=kst.get(),by={};s.log.filter(e=>e.act==='rec'||e.act==='match').forEach(e=>{(by[e.item]=by[e.item]||[]).push(e)});
+  const mastered=Object.keys(by).filter(k=>{const l=by[k].slice(-5);return l.length>=5&&l.filter(e=>e.ok).length>=4&&new Set(l.map(e=>kDay(e.t))).size>=2});
+  const acc=(a,n)=>{const l=s.log.filter(e=>e.act===a).slice(-n);return l.length?l.filter(e=>e.ok).length/l.length:null};
+  const conf={};s.log.slice(-60).filter(e=>e.act==='pair'&&!e.ok).forEach(e=>{conf[e.item]=(conf[e.item]||0)+1});
+  return {s,by,mastered,recAcc:acc('rec',10),harAcc:acc('har',10),conf,total:s.log.length}}
+function kRecommend(){const st=kStats();if(!st.total)return {t:'ابدأ بالتعرّف على الحروف',d:'نشاط قصير يحدّد من أين نبدأ.',go:'rec'};
+  const cp=Object.entries(st.conf).sort((a,b)=>b[1]-a[1])[0];if(cp&&cp[1]>=2)return {t:'تدرّب على التمييز بين '+cp[0].split('|').join(' و'),d:'أخطأتَ بين هذين الحرفين أكثر من مرة؛ لنقارن شكلهما معًا.',go:'pair',arg:cp[0]};
+  if(st.harAcc!==null&&st.harAcc<0.6)return {t:'ارجع إلى الحركات',d:'نتائج الحركات الأخيرة تحتاج مراجعة هادئة.',go:'har'};
+  if(st.recAcc!==null&&st.recAcc<0.6)return {t:'أعد التعرّف على الحروف بطريقة أخرى',d:'سنعرض الحروف التي لم تثبت بعد بأسلوب مختلف.',go:'match'};
+  if(st.mastered.length>=8)return {t:'تحدٍّ: ابنِ المقطع',d:'ثبتت لديك عدة حروف؛ جرّب جمعها مع الحركات.',go:'har'};
+  return {t:'تابع التعرّف على الحروف',d:'ثبّت ما بدأته.',go:'rec'}}
+function kidsView(app){
+  const S=kst.get(),root=el('div',{class:'kids'});
+  const home=()=>{const s=kst.get();
+    if(!s.band){root.replaceChildren(el('div',{class:'card'},el('h1',{},'أكاديمية ترتيل للصغار'),el('p',{},'اختر الفئة المناسبة. العمر مؤشر مبدئي فقط؛ يمكنك تغييره، وإن كان الطفل متقدمًا فاختبار المستوى يتيح له تجاوز البداية.'),
+      ...Object.entries(KB).map(([k,v])=>el('button',{class:'btn lg ghost',type:'button',style:'display:block;width:100%;margin:8px 0',on:{click:()=>{const x=kst.get();x.band=k;kst.set(x);home()}}},v.n+' — '+v.t))));return}
+    const B=KB[s.band],rec=kRecommend(),st=kStats();
+    const act=(t,d,go,arg)=>el('button',{class:'card plain',type:'button',style:'text-align:start;width:100%;cursor:pointer',on:{click:()=>activity(go,arg)}},el('b',{},t),el('div',{class:'small'},d));
+    const inst=ME&&ME.memberships&&ME.memberships.find(m=>m.role==='student'||m.role==='guardian');
+    root.replaceChildren(el('div',{class:'card'},el('h1',{},'أكاديمية ترتيل للصغار'),el('p',{class:'small'},'الفئة: '+B.n+' · '+B.t+' · '),
+        el('button',{class:'ghost sm',type:'button',on:{click:()=>{const x=kst.get();x.band='';kst.set(x);home()}}},'تغيير الفئة'),' ',
+        s.level?el('span',{class:'small'},s.level==='adv'?'المستوى: متقدّم (تجاوز البداية)':'المستوى: مبتدئ'):el('button',{class:'ghost sm',type:'button',on:{click:()=>activity('place')}},'اختبار مستوى سريع')),
+      el('div',{class:'card hwbig'},el('span',{class:'small'},'مقترح لك الآن'),el('h2',{},rec.t),el('p',{},rec.d),el('button',{class:'btn lg',type:'button',on:{click:()=>activity(rec.go,rec.arg)}},'ابدأ')),
+      el('h2',{},'الأنشطة'),act('التعرّف على الحروف','اختر الحرف الصحيح من بين عدة حروف.','rec'),act('تطابق الحرف','طابق شكل الحرف — بلا قراءة، مناسب للأصغر.','match'),act('الحروف المتشابهة','فرّق بين حروف متقاربة في الشكل.','pair'),act('ابنِ المقطع','الحرف مع الفتحة والضمة والكسرة والسكون.','har'),
+      el('h2',{},'تقدّمك'),el('div',{class:'card plain'},el('p',{},'محاولات مسجّلة: '+ar(st.total)+' · حروف ثبتت: '+ar(st.mastered.length)+' من '+ar(FD_LET.length)),
+        el('p',{class:'small'},'«ثبت» تعني ٤ إجابات صحيحة من آخر ٥ في يومين مختلفين على الأقل، لا عدد النقرات. تُحفظ النتائج على هذا الجهاز فقط ولا يراها المعلّم بعد.')),
+      el('h2',{},'اتصل بمدرستك ومعلّمك'),el('div',{class:'hwacts'},inst?el('a',{class:'btn',href:'#/app/'+inst.institutionId+'/homework'},'واجبي اليوم'):el('a',{class:'btn ghost',href:'#/auth'},'سجّل الدخول لترى واجباتك'),el('a',{class:'btn ghost',href:'#/foundations'},'الأسس: الحروف والحركات'),el('a',{class:'btn ghost',href:'#/me/tasmi'},'تسميعي'),el('a',{class:'btn ghost',href:'#/plan'},'خطة الحفظ')),
+      el('details',{class:'card plain'},el('summary',{},'ما غير متاح بعد وسبب ذلك'),el('ul',{},
+        el('li',{},'الأنشطة الصوتية (استمع واختر، شاهد وكرّر): لا توجد تسجيلات بشرية معتمدة، ولا نستخدم صوتًا مولَّدًا آليًا لنطق الحروف.'),
+        el('li',{},'مختبر المخارج المتحرّك: يحتاج مصادر علمية ومراجعة متخصص في التجويد والأصوات؛ لن نرسم وضع اللسان تخمينًا.'),
+        el('li',{},'تسجيل نطق الحرف وتقييمه آليًا: لا نموذج مثبت لنطق حرف مفرد؛ وتحليل الحفظ يعمل على مقاطع قرآنية فقط من «تسميعي».'),
+        el('li',{},'ظهور تقدّم الطفل للمعلّم وولي الأمر: يحتاج جداول وصلاحيات جديدة لم تُبنَ بعد.'))))};
+  function activity(kind,arg){
+    const s=kst.get(),B=KB[s.band||'b'],n=kind==='place'?6:B.q,opts=kind==='place'?4:B.opts;let i=0,ok=0;
+    const box=el('div',{class:'card'}),stat=el('div',{role:'status','aria-live':'polite'});
+    const st=kStats(),pool=kind==='rec'||kind==='match'?fdShuffle(FD_LET.filter(l=>!st.mastered.includes(l[0]))).concat(fdShuffle(FD_LET.filter(l=>st.mastered.includes(l[0])))):FD_LET;
+    const pairs=kind==='pair'?(arg?[arg.split('|')]:KPAIRS.flatMap(g=>g.flatMap((a,x)=>g.slice(x+1).map(b=>[a,b])))):[];
+    const next=()=>{
+      if(i>=n){if(kind==='place'){const x=kst.get();x.level=ok>=5?'adv':'new';kst.set(x)}
+        box.replaceChildren(el('h2',{},'أحسنت! أنهيت التدريب'),el('p',{},kind==='place'?(ok>=5?'ظهر أن الطفل متمكّن؛ لن نُعيده إلى البداية.':'سنبدأ من البداية بخطوات هادئة.'):'أجبتَ '+ar(ok)+' إجابات صحيحة من '+ar(n)+'.'),el('button',{class:'btn lg',type:'button',on:{click:home}},'عودة'));return}
+      i++;let q,choices,correct,label,show;
+      if(kind==='rec'||kind==='place'){const t=pool[(i-1)%pool.length];correct=t[1];choices=fdShuffle([t,...fdShuffle(FD_LET.filter(l=>l[0]!==t[0])).slice(0,opts-1)]).map(l=>l[1]);show=t[0];label='ما اسم هذا الحرف؟';q={act:'rec',item:t[0]}}
+      else if(kind==='match'){const t=pool[(i-1)%pool.length];correct=t[0];choices=fdShuffle([t,...fdShuffle(FD_LET.filter(l=>l[0]!==t[0])).slice(0,opts-1)]).map(l=>l[0]);show=t[0];label='اختر الحرف المطابق';q={act:'match',item:t[0]}}
+      else if(kind==='pair'){const p=pairs[Math.floor(Math.random()*pairs.length)],t=Math.random()<.5?p[0]:p[1],tn=FD_LET.find(l=>l[0]===t)[1];correct=t;choices=fdShuffle(p);show=tn;label='اختر الحرف الذي اسمه: ';q={act:'pair',item:p.join('|')}}
+      else{const t=FD_LET[Math.floor(Math.random()*FD_LET.length)],h=FD_HAR[Math.floor(Math.random()*4)];correct=h[1];choices=fdShuffle(FD_HAR.slice(0,4)).map(x=>x[1]);show=t[0]+h[0];label='ما اسم هذه العلامة على الحرف؟';q={act:'har',item:t[0]+h[0]}}
+      const done=(c)=>{const good=c===correct;if(good)ok++;kLog(q.act,q.item,good);
+        note(stat,good?'أحسنت!':'انظر مرة أخرى ثم جرّب. الإجابة: '+correct,good?'ok':'');box.querySelectorAll('button.opt').forEach(b=>b.disabled=true);
+        box.append(el('button',{class:'btn lg',type:'button',on:{click:next}},'التالي'))};
+      box.replaceChildren(el('p',{class:'small'},'السؤال '+ar(i)+' من '+ar(n)),el('div',{class:'fdl big',lang:'ar','aria-label':'السؤال'},show),el('p',{},label+(kind==='pair'?'':'')),
+        el('div',{class:'hbtns'},choices.map(c=>el('button',{class:'btn lg ghost opt',type:'button',lang:'ar',on:{click:()=>done(c)}},c))),stat)};
+    root.replaceChildren(el('button',{class:'ghost sm',type:'button',on:{click:home}},'← عودة'),box);next()}
+  app.replaceChildren(root);home();
+}
 /* ---------- homework demo: a static walk-through with INVENTED sample data, clearly labelled. No account, no network, nothing stored. ---------- */
 function demoHomework(app){
   const steps=[

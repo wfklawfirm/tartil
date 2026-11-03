@@ -1,0 +1,2 @@
+# Scientific and pedagogical review
+Nothing in the Academy is reviewed. Required before any claim of approval: scholar review of pronunciation references, makharij, sifat and Quranic examples; pedagogical review of age fit, instruction clarity, duration and feedback; AI review of recognition accuracy, false positives, children's voices and noise. The Academy pages say the curriculum is a draft. Review roles are the owner's to appoint.
