@@ -833,6 +833,14 @@ async function hwAssign(pane,ctx){
 }
 async function hwQueue(pane,ctx){
   const box=el('div'),list=el('div');pane.append(el('p',{class:'small'},'اعتمادك وحدك يجعل الواجب «معتمدًا». أي تحليل آلي مرفق هو فرضية غير معتمدة وليس تقديرًا.'),list,box);
+
+  const plans=el('div',{class:'card'},el('h2',{},'خطط الطلاب المشاركة معك'));const pl=el('div');plans.append(pl);pane.append(plans);
+  const loadPlans=()=>run(pl,async()=>{const r=await api('GET',ctx.b+'/plans');const GL={new:'حفظ جديد',rev:'مراجعة',read:'قراءة'};
+    pl.replaceChildren(r.plans.length?el('div',{},r.plans.map(p=>{const x=p.payload,nt=el('input',{placeholder:'ملاحظة (اختياري)',maxlength:1000}),m=el('div');
+      const dec=d=>run(m,async()=>{await api('POST',ctx.b+'/plans/'+p.id+'/review',{decision:d,note:nt.value.trim()||undefined});loadPlans()});
+      return el('div',{class:'card plain'},el('b',{},p.studentName||'طالب'),el('span',{class:'small'},' — '+(GL[x.goal]||'')+' · '+ar(x.mins)+' د × '+ar(x.days)+' أيام · '+surahName(x.surah)+' · الحالة: '+({shared:'بانتظارك',approved:'معتمدة',changes_requested:'طُلب تعديلها'}[p.status]||p.status)),
+        p.status==='shared'?el('div',{},field('ملاحظة',nt),el('div',{class:'hwacts'},el('button',{on:{click:()=>dec('approved')}},'اعتماد'),el('button',{class:'ghost',on:{click:()=>dec('changes_requested')}},'طلب تعديل')),m):'')})):empty('لا خطط مشاركة بعد.'))});
+  loadPlans();
   const load=()=>run(box,async()=>{const r=await api('GET',ctx.b+'/homework/review-queue');
     list.replaceChildren(r.queue.length?el('div',{},r.queue.map(h=>{
       const det=el('div'),nt=el('input',{placeholder:'ملاحظة للطالب (اختياري)',maxlength:1000});
@@ -1368,6 +1376,17 @@ async function planView(app){
     el('div',{class:'row'},field('هدفي',goal),field('الاتجاه',dir),field('السورة',sel)),
     el('div',{class:'row'},field('دقائق يوميًا',mins),field('أيام أسبوعيًا',days),field('آيات في المقطع',size)),
     el('details',{},el('summary',{},'تخصيص أكثر (اختياري)'),el('div',{class:'row'},field('عدد آيات أريد حفظها',tgtN),field('تاريخ مستهدف',tgtD),field('وقتي المفضّل',prefT),field('لي معلّم أو حلقة',teacher))),el('button',{on:{click:build}},'اقترح خطتي')),out);app.prepend(today);planToday(today).then(()=>{if(PLAN_ST)build()});
+  if(token){const sm=el('div'),sbox=el('div',{class:'card'},el('h2',{},'حفظ الخطة ومشاركتها'),el('p',{class:'small'},'تُحفظ مدخلاتك فقط (لا بيانات إضافية). لا يراها أحد إلا إذا شاركتها مع معلّمك، وهو من يعتمدها أو يطلب تعديلها.'),sm);
+    const gather=()=>({goal:goal.value,dir:dir.value,surah:Number(sel.value),mins:Math.max(5,Math.min(240,Number(mins.value)||20)),days:Math.min(7,Math.max(1,Number(days.value)||5)),size:Math.max(1,Math.min(10,Number(size.value)||3)),...(Number(tgtN.value)>0?{tgtN:Number(tgtN.value)}:{}),...(tgtD.value?{tgtD:tgtD.value}:{}),prefT:prefT.value,teacher:teacher.value==='1'});
+    const SL={private:'خاصة بك',shared:'بانتظار معلّمك',approved:'اعتمدها معلّمك',changes_requested:'طلب معلّمك تعديلها'};
+    const show=p=>{sm.replaceChildren(p?el('p',{},'حالة خطتك المحفوظة: ',el('b',{},SL[p.status]||p.status),p.teacherNote?el('span',{class:'small'},' — ملاحظة المعلّم: '+p.teacherNote):''):el('p',{class:'small'},'لا توجد خطة محفوظة بعد.'))};
+    const inst=ME&&ME.memberships&&ME.memberships.find(m=>m.role==='student');
+    sbox.append(el('div',{class:'hwacts'},el('button',{on:{click:()=>run(sm,async()=>{await api('PUT','/me/plan',{title:'خطتي',payload:gather()});const r=await api('GET','/me/plan');show(r.plan);note(sm,'حُفظت الخطة.','ok')})}},'احفظ خطتي'),
+      inst?el('button',{class:'ghost',on:{click:()=>run(sm,async()=>{await api('PUT','/me/plan',{title:'خطتي',payload:gather()});await api('POST','/i/'+inst.institutionId+'/plans/share');const r=await api('GET','/me/plan');show(r.plan)})}},'شارك مع معلّمي ('+inst.name+')'):'',
+      el('button',{class:'ghost',on:{click:()=>run(sm,async()=>{if(!confirm('حذف خطتك المحفوظة؟'))return;await api('DELETE','/me/plan');show(null)})}},'احذف الخطة المحفوظة')));
+    app.append(sbox);
+    run(sm,async()=>{const r=await api('GET','/me/plan');show(r.plan);const x=r.plan&&r.plan.payload;if(x){goal.value=x.goal;dir.value=x.dir;sel.value=String(x.surah);mins.value=x.mins;days.value=x.days;size.value=x.size;tgtN.value=x.tgtN||0;tgtD.value=x.tgtD||'';prefT.value=x.prefT||'';teacher.value=x.teacher?'1':'0';build()}})}
+
   build();
 }
 async function hifzTab(body){

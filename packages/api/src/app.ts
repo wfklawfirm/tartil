@@ -21,6 +21,8 @@ function mapError(e: unknown): { status: number; code: string } {
   if (m.includes('homework_closed')) return { status: 409, code: 'homework_closed' };
   if (m.includes('homework_retry_not_allowed')) return { status: 409, code: 'homework_retry_not_allowed' };
   if (m.includes('homework_illegal_transition')) return { status: 409, code: 'homework_illegal_transition' };
+  if (m.includes('plan_teacher_only') || m.includes('plan_share_requires_student') || m.includes('plan_teacher_fields_locked')) return { status: 403, code: m.includes('share') ? 'plan_share_requires_student' : 'plan_teacher_only' };
+  if (m.includes('plan_illegal_transition')) return { status: 409, code: 'plan_illegal_transition' };
   if (m.includes('row-level security') || m.includes('permission denied')) return { status: 403, code: 'forbidden' };
   if (m.includes('duplicate key')) return { status: 409, code: 'already_exists' };
   if (m.includes('foreign key')) return { status: 422, code: 'invalid_reference' };
@@ -908,6 +910,44 @@ export function buildApp(d: Deps) {
   app.delete('/i/:inst/homework-templates/:id', async (req, reply) => {
     const id = uuid.parse((req.params as { id: string }).id);
     const r = await tenant(req, reply, tx => tx.query(`DELETE FROM homework_templates WHERE id = $1 RETURNING id`, [id]));
+    if (r) return r.rows.length ? { ok: true } : reply.code(404).send({ error: 'not_found' });
+  });
+
+
+  // ---- Personal study plan (5.0 section 13): the learner's own inputs; shareable with an institution's teacher, who approves or asks for changes. ----
+  const planPayload = z.object({ goal: z.enum(['new', 'rev', 'read']), dir: z.enum(['down', 'up']), surah: z.number().int().min(1).max(114), mins: z.number().int().min(5).max(240), days: z.number().int().min(1).max(7), size: z.number().int().min(1).max(10),
+    tgtN: z.number().int().min(0).max(6236).optional(), tgtD: z.string().regex(/^\d{4}-\d{2}-\d{2}$/).optional(), prefT: z.enum(['', 'fajr', 'eve']).optional(), teacher: z.boolean().optional() }).strict();
+  const PLAN_COLS = `id, title, payload, status, institution_id AS "institutionId", teacher_note AS "teacherNote", reviewed_at AS "reviewedAt", updated_at AS "updatedAt"`;
+  app.get('/me/plan', async (req, reply) => {
+    const r = await personal(req, reply, tx => tx.query(`SELECT ${PLAN_COLS} FROM study_plans WHERE user_id = app.current_user_id() ORDER BY updated_at DESC LIMIT 1`));
+    if (r) return { plan: r.rows[0] ?? null };
+  });
+  app.put('/me/plan', async (req, reply) => {
+    const b = z.object({ title: z.string().min(2).max(120).default('\u062e\u0637\u062a\u064a'), payload: planPayload }).parse(req.body);
+    const r = await personal(req, reply, async tx => {
+      const cur = (await tx.query<{ id: string }>(`SELECT id FROM study_plans WHERE user_id = app.current_user_id() ORDER BY updated_at DESC LIMIT 1`)).rows[0];
+      if (cur) { await tx.query(`UPDATE study_plans SET title = $2, payload = $3::jsonb WHERE id = $1`, [cur.id, b.title, JSON.stringify(b.payload)]); return cur.id; }
+      return (await tx.query<{ id: string }>(`INSERT INTO study_plans (user_id, title, payload) VALUES (app.current_user_id(), $1, $2::jsonb) RETURNING id`, [b.title, JSON.stringify(b.payload)])).rows[0]!.id;
+    });
+    if (r) return { id: r };
+  });
+  app.delete('/me/plan', async (req, reply) => {
+    const r = await personal(req, reply, tx => tx.query(`DELETE FROM study_plans WHERE user_id = app.current_user_id() RETURNING id`));
+    if (r) return { ok: true, deleted: r.rows.length };
+  });
+  app.post('/i/:inst/plans/share', async (req, reply) => {
+    const r = await tenant(req, reply, (tx, u, inst) => tx.query(`UPDATE study_plans SET institution_id = $2, status = 'shared' WHERE user_id = $1 AND id = (SELECT id FROM study_plans WHERE user_id = $1 ORDER BY updated_at DESC LIMIT 1) RETURNING id`, [u, inst]));
+    if (r) return r.rows.length ? { ok: true } : reply.code(404).send({ error: 'no_plan' });
+  });
+  app.get('/i/:inst/plans', async (req, reply) => {
+    const r = await tenant(req, reply, (tx, u, inst) => tx.query(`SELECT p.id, p.title, p.payload, p.status, p.teacher_note AS "teacherNote", p.updated_at AS "updatedAt", p.user_id AS "studentUserId", su.display_name AS "studentName"
+      FROM study_plans p LEFT JOIN users su ON su.id = p.user_id WHERE p.institution_id = $1 AND p.status <> 'private' AND p.user_id <> $2 ORDER BY (p.status = 'shared') DESC, p.updated_at DESC LIMIT 100`, [inst, u]));
+    if (r) return { plans: r.rows };
+  });
+  app.post('/i/:inst/plans/:id/review', async (req, reply) => {
+    const id = uuid.parse((req.params as { id: string }).id);
+    const b = z.object({ decision: z.enum(['approved', 'changes_requested']), note: z.string().max(1000).optional() }).parse(req.body);
+    const r = await tenant(req, reply, tx => tx.query(`UPDATE study_plans SET status = $2, teacher_note = $3 WHERE id = $1 RETURNING id`, [id, b.decision, b.note ?? null]));
     if (r) return r.rows.length ? { ok: true } : reply.code(404).send({ error: 'not_found' });
   });
 
