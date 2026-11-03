@@ -1365,7 +1365,7 @@ function kidsView(app){
         el('button',{class:'ghost sm',type:'button',on:{click:()=>{const x=kst.get();x.band='';kst.set(x);home()}}},'تغيير الفئة'),' ',
         s.level?el('span',{class:'small'},s.level==='adv'?'المستوى: متقدّم (تجاوز البداية)':'المستوى: مبتدئ'):el('button',{class:'ghost sm',type:'button',on:{click:()=>activity('place')}},'اختبار مستوى سريع')),
       el('div',{class:'card hwbig'},el('span',{class:'small'},'مقترح لك الآن'),el('h2',{},rec.t),el('p',{},rec.d),el('button',{class:'btn lg',type:'button',on:{click:()=>activity(rec.go,rec.arg)}},'ابدأ')),
-      el('h2',{},'الأنشطة'),act('التعرّف على الحروف','اختر الحرف الصحيح من بين عدة حروف.','rec'),act('تطابق الحرف','طابق شكل الحرف — بلا قراءة، مناسب للأصغر.','match'),act('الحروف المتشابهة','فرّق بين حروف متقاربة في الشكل.','pair'),act('ابنِ المقطع','الحرف مع الفتحة والضمة والكسرة والسكون.','har'),
+      el('h2',{},'الأنشطة'),act('التعرّف على الحروف','اختر الحرف الصحيح من بين عدة حروف.','rec'),act('تطابق الحرف','طابق شكل الحرف — بلا قراءة، مناسب للأصغر.','match'),act('الحروف المتشابهة','فرّق بين حروف متقاربة في الشكل.','pair'),act('ابنِ المقطع','الحرف مع الفتحة والضمة والكسرة والسكون.','har'),act('اقرأ سورة قصيرة','آيات من المصحف المعتمد بحروف كبيرة، تقرؤها وتكرّرها ثم تسمّعها.','read'),
       el('h2',{},'تقدّمك'),el('div',{class:'card plain'},el('p',{},'محاولات مسجّلة: '+ar(st.total)+' · حروف ثبتت: '+ar(st.mastered.length)+' من '+ar(FD_LET.length)),
         el('p',{class:'small'},'«ثبت» تعني ٤ إجابات صحيحة من آخر ٥ في يومين مختلفين على الأقل، لا عدد النقرات. تُحفظ النتائج على هذا الجهاز فقط ولا يراها المعلّم بعد.')),
       kidsServer(),
@@ -1375,7 +1375,22 @@ function kidsView(app){
         el('li',{},'مختبر المخارج المتحرّك: يحتاج مصادر علمية ومراجعة متخصص في التجويد والأصوات؛ لن نرسم وضع اللسان تخمينًا.'),
         el('li',{},'تسجيل نطق الحرف وتقييمه آليًا: لا نموذج مثبت لنطق حرف مفرد؛ وتحليل الحفظ يعمل على مقاطع قرآنية فقط من «تسميعي».'),
         el('li',{},'ظهور تقدّم الطفل للمعلّم وولي الأمر: يحتاج جداول وصلاحيات جديدة لم تُبنَ بعد.'))))};
+  function readAct(){
+    const SUR=[[112,'الإخلاص'],[113,'الفلق'],[114,'الناس'],[108,'الكوثر'],[103,'العصر'],[110,'النصر']],box=el('div',{class:'card'}),body=el('div');
+    root.replaceChildren(el('button',{class:'ghost sm',type:'button',on:{click:home}},'← عودة'),box);
+    const pick=el('select',{'aria-label':'السورة'},SUR.map(([n,t])=>el('option',{value:n},t)));
+    box.append(el('h2',{},'اقرأ سورة قصيرة'),el('p',{class:'small'},'النص من المصحف المعتمد في المنصة دون أي تعديل. اقرأ الآية ثم كرّرها. لا درجات هنا؛ وللتسميع استخدم «تسميعي».'),field('السورة',pick),body);
+    const load=()=>run(body,async()=>{const{ed}=await quranMeta();if(!ed)throw new Error('لا يوجد نص قرآني معتمد');
+      const r=await api('GET','/quran/'+ed.code+'/'+pick.value);let i=0,rep=0;
+      const draw=()=>{const a=r.ayat[i];body.replaceChildren(el('p',{class:'small'},'الآية '+ar(a.ayah)+' من '+ar(r.ayat.length)+' · تكرارك: '+ar(rep)+(rep>=3?' — أحسنت':'')),
+        el('div',{class:'fdl big',lang:'ar',style:'font-size:2.2rem;line-height:2'},a.text),
+        el('div',{class:'hwacts'},el('button',{class:'btn lg',type:'button',on:{click:()=>{rep++;draw()}}},'كرّرتُها'),
+          el('button',{class:'btn lg ghost',type:'button',disabled:i===0?'':null,on:{click:()=>{i=Math.max(0,i-1);rep=0;draw()}}},'السابقة'),
+          el('button',{class:'btn lg ghost',type:'button',disabled:i>=r.ayat.length-1?'':null,on:{click:()=>{i=Math.min(r.ayat.length-1,i+1);rep=0;draw()}}},'التالية')),
+        el('p',{class:'small'},'اقرأ بصوتك، ثم ',el('a',{href:'#/me/tasmi'},'سمّع الآية'),' أو ',el('a',{href:'#/quran/'+pick.value+'/'+a.ayah},'افتحها في المصحف'),'. ',r.attribution||''))};draw()});
+    pick.addEventListener('change',load);load()}
   function activity(kind,arg){
+    if(kind==='read')return readAct();
     const s=kst.get(),B=KB[s.band||'b'],n=kind==='place'?6:B.q,opts=kind==='place'?4:B.opts;let i=0,ok=0;
     const box=el('div',{class:'card'}),stat=el('div',{role:'status','aria-live':'polite'});
     const st=kStats(),pool=kind==='rec'||kind==='match'?fdShuffle(FD_LET.filter(l=>!st.mastered.includes(l[0]))).concat(fdShuffle(FD_LET.filter(l=>st.mastered.includes(l[0])))):FD_LET;
@@ -1387,11 +1402,11 @@ function kidsView(app){
       if(kind==='rec'||kind==='place'){const t=pool[(i-1)%pool.length];correct=t[1];choices=fdShuffle([t,...fdShuffle(FD_LET.filter(l=>l[0]!==t[0])).slice(0,opts-1)]).map(l=>l[1]);show=t[0];label='ما اسم هذا الحرف؟';q={act:'rec',item:t[0]}}
       else if(kind==='match'){const t=pool[(i-1)%pool.length];correct=t[0];choices=fdShuffle([t,...fdShuffle(FD_LET.filter(l=>l[0]!==t[0])).slice(0,opts-1)]).map(l=>l[0]);show=t[0];label='اختر الحرف المطابق';q={act:'match',item:t[0]}}
       else if(kind==='pair'){const p=pairs[Math.floor(Math.random()*pairs.length)],t=Math.random()<.5?p[0]:p[1],tn=FD_LET.find(l=>l[0]===t)[1];correct=t;choices=fdShuffle(p);show=tn;label='اختر الحرف الذي اسمه: ';q={act:'pair',item:p.join('|')}}
-      else{const t=FD_LET[Math.floor(Math.random()*FD_LET.length)],h=FD_HAR[Math.floor(Math.random()*4)];correct=h[1];choices=fdShuffle(FD_HAR.slice(0,4)).map(x=>x[1]);show=t[0]+h[0];label='ما اسم هذه العلامة على الحرف؟';q={act:'har',item:t[0]+h[0]}}
+      else{const t=FD_LET[Math.floor(Math.random()*FD_LET.length)],HP=(s.band==='c'?FD_HAR:FD_HAR.slice(0,4)),h=HP[Math.floor(Math.random()*HP.length)];correct=h[1];choices=fdShuffle([h,...fdShuffle(HP.filter(x=>x[1]!==h[1])).slice(0,3)]).map(x=>x[1]);show=t[0]+h[0];label='ما اسم هذه العلامة على الحرف؟';q={act:'har',item:t[0]+h[0]}}
       const done=(c)=>{const good=c===correct;if(good)ok++;kLog(q.act,q.item,good);
         note(stat,good?'أحسنت!':'انظر مرة أخرى ثم جرّب. الإجابة: '+correct,good?'ok':'');box.querySelectorAll('button.opt').forEach(b=>b.disabled=true);
         box.append(el('button',{class:'btn lg',type:'button',on:{click:next}},'التالي'))};
-      box.replaceChildren(el('p',{class:'small'},'السؤال '+ar(i)+' من '+ar(n)),el('div',{class:'fdl big',lang:'ar','aria-label':'السؤال'},show),el('p',{},label+(kind==='pair'?'':'')),
+      box.replaceChildren(el('h1',{style:'font-size:1rem;margin:0 0 6px'},({rec:'التعرّف على الحروف',match:'تطابق الحرف',pair:'الحروف المتشابهة',har:'ابنِ المقطع',place:'اختبار المستوى'})[kind]),el('p',{class:'small'},'السؤال '+ar(i)+' من '+ar(n)),el('div',{class:'fdl big',lang:'ar','aria-label':'السؤال'},show),el('p',{},label+(kind==='pair'?'':'')),
         el('div',{class:'hbtns'},choices.map(c=>el('button',{class:'btn lg ghost opt',type:'button',lang:'ar',on:{click:()=>done(c)}},c))),stat)};
     root.replaceChildren(el('button',{class:'ghost sm',type:'button',on:{click:home}},'← عودة'),box);next()}
   app.replaceChildren(root);home();
