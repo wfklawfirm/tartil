@@ -18,7 +18,7 @@ a{color:var(--accent2)}button,input,select,textarea{font:inherit}
 header.top{position:sticky;top:0;z-index:10;background:var(--card);border-bottom:1px solid var(--line);box-shadow:var(--shadow)}
 .bar{max-width:1100px;margin:0 auto;padding:10px 16px;display:flex;gap:14px;align-items:center;flex-wrap:wrap}
 .brand{font-size:26px;font-weight:700;color:var(--accent2);text-decoration:none;display:flex;align-items:center;gap:8px}.brand i{display:inline-block;width:34px;height:34px;background:url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9ImciIHgxPSIwIiB5MT0iMCIgeDI9IjEiIHkyPSIxIj48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiMxYzZiNTAiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiMwZjRhMzgiLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48cGF0aCBkPSJNMTcuNSAxNy41SDgyLjVWODIuNUgxNy41WiIgZmlsbD0idXJsKCNnKSIvPjxwYXRoIGQ9Ik01MCA0TDk2IDUwTDUwIDk2TDQgNTBaIiBmaWxsPSJ1cmwoI2cpIiBvcGFjaXR5PSIuOTIiLz48Y2lyY2xlIGN4PSI1MCIgY3k9IjUwIiByPSIxNyIgZmlsbD0iI2Y3ZjRlYyIvPjxjaXJjbGUgY3g9IjUwIiBjeT0iNTAiIHI9IjkiIGZpbGw9IiNiODhhMmUiLz48L3N2Zz4=) center/contain no-repeat}
-nav.main{display:flex;gap:4px;flex-wrap:wrap;flex:1}nav.main a{padding:6px 12px;border-radius:999px;text-decoration:none;color:var(--ink);font-weight:600;font-size:15px}nav.main a.on,nav.main a:hover{background:var(--soft);color:var(--accent2)}
+nav.main{display:flex;gap:4px;flex-wrap:wrap;flex:1}nav.main a{padding:6px 10px;border-radius:999px;text-decoration:none;color:var(--ink);font-weight:600;font-size:15px}nav.main a.on,nav.main a:hover{background:var(--soft);color:var(--accent2)}
 #who{display:flex;gap:8px;align-items:center;font-size:14px;color:var(--mute)}
 main{max-width:1100px;margin:0 auto;padding:18px 16px 60px}
 .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;margin:0 0 16px;box-shadow:var(--shadow)}
@@ -331,6 +331,26 @@ footer{max-width:none;margin:30px 0 0;padding:30px 16px calc(40px + env(safe-are
 .acx textarea{width:100%;min-height:110px}
 .acx .fb{padding:10px 14px;border-radius:12px;background:var(--soft);margin:10px 0}
 .acx .rec{border-top:1px solid var(--line);margin-top:10px;padding-top:6px}
+
+.acx .ahero.slim{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;padding:20px 22px;margin:0 0 14px}
+.acx .ahero.slim h1{margin:0 0 4px;font-size:clamp(24px,4vw,32px)}.acx .ahero.slim p{margin:0;max-width:60ch;color:var(--mute);font-size:16px}
+.acx .facts{display:flex;gap:10px;flex-wrap:wrap;margin:0 0 14px}.acx .fact{flex:1 1 110px;padding:10px 14px;border:1px solid var(--line);border-radius:14px;background:var(--card);text-align:center}
+.acx .fact b{display:block;font-size:24px;color:var(--accent2);line-height:1.3}.acx .fact span{font-size:13px;color:var(--mute)}
+:root[data-theme=dark] .acx .fact b{color:var(--ink)}
+.acx .actools{display:flex;gap:10px 18px;align-items:center;flex-wrap:wrap;margin:0 0 4px}.acx .actools .tabs2{margin:0}.acx .jump{display:flex;gap:8px;overflow-x:auto;margin:0;padding:2px 0;scrollbar-width:none;flex:1 1 320px}.acx .jump::-webkit-scrollbar{display:none}
+.acx .jump a{flex:0 0 auto;padding:6px 10px;color:var(--mute);font-size:14px;font-weight:600;border-bottom:2px solid transparent}
+.acx .jump a:hover{color:var(--ink);border-bottom-color:var(--gold)}
+.acx .agroup{margin:22px 0 6px}.acx .ghead{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin:0 0 10px;padding-bottom:8px;border-bottom:2px solid var(--gold2)}
+.acx .ghead h2{margin:0;font-size:22px}.acx .ghead .small{color:var(--mute)}
+.acx .steps5{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:8px 0}
+.acx .steps5 .idea{text-align:start}.acx .steps5 .n{display:inline-flex;width:26px;height:26px;border-radius:999px;background:var(--accent);color:var(--accent-ink);align-items:center;justify-content:center;font-weight:700;font-size:14px;margin-bottom:6px}
+.acx .foot{margin:26px 0 8px;color:var(--mute);text-align:center;line-height:1.9}.acx .foot a{text-decoration:underline;color:var(--mute)}
+.acx .pcard .meta{margin-top:auto}
+.acx .pcard h3{font-size:19px;line-height:1.5}
+.acx .item .sub{display:block;color:var(--mute);font-size:13px;margin-top:2px}
+.acx .gswitch{display:inline-flex;align-items:center;gap:8px;margin:0;padding:6px 14px;border-radius:999px;border:1px solid var(--line);background:var(--card);color:var(--ink);font-size:14px;cursor:pointer}
+.acx .gswitch[aria-pressed=true]{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+@media(max-width:600px){.acx .ahero.slim{flex-direction:column}.acx .fact{flex:1 1 44%}}
 @media(max-width:600px){.acx .stage{padding-right:42px}.acx .lesson{padding:16px 14px}}
 </style></head>
 <body>
@@ -338,7 +358,7 @@ footer{max-width:none;margin:30px 0 0;padding:30px 16px calc(40px + env(safe-are
 <header class="top"><div class="bar"><a class="brand" href="#/"><i></i>ترتيل</a><nav class="main" id="nav" aria-label="التنقل الرئيسي"></nav><div id="who"></div><button id="theme" type="button" aria-label="تبديل المظهر"></button></div></header>
 <main id="app" tabindex="-1"></main>
 <div id="more" hidden></div><nav id="bnav" aria-label="التنقل السفلي"></nav>
-<footer><div class="fcols"><div><b>المنصة</b><a href="#/">الرئيسية</a><a href="#/quran">القرآن الكريم</a><a href="#/search">بحث</a><a href="#/tajweed">التجويد</a><a href="#/foundations">الأسس</a><a href="#/kids">أكاديمية الصغار</a><a href="#/qiraat">القراءات والإسناد</a></div><div><b>حسابي</b><a href="#/auth">دخول / تسجيل</a><a href="#/me">رحلتي</a><a href="#/app">لوحة المؤسسة</a></div><div><b>الثقة</b><span>لا تُصدر المنصة فتاوى ولا إجازات ولا أحكامًا شرعية؛ التقييمات يكتبها مقرئ بشري.</span><span>نص المصحف: رواية حفص عن عاصم من مشروع تنزيل (tanzil.net)، وهو قيد التدقيق العلمي النهائي.</span></div></div></footer>
+<footer><div class="fcols"><div><b>المنصة</b><a href="#/">الرئيسية</a><a href="#/quran">القرآن الكريم</a><a href="#/search">بحث</a><a href="#/tajweed">التجويد</a><a href="#/foundations">الأسس</a><a href="#/kids">أكاديمية الصغار</a><a href="#/academy">أكاديمية التكوين</a><a href="#/qiraat">القراءات والإسناد</a></div><div><b>حسابي</b><a href="#/auth">دخول / تسجيل</a><a href="#/me">رحلتي</a><a href="#/app">لوحة المؤسسة</a></div><div><b>الثقة</b><span>لا تُصدر المنصة فتاوى ولا إجازات ولا أحكامًا شرعية؛ التقييمات يكتبها مقرئ بشري.</span><span>نص المصحف: رواية حفص عن عاصم من مشروع تنزيل (tanzil.net)، وهو قيد التدقيق العلمي النهائي.</span></div></div></footer>
 <script>
 "use strict";
 const $=(s,r=document)=>r.querySelector(s);
@@ -423,8 +443,8 @@ function applyTheme(){let t='light';try{t=localStorage.getItem('theme')||'light'
 $('#theme').addEventListener('click',()=>{let t='light';try{t=localStorage.getItem('theme')||'light'}catch{}const n={light:'dark',dark:'auto',auto:'light'}[t]||'light';try{localStorage.setItem('theme',n)}catch{}applyTheme()});
 applyTheme();
 function renderNav(active){
-  const items=[['#/','الرئيسية','home'],['#/quran','القرآن الكريم','quran'],['#/search','بحث','search'],['#/tajweed','التجويد','tajweed'],['#/foundations','الأسس','foundations'],['#/kids','أكاديمية الصغار','kids'],['#/qiraat','القراءات','qiraat']];
-  if(token)items.push(['#/me','رحلتي','me'],['#/app','لوحتي','app']);try{if(localStorage.getItem('acx_seen')==='1')items.push(['#/academy','أكاديمية التكوين','academy'])}catch{}
+  const items=[['#/','الرئيسية','home'],['#/quran','القرآن','quran'],['#/search','بحث','search'],['#/tajweed','التجويد','tajweed'],['#/foundations','الأسس','foundations'],['#/kids','الصغار','kids'],['#/academy','التكوين','academy'],['#/qiraat','القراءات','qiraat']];
+  if(token)items.push(['#/me','رحلتي','me'],['#/app','لوحتي','app']);
   if(token&&isScholar())items.push(['#/review','المراجعة العلمية','review']);
   $('#nav').replaceChildren(...items.map(([h,t,k])=>el('a',{href:h,class:k===active?'on':'','aria-current':k===active?'page':null},t)));
   const who=$('#who');
@@ -435,7 +455,7 @@ function renderNav(active){
   const main=[['#/','الرئيسية','home','home'],['#/quran','المصحف','quran','book'],['#/search','بحث','search','search'],['#/tajweed','التجويد','tajweed','wave']];
   const more=el('button',{type:'button','aria-haspopup':'true','aria-expanded':'false',on:{click:()=>{const m=$('#more');m.hidden=!m.hidden;more.setAttribute('aria-expanded',String(!m.hidden))}}},ico('more'),'المزيد');
   $('#bnav').replaceChildren(...main.map(([h,t,k,i])=>el('a',{href:h,class:k===active?'on':'','aria-current':k===active?'page':null},ico(i),t)),more);
-  const rest=[['#/kids','أكاديمية الصغار'],['#/demo','جولة في الواجبات'],['#/plan','خطتي'],['#/foundations','الأسس: الحروف والحركات'],['#/qiraat','القراءات والإسناد']];if(token&&ME&&ME.memberships&&ME.memberships.length)rest.push(['#/app/'+ME.memberships[0].institutionId+'/homework','الواجبات']);if(token)rest.push(['#/me','رحلتي'],['#/app','لوحتي']);if(token&&isScholar())rest.push(['#/review','المراجعة العلمية']);
+  const rest=[['#/kids','أكاديمية الصغار'],['#/academy','أكاديمية التكوين الإنساني'],['#/demo','جولة في الواجبات'],['#/plan','خطتي'],['#/foundations','الأسس: الحروف والحركات'],['#/qiraat','القراءات والإسناد']];if(token&&ME&&ME.memberships&&ME.memberships.length)rest.push(['#/app/'+ME.memberships[0].institutionId+'/homework','الواجبات']);if(token)rest.push(['#/me','رحلتي'],['#/app','لوحتي']);if(token&&isScholar())rest.push(['#/review','المراجعة العلمية']);
   rest.push(token?['#/auth','حسابي']:['#/auth','دخول / تسجيل']);
   const mm=$('#more');mm.hidden=true;mm.replaceChildren(...rest.map(([h,t])=>el('a',{href:h,on:{click:()=>{mm.hidden=true}}},t)));
 }
@@ -476,10 +496,11 @@ const ECO=[['book','اقرأ المصحف','114 سورة برواية حفص ع�
  ['mic','التسميع والتصحيح','سجّل تلاوتك فتُحلَّل كلمةً كلمةً مقابل نص المصحف مع تظليل متزامن مع صوتك. (يتطلب حسابًا)','#/me/tasmi','جرّب التسميع'],
  ['scroll','القراءات والإسناد','تعريف بالقراءات العشر ورواتها، وسجلّ لتدوين سندك يوثّقه مراجع علمي بشري.','#/qiraat','تصفّح'],
  ['check','اختبر نفسك','اختبارات في التجويد والمخارج، واختبار «أكمل الآية» من نص المصحف. (تمهيدية قيد المراجعة)','#/me/quiz','ابدأ الاختبار'],
+ ['user','أكاديمية التكوين الإنساني','رحلات قصيرة في الخُلق وضبط النفس والتفكير والعلاقات والعمل، من الطفولة إلى الرشد، لكل فئة عمرية. (مسودة قيد المراجعة)','#/academy','افتح الأكاديمية'],
  ['arch','الحلقات والمسارات','مسارات من وحدات، وحلقات مباشرة بموعد وحضور، وشهادات إتمام قابلة للتحقق (وليست إجازات). تنشئ المؤسسة مسارها وتدير مقرئيها وطلابها من لوحة واحدة.','#/app','لوحة المؤسسة','wide']];
 const STAGES=[['تعلّم','مكتبة التجويد والمخارج','#/tajweed'],['تدرّب','اختبارات وحفظ بمراجعة متباعدة','#/me/quiz'],['سمّع','سجّل تلاوتك وراجع الكلمات التي لم تُسمع','#/me/tasmi'],['تقيّم','ملاحظات المقرئ ومستوى كل ملاحظة','#/app'],['أتقن','خريطة الإتقان لسور المصحف','#/me/map']];
 function contBlock(){const l=store.get('last',null),act=(h,t,sub)=>el('a',{class:'act',href:h},el('b',{},t),el('span',{class:'small'},sub));
-  const items=token?[l&&l.s?act('#/quran/'+l.s+'/'+(l.a||1),'أكمل القراءة',surahName(l.s)+' — الآية '+ar(l.a||1)+' (آخر موضع على هذا الجهاز)'):act('#/quran','ابدأ القراءة','المصحف كاملًا'),act('#/me/hifz','راجع محفوظك','مراجعاتك المستحقة وتقدّمك'),act('#/me','رحلتي','اليوم، الحفظ، الاختبارات، الخريطة'),act('#/plan','خطتي','خطة حفظ ومراجعة مقترحة'),act('#/foundations','الأسس: الحروف والحركات','للمبتدئين صغارًا وكبارًا'),...(ME&&ME.memberships&&ME.memberships.length?[act('#/app/'+ME.memberships[0].institutionId+'/homework','واجباتي','واجب اليوم من معلّمك')]:[]),act('#/app','لوحتي','المؤسسات والحلقات والجلسات القادمة')]
+  const items=token?[l&&l.s?act('#/quran/'+l.s+'/'+(l.a||1),'أكمل القراءة',surahName(l.s)+' — الآية '+ar(l.a||1)+' (آخر موضع على هذا الجهاز)'):act('#/quran','ابدأ القراءة','المصحف كاملًا'),act('#/me/hifz','راجع محفوظك','مراجعاتك المستحقة وتقدّمك'),act('#/academy','أكاديمية التكوين','رحلات في الخُلق والعلاقات والعمل'),act('#/me','رحلتي','اليوم، الحفظ، الاختبارات، الخريطة'),act('#/plan','خطتي','خطة حفظ ومراجعة مقترحة'),act('#/foundations','الأسس: الحروف والحركات','للمبتدئين صغارًا وكبارًا'),...(ME&&ME.memberships&&ME.memberships.length?[act('#/app/'+ME.memberships[0].institutionId+'/homework','واجباتي','واجب اليوم من معلّمك')]:[]),act('#/app','لوحتي','المؤسسات والحلقات والجلسات القادمة')]
     :[act('#/auth','ابدأ التعلّم','أنشئ حسابًا مجانيًا لتُحفظ رحلتك'),act('#/foundations','ابدأ من الصفر','الحروف والحركات للصغار والكبار'),act('#/tajweed','اكتشف المسارات','مكتبة التجويد والمخارج'),act('#/quran'+(l&&l.s?'/'+l.s+'/'+(l.a||1):''),l&&l.s?'أكمل من حيث توقفت':'تصفّح المصحف',l&&l.s?surahName(l.s)+' — الآية '+ar(l.a||1):'114 سورة')];
   return el('section',{class:'acts','aria-label':'ابدأ من هنا'},...items)}
 async function landing(app){
@@ -593,7 +614,7 @@ function audioPanel(n,count){
     const from=el('input',{type:'number',min:1,max:count,placeholder:'رقم الآية','aria-label':'ابدأ من الآية',style:'max-width:120px'});
     const play=el('button',{class:'sm',on:{click:()=>{const x=T.find(y=>y.ayah===+from.value);if(x)au.currentTime=x.start_time/1000;au.play().catch(()=>{})}}},'ابدأ من الآية');
     panel.replaceChildren(el('h2',{style:'margin-top:0'},'استمع إلى التلاوة'),
-      el('div',{class:'toolbar'},el('div',{},el('label',{},'القارئ (رواية حفص عن عاصم)'),sel),el('div',{},el('label',{},'السرعة'),spd),el('div',{},el('label',{},'ابدأ من'),from,play),el('label',{style:'display:inline-flex;gap:6px;align-items:center;margin:0;color:var(--ink)'},rep,'كرّر الآية الجارية (للحفظ)')),
+      el('div',{class:'actools'},el('div',{},el('label',{},'القارئ (رواية حفص عن عاصم)'),sel),el('div',{},el('label',{},'السرعة'),spd),el('div',{},el('label',{},'ابدأ من'),from,play),el('label',{style:'display:inline-flex;gap:6px;align-items:center;margin:0;color:var(--ink)'},rep,'كرّر الآية الجارية (للحفظ)')),
       au,info,el('p',{class:'small'},'التلاوة تُبثّ مباشرة من خدمة mp3quran.net العامة ولا نخزّنها ولا نعدّلها. حقوق التلاوات لأصحابها. لم نوقّع اتفاقًا مع الخدمة، وشروط استخدامها غير منشورة؛ فالبثّ المباشر مؤقت إلى أن يُستكمل ذلك.'));
     const mini=miniPlayer(),ml=mini.querySelector('.ml'),mt=mini.querySelector('.mt');
     const cura=()=>{const ms=au.currentTime*1000,x=T.find(y=>ms>=y.start_time&&ms<y.end_time);return x?x.ayah:0};
@@ -623,7 +644,7 @@ function tafsirPanel(n,count){
       out.replaceChildren(el('h3',{style:'margin:10px 0 4px'},ed[1]+' — '+surahName(n)+'، الآية '+ar(a)),t?el('div',{style:'white-space:pre-wrap;line-height:2;max-height:420px;overflow:auto;border:1px solid var(--line,#ddd);border-radius:10px;padding:10px'},t):el('div',{class:'small'},'لا يتوفر نص لهذه الآية في هذا التفسير (قد يكون تفسيرها مدمجًا مع آية مجاورة).'))})
      .catch(()=>out.replaceChildren(el('div',{class:'msg err'},'تعذّر تحميل التفسير الآن. أعد المحاولة لاحقًا.')))};
   return el('div',{class:'card'},el('h2',{style:'margin-top:0'},'التفسير (كتب التفسير الكلاسيكية)'),
-    el('div',{class:'toolbar',style:'margin-top:10px'},el('div',{},el('label',{},'الكتاب'),sel),el('div',{},el('label',{},'رقم الآية'),num),el('button',{class:'sm',on:{click:show}},'اعرض التفسير')),out,
+    el('div',{class:'actools',style:'margin-top:10px'},el('div',{},el('label',{},'الكتاب'),sel),el('div',{},el('label',{},'رقم الآية'),num),el('button',{class:'sm',on:{click:show}},'اعرض التفسير')),out,
     el('p',{class:'small'},'نصوص التفاسير تُجلب عند الطلب من مستودع tafsir_api العام (مصدرها qul.tarteel.ai وquran.com) ولا نخزّنها ولا نعدّلها. لم نوقّع اتفاقًا مع أحد، وتراخيص النسخ الرقمية غير منصوصة. هي مرجع للدراسة غير مراجَع علميًّا في المنصة، وليست فتوى ولا حكمًا شرعيًّا.'))}
 async function reader(app,n,focus){
   stopAudio();
@@ -646,7 +667,7 @@ async function reader(app,n,focus){
     head=el('section',{class:'cartouche','aria-label':'رأس السورة'},orn('star','med s'),el('h1',{},surahName(n)),el('div',{class:'cm'},el('span',{},'ترتيبها '+ar(n)),el('span',{},ar(count)+' آية')),orn('star','med e')),
     strip=el('div',{class:'rstrip'},n>1?el('a',{class:'btn ghost','aria-label':'السورة السابقة',href:'#/quran/'+(n-1)},'→'):el('span',{style:'min-width:44px'}),sel,n<114?el('a',{class:'btn ghost','aria-label':'السورة التالية',href:'#/quran/'+(n+1)},'←'):el('span',{style:'min-width:44px'})),
     chk=(on,key,t)=>el('label',{style:'display:inline-flex;gap:8px;align-items:center;margin:0;color:var(--ink);min-height:44px'},el('input',{type:'checkbox',...(on?{checked:true}:{}),on:{change:ev=>{store.set(key,ev.target.checked);route()}}}),t),
-    viewPanel=el('div',{class:'card plain'},el('div',{class:'toolbar'},el('div',{},el('label',{},'حجم الخط'),rng),el('div',{},el('label',{},'الانتقال إلى آية'),jump),el('div',{},el('label',{},'بحث في هذه السورة'),find)),fres,
+    viewPanel=el('div',{class:'card plain'},el('div',{class:'actools'},el('div',{},el('label',{},'حجم الخط'),rng),el('div',{},el('label',{},'الانتقال إلى آية'),jump),el('div',{},el('label',{},'بحث في هذه السورة'),find)),fres,
       el('div',{style:'display:flex;gap:6px 18px;flex-wrap:wrap;align-items:center'},chk(tjOn,'tj','تلوين التجويد'),chk(store.get('tr',false),'tr','عرض الترجمة الإنجليزية'),modeBtn),tjOn?tjLegend():'',el('p',{class:'small',style:'margin:6px 0 0'},'اضغط على أي آية لحفظ موضعك وإشارتها.')),
     defs=[['التلاوة',audioPanel(n,count)],['التفسير',tafsirPanel(n,count)],['العرض والبحث',viewPanel]];
   defs.forEach(([,pn])=>{pn.hidden=true});
@@ -673,7 +694,7 @@ async function searchView(app,parts){
   const q=el('input',{type:'search',value:q0,placeholder:'اكتب كلمة أو جزءًا من آية…','aria-label':'نص البحث'}),lg=el('select',{'aria-label':'لغة البحث'},el('option',{value:'ar'},'في النص العربي (دون تشكيل)'),el('option',{value:'en'},'في الترجمة الإنجليزية'));lg.value=lang0;
   const out=el('div'),go=()=>{const v=q.value.trim();if(v.length<2){note(out,'اكتب حرفين على الأقل.','warn');return}location.hash='#/search/'+encodeURIComponent(v)+'/'+lg.value};
   q.addEventListener('keydown',e=>{if(e.key==='Enter')go()});
-  app.replaceChildren(pageHead('البحث في القرآن الكريم'),el('div',{class:'card'},el('div',{class:'toolbar'},el('div',{},el('label',{},'ابحث عن'),q),el('div',{},el('label',{},'اللغة'),lg),el('button',{on:{click:go}},'بحث'),voiceBtn(q,out)),
+  app.replaceChildren(pageHead('البحث في القرآن الكريم'),el('div',{class:'card'},el('div',{class:'actools'},el('div',{},el('label',{},'ابحث عن'),q),el('div',{},el('label',{},'اللغة'),lg),el('button',{on:{click:go}},'بحث'),voiceBtn(q,out)),
     el('p',{class:'small'},'البحث العربي يتجاهل التشكيل وأشكال الألف والياء والتاء المربوطة. النتائج تعرض نص المصحف كما هو؛ والبحث الإنجليزي يجري في الترجمة وليس في القرآن نفسه.')),out);
   if(q0.length<2)return;
   await run(out,async()=>{
@@ -1438,25 +1459,26 @@ async function acLoad(){
   AC.ok=true}
 const acCrumb=(...a)=>el('div',{class:'crumbs'},...a.flatMap((x,i)=>[i?' ‹ ':'',x.h?el('a',{href:x.h},x.t):x.t]));
 const acDraft=()=>el('span',{class:'ribbon',title:'لم تُراجَع علميًّا ولا تربويًّا بعد'},'مسودة قيد المراجعة');
-function acTabs(cur){return el('div',{class:'tabs2',role:'tablist'},...[['','البرامج'],['c','الكفايات'],['review','للمراجعين']].map(([h,t])=>el('a',{href:'#/academy'+(h?'/'+h:''),class:cur===h?'on':'','aria-current':cur===h?'page':null},t)))}
+const ACG=[['k','الصغار','من 5 إلى 12 سنة',p=>p.age_min<=12],['t','الناشئة','من 13 إلى 17 سنة',p=>p.age_min>=13&&p.age_max<=17&&!['P12','P13'].includes(p.id)],['y','الشباب والحياة المهنية','من 16 سنة فأكثر',p=>['P12','P14'].includes(p.id)],['f','الأسرة والمعلمون','للبالغين ولمن يرعى ويعلّم',p=>['P13','P15','P16'].includes(p.id)]];
+const acAge=(a,b)=>b>=90?'من '+a+' سنة فأكثر':a===b?a+' سنوات':'من '+a+' إلى '+b+' سنة';
+const acAgeStr=r=>{const m=String(r||'').match(/(\d+)\s*[-–]\s*(\d+)/);if(m)return acAge(+m[1],+m[2]);const n=String(r||'').match(/(\d+)\s*\+/);return n?acAge(+n[1],99):String(r||'')+' سنة'};
+const acLv=l=>'المستوى '+String(l).replace(/\D/g,'');
+function acTabs(cur){return el('div',{class:'tabs2',role:'tablist'},...[['','البرامج'],['c','الكفايات']].map(([h,t])=>el('a',{href:'#/academy'+(h?'/'+h:''),class:cur===h?'on':'','aria-current':cur===h?'page':null},t)))}
 function acProgCard(p){const n=p.stages.reduce((a,s)=>a+s.items.length,0);
-  return el('a',{class:'pcard',href:'#/academy/p/'+p.slug},el('div',{class:'meta'},el('span',{class:'pill'},p.age_min+(p.age_max?'–'+p.age_max:'+')+' سنة'),el('span',{class:'pill'},p.duration_weeks+' أسابيع'),p.status==='adults_gated'?el('span',{class:'pill warn'},'للبالغين • بانتظار المراجعة'):null),
-    el('h3',{},p.title),el('p',{class:'tag'},p.tagline),el('div',{class:'meta'},el('span',{class:'pill'},p.stages.length+' مراحل'),el('span',{class:'pill'},n+' وحدة تعلّم')))}
+  return el('a',{class:'pcard',href:'#/academy/p/'+p.slug},el('h3',{},p.title),el('p',{class:'tag'},p.tagline),
+    el('div',{class:'meta'},el('span',{class:'pill'},acAge(p.age_min,p.age_max)),el('span',{class:'pill'},p.duration_weeks+' أسابيع'),el('span',{class:'pill'},n+' وحدة'),p.status==='adults_gated'?el('span',{class:'pill warn'},'بانتظار مراجعة متخصصة'):null))}
 function acHome(app){
-  const bands=AC.B.length?AC.B:[...new Set(AC.P.map(p=>p.band))].map(id=>({id,title:id}));
-  let band=acLS.get('acx_band','');
-  const root=el('div',{class:'acx'});
-  const draw=()=>{const list=AC.P.filter(p=>!band||p.band===band);
-    root.replaceChildren(
-      el('div',{class:'ahero'},acDraft(),el('h1',{},'أكاديمية التكوين الإنساني'),
-        el('p',{},'رحلات تعلّم قصيرة ومتدرّجة في الخُلق وضبط النفس والتفكير والعلاقات والعمل، من الطفولة إلى الرشد. كل رحلة قصص وحوار وقرارات وممارسة في الحياة اليومية وتأمّل خاص بك، دون درجات ولا مقارنة بين أحد.'),
-        el('p',{class:'small',style:'color:var(--mute)'},'الأكاديمية تربّي ولا تُفتي: لا تُصدر أحكامًا شرعية، وما يحتاج حكمًا يُرجَع فيه إلى المعلّم أو دار الإفتاء.')),
-      acTabs(''),
-      el('div',{class:'tabs2'},el('button',{type:'button',class:!band?'on':'',on:{click:()=>{band='';acLS.set('acx_band','');draw()}}},'كل الأعمار'),...bands.map(b=>el('button',{type:'button',class:band===b.id?'on':'',on:{click:()=>{band=b.id;acLS.set('acx_band',b.id);draw()}}},b.title+(b.age_min?' ('+b.age_min+(b.age_max?'–'+b.age_max:'+')+')':'')))),
-      list.length?el('div',{class:'grid'},...list.map(acProgCard)):el('div',{class:'note'},'لا توجد برامج منشورة بعد. يمكنك تصفّح الكفايات من تبويب «الكفايات».'),
-      el('h2',{class:'sh'},'كيف تعمل الجلسة؟'),
-      el('div',{class:'grid'},...[['١ ابدأ بسؤال','سؤال أو موقف قصير يفتح الموضوع.'],['٢ اقرأ أو استمع','قصة أو موقف من الحياة بشخصيات خيالية.'],['٣ تحاور','أسئلة مفتوحة، بلا إجابة وحيدة صحيحة.'],['٤ قرّر وجرّب','سيناريو بخيارات، وتدريب صغير.'],['٥ طبّق وتأمّل','ممارسة في يومك وتأمّل خاص لا يراه أحد.']].map(([a,b])=>el('div',{class:'idea'},el('b',{},a),el('div',{class:'small'},b)))))};
-  draw();app.replaceChildren(root)}
+  const ps=AC.P.slice().sort((a,b)=>a.id<b.id?-1:1),root=el('div',{class:'acx'});
+  const groups=ACG.map(([k,t,sub,f])=>({k,t,sub,list:ps.filter(f)})).filter(g=>g.list.length);
+  const nL=Object.values(AC.U).reduce((a,u)=>a+u.lessons.length,0),nS=Object.values(AC.U).reduce((a,u)=>a+u.scenarios.length,0);
+  root.append(
+    el('div',{class:'ahero slim'},el('div',{},el('h1',{},'أكاديمية التكوين'),el('p',{},'رحلات قصيرة ومتدرّجة في الخُلق وضبط النفس والتفكير والعلاقات والعمل: قصص وحوار وقرارات وتأمّل خاص، بلا درجات ولا مقارنة.'),el('div',{class:'meta',style:'margin-top:10px'},el('span',{class:'pill'},ps.length+' برنامجًا'),el('span',{class:'pill'},AC.D.competencies.length+' كفاية'),el('span',{class:'pill'},nL+' درسًا'),el('span',{class:'pill'},nS+' سيناريو'))),acDraft()),
+    el('div',{class:'actools'},acTabs(''),el('div',{class:'jump',role:'navigation','aria-label':'الفئات'},...groups.map(g=>el('a',{href:'#/academy',on:{click:e=>{e.preventDefault();const n=document.getElementById('ag-'+g.k);n&&n.scrollIntoView({behavior:'smooth',block:'start'})}}},g.t+' · '+g.list.length)))),
+    ...groups.map(g=>el('section',{id:'ag-'+g.k,class:'agroup'},el('div',{class:'ghead'},el('h2',{},g.t),el('span',{class:'small'},g.sub)),el('div',{class:'grid'},...g.list.map(acProgCard)))),
+    el('h2',{class:'sh'},'كيف تسير كل جلسة؟'),
+    el('div',{class:'steps5'},...[['ابدأ بسؤال','سؤال أو موقف قصير يفتح الموضوع.'],['اقرأ أو استمع','قصة من الحياة بشخصيات خيالية.'],['تحاور','أسئلة مفتوحة بلا إجابة وحيدة صحيحة.'],['قرّر وجرّب','سيناريو بخيارات وتدريب صغير.'],['طبّق وتأمّل','ممارسة في يومك وتأمّل خاص لا يراه أحد.']].map(([a,b],i)=>el('div',{class:'idea'},el('span',{class:'n'},String(i+1)),el('div',{},el('b',{},a)),el('div',{class:'small'},b)))),
+    el('p',{class:'small foot'},'الأكاديمية تربّي ولا تُفتي: لا تُصدر أحكامًا شرعية، وما يحتاج حكمًا يُرجَع فيه إلى المعلّم أو جهة الإفتاء المعتمدة. المادة كلها مسودة لم تُراجَع بعد. ',el('a',{href:'#/academy/review'},'بوابة المراجعين')));
+  app.replaceChildren(root)}
 function acGuideBox(g){const li=a=>el('ul',{},...(a||[]).map(x=>el('li',{},x)));const G=g.for_guide||{},P=g.for_parent||{};
   const sec=(t,...k)=>[el('h4',{style:'margin:14px 0 4px'},t),...k];
   const guideEl=[el('p',{},G.overview||''),...sec('قبل البدء',li(G.before_start)),
@@ -1473,12 +1495,12 @@ function acProgram(app,slug){
   const p=AC.P.find(x=>x.slug===slug||x.id===slug);
   if(!p){app.replaceChildren(el('div',{class:'acx'},el('div',{class:'note'},'لم أجد هذا البرنامج.'),el('a',{href:'#/academy'},'← إلى الأكاديمية')));return}
   const done=acDone(),tot=p.stages.reduce((a,s)=>a+s.items.length,0),dn=p.stages.reduce((a,s)=>a+s.items.filter(i=>done[i.ref]).length,0);
-  const itemEl=i=>{const L=AC.les[i.ref],S=AC.scn[i.ref];const t=L?L.l.title:S?S.s.title:i.ref;const sub=L?L.l.level+' • '+L.l.duration_min+' دقيقة':'تفاعلي';
+  const itemEl=i=>{const L=AC.les[i.ref],S=AC.scn[i.ref];const t=L?L.l.title:S?S.s.title:i.ref;const sub=L?acLv(L.l.level)+' · '+L.l.duration_min+' دقيقة':'تفاعلي';
     return el('a',{class:'item'+(done[i.ref]?' done':''),href:'#/academy/'+(L?'l/':'s/')+i.ref},el('span',{},el('b',{},t),' ',el('small',{},sub)),el('span',{class:'k'},KIND[i.kind]||(L?'درس':'سيناريو')))};
   app.replaceChildren(el('div',{class:'acx'},
     acCrumb({h:'#/academy',t:'الأكاديمية'},{t:p.title}),
     el('div',{class:'ahero'},acDraft(),el('h1',{},p.title),el('p',{},p.tagline),
-      el('div',{class:'meta',style:'margin-top:8px'},el('span',{class:'pill'},'الفئة: '+p.age_min+(p.age_max?'–'+p.age_max:'+')+' سنة'),el('span',{class:'pill'},p.duration_weeks+' أسابيع'),el('span',{class:'pill'},p.rhythm),el('span',{class:'pill'},'تقدّمك على هذا الجهاز: '+dn+' من '+tot)),
+      el('div',{class:'meta',style:'margin-top:8px'},el('span',{class:'pill'},acAge(p.age_min,p.age_max)),el('span',{class:'pill'},p.duration_weeks+' أسابيع'),el('span',{class:'pill'},p.rhythm),el('span',{class:'pill'},'تقدّمك على هذا الجهاز: '+dn+' من '+tot)),
       p.status==='adults_gated'?el('div',{class:'note draft'},'برنامج للبالغين: لا يُفتح للجمهور قبل مراجعة علمية وتربوية وحماية. '+(p.gating&&p.gating.deferred_reason||'')):null),
     el('h2',{class:'sh'},'ماذا ستكسب؟'),el('p',{},p.promise),el('ul',{class:'outcomes'},...p.outcomes.map(o=>el('li',{},o))),
     p.prerequisites&&p.prerequisites.length?el('p',{class:'small'},'يُفضَّل قبلها: '+p.prerequisites.join('، ')):null,
@@ -1518,7 +1540,7 @@ function acLesson(app,id){const R=AC.les[id];
     if(guide&&a.learner_text)kids.push(el('details',{class:'fold',open:true},el('summary',{},'وصف المرشد'),el('p',{},a.instructions)));
     return kids};
   const draw=()=>{const s=steps[step];prog.style.width=Math.round(step/(steps.length-1)*100)+'%';let k=[];
-    if(s==='intro'){k=[el('div',{class:'small',style:'color:var(--mute)'},u.title+' • '+l.level+' • '+l.age_range+' سنة • '+l.duration_min+' دقيقة'),el('h1',{style:'margin:4px 0 8px;font-size:28px'},l.title),el('p',{},el('b',{},'هدف الدرس: '),l.objective)];
+    if(s==='intro'){k=[el('div',{class:'small',style:'color:var(--mute)'},u.title+' · '+acLv(l.level)+' · '+acAgeStr(l.age_range)+' · '+l.duration_min+' دقيقة'),el('h1',{style:'margin:4px 0 8px;font-size:28px'},l.title),el('p',{},el('b',{},'هدف الدرس: '),l.objective)];
       if(l.hook)k.push(el('div',{class:'hook'},l.hook));
       if(l.key_ideas&&l.key_ideas.length)k.push(el('h3',{},'أفكار الدرس'),el('div',{class:'ideas'},...l.key_ideas.map(x=>el('div',{class:'idea'},x))));
       if(l.vocabulary&&l.vocabulary.length)k.push(el('details',{class:'fold'},el('summary',{},'مفردات'),el('ul',{},...l.vocabulary.map(v=>el('li',{},el('b',{},v.term+': '),v.meaning)))))}
@@ -1537,7 +1559,7 @@ function acLesson(app,id){const R=AC.les[id];
     body.replaceChildren(...k.filter(Boolean))};
   const nav=el('div',{class:'nav2'});
   app.replaceChildren(el('div',{class:'acx'},acCrumb({h:'#/academy',t:'الأكاديمية'},{h:'#/academy/c/'+u.competency,t:u.title},{t:l.title}),
-    el('div',{style:'display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:8px'},acDraft(),el('button',{type:'button',class:'ghost sm',on:{click:()=>{guide=!guide;acLS.set('acx_guide',guide);draw()}}},'عرض المرشد / المتعلّم')),
+    el('div',{style:'display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:8px'},acDraft(),el('button',{type:'button',class:'gswitch','aria-pressed':String(!!guide),on:{click:()=>{guide=!guide;acLS.set('acx_guide',guide);draw()}}},guide?'وضع المرشد: مفعّل':'وضع المرشد')),
     el('div',{class:'lesson'},el('div',{class:'prog'},prog),body,nav)));
   draw()}
 function acCompetencies(app,id){
@@ -1549,8 +1571,8 @@ function acCompetencies(app,id){
   if(!c){root.append(el('div',{class:'note'},'لم أجد هذه الكفاية.'));app.replaceChildren(root);return}
   const d=acDone();
   root.append(acCrumb({h:'#/academy',t:'الأكاديمية'},{h:'#/academy/c',t:'الكفايات'},{t:c.name}),el('div',{class:'ahero'},acDraft(),el('h1',{},c.name),el('p',{},c.definition),el('div',{class:'meta'},el('span',{class:'pill'},'من سنّ '+c.min_age))),
-    el('h2',{class:'sh'},'مستويات الإتقان'),el('ol',{class:'outcomes'},...c.levels.map((t,i)=>el('li',{},el('b',{},'L'+(i+1)+': '),t))));
-  if(u){root.append(el('h2',{class:'sh'},'الدروس'),...u.lessons.map(l=>el('a',{class:'item'+(d[l.id]?' done':''),href:'#/academy/l/'+l.id},el('span',{},el('b',{},l.title),' ',el('small',{},l.level+' • '+l.age_range+' سنة • '+l.duration_min+' دقيقة')),el('span',{class:'k'},'درس'))),
+    el('h2',{class:'sh'},'مستويات الإتقان'),el('ol',{class:'outcomes'},...c.levels.map((t,i)=>el('li',{},el('b',{},'المستوى '+(i+1)+': '),t))));
+  if(u){root.append(el('h2',{class:'sh'},'الدروس'),...u.lessons.map(l=>el('a',{class:'item'+(d[l.id]?' done':''),href:'#/academy/l/'+l.id},el('span',{},el('b',{},l.title),' ',el('small',{},acLv(l.level)+' · '+acAgeStr(l.age_range)+' · '+l.duration_min+' دقيقة')),el('span',{class:'k'},'درس'))),
     el('h2',{class:'sh'},'سيناريوهات تفاعلية'),...u.scenarios.map(s=>el('a',{class:'item'+(d[s.id]?' done':''),href:'#/academy/s/'+s.id},el('span',{},el('b',{},s.title)),el('span',{class:'k'},'سيناريو'))))}
   else root.append(el('div',{class:'note'},'لم تُكتب وحدة هذه الكفاية بعد.'));
   const progs=AC.P.filter(p=>(p.competencies||[]).includes(id));
