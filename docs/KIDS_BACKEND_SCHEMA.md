@@ -1,7 +1,6 @@
-# Proposed kids backend schema (not applied)
-Reuse existing tables first: users, memberships, student_profiles, guardian_links, homework_*, hifz_items, recitation_attempts, study_plans. Proposed additions only if approved:
-- `kid_profiles(user_id, band, placement_level, teacher_level_override)`
-- `kid_activity_attempts(user_id, activity, item, ok, at)` (replaces the local log)
-- `kid_mastery(user_id, item, state, evidence_days)` computed with the same rule as the client
-- content tables (`letters`, `sound_variants`, `articulation_points`, `reference_audio`) each carrying source, licence, review status and version; all default to not-cleared.
-RLS must follow the project rule: students own rows; teacher by assignment/halaqah; guardian only for a verified linked child; no ranking views. Not applied: it needs the owner's approval because it stores children's learning data.
+# Kids backend schema (migration 0016, written and tested, NOT yet applied live)
+Tables: `kid_profiles` (band, placement level, teacher level override), `kid_attempts` (append-only activity log: activity rec/match/pair/har, item up to 8 chars, ok, occurred_at; unique per student/time/activity/item so re-sync is idempotent). Everything else reuses existing tables.
+RLS (FORCED, app_user): the student reads/writes their own rows (only a student member may insert); visibility via `app.can_see_kid`: the student, their teacher (assigned qari or halaqah qari), a VERIFIED guardian of that student, the institution admin. A guard trigger stops the student from setting the teacher level and stops a teacher/admin from altering band/placement. No ranking views; the overview is alphabetical.
+API: `PUT /i/:inst/kids/profile`, `POST /i/:inst/kids/attempts` (max 200 events, future or >400-day-old events rejected), `GET /i/:inst/kids/progress[?student=]`, `GET /i/:inst/kids/overview`, `POST /i/:inst/kids/level`. Mastery is computed on the server with the same rule as the client (>=4 correct of the last 5, on >=2 days).
+Privacy: nothing leaves the device until the child presses "send my progress"; the page tells them who will see it. Test: api/test/kids.test.ts (1 test, passes; API suite 45, database suite 38).
+Not included: content tables (letters, sound variants, articulation, reference audio), pronunciation attempts, parent-visible notes from the teacher, retention/deletion policy for children's data (needs the owner's decision).

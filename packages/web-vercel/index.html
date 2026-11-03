@@ -842,6 +842,13 @@ async function hwQueue(pane,ctx){
       return el('div',{class:'card plain'},el('b',{},p.studentName||'طالب'),el('span',{class:'small'},' — '+(GL[x.goal]||'')+' · '+ar(x.mins)+' د × '+ar(x.days)+' أيام · '+surahName(x.surah)+' · الحالة: '+({shared:'بانتظارك',approved:'معتمدة',changes_requested:'طُلب تعديلها'}[p.status]||p.status)),
         p.status==='shared'?el('div',{},field('ملاحظة',nt),el('div',{class:'hwacts'},el('button',{on:{click:()=>dec('approved')}},'اعتماد'),el('button',{class:'ghost',on:{click:()=>dec('changes_requested')}},'طلب تعديل')),m):'')})):empty('لا خطط مشاركة بعد.'))});
   loadPlans();
+  const kp=el('div',{class:'card'},el('h2',{},'تقدّم أكاديمية الصغار'));const kl=el('div');kp.append(kl);pane.append(kp);
+  const loadKids=()=>run(kl,async()=>{const r=await api('GET',ctx.b+'/kids/overview');
+    kl.replaceChildren(r.students.length?el('div',{},el('p',{class:'small'},'ملاحظات تدريب أرسلها الطلاب بأنفسهم، مرتّبة أبجديًا. ليست درجات ولا ترتيبًا.'),r.students.map(p=>{const lv=el('select',{'aria-label':'المستوى'},el('option',{value:'new'},'مبتدئ'),el('option',{value:'adv'},'متقدّم')),m=el('div');lv.value=p.teacherLevel||p.placementLevel||'new';
+      const cf=Object.keys(p.confusions||{}).map(k=>k.split('|').join(' و')).join('، ');
+      return el('div',{class:'card plain'},el('b',{},p.name||'طالب'),el('span',{class:'small'},' — محاولات: '+ar(p.attempts)+' · حروف ثبتت: '+ar(p.masteredLetters.length)+(cf?' · يتعثّر بين: '+cf:'')),
+        el('div',{class:'row'},field('مستوى الطفل (قرارك)',lv),el('button',{class:'sm',type:'button',on:{click:()=>run(m,async()=>{await api('POST',ctx.b+'/kids/level',{studentUserId:p.studentUserId,level:lv.value});note(m,'حُفظ مستواك.','ok')})}},'اعتماد')),m)})):empty('لم يرسل الطلاب تقدّمًا بعد.'))});
+  loadKids();
   const load=()=>run(box,async()=>{const r=await api('GET',ctx.b+'/homework/review-queue');
     list.replaceChildren(r.queue.length?el('div',{},r.queue.map(h=>{
       const det=el('div'),nt=el('input',{placeholder:'ملاحظة للطالب (اختياري)',maxlength:1000});
@@ -1329,6 +1336,23 @@ function kRecommend(){const st=kStats();if(!st.total)return {t:'ابدأ بال�
   if(st.recAcc!==null&&st.recAcc<0.6)return {t:'أعد التعرّف على الحروف بطريقة أخرى',d:'سنعرض الحروف التي لم تثبت بعد بأسلوب مختلف.',go:'match'};
   if(st.mastered.length>=8)return {t:'تحدٍّ: ابنِ المقطع',d:'ثبتت لديك عدة حروف؛ جرّب جمعها مع الحركات.',go:'har'};
   return {t:'تابع التعرّف على الحروف',d:'ثبّت ما بدأته.',go:'rec'}}
+function kidsServer(){
+  const m=ME&&ME.memberships||[],stu=m.find(x=>x.role==='student'),gua=m.find(x=>x.role==='guardian'),box=el('div',{class:'card plain'}),msg=el('div',{role:'status','aria-live':'polite'});
+  if(!token||(!stu&&!gua))return el('div');
+  if(stu){const b='/i/'+stu.institutionId+'/kids';
+    box.append(el('h3',{},'أرسل تقدّمي إلى معلّمي'),el('p',{class:'small'},'يبقى تقدّمك على جهازك حتى تضغط الزر. بعد الإرسال يراه معلّمك ووليّ أمرك المرتبط بك فقط، ولا يراه أحد غيرهم. ليس درجة ولا ترتيبًا.'),
+      el('button',{type:'button',on:{click:()=>run(msg,async()=>{const s=kst.get(),last=store.get('kidsSync',0),ev=s.log.filter(e=>e.t>last&&['rec','match','pair','har'].includes(e.act)).map(e=>({act:e.act,item:e.item,ok:e.ok,t:e.t}));
+        await api('PUT',b+'/profile',{...(s.band?{band:s.band}:{}),...(s.level?{placementLevel:s.level}:{})});let n=0;
+        for(let i=0;i<ev.length;i+=200){const r=await api('POST',b+'/attempts',{events:ev.slice(i,i+200)});n+=r.stored}
+        if(ev.length)store.set('kidsSync',Math.max(...ev.map(e=>e.t)));
+        const p=await api('GET',b+'/progress');note(msg,'أُرسل. المسجّل عند المعلّم: '+ar(p.attempts)+' محاولة'+(p.teacherLevel?' · مستوى المعلّم: '+(p.teacherLevel==='adv'?'متقدّم':'مبتدئ'):'')+'.','ok')})}},'أرسل تقدّمي'),msg);run(msg,async()=>{const p=await api('GET',b+'/progress');if(p.teacherLevel){const x=kst.get();if(x.level!==p.teacherLevel){x.level=p.teacherLevel;kst.set(x)}note(msg,'مستوى حدّده معلّمك: '+(p.teacherLevel==='adv'?'متقدّم':'مبتدئ')+'.','ok')}});return box}
+  const b='/i/'+gua.institutionId,sel=el('select',{'aria-label':'الطفل'}),out=el('div');
+  box.append(el('h3',{},'تقدّم طفلك في الأكاديمية'),field('الطفل',sel),out,msg);
+  run(msg,async()=>{const r=await api('GET',b+'/people');const kids=uniq(r.people.filter(p=>p.role==='student'));sel.replaceChildren(...kids.map(p=>el('option',{value:p.userId},p.displayName)));
+    const show=()=>run(out,async()=>{if(!sel.value){out.replaceChildren(empty('لا أطفال مرتبطون بك.'));return}const p=await api('GET',b+'/kids/progress?student='+sel.value);
+      out.replaceChildren(el('p',{},'محاولات: '+ar(p.attempts)+' · حروف ثبتت: '+ar(p.masteredLetters.length)+(p.masteredLetters.length?' ('+p.masteredLetters.join(' ')+')':'')),
+        el('p',{class:'small'},'هذه ملاحظات تدريب وليست درجة. اسأل المعلّم عن المستوى.'))});sel.addEventListener('change',show);show()});
+  return box}
 function kidsView(app){
   const S=kst.get(),root=el('div',{class:'kids'});
   const home=()=>{const s=kst.get();
@@ -1344,6 +1368,7 @@ function kidsView(app){
       el('h2',{},'الأنشطة'),act('التعرّف على الحروف','اختر الحرف الصحيح من بين عدة حروف.','rec'),act('تطابق الحرف','طابق شكل الحرف — بلا قراءة، مناسب للأصغر.','match'),act('الحروف المتشابهة','فرّق بين حروف متقاربة في الشكل.','pair'),act('ابنِ المقطع','الحرف مع الفتحة والضمة والكسرة والسكون.','har'),
       el('h2',{},'تقدّمك'),el('div',{class:'card plain'},el('p',{},'محاولات مسجّلة: '+ar(st.total)+' · حروف ثبتت: '+ar(st.mastered.length)+' من '+ar(FD_LET.length)),
         el('p',{class:'small'},'«ثبت» تعني ٤ إجابات صحيحة من آخر ٥ في يومين مختلفين على الأقل، لا عدد النقرات. تُحفظ النتائج على هذا الجهاز فقط ولا يراها المعلّم بعد.')),
+      kidsServer(),
       el('h2',{},'اتصل بمدرستك ومعلّمك'),el('div',{class:'hwacts'},inst?el('a',{class:'btn',href:'#/app/'+inst.institutionId+'/homework'},'واجبي اليوم'):el('a',{class:'btn ghost',href:'#/auth'},'سجّل الدخول لترى واجباتك'),el('a',{class:'btn ghost',href:'#/foundations'},'الأسس: الحروف والحركات'),el('a',{class:'btn ghost',href:'#/me/tasmi'},'تسميعي'),el('a',{class:'btn ghost',href:'#/plan'},'خطة الحفظ')),
       el('details',{class:'card plain'},el('summary',{},'ما غير متاح بعد وسبب ذلك'),el('ul',{},
         el('li',{},'الأنشطة الصوتية (استمع واختر، شاهد وكرّر): لا توجد تسجيلات بشرية معتمدة، ولا نستخدم صوتًا مولَّدًا آليًا لنطق الحروف.'),

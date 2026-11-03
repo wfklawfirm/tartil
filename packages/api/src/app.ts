@@ -22,6 +22,7 @@ function mapError(e: unknown): { status: number; code: string } {
   if (m.includes('homework_retry_not_allowed')) return { status: 409, code: 'homework_retry_not_allowed' };
   if (m.includes('homework_illegal_transition')) return { status: 409, code: 'homework_illegal_transition' };
   if (m.includes('plan_teacher_only') || m.includes('plan_share_requires_student') || m.includes('plan_teacher_fields_locked')) return { status: 403, code: m.includes('share') ? 'plan_share_requires_student' : 'plan_teacher_only' };
+  if (m.includes('kid_teacher_only')) return { status: 403, code: 'kid_teacher_only' };
   if (m.includes('plan_illegal_transition')) return { status: 409, code: 'plan_illegal_transition' };
   if (m.includes('row-level security') || m.includes('permission denied')) return { status: 403, code: 'forbidden' };
   if (m.includes('duplicate key')) return { status: 409, code: 'already_exists' };
@@ -948,6 +949,64 @@ export function buildApp(d: Deps) {
     const id = uuid.parse((req.params as { id: string }).id);
     const b = z.object({ decision: z.enum(['approved', 'changes_requested']), note: z.string().max(1000).optional() }).parse(req.body);
     const r = await tenant(req, reply, tx => tx.query(`UPDATE study_plans SET status = $2, teacher_note = $3 WHERE id = $1 RETURNING id`, [id, b.decision, b.note ?? null]));
+    if (r) return r.rows.length ? { ok: true } : reply.code(404).send({ error: 'not_found' });
+  });
+
+
+  // ---- Kids Academy progress (children's learning data). Device log is synced explicitly by the student; mastery is computed here with the same rule as the client: >=4 correct of the last 5 attempts on >=2 different days. No ranking, no grade. ----
+  const kidEvt = z.object({ act: z.enum(['rec', 'match', 'pair', 'har']), item: z.string().min(1).max(8), ok: z.boolean(), t: z.number().int() });
+  const kidProgress = async (tx: TxLike, inst: string, sid: string) => {
+    const rows = (await tx.query<{ activity: string; item: string; ok: boolean; occurred_at: string }>(`SELECT activity, item, ok, occurred_at FROM kid_attempts WHERE institution_id = $1 AND student_user_id = $2 ORDER BY occurred_at DESC LIMIT 600`, [inst, sid])).rows.reverse();
+    const by = new Map<string, typeof rows>();
+    for (const r of rows) if (r.activity === 'rec' || r.activity === 'match') { const l = by.get(r.item) ?? []; l.push(r); by.set(r.item, l); }
+    const mastered: string[] = [];
+    for (const [item, l] of by) { const last = l.slice(-5); if (last.length >= 5 && last.filter(x => x.ok).length >= 4 && new Set(last.map(x => String(x.occurred_at).slice(0, 10))).size >= 2) mastered.push(item); }
+    const acc = (a: string, n: number) => { const l = rows.filter(r => r.activity === a).slice(-n); return l.length ? Math.round(100 * l.filter(r => r.ok).length / l.length) / 100 : null; };
+    const conf: Record<string, number> = {}; for (const r of rows.slice(-60)) if (r.activity === 'pair' && !r.ok) conf[r.item] = (conf[r.item] ?? 0) + 1;
+    const prof = (await tx.query<{ band: string | null; placement_level: string | null; teacher_level: string | null }>(`SELECT band, placement_level, teacher_level FROM kid_profiles WHERE institution_id = $1 AND student_user_id = $2`, [inst, sid])).rows[0];
+    return { studentUserId: sid, attempts: rows.length, masteredLetters: mastered, recentAccuracy: { recognition: acc('rec', 10), harakat: acc('har', 10) }, confusions: conf,
+      band: prof?.band ?? null, placementLevel: prof?.placement_level ?? null, teacherLevel: prof?.teacher_level ?? null, note: 'progress_is_not_a_grade_or_a_rank' };
+  };
+  app.put('/i/:inst/kids/profile', async (req, reply) => {
+    const b = z.object({ band: z.enum(['a', 'b', 'c']).optional(), placementLevel: z.enum(['new', 'adv']).optional() }).parse(req.body);
+    const r = await tenant(req, reply, (tx, u, inst) => tx.query(`INSERT INTO kid_profiles (institution_id, student_user_id, band, placement_level) VALUES ($1,$2,$3,$4)
+      ON CONFLICT (institution_id, student_user_id) DO UPDATE SET band = COALESCE($3, kid_profiles.band), placement_level = COALESCE($4, kid_profiles.placement_level) RETURNING student_user_id`, [inst, u, b.band ?? null, b.placementLevel ?? null]));
+    if (r) return { ok: true };
+  });
+  app.post('/i/:inst/kids/attempts', async (req, reply) => {
+    const b = z.object({ events: z.array(kidEvt).min(1).max(200) }).parse(req.body);
+    const now = Date.now();
+    const evts = b.events.filter(e => e.t <= now + 86_400_000 && e.t >= now - 400 * 86_400_000);
+    const r = await tenant(req, reply, async (tx, u, inst) => {
+      let n = 0;
+      for (const e of evts) n += (await tx.query(`INSERT INTO kid_attempts (institution_id, student_user_id, activity, item, ok, occurred_at) VALUES ($1,$2,$3,$4,$5,to_timestamp($6::double precision / 1000)) ON CONFLICT DO NOTHING RETURNING id`, [inst, u, e.act, e.item, e.ok, e.t])).rows.length;
+      return n;
+    });
+    if (r !== undefined) return reply.code(201).send({ stored: r, rejected: b.events.length - evts.length });
+  });
+  app.get('/i/:inst/kids/progress', async (req, reply) => {
+    const q = z.object({ student: uuid.optional() }).parse(req.query);
+    const r = await tenant(req, reply, async (tx, u, inst) => {
+      const sid = q.student ?? u;
+      if (sid !== u && !(await tx.query(`SELECT 1 WHERE app.can_see_kid($1, $2)`, [inst, sid])).rows.length) return null;
+      return kidProgress(tx, inst, sid);
+    });
+    if (r === undefined) return;
+    return r ?? reply.code(404).send({ error: 'not_found' });
+  });
+  // Teacher overview: counts per student the caller may see; alphabetical, never ranked.
+  app.get('/i/:inst/kids/overview', async (req, reply) => {
+    const r = await tenant(req, reply, async (tx, u, inst) => {
+      const ids = (await tx.query<{ student_user_id: string; name: string | null }>(`SELECT DISTINCT a.student_user_id, su.display_name AS name FROM kid_attempts a LEFT JOIN users su ON su.id = a.student_user_id WHERE a.institution_id = $1 AND a.student_user_id <> $2 AND (app.is_teacher_of(a.student_user_id) OR app.has_role($1, 'tenant_admin')) ORDER BY su.display_name`, [inst, u])).rows;
+      const out = [];
+      for (const x of ids) out.push({ name: x.name, ...(await kidProgress(tx, inst, x.student_user_id)) });
+      return out;
+    });
+    if (r) return { students: r };
+  });
+  app.post('/i/:inst/kids/level', async (req, reply) => {
+    const b = z.object({ studentUserId: uuid, level: z.enum(['new', 'adv']) }).parse(req.body);
+    const r = await tenant(req, reply, (tx, _u, inst) => tx.query(`UPDATE kid_profiles SET teacher_level = $3 WHERE institution_id = $1 AND student_user_id = $2 RETURNING student_user_id`, [inst, b.studentUserId, b.level]));
     if (r) return r.rows.length ? { ok: true } : reply.code(404).send({ error: 'not_found' });
   });
 
