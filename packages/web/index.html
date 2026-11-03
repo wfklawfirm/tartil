@@ -370,7 +370,7 @@ $('#theme').addEventListener('click',()=>{let t='light';try{t=localStorage.getIt
 applyTheme();
 function renderNav(active){
   const items=[['#/','الرئيسية','home'],['#/quran','القرآن الكريم','quran'],['#/search','بحث','search'],['#/tajweed','التجويد','tajweed'],['#/foundations','الأسس','foundations'],['#/kids','أكاديمية الصغار','kids'],['#/qiraat','القراءات','qiraat']];
-  if(token)items.push(['#/me','رحلتي','me'],['#/app','لوحتي','app']);
+  if(token)items.push(['#/me','رحلتي','me'],['#/app','لوحتي','app'],['#/academy','أكاديمية التكوين','academy']);
   if(token&&isScholar())items.push(['#/review','المراجعة العلمية','review']);
   $('#nav').replaceChildren(...items.map(([h,t,k])=>el('a',{href:h,class:k===active?'on':'','aria-current':k===active?'page':null},t)));
   const who=$('#who');
@@ -1367,11 +1367,30 @@ function acMd(text){
     if(/^---+\s*$/.test(l)||!l.trim()){i++;continue}
     out.push(el('p',{style:'margin:6px 0'},inl(l)));i++}
   return out}
+
+async function acLessons(){if(window.__acL)return window.__acL;try{const r=await fetch('/academy-lessons.json',{cache:'no-store'});window.__acL=r.ok?await r.json():{units:{}}}catch{window.__acL={units:{}}}return window.__acL}
+function acScenario(sc){const box=el('div',{class:'card plain',style:'border:1px dashed #94a3b8'});let cur=sc.start,trail=[];
+  const draw=()=>{const n=sc.nodes[cur];const kids=[el('b',{},'سيناريو: '+sc.title),el('div',{class:'small'},sc.fictional_note||''),sc.premise&&!trail.length?el('p',{},sc.premise):null,el('p',{},n.text)];
+    if(trail.length){kids.splice(3,0,el('p',{class:'small',style:'color:#475569'},'قرارك: '+trail[trail.length-1].text+' — '+trail[trail.length-1].feedback))}
+    if(n.choices&&n.choices.length)kids.push(...n.choices.map(c=>el('button',{class:'btn ghost',type:'button',style:'display:block;width:100%;margin:6px 0;text-align:start',on:{click:()=>{trail.push(c);cur=c.next;draw()}}},c.text)));
+    else kids.push(el('div',{class:'msg'},el('b',{},'للتأمل: '),n.reflection||''),el('button',{class:'ghost sm',type:'button',on:{click:()=>{cur=sc.start;trail=[];draw()}}},'أعد السيناريو'));
+    box.replaceChildren(...kids.filter(Boolean))};draw();return box}
+function acUnit(u){const L=(t,v)=>v?el('p',{},el('b',{},t+': '),v):null;
+  return el('div',{style:'margin-top:12px;border-top:2px solid #0f766e;padding-top:10px'},el('h2',{},'الوحدة: '+u.title),el('p',{},u.summary),
+    el('p',{class:'small'},'المستويات: '+u.target_levels.join('، ')+' • من سنّ '+u.min_age+(u.verse_refs&&u.verse_refs.length?' • آيات تُراجَع على نص ترتيل: '+u.verse_refs.join('، '):'')),
+    ...u.lessons.map(l=>el('details',{class:'card plain'},el('summary',{},el('b',{},l.title),el('span',{class:'small',style:'margin-inline-start:8px'},l.level+' • '+l.age_range+' • '+l.duration_min+' دقيقة')),
+      L('الهدف',l.objective),
+      ...l.activities.map(a=>el('div',{style:'margin:8px 0;padding:8px;background:#f8fafc;border-radius:8px'},el('b',{},({story:'قصة',scenario:'سيناريو',discussion:'نقاش',practice:'تدريب',reflection:'تأمل',project:'مشروع',game:'لعبة'}[a.type]||a.type)+': '+a.title),el('p',{style:'margin:4px 0'},a.instructions))),
+      el('div',{class:'msg'},el('b',{},'ممارسة حياتية: '),l.life_practice.task,el('ol',{style:'padding-inline-start:22px'},...(l.life_practice.steps||[]).map(x=>el('li',{},x))),el('div',{class:'small'},'سؤال تأمل: '+l.life_practice.reflection_prompt),el('div',{class:'small'},'🔒 '+l.life_practice.private_note),l.life_practice.parent_note?el('div',{class:'small'},'للأسرة: '+l.life_practice.parent_note):null),
+      el('div',{class:'small'},el('b',{},'تقييم وصفي (لا درجات): '),'ظهر: '+l.formative['ظهر']+' | يتدرب: '+l.formative['يتدرب']+' | يحتاج دعمًا: '+l.formative['يحتاج_دعما']),
+      el('div',{class:'msg',style:'background:#fef2f2;color:#7f1d1d'},el('b',{},'حواجز الأمان: '),el('ul',{style:'padding-inline-start:22px'},...l.safeguards.map(x=>el('li',{},x)))),
+      el('div',{class:'small'},'الأساس: '+l.source_basis))),
+    el('h3',{},'سيناريوهات تفاعلية (شخصيات خيالية)'),...u.scenarios.map(acScenario))}
 async function academyView(app,parts){
   if(!token){location.hash='#/auth';return}
-  let D;try{const r=await fetch('/academy.json',{cache:'no-store'});if(!r.ok)throw new Error('تعذّر تحميل البيانات ('+r.status+')');D=await r.json()}
+  let LU={};let D;try{const r=await fetch('/academy.json',{cache:'no-store'});if(!r.ok)throw new Error('تعذّر تحميل البيانات ('+r.status+')');D=await r.json()}
   catch(e){app.replaceChildren(el('div',{class:'card'},el('h1',{},'أكاديمية التكوين'),el('div',{class:'msg err'},e.message)));return}
-  const root=el('div',{class:'ac'});let dom='',open=(parts&&parts[1])||'';
+  const root=el('div',{class:'ac'});let dom='',open=(parts&&parts[1])||'';let loaded=false;acLessons().then(x=>{LU=x.units||{};loaded=true;if(open&&typeof draw==='function')draw()});
   const withRec=D.competencies.filter(c=>c.record).length;
   const draw=()=>{
     const chips=[['', 'الكل ('+D.competencies.length+')'],...Object.entries(D.domains).map(([k,v])=>[k,v+' ('+D.competencies.filter(c=>c.domain===k).length+')'])];
@@ -1394,7 +1413,7 @@ async function academyView(app,parts){
             el('p',{},'التقييم: وصفي فقط (ظهر / يتدرب / يحتاج دعمًا) مع ملاحظة نصية.'),
             el('div',{class:'msg',style:'background:#fef2f2;color:#7f1d1d'},el('b',{},'حاجز الأمان: '),c.safeguard),
             el('h3',{},'المراسي المصدرية (عناوين فقط)'),el('ul',{style:'padding-inline-start:22px'},...c.anchors.map(a=>el('li',{},a.book+' ← '+a.locator+' ('+(a.verification==='heading-only'?'عنوان فقط':'مقطع مقروء')+')'))),
-            c.record?el('div',{style:'margin-top:12px;border-top:1px solid #e5e7eb;padding-top:10px'},el('h3',{},'سجل المصدر'),...acMd(c.record)):el('p',{class:'small'},'لا يوجد سجل مصدر مفصّل لهذه الكفاية بعد.')):null)}));
+            LU[c.id]?acUnit(LU[c.id]):el('p',{class:'small'},'لا توجد وحدة دروس لهذه الكفاية بعد.'),c.record?el('div',{style:'margin-top:12px;border-top:1px solid #e5e7eb;padding-top:10px'},el('h3',{},'سجل المصدر'),...acMd(c.record)):el('p',{class:'small'},'لا يوجد سجل مصدر مفصّل لهذه الكفاية بعد.')):null)}));
     history.replaceState(null,'','#/academy'+(open?'/'+open:''))};
   draw();app.replaceChildren(root)}
 

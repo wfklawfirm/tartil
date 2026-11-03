@@ -19,3 +19,13 @@ out = {'status': 'draft-unreviewed', 'generated': '2026-11-03', 'domains': dom, 
 for d in (root / 'packages' / 'web-vercel', root / 'packages' / 'web'):
     (d / 'academy.json').write_text(json.dumps(out, ensure_ascii=False), encoding='utf-8')
 print(len(comps), 'competencies;', sum(1 for c in comps if c['record']), 'with records')
+
+# lessons (optional): docs/human-formation/lessons/lessons_*.json -> academy-lessons.json {competency: unit}
+units = {}
+for f in sorted((hf / 'lessons').glob('lessons_*.json')) if (hf / 'lessons').exists() else []:
+    for u in json.loads(f.read_text(encoding='utf-8')).get('units', []):
+        units[u['competency']] = u
+lo = {'status': 'draft-unreviewed', 'generated': '2026-11-03', 'units': units}
+for d in (root / 'packages' / 'web-vercel', root / 'packages' / 'web'):
+    (d / 'academy-lessons.json').write_text(json.dumps(lo, ensure_ascii=False), encoding='utf-8')
+print(len(units), 'units with lessons;', sum(len(u['lessons']) for u in units.values()), 'lessons;', sum(len(u['scenarios']) for u in units.values()), 'scenarios')

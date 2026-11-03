@@ -28,7 +28,7 @@
    ]
   },
   {
-   "source": "/academy.json",
+   "source": "/academy(.*)\\.json",
    "headers": [
     {
      "key": "X-Robots-Tag",
