@@ -23,3 +23,5 @@ Status: DONE (built, tested) / PARTIAL / MISSING / BLOCKED (needs owner or absen
 | 17 | Supervised AI | PARTIAL | suggestions require human approval; no ruling/grade output |
 | 18 | Ornament engine + gallery | DONE | patterns A, B, C, D, E; `#/gallery` |
 | 19 | Share, focus mode, richer tooltips | MISSING | not built |
+
+| 20 | Memorisation trainer (hidden words, peek, random test), activity heatmap, voice search | DONE (mocked-API browser test; voice search untested without a microphone) | see docs/TARTEEL_COMPARISON.md |

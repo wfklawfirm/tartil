@@ -258,6 +258,9 @@ body{position:relative;min-height:100vh}
 @media (max-width:560px){.hero2 .hbtns{flex-direction:column;align-items:stretch;gap:10px}.hero2 .hbtns .btn{width:100%}.hero2 .hbtns .linkbtn{align-self:center;padding:10px}}
 .statepg{text-align:center;max-width:520px;margin:30px auto}.statepg h1{font-family:var(--deco);color:var(--accent2)}.statepg .hbtns{justify-content:center}
 @media (max-width:560px){.toolbar{flex-direction:column;align-items:stretch}.toolbar>div,.toolbar button,.toolbar select,.toolbar input{width:100%;flex:none}}
+.memo-text{font-size:26px;line-height:2.5;text-align:justify}.mw{display:inline}.mw.hid{display:inline-block;min-width:1.7em;padding:0 .3em;margin:0 2px;border:1px dashed var(--gold);border-radius:8px;background:var(--soft);color:var(--goldtx);font:inherit;font-size:.7em;line-height:1.7;cursor:pointer;vertical-align:middle}.mw.peek{background:color-mix(in srgb,var(--gold2) 35%,transparent);border-radius:6px}
+.modes{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 10px}.chipbtn{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:999px;padding:6px 14px;font:inherit;font-size:15px;cursor:pointer;min-height:40px}.chipbtn.on{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.heat{display:flex;gap:4px;direction:ltr;overflow-x:auto;padding-bottom:4px}.hcol{display:flex;flex-direction:column;gap:4px}.hc{display:block;width:14px;height:14px;border-radius:3px;background:var(--soft);border:1px solid var(--line)}.hc.on{background:var(--accent);border-color:var(--accent)}.hc.off{visibility:hidden}
 .galrow{display:flex;flex-wrap:wrap;gap:16px}.gal{margin:0;width:200px}.gal .gs{height:130px;border:1px solid var(--line);border-radius:10px;background-color:var(--card)}.galrow .heroart{width:240px;justify-self:auto}
 footer{max-width:none;margin:30px 0 0;padding:30px 16px calc(40px + env(safe-area-inset-bottom));text-align:start;background:linear-gradient(180deg,transparent,var(--soft));border-top:1px solid var(--gold2)}
 .fcols{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr 1.6fr;gap:26px;font-size:15px}.fcols>div{display:flex;flex-direction:column;gap:6px}.fcols b{color:var(--accent2);font-size:16px}:root[data-theme=dark] .fcols b{color:var(--ink)}.fcols a{text-decoration:none;min-height:32px;display:inline-flex;align-items:center}.fcols span{color:var(--mute);line-height:1.8}
@@ -588,12 +591,19 @@ async function reader(app,n,focus){
 }
 
 /* ---------- whole-Quran search ---------- */
+function voiceBtn(input,out){
+  const SR=window.SpeechRecognition||window.webkitSpeechRecognition;if(!SR)return null;
+  const b=el('button',{type:'button',class:'ghost',title:'بحث صوتي','aria-label':'بحث صوتي'},'🎙 بحث صوتي');
+  b.addEventListener('click',()=>{const r=new SR();r.lang='ar-SA';r.interimResults=false;r.maxAlternatives=1;b.disabled=true;b.textContent='أصغي…';
+    r.onresult=e=>{input.value=e.results[0][0].transcript;note(out,'تم التعرّف على: «'+input.value+'». راجع النص ثم اضغط بحث. (تحويل الكلام إلى نص يتم في متصفحك وقد يخطئ.)','warn')};
+    r.onerror=()=>note(out,'تعذّر التقاط الصوت. تأكد من إذن الميكروفون.','warn');r.onend=()=>{b.disabled=false;b.textContent='🎙 بحث صوتي'};try{r.start()}catch{b.disabled=false}});
+  return b}
 async function searchView(app,parts){
   const q0=decodeURIComponent(parts[1]||''),lang0=parts[2]==='en'?'en':'ar';
   const q=el('input',{type:'search',value:q0,placeholder:'اكتب كلمة أو جزءًا من آية…','aria-label':'نص البحث'}),lg=el('select',{'aria-label':'لغة البحث'},el('option',{value:'ar'},'في النص العربي (دون تشكيل)'),el('option',{value:'en'},'في الترجمة الإنجليزية'));lg.value=lang0;
   const out=el('div'),go=()=>{const v=q.value.trim();if(v.length<2){note(out,'اكتب حرفين على الأقل.','warn');return}location.hash='#/search/'+encodeURIComponent(v)+'/'+lg.value};
   q.addEventListener('keydown',e=>{if(e.key==='Enter')go()});
-  app.replaceChildren(pageHead('البحث في القرآن الكريم'),el('div',{class:'card'},el('div',{class:'toolbar'},el('div',{},el('label',{},'ابحث عن'),q),el('div',{},el('label',{},'اللغة'),lg),el('button',{on:{click:go}},'بحث')),
+  app.replaceChildren(pageHead('البحث في القرآن الكريم'),el('div',{class:'card'},el('div',{class:'toolbar'},el('div',{},el('label',{},'ابحث عن'),q),el('div',{},el('label',{},'اللغة'),lg),el('button',{on:{click:go}},'بحث'),voiceBtn(q,out)),
     el('p',{class:'small'},'البحث العربي يتجاهل التشكيل وأشكال الألف والياء والتاء المربوطة. النتائج تعرض نص المصحف كما هو؛ والبحث الإنجليزي يجري في الترجمة وليس في القرآن نفسه.')),out);
   if(q0.length<2)return;
   await run(out,async()=>{
@@ -995,29 +1005,55 @@ async function meView(app,parts){
   const body=el('div');
   app.replaceChildren(el('h1',{style:'margin:0 0 10px'},'رحلتي'),el('div',{class:'tabs'},T.map(([k,t])=>el('a',{href:'#/me/'+k,class:k===cur?'on':''},t))),body);
   if(cur==='today')await todayTab(body);else if(cur==='hifz')await hifzTab(body);else if(cur==='quiz')quizTab(body,parts[2]);else if(cur==='sanad')await sanadTab(body);else await mapTab(body)}
+/* ---------- memorisation trainer: hides real words visually (the text itself is never altered); tap a hidden word to peek ---------- */
+const FIRSTLETTER=/^[؀-ۿ][ً-ٰٟۖ-ۭ]*/;
+function memoTrainer(ayat,mode0){
+  let mode=mode0||'hide',peeks=0;const wrap=el('div',{class:'memo'}),info=el('div',{class:'small memo-info'}),box=el('p',{class:'ayah memo-text'});
+  const draw=()=>{peeks=0;box.replaceChildren();
+    ayat.forEach(a=>{const ws=a.text.split(/\s+/).filter(Boolean);
+      ws.forEach((w,i)=>{
+        const visible=(mode==='first'&&i===0)||mode==='show';
+        if(visible){box.append(el('span',{class:'mw'},w),' ');return}
+        const hint=mode==='letter'?(w.match(FIRSTLETTER)||[''])[0]:'';
+        const b=el('button',{type:'button',class:'mw hid','aria-label':'كلمة مخفية، اضغط لإظهارها',on:{click:()=>{b.replaceWith(el('span',{class:'mw peek'},w));peeks++;upd()}}},hint?hint+'…':'• • •');
+        box.append(b,' ')});
+      box.append(ayahMarker(a.ayah),' ')});upd()};
+  const upd=()=>{info.textContent=mode==='show'?'النص كاملًا.':'اطّلعتَ على '+ar(peeks)+' كلمة. اضغط أي كلمة مخفية لإظهارها.'};
+  const modes=[['hide','إخفاء كامل'],['first','تلميح: أول كلمة'],['letter','تلميح: أول حرف']];
+  const chips=el('div',{class:'modes',role:'group','aria-label':'نمط الإخفاء'},modes.map(([k,t])=>el('button',{type:'button',class:'chipbtn'+(k===mode?' on':''),'aria-pressed':String(k===mode),on:{click:e=>{mode=k;chips.querySelectorAll('button').forEach(x=>{x.classList.remove('on');x.setAttribute('aria-pressed','false')});e.currentTarget.classList.add('on');e.currentTarget.setAttribute('aria-pressed','true');draw()}}},t)));
+  const all=el('button',{type:'button',class:'ghost sm',on:{click:()=>{mode='show';chips.querySelectorAll('button').forEach(x=>{x.classList.remove('on');x.setAttribute('aria-pressed','false')});draw();wrap.dispatchEvent(new CustomEvent('revealed',{detail:{peeks}}))}}},'أظهر الكل');
+  wrap.append(chips,box,info,all);draw();return wrap;
+}
+const heatmap=days=>{const s=new Set(days),W=17,cells=[],t=new Date();t.setHours(12,0,0,0);const start=new Date(t);start.setDate(t.getDate()-((W-1)*7+t.getDay()));let n=0;
+  for(let c=0;c<W;c++){const col=el('div',{class:'hcol'});for(let r=0;r<7;r++){const d=new Date(start);d.setDate(start.getDate()+c*7+r);if(d>t){col.append(el('i',{class:'hc off'}));continue}
+    const k=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'),on=s.has(k);if(on)n++;col.append(el('i',{class:'hc'+(on?' on':''),title:k}))}cells.push(col)}
+  return el('div',{class:'heat',role:'img','aria-label':'نشاطك في آخر '+ar(W)+' أسبوعًا: '+ar(n)+' يومًا نشِطًا'},...cells)};
 async function todayTab(body){
   const [due,mast]=await Promise.all([api('GET','/me/hifz/due'),api('GET','/me/mastery')]),st=streakOf(mast.activeDays);
   body.append(el('div',{class:'grid'},
     el('div',{class:'feat'},el('b',{},ar(st)+' يوم'),el('span',{class:'small'},'أيام متتالية من النشاط')),
     el('div',{class:'feat'},el('b',{},ar(due.due.length)),el('span',{class:'small'},'مراجعات مستحقة الآن')),
     el('div',{class:'feat'},el('b',{},ar(mast.reviewsTotal)),el('span',{class:'small'},'إجمالي المراجعات'))));
+  body.append(el('div',{class:'card plain'},el('h3',{style:'margin:0 0 8px'},'نشاطك في آخر ١٧ أسبوعًا'),heatmap(mast.activeDays),el('p',{class:'small',style:'margin:8px 0 0'},'يُحتسب اليوم نشِطًا إذا راجعتَ مقطعًا أو أجريتَ اختبارًا.')));
   const area=el('div');body.append(area);
   if(!due.due.length){area.append(el('div',{class:'card'},empty('لا مراجعات مستحقة. أضف مقاطع للحفظ من تبويب «حفظي»، أو جرّب «اختبر نفسك».'),el('a',{class:'btn',href:'#/me/hifz'},'إضافة مقطع للحفظ')));return}
   let i=0;const next=()=>{if(i>=due.due.length){area.replaceChildren(el('div',{class:'card'},el('div',{class:'msg ok'},'أحسنت! أنهيت مراجعات اليوم.'),el('a',{class:'btn',href:'#/me/map'},'خريطة الإتقان')));return}
     const it=due.due[i],c=el('div',{class:'card'}),out=el('div');
-    c.append(el('div',{class:'small'},'مراجعة '+ar(i+1)+' من '+ar(due.due.length)),el('h2',{},surahName(it.surah)+' — الآيات '+ar(it.fromAyah)+'–'+ar(it.toAyah)),el('p',{class:'small'},'اتلُ المقطع من حفظك، ثم اضغط «أظهر النص» لتتحقق، ثم قيّم نفسك بصدق.'),out);
-    const show=el('button',{on:{click:()=>run(out,async()=>{show.disabled=true;const d=await surahData(it.surah);const as=d.ayat.filter(a=>a.ayah>=it.fromAyah&&a.ayah<=it.toAyah).slice(0,25);
-      out.replaceChildren(el('p',{class:'ayah',style:'font-size:24px;line-height:2.3'},as.map(a=>a.text+' ﴿'+ar(a.ayah)+'﴾ ').join('')),
-        el('div',{class:'small'},'كيف كانت مراجعتك؟'),
-        el('div',{},[[1,'نسيت','ghost'],[2,'بصعوبة','ghost'],[3,'جيدة',''],[4,'سهلة','gold']].map(([r,t,cl])=>el('button',{class:cl,style:'margin-inline-end:8px',on:{click:()=>run(out,async()=>{const x=await api('POST','/me/hifz/'+it.id+'/review',{rating:r});i++;next()})}},t))))})}},'أظهر النص');
-    c.append(show);area.replaceChildren(c)};next()}
+    c.append(el('div',{class:'small'},'مراجعة '+ar(i+1)+' من '+ar(due.due.length)),el('h2',{},surahName(it.surah)+' — الآيات '+ar(it.fromAyah)+'–'+ar(it.toAyah)),el('p',{class:'small'},'اتلُ المقطع من حفظك. يبدأ النص مخفيًّا؛ اضغط كلمة لتتحقق منها عند الحاجة، ثم «أظهر الكل» وقيّم نفسك بصدق.'),out);
+    const start=el('button',{on:{click:()=>run(out,async()=>{start.disabled=true;const d=await surahData(it.surah);const as=d.ayat.filter(a=>a.ayah>=it.fromAyah&&a.ayah<=it.toAyah).slice(0,25);
+      const tr=memoTrainer(as,'hide'),rate=el('div',{style:'display:none'},el('div',{class:'small'},'كيف كانت مراجعتك؟ قيّم نفسك بصدق.'),
+        el('div',{},[[1,'نسيت','ghost'],[2,'بصعوبة','ghost'],[3,'جيدة',''],[4,'سهلة','gold']].map(([r,t,cl])=>el('button',{class:cl,style:'margin-inline-end:8px',on:{click:()=>run(out,async()=>{await api('POST','/me/hifz/'+it.id+'/review',{rating:r});i++;next()})}},t))));
+      tr.addEventListener('revealed',e=>{rate.style.display='';const p=e.detail.peeks;rate.prepend(el('div',{class:'small'},p?('اطّلعتَ على '+ar(p)+' كلمة قبل الكشف الكامل.'):'لم تطّلع على أي كلمة قبل الكشف.'))});
+      out.replaceChildren(tr,rate)})}},'ابدأ المراجعة (النص مخفيّ)');
+    c.append(start);area.replaceChildren(c)};next()}
 async function hifzTab(body){
   await quranMeta();const cnt=n=>(REF.find(x=>x.surah===n)||{}).ayahCount||7;
-  const msg=el('div'),list=el('div'),sel=surahSelect(),f=el('input',{type:'number',min:1,value:1}),t=el('input',{type:'number',min:1,value:7});
+  const msg=el('div'),testBox=el('div'),list=el('div'),sel=surahSelect(),f=el('input',{type:'number',min:1,value:1}),t=el('input',{type:'number',min:1,value:7});
   const sync=()=>{t.max=f.max=cnt(Number(sel.value));if(Number(t.value)>cnt(Number(sel.value)))t.value=cnt(Number(sel.value))};sel.addEventListener('change',()=>{t.value=cnt(Number(sel.value));f.value=1;sync()});sync();
   body.append(el('div',{class:'card'},el('h2',{},'أضف مقطعًا للحفظ'),el('p',{class:'small'},'يُجدول المقطع للمراجعة بتباعد تدريجي (مراجعة بعد يوم ثم ثلاثة ثم أكثر) بحسب تقييمك لنفسك، ويُعدّ «محفوظًا» حين يبلغ التباعد أسبوعًا فأكثر. هذه أداة مراجعة ذاتية وليست تقييمًا من مقرئ.'),
     el('div',{class:'row'},field('السورة',sel),field('من الآية',f),field('إلى الآية',t)),
     el('button',{on:{click:()=>run(msg,async()=>{await api('POST','/me/hifz',{surah:Number(sel.value),fromAyah:Number(f.value),toAyah:Number(t.value)});note(msg,'أُضيف المقطع إلى مراجعتك.','ok');load()})}},'إضافة'),msg),
+    el('div',{class:'card'},el('h2',{},'اختبار عشوائي'),el('p',{class:'small'},'يبدأ بك من نقطة عشوائية داخل محفوظك ويُخفي الآيات التالية لتكملها من ذاكرتك. تدريب حر لا يغيّر جدول المراجعة.'),el('button',{on:{click:()=>run(testBox,async()=>{const r=await api('GET','/me/hifz');const its=r.items;if(!its.length){note(testBox,'أضف مقطعًا للحفظ أولًا.','warn');return}const it=its[Math.floor(Math.random()*its.length)];const d=await surahData(it.surah);const pool=d.ayat.filter(a=>a.ayah>=it.fromAyah&&a.ayah<=it.toAyah);const st=Math.floor(Math.random()*pool.length);const seg=pool.slice(st,st+3);testBox.replaceChildren(el('p',{class:'small'},'ابدأ من '+surahName(it.surah)+' — الآية '+ar(seg[0].ayah)+' وأكمل ما بعدها:'),memoTrainer(seg.slice(0,1),'show'),memoTrainer(seg.slice(1).length?seg.slice(1):seg,'hide'))})}},'ابدأ اختبارًا'),testBox),
     el('div',{class:'card'},el('h2',{},'مقاطعي'),list));
   async function load(){const r=await api('GET','/me/hifz');
     if(!r.items.length){list.replaceChildren(empty('لا مقاطع بعد.'));return}
