@@ -1319,6 +1319,7 @@ function demoHomework(app){
     ...steps.map(([t,d,mk])=>el('section',{class:'card'},el('h2',{},t),el('p',{},d),mk())));
 }
 /* ---------- personal study plan: a deterministic suggestion from the learner's own answers. Not AI, not a ruling; every number is an editable estimate. ---------- */
+let PLAN_ST=null;
 async function planToday(box){
   if(!token){box.replaceChildren(el('div',{class:'card plain'},el('p',{},'سجّل الدخول لترى لوحتك اليومية: السبق والسبقي والمنزل.'),el('a',{class:'btn',href:'#/auth'},'دخول / تسجيل')));return}
   await run(box,async()=>{
@@ -1326,7 +1327,7 @@ async function planToday(box){
     const cls=i=>i.status==='memorized'?'manzil':(i.reps>=2||i.intervalDays>=3)?'sabqi':'sabaq';
     const G={sabaq:[],sabqi:[],manzil:[]};h.items.forEach(i=>G[cls(i)].push(i));
     const due=i=>Date.parse(i.dueAt)<=now,lab={sabaq:['السبق','المقطع الجديد'],sabqi:['السبقي','المحفوظ حديثًا'],manzil:['المنزل','المحفوظ القديم']};
-    const dd=new Set(m.activeDays),wk=[...Array(7)].map((_,k)=>{const d=new Date(Date.now()-k*864e5).toISOString().slice(0,10);return dd.has(d)}).filter(Boolean).length;
+    PLAN_ST={overdue:h.items.filter(due).length,total:h.items.length,lapses:h.items.reduce((x,i)=>x+(i.lapses||0),0),reps:h.items.reduce((x,i)=>x+(i.reps||0),0)};const dd=new Set(m.activeDays),wk=[...Array(7)].map((_,k)=>{const d=new Date(Date.now()-k*864e5).toISOString().slice(0,10);return dd.has(d)}).filter(Boolean).length;
     box.replaceChildren(el('div',{class:'card'},el('h2',{},'اليوم'),
       ...Object.keys(G).map(k=>el('div',{class:'card plain',style:'margin-top:8px'},el('b',{},lab[k][0]),el('span',{class:'small'},' — '+lab[k][1]+': '+ar(G[k].length)+' · مستحق الآن: '+ar(G[k].filter(due).length)),
         G[k].filter(due).slice(0,5).map(i=>el('div',{class:'small'},surahName(i.surah)+' '+ar(i.fromAyah)+'–'+ar(i.toAyah))))),
@@ -1339,6 +1340,7 @@ async function planView(app){
   const goal=el('select',{},el('option',{value:'new'},'حفظ جديد'),el('option',{value:'rev'},'مراجعة ما حفظته'),el('option',{value:'read'},'تحسين القراءة والطلاقة'));
   const dir=el('select',{},el('option',{value:'down'},'من آخر المصحف صعودًا (الناس، الفلق…)'),el('option',{value:'up'},'من السورة التي أختارها نزولًا في ترتيب المصحف'));
   const sel=surahSelect();sel.value='114';
+  const tgtN=el('input',{type:'number',min:0,max:6236,value:0}),tgtD=el('input',{type:'date'}),prefT=el('select',{},el('option',{value:''},'لا تفضيل'),el('option',{value:'fajr'},'بعد الفجر'),el('option',{value:'eve'},'المساء')),teacher=el('select',{},el('option',{value:'0'},'لا'),el('option',{value:'1'},'نعم'));
   const mins=el('input',{type:'number',min:5,max:240,value:20}),days=el('input',{type:'number',min:1,max:7,value:5}),size=el('input',{type:'number',min:1,max:10,value:3});
   const build=()=>{
     const m=Math.max(5,Number(mins.value)||20),d=Math.min(7,Math.max(1,Number(days.value)||5)),n=Math.max(1,Math.min(10,Number(size.value)||3));
@@ -1348,15 +1350,24 @@ async function planView(app){
     const g=goal.value;
     const rows=[el('li',{},'المدّة: '+ar(m)+' دقيقة في اليوم × '+ar(d)+' أيام أسبوعيًا.'),
       el('li',{},g==='new'?'قسّم الوقت: 5 دقائق مراجعة، ثم تكرار المقطع الجديد، ثم تسميع ذاتي.':g==='rev'?'ابدأ بالمقاطع المستحقة في «مراجعتي» ثم ما بعدها.':'اقرأ بصوت مسموع مع التتبّع بالعين، وكرّر الصعب.')];
+    const st=PLAN_ST,hard=st&&(st.overdue>=5||(st.reps>0&&st.lapses/st.reps>0.3));
+    const newMin=Math.round(m*(g==='new'?(hard?0.25:0.4):0)),recMin=Math.round(m*(g==='new'?(hard?0.35:0.25):0.4)),oldMin=Math.round(m*(g==='new'?0.2:0.4)),lisMin=Math.max(0,m-newMin-recMin-oldMin);
+    const names=['الأحد','الاثنين','الثلاثاء','الأربعاء','الخميس','الجمعة','السبت'],use=[0,1,2,3,4,5,6].filter((_,i)=>d>=7||[0,2,4,1,3,5,6].slice(0,d).includes(i));
+    const wk=el('table',{class:'tbl'},el('thead',{},el('tr',{},...['اليوم','جديد','مراجعة حديثة','مراجعة قديمة','استماع'].map(x=>el('th',{},x)))),
+      el('tbody',{},names.map((nm,i)=>{const on=use.includes(i);const buf=on&&d>=5&&i===use[use.length-1];const test=on&&i===use[Math.min(2,use.length-1)];
+        return el('tr',{},el('td',{},nm+(buf?' (تعويض)':test?' (+ تسميع)':'')),...(on?(buf?[el('td',{colspan:4},'وقت احتياطي لتعويض ما فات — بلا حفظ جديد')]:[newMin,recMin,oldMin,lisMin].map(v=>el('td',{},ar(v)+' د'))):[el('td',{colspan:4},'راحة')]))})));
+    rows.push(el('li',{},hard?'لاحظنا تراكم مراجعات أو تعثرًا في سجلّك، فخُفّض الحفظ الجديد وزيدت المراجعة تلقائيًا.':'توزيع الدقائق افتراضي؛ يتكيّف إن تراكمت مراجعاتك أو ارتفع تعثّرك.'));
+    const tn=Number(tgtN.value)||0;if(tn&&tgtD.value){const wks=Math.max(1,(Date.parse(tgtD.value)-Date.now())/6048e5),need=Math.ceil(tn/wks),cap=d*n;rows.push(el('li',{},'للوصول إلى هدفك تحتاج نحو '+ar(need)+' آية أسبوعيًا، وطاقة خطتك الحالية نحو '+ar(cap)+'. '+(need>cap?'الهدف غير واقعي بهذه المعطيات؛ زد الأيام أو الدقائق أو أخّر التاريخ بدل تكديس الحفظ.':'يبدو الهدف ممكنًا بهذه المعطيات.')))}
+    if(teacher.value==='1')rows.push(el('li',{},'لديك معلّم: اعرض عليه هذه الخطة ليعتمدها أو يعدّلها.'));
     const list=el('div');
     if(g==='new')list.append(el('h3',{},'مقاطع مقترحة للأسابيع الأولى'),...nxt.map(([s,a,b])=>el('div',{class:'card plain',style:'display:flex;justify-content:space-between;gap:8px;align-items:center'},
       el('span',{},surahName(s)+' — الآيات '+ar(a)+'–'+ar(b)),
       el('button',{class:'sm',on:{click:()=>run(msg,async()=>{if(!token)throw new Error('سجّل الدخول أولًا لحفظ المقطع.');await api('POST','/me/hifz',{surah:s,fromAyah:a,toAyah:b});note(msg,'أُضيف «'+surahName(s)+' '+ar(a)+'–'+ar(b)+'» إلى مراجعتك.','ok')})}},'أضِف إلى حفظي'))));
-    out.replaceChildren(el('div',{class:'card'},el('h2',{},'خطتك المقترحة'),el('ul',{},...rows),el('p',{class:'small'},'هذه خطة مبدئية مبنية على إجاباتك فقط وقابلة للتعديل في أي وقت. ليست تقييمًا لمستواك ولا حكمًا تربويًا؛ ويُفضَّل أن يعتمدها معلّمك إن كان لك معلّم.')),list,msg)};
+    out.replaceChildren(el('div',{class:'card'},el('h2',{},'خطتك المقترحة'),el('ul',{},...rows),wk,el('p',{class:'small'},'هذه خطة مبدئية مبنية على إجاباتك فقط وقابلة للتعديل في أي وقت. ليست تقييمًا لمستواك ولا حكمًا تربويًا؛ ويُفضَّل أن يعتمدها معلّمك إن كان لك معلّم.')),list,msg)};
   app.replaceChildren(el('div',{class:'card'},el('h1',{},'خطتي'),el('p',{},'أجب عن أسئلة قليلة لنقترح عليك خطة بسيطة. لا نحفظ شيئًا إلا عند ضغطك «أضِف إلى حفظي».'),
     el('div',{class:'row'},field('هدفي',goal),field('الاتجاه',dir),field('السورة',sel)),
     el('div',{class:'row'},field('دقائق يوميًا',mins),field('أيام أسبوعيًا',days),field('آيات في المقطع',size)),
-    el('button',{on:{click:build}},'اقترح خطتي')),out);app.prepend(today);
+    el('details',{},el('summary',{},'تخصيص أكثر (اختياري)'),el('div',{class:'row'},field('عدد آيات أريد حفظها',tgtN),field('تاريخ مستهدف',tgtD),field('وقتي المفضّل',prefT),field('لي معلّم أو حلقة',teacher))),el('button',{on:{click:build}},'اقترح خطتي')),out);app.prepend(today);planToday(today).then(()=>{if(PLAN_ST)build()});
   build();
 }
 async function hifzTab(body){
