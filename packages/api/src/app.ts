@@ -1,12 +1,14 @@
+import { Buffer } from 'node:buffer';
 import Fastify, { type FastifyReply, type FastifyRequest } from 'fastify';
 import { z } from 'zod';
 import { readFileSync } from 'node:fs';
 import { withContext, type Executor, type TransactionalDb, type TxLike } from '@tartil/database';
+import { analyzeRecitation, normalizeAr, type RecitationAIProvider, type ExpectedWord } from './recitation.ts';
 import { hashPassword, verifyPassword, signToken, verifyToken, verifyTokenFull } from './auth.ts';
 
 /** `service` = privileged owner/service connection (registration, login, bootstrap, email lookup only).
  *  `app` = connection used ONLY through withContext() as the unprivileged app_user role. */
-export interface Deps { service: Executor & Pick<TransactionalDb, 'transaction'>; app: TransactionalDb; jwtSecret: string; webIndexPath?: string; rateLimit?: { auth: number; general: number }; ai?: { suggest(prompt: string): Promise<string>; name: string }; storage?: { signUpload(path: string): Promise<string>; signDownload(path: string): Promise<string> } }
+export interface Deps { service: Executor & Pick<TransactionalDb, 'transaction'>; app: TransactionalDb; jwtSecret: string; webIndexPath?: string; rateLimit?: { auth: number; general: number }; ai?: { suggest(prompt: string): Promise<string>; name: string }; storage?: { signUpload(path: string): Promise<string>; signDownload(path: string): Promise<string> }; recitation?: RecitationAIProvider }
 const uuid = z.string().uuid();
 const ROLES = ['tenant_admin', 'scholarly_reviewer', 'qari', 'student', 'guardian', 'safeguarding_officer'] as const;
 
@@ -20,7 +22,7 @@ function mapError(e: unknown): { status: number; code: string } {
   return { status: 500, code: 'internal_error' };
 }
 
-const BASMALA_SKELETON = 'بسماللهالرحمنالرحيم';
+const BASMALA_SKELETON = '\u0628\u0633\u0645\u0627\u0644\u0644\u0647\u0627\u0644\u0631\u062d\u0645\u0646\u0627\u0644\u0631\u062d\u064a\u0645';
 const skeleton = (t: string) => t.normalize('NFKD').replace(/[\u0671]/g, '\u0627').replace(/[^\u0621-\u063a\u0641-\u064a]/g, '');
 /** Display-only: drop the 4-word basmala some editions prepend to ayah 1 (not part of the ayah; surah 1 and 9 excluded). Never touches stored text. */
 export function stripBasmalaPrefix(text: string, surah: number): string {
@@ -293,6 +295,61 @@ export function buildApp(d: Deps) {
     if (r) return r;
   });
 
+
+  // ---- personal recitation (tasmi'): record -> speech-to-text -> word-level alignment against the stored text. Audio is processed transiently and NEVER stored. ----
+  const sniffAudio = (b: Uint8Array): string | null => {
+    const h = (i: number) => b[i] ?? 0;
+    if (h(0) === 0x1a && h(1) === 0x45 && h(2) === 0xdf && h(3) === 0xa3) return 'webm';
+    if (h(0) === 0x4f && h(1) === 0x67 && h(2) === 0x67 && h(3) === 0x53) return 'ogg';
+    if (h(0) === 0x52 && h(1) === 0x49 && h(2) === 0x46 && h(3) === 0x46 && h(8) === 0x57 && h(9) === 0x41) return 'wav';
+    if (h(4) === 0x66 && h(5) === 0x74 && h(6) === 0x79 && h(7) === 0x70) return 'm4a';
+    if ((h(0) === 0x49 && h(1) === 0x44 && h(2) === 0x33) || (h(0) === 0xff && (h(1) & 0xe0) === 0xe0)) return 'mp3';
+    return null;
+  };
+  app.get('/me/recitations/capabilities', async (req, reply) => {
+    try { authUser(req); } catch { return reply.code(401).send({ error: 'unauthenticated' }); }
+    return d.recitation ? { available: true, provider: d.recitation.name, capabilities: d.recitation.capabilities, maxSeconds: 240, sendsAudioToExternalProvider: true, storesAudio: false } : { available: false };
+  });
+  app.post('/me/recitations/analyze', { bodyLimit: 12 * 1024 * 1024 }, async (req, reply) => {
+    let userId: string; try { userId = authUser(req); } catch { return reply.code(401).send({ error: 'unauthenticated' }); }
+    const b = z.object({ surah: z.number().int().min(1).max(114), fromAyah: z.number().int().min(1), toAyah: z.number().int().min(1), mime: z.string().max(60), audioBase64: z.string().min(4).max(11_500_000), consentExternalProcessing: z.literal(true) })
+      .refine(x => x.toAyah >= x.fromAyah && x.toAyah - x.fromAyah < 40, { message: 'bad_range' }).parse(req.body);
+    if (!d.recitation) return reply.code(501).send({ error: 'recitation_ai_unavailable' });
+    const audio = new Uint8Array(Buffer.from(b.audioBase64, 'base64'));
+    if (audio.length < 4 || audio.length > 8 * 1024 * 1024) return reply.code(400).send({ error: 'bad_audio_size' });
+    const kind = sniffAudio(audio);
+    if (!kind) return reply.code(400).send({ error: 'unsupported_audio' });   // by content, not by the declared type or extension
+    const exp = await withContext(d.app, { userId }, async tx => {
+      const ed = await tx.query<{ code: string }>(`SELECT code FROM quran_editions ORDER BY code LIMIT 1`);
+      if (!ed.rows.length) return null;
+      const a = await tx.query<{ ayah: number; text: string }>(`SELECT ayah, text_raw AS text FROM quran_ayahs WHERE edition_code = $1 AND surah = $2 AND ayah BETWEEN $3 AND $4 ORDER BY ayah`, [ed.rows[0]!.code, b.surah, b.fromAyah, b.toAyah]);
+      return a.rows;
+    });
+    if (!exp || !exp.length || exp.length !== b.toAyah - b.fromAyah + 1) return reply.code(404).send({ error: 'passage_not_available' });
+    const expected: ExpectedWord[] = exp.flatMap(x => (x.ayah === 1 ? stripBasmalaPrefix(x.text, b.surah) : x.text).split(' ').map((w, index) => ({ ayah: x.ayah, index, text: w })).filter(w => normalizeAr(w.text) !== ''));
+    let t; try { t = await d.recitation.transcribe(audio, 'audio/' + kind); } catch (e) { console.error('stt_error', e instanceof Error ? e.message.slice(0, 120) : 'unknown'); return reply.code(502).send({ error: 'transcription_failed' }); }
+    if (t.durationSec > 245) return reply.code(400).send({ error: 'recording_too_long' });
+    const result = analyzeRecitation(expected, t, d.recitation.name);
+    const id = await withContext(d.app, { userId }, async tx => (await tx.query<{ id: string }>(
+      `INSERT INTO recitation_attempts (user_id, surah, from_ayah, to_ayah, status, provider, duration_ms, result) VALUES (app.current_user_id(), $1, $2, $3, $4, $5, $6, $7::jsonb) RETURNING id`,
+      [b.surah, b.fromAyah, b.toAyah, result.status, result.provider, Math.round(t.durationSec * 1000), JSON.stringify(result)])).rows[0]!.id);
+    return reply.code(201).send({ id, result });
+  });
+  app.get('/me/recitations', async (req, reply) => {
+    const r = await personal(req, reply, tx => tx.query(`SELECT id, surah, from_ayah AS "fromAyah", to_ayah AS "toAyah", status, duration_ms AS "durationMs", result->'summary' AS summary, created_at AS "createdAt" FROM recitation_attempts ORDER BY created_at DESC LIMIT 50`));
+    if (r) return { attempts: r.rows };
+  });
+  app.get('/me/recitations/:id', async (req, reply) => {
+    const id = uuid.parse((req.params as { id: string }).id);
+    const r = await personal(req, reply, tx => tx.query(`SELECT id, surah, from_ayah AS "fromAyah", to_ayah AS "toAyah", status, result, created_at AS "createdAt" FROM recitation_attempts WHERE id = $1`, [id]));
+    if (r) return r.rows[0] ?? reply.code(404).send({ error: 'not_found' });
+  });
+  app.delete('/me/recitations/:id', async (req, reply) => {
+    const id = uuid.parse((req.params as { id: string }).id);
+    const r = await personal(req, reply, tx => tx.query(`DELETE FROM recitation_attempts WHERE id = $1 RETURNING id`, [id]));
+    if (r) return r.rows.length ? { ok: true } : reply.code(404).send({ error: 'not_found' });
+  });
+
   // ---- scholarly review workspace: only active scholarly_reviewers; the DB trigger enforces legal transitions, approver identity and licence clearance ----
   app.get('/scholarly/items', async (req, reply) => {
     const q = z.object({ state: z.string().max(30).optional(), kind: z.string().max(30).optional() }).parse(req.query);
@@ -366,7 +423,7 @@ export function buildApp(d: Deps) {
     if (r) {   // display names come from the service path (name only, never email); the reviewer needs them to identify the holder
       const ids = [...new Set((r.rows as Array<{ userId: string }>).map(x => x.userId))];
       const names = new Map((ids.length ? (await d.service.query<{ id: string; display_name: string }>(`SELECT id, display_name FROM users WHERE id = ANY($1::uuid[])`, [ids])).rows : []).map(x => [x.id, x.display_name]));
-      return { entries: (r.rows as Array<{ userId: string }>).map(({ userId, ...x }) => ({ ...x, holder: names.get(userId) ?? '—' })) };
+      return { entries: (r.rows as Array<{ userId: string }>).map(({ userId, ...x }) => ({ ...x, holder: names.get(userId) ?? '\u2014' })) };
     }
   });
   app.post('/scholarly/sanad/:id/decide', async (req, reply) => {
@@ -501,7 +558,7 @@ export function buildApp(d: Deps) {
   // ---- people & upcoming sessions (what the caller may see is decided by RLS, not here) ----
   app.get('/i/:inst/people', async (req, reply) => {
     // Members (admin sees all, others only themselves) plus the people the caller is allowed to see through assignments/links. RLS filters every branch.
-    const r = await tenant(req, reply, tx => tx.query(`SELECT x.user_id AS "userId", x.role, coalesce(u.display_name, '—') AS "displayName" FROM (
+    const r = await tenant(req, reply, tx => tx.query(`SELECT x.user_id AS "userId", x.role, coalesce(u.display_name, '\u2014') AS "displayName" FROM (
         SELECT user_id, role::text AS role FROM memberships WHERE status = 'active'
         UNION SELECT user_id, 'student' FROM student_profiles
         UNION SELECT qari_user_id, 'qari' FROM qari_assignments WHERE active
@@ -520,7 +577,7 @@ export function buildApp(d: Deps) {
     if (r === null) return reply.code(403).send({ error: 'admin_only' });
     // display names come through the service path: RLS hides users whose membership is suspended, and an admin still has to see who they suspended
     const names = new Map((await d.service.query<{ id: string; display_name: string }>(`SELECT id, display_name FROM users WHERE id = ANY($1::uuid[])`, [[...new Set(r.rows.map(x => x.userId))]])).rows.map(x => [x.id, x.display_name]));
-    return { members: r.rows.map(x => ({ ...x, displayName: names.get(x.userId) ?? '—' })) };
+    return { members: r.rows.map(x => ({ ...x, displayName: names.get(x.userId) ?? '\u2014' })) };
   });
   app.post('/i/:inst/members/:mid/status', async (req, reply) => {
     const mid = uuid.parse((req.params as { mid: string }).mid);

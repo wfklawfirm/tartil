@@ -261,6 +261,13 @@ body{position:relative;min-height:100vh}
 .memo-text{font-size:26px;line-height:2.5;text-align:justify}.mw{display:inline}.mw.hid{display:inline-block;min-width:1.7em;padding:0 .3em;margin:0 2px;border:1px dashed var(--gold);border-radius:8px;background:var(--soft);color:var(--goldtx);font:inherit;font-size:.7em;line-height:1.7;cursor:pointer;vertical-align:middle}.mw.peek{background:color-mix(in srgb,var(--gold2) 35%,transparent);border-radius:6px}
 .modes{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 10px}.chipbtn{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:999px;padding:6px 14px;font:inherit;font-size:15px;cursor:pointer;min-height:40px}.chipbtn.on{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
 .heat{display:flex;gap:4px;direction:ltr;overflow-x:auto;padding-bottom:4px}.hcol{display:flex;flex-direction:column;gap:4px}.hc{display:block;width:14px;height:14px;border-radius:3px;background:var(--soft);border:1px solid var(--line)}.hc.on{background:var(--accent);border-color:var(--accent)}.hc.off{visibility:hidden}
+.tsum{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px}.tsum .feat{padding:12px}.tsum .feat b{font-size:22px}
+.tstext{font-size:26px;line-height:2.6}.tsayah{margin:0 0 6px}.tw{cursor:pointer;border-radius:6px;padding:0 2px}.tw:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+.tw.op-near{border-bottom:2px dotted var(--gold)}.tw.op-substituted{background:rgba(214,158,46,.28);text-decoration:underline wavy var(--warn);text-underline-offset:6px}.tw.op-omitted{outline:2px dashed var(--bad);outline-offset:1px;border-radius:6px}.tw.cur{background:color-mix(in srgb,var(--accent) 22%,transparent)}.tw.sel{box-shadow:0 0 0 2px var(--gold)}
+.tx{display:inline-block;font-family:var(--ui);font-size:13px;background:var(--soft);color:var(--goldtx);border:1px solid var(--gold2);border-radius:999px;padding:0 8px;margin:0 4px;vertical-align:middle}
+.tsnote{background:var(--soft);border-radius:10px;padding:10px 14px;margin-top:10px}.tslegend .tw{cursor:default}.tslegend{display:flex;gap:14px;flex-wrap:wrap;margin:8px 0}
+.tl2{position:relative;height:28px;flex:1;min-width:200px;background:var(--soft);border:1px solid var(--line);border-radius:8px;overflow:hidden}.tseg{position:absolute;top:4px;bottom:4px;border:0;padding:0;border-radius:3px;background:var(--accent);opacity:.55;cursor:pointer;min-width:4px}.tseg.op-substituted{background:var(--warn)}.tseg.op-near{background:var(--gold)}.tph{position:absolute;top:0;bottom:0;width:2px;background:var(--bad);pointer-events:none}
+.lvl{height:10px;min-width:90px;flex:1;background:var(--soft);border-radius:6px;overflow:hidden}.lvl i{display:block;height:100%;width:0;background:var(--accent)}.recrow{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:10px 0}.recbtn{min-height:48px}.chk{display:flex;gap:8px;align-items:flex-start;color:var(--ink);margin:8px 0}
 .galrow{display:flex;flex-wrap:wrap;gap:16px}.gal{margin:0;width:200px}.gal .gs{height:130px;border:1px solid var(--line);border-radius:10px;background-color:var(--card)}.galrow .heroart{width:240px;justify-self:auto}
 footer{max-width:none;margin:30px 0 0;padding:30px 16px calc(40px + env(safe-area-inset-bottom));text-align:start;background:linear-gradient(180deg,transparent,var(--soft));border-top:1px solid var(--gold2)}
 .fcols{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr 1.6fr;gap:26px;font-size:15px}.fcols>div{display:flex;flex-direction:column;gap:6px}.fcols b{color:var(--accent2);font-size:16px}:root[data-theme=dark] .fcols b{color:var(--ink)}.fcols a{text-decoration:none;min-height:32px;display:inline-flex;align-items:center}.fcols span{color:var(--mute);line-height:1.8}
@@ -281,7 +288,7 @@ const $=(s,r=document)=>r.querySelector(s);
 const el=(t,a={},...k)=>{const e=document.createElement(t);for(const[x,v]of Object.entries(a)){if(v===undefined||v===null||v===false)continue;if(x==='on')for(const[ev,f]of Object.entries(v))e.addEventListener(ev,f);else if(x==='class')e.className=v;else if(x==='value')e.value=v;else e.setAttribute(x,v===true?'':v)}for(const c of k.flat(2))e.append(c instanceof Node?c:document.createTextNode(c??''));return e};
 let token=null;try{token=sessionStorage.getItem('t')}catch{}
 const store={get(k,d){try{const v=localStorage.getItem(k);return v===null?d:JSON.parse(v)}catch{return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch{}}};
-const ERR={unauthenticated:'انتهت الجلسة، سجّل الدخول مجددًا',forbidden:'غير مسموح لك بهذا الإجراء',guardian_consent_required:'يلزم موافقة وليّ الأمر قبل التسجيل',already_exists:'موجود مسبقًا',invalid_credentials:'بيانات الدخول غير صحيحة',validation_failed:'بيانات غير صالحة، راجع الحقول',user_not_found:'لا يوجد حساب بهذا البريد — اطلب من الشخص أن يسجّل أولًا',not_found:'غير موجود',session_revoked:'أُنهيت هذه الجلسة، سجّل الدخول مجددًا',model_not_connected:'لم يُربط نموذج ذكاء اصطناعي بعد',model_failed:'تعذّر على النموذج الرد الآن، حاول لاحقًا',guardian_required:'يلزم وليّ أمر موثَّق قبل انضمام القاصر',session_not_open:'الجلسة غير مفتوحة الآن (تُفتح قبل الموعد بـ15 دقيقة)',track_not_complete:'لم يُكمل الطالب كل وحدات المسار',track_not_published:'المسار غير منشور',track_empty:'المسار بلا وحدات',rate_limited:'محاولات كثيرة، انتظر دقيقة',invalid_reference:'مرجع غير صالح (تأكد من اختيار الطالب/الحلقة)',edition_not_available:'نص القرآن غير متاح بعد',storage_not_configured:'تخزين الصوت غير مُعدّ',bad_request:'طلب غير صالح',service_unavailable:'الخدمة غير متاحة مؤقتًا، حاول بعد قليل'};
+const ERR={recitation_ai_unavailable:'خدمة تحليل التلاوة غير مُفعّلة على الخادم بعد',unsupported_audio:'صيغة الملف الصوتي غير مدعومة (المدعوم: WebM وOgg وWAV وMP3 وM4A)',bad_audio_size:'حجم الملف الصوتي غير مقبول (الحد ٨ ميغابايت)',transcription_failed:'تعذّر على مزوّد التحليل معالجة التسجيل الآن، حاول لاحقًا',recording_too_long:'التسجيل أطول من الحد (٤ دقائق)',passage_not_available:'المقطع المطلوب غير متاح في النص المعتمد',payload_too_large:'التسجيل كبير جدًا، قصّره',unauthenticated:'انتهت الجلسة، سجّل الدخول مجددًا',forbidden:'غير مسموح لك بهذا الإجراء',guardian_consent_required:'يلزم موافقة وليّ الأمر قبل التسجيل',already_exists:'موجود مسبقًا',invalid_credentials:'بيانات الدخول غير صحيحة',validation_failed:'بيانات غير صالحة، راجع الحقول',user_not_found:'لا يوجد حساب بهذا البريد — اطلب من الشخص أن يسجّل أولًا',not_found:'غير موجود',session_revoked:'أُنهيت هذه الجلسة، سجّل الدخول مجددًا',model_not_connected:'لم يُربط نموذج ذكاء اصطناعي بعد',model_failed:'تعذّر على النموذج الرد الآن، حاول لاحقًا',guardian_required:'يلزم وليّ أمر موثَّق قبل انضمام القاصر',session_not_open:'الجلسة غير مفتوحة الآن (تُفتح قبل الموعد بـ15 دقيقة)',track_not_complete:'لم يُكمل الطالب كل وحدات المسار',track_not_published:'المسار غير منشور',track_empty:'المسار بلا وحدات',rate_limited:'محاولات كثيرة، انتظر دقيقة',invalid_reference:'مرجع غير صالح (تأكد من اختيار الطالب/الحلقة)',edition_not_available:'نص القرآن غير متاح بعد',storage_not_configured:'تخزين الصوت غير مُعدّ',bad_request:'طلب غير صالح',service_unavailable:'الخدمة غير متاحة مؤقتًا، حاول بعد قليل'};
 const BASE=(document.querySelector('meta[name=api-base]')||{}).content||'';
 async function api(method,url,body){let r;try{r=await fetch(BASE+url,{method,headers:{'content-type':'application/json',...(token?{authorization:'Bearer '+token}:{})},body:body?JSON.stringify(body):undefined})}catch{throw Object.assign(new Error('تعذّر الاتصال بالخادم، تحقق من الشبكة'),{status:0})}
   let j={};try{j=await r.json()}catch{}
@@ -403,11 +410,11 @@ const ECO=[['book','اقرأ المصحف','114 سورة برواية حفص ع�
  ['wave','التجويد','أحكام النون والميم والمدود وغيرها، بأمثلة تُعرض من نص المصحف. (محتوى تمهيدي قيد المراجعة العلمية)','#/tajweed','افتح المكتبة'],
  ['mouth','مخارج الحروف وصفاتها','المخارج السبعة عشر والصفات ومستكشف للحروف. (قيد المراجعة العلمية)','#/tajweed/makharij','استكشف'],
  ['repeat','الحفظ والمراجعة','أضف ما تحفظه فتجدول المنصة مراجعته بتباعد تدريجي وتتابع أيامك وتقدّمك في كل سورة. (يتطلب حسابًا)','#/me/hifz','ابدأ الحفظ'],
- ['mic','التسميع والتصحيح','سجّل تلاوتك من المتصفح فيستمع إليها مقرئ معيّن لك ويكتب ملاحظاته. (داخل مؤسسة)','#/app','للمؤسسات'],
+ ['mic','التسميع والتصحيح','سجّل تلاوتك فتُحلَّل كلمةً كلمةً مقابل نص المصحف مع تظليل متزامن مع صوتك. (يتطلب حسابًا)','#/me/tasmi','جرّب التسميع'],
  ['scroll','القراءات والإسناد','تعريف بالقراءات العشر ورواتها، وسجلّ لتدوين سندك يوثّقه مراجع علمي بشري.','#/qiraat','تصفّح'],
  ['check','اختبر نفسك','اختبارات في التجويد والمخارج، واختبار «أكمل الآية» من نص المصحف. (تمهيدية قيد المراجعة)','#/me/quiz','ابدأ الاختبار'],
  ['arch','الحلقات والمسارات','مسارات من وحدات، وحلقات مباشرة بموعد وحضور، وشهادات إتمام قابلة للتحقق (وليست إجازات). تنشئ المؤسسة مسارها وتدير مقرئيها وطلابها من لوحة واحدة.','#/app','لوحة المؤسسة','wide']];
-const STAGES=[['تعلّم','مكتبة التجويد والمخارج','#/tajweed'],['تدرّب','اختبارات وحفظ بمراجعة متباعدة','#/me/quiz'],['سمّع','تسجيل التلاوة وإرسالها لمقرئ','#/app'],['تقيّم','ملاحظات المقرئ ومستوى كل ملاحظة','#/app'],['أتقن','خريطة الإتقان لسور المصحف','#/me/map']];
+const STAGES=[['تعلّم','مكتبة التجويد والمخارج','#/tajweed'],['تدرّب','اختبارات وحفظ بمراجعة متباعدة','#/me/quiz'],['سمّع','سجّل تلاوتك وراجع الكلمات التي لم تُسمع','#/me/tasmi'],['تقيّم','ملاحظات المقرئ ومستوى كل ملاحظة','#/app'],['أتقن','خريطة الإتقان لسور المصحف','#/me/map']];
 function contBlock(){const l=store.get('last',null),act=(h,t,sub)=>el('a',{class:'act',href:h},el('b',{},t),el('span',{class:'small'},sub));
   const items=token?[l&&l.s?act('#/quran/'+l.s+'/'+(l.a||1),'أكمل القراءة',surahName(l.s)+' — الآية '+ar(l.a||1)+' (آخر موضع على هذا الجهاز)'):act('#/quran','ابدأ القراءة','المصحف كاملًا'),act('#/me/hifz','راجع محفوظك','مراجعاتك المستحقة وتقدّمك'),act('#/me','رحلتي','اليوم، الحفظ، الاختبارات، الخريطة'),act('#/app','لوحتي','المؤسسات والحلقات والجلسات القادمة')]
     :[act('#/auth','ابدأ التعلّم','أنشئ حسابًا مجانيًا لتُحفظ رحلتك'),act('#/tajweed','اكتشف المسارات','مكتبة التجويد والمخارج'),act('#/quran'+(l&&l.s?'/'+l.s+'/'+(l.a||1):''),l&&l.s?'أكمل من حيث توقفت':'تصفّح المصحف',l&&l.s?surahName(l.s)+' — الآية '+ar(l.a||1):'114 سورة')];
@@ -1001,10 +1008,10 @@ function streakOf(days){const s=new Set(days);let n=0,d=new Date();if(!s.has(tod
 const dueText=m=>m<60?'بعد '+ar(m)+' دقائق':m<1440?'بعد '+ar(Math.round(m/60))+' ساعات':'بعد '+ar(Math.round(m/1440))+' يومًا';
 async function meView(app,parts){
   if(!token){location.hash='#/auth';return}
-  const T=[['today','اليوم'],['hifz','حفظي'],['quiz','اختبر نفسك'],['map','خريطة الإتقان'],['sanad','سندي']],cur=T.some(t=>t[0]===parts[1])?parts[1]:'today';
+  const T=[['today','اليوم'],['tasmi','تسميع'],['hifz','حفظي'],['quiz','اختبر نفسك'],['map','خريطة الإتقان'],['sanad','سندي']],cur=T.some(t=>t[0]===parts[1])?parts[1]:'today';
   const body=el('div');
   app.replaceChildren(el('h1',{style:'margin:0 0 10px'},'رحلتي'),el('div',{class:'tabs'},T.map(([k,t])=>el('a',{href:'#/me/'+k,class:k===cur?'on':''},t))),body);
-  if(cur==='today')await todayTab(body);else if(cur==='hifz')await hifzTab(body);else if(cur==='quiz')quizTab(body,parts[2]);else if(cur==='sanad')await sanadTab(body);else await mapTab(body)}
+  if(cur==='today')await todayTab(body);else if(cur==='tasmi')await tasmiTab(body);else if(cur==='hifz')await hifzTab(body);else if(cur==='quiz')quizTab(body,parts[2]);else if(cur==='sanad')await sanadTab(body);else await mapTab(body)}
 /* ---------- memorisation trainer: hides real words visually (the text itself is never altered); tap a hidden word to peek ---------- */
 const FIRSTLETTER=/^[؀-ۿ][ً-ٰٟۖ-ۭ]*/;
 function memoTrainer(ayat,mode0){
@@ -1028,6 +1035,90 @@ const heatmap=days=>{const s=new Set(days),W=17,cells=[],t=new Date();t.setHours
   for(let c=0;c<W;c++){const col=el('div',{class:'hcol'});for(let r=0;r<7;r++){const d=new Date(start);d.setDate(start.getDate()+c*7+r);if(d>t){col.append(el('i',{class:'hc off'}));continue}
     const k=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'),on=s.has(k);if(on)n++;col.append(el('i',{class:'hc'+(on?' on':''),title:k}))}cells.push(col)}
   return el('div',{class:'heat',role:'img','aria-label':'نشاطك في آخر '+ar(W)+' أسبوعًا: '+ar(n)+' يومًا نشِطًا'},...cells)};
+/* ---------- tasmi': record or upload -> transcript -> word alignment against the stored text -> synchronised review ---------- */
+const TS_MAX=240,mmss=s=>ar(String(Math.floor(s/60)).padStart(2,'0'))+':'+ar(String(Math.floor(s%60)).padStart(2,'0'));
+const tasmiMime=()=>(window.MediaRecorder&&['audio/webm;codecs=opus','audio/webm','audio/mp4','audio/ogg;codecs=opus'].find(m=>MediaRecorder.isTypeSupported(m)))||'';
+const toB64=async blob=>{const u=new Uint8Array(await blob.arrayBuffer());let s='';for(let i=0;i<u.length;i+=0x8000)s+=String.fromCharCode.apply(null,u.subarray(i,i+0x8000));return btoa(s)};
+const OPNOTE={omitted:w=>'لم تُسمع هذه الكلمة في التسجيل. استمع إلى هذا الموضع ثم أعد المحاولة.',substituted:w=>'سُمعت «'+w.heard+'» بدل هذه الكلمة. قد يكون ذلك اختلافًا في الحفظ أو في تعرّف النظام على الصوت؛ استمع ثم أعد المحاولة.',near:w=>'سُمعت قريبةً من الكلمة المتوقعة («'+w.heard+'»). لا يُعدّ هذا خطأً مؤكَّدًا.',match:w=>'كلمة مطابقة لما سُمع.'};
+async function showResult(box,res,rec,audio){
+  const d=await surahData(rec.surah),ays=d.ayat.filter(a=>a.ayah>=rec.from&&a.ayah<=rec.to),S=res.summary;
+  box.replaceChildren();
+  if(res.status!=='analyzed'){box.append(el('div',{class:'msg warn'},res.note),el('p',{class:'small'},'لم تُحفظ أي ملاحظات أخطاء لأن الأدلة غير كافية. (المسموع: «'+(res.transcript||'—')+'»)'));return}
+  const note1=el('div',{class:'tsnote',role:'status','aria-live':'polite'},'اضغط أي كلمة لقراءة الملاحظة'+(audio?' والانتقال إلى موضعها في التسجيل.':'.'));
+  const ex=new Map();res.extras.forEach(x=>{const k=x.afterAyah+':'+x.afterIndex;(ex.get(k)||ex.set(k,[]).get(k)).push(x)});
+  const by=new Map(res.words.map(w=>[w.ayah+':'+w.index,w])),timed=[];
+  const pick=(w,node)=>{box.querySelectorAll('.tw.sel').forEach(x=>x.classList.remove('sel'));node.classList.add('sel');note1.textContent=OPNOTE[w.op](w);if(audio&&w.start!=null){audio.currentTime=Math.max(0,w.start-.05);audio.play().catch(()=>{})}};
+  const text=el('div',{class:'tstext ayah'},ays.map(a=>el('p',{class:'tsayah'},a.text.split(' ').map((tok,i)=>{const w=by.get(a.ayah+':'+i);if(!w)return el('span',{},tok+' ');
+    const n=el('span',{class:'tw op-'+w.op,role:'button',tabindex:'0','aria-label':tok+' — '+({match:'مطابقة',near:'قريبة',substituted:'مستبدلة',omitted:'لم تُسمع'})[w.op],on:{click:()=>pick(w,n),keydown:e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();pick(w,n)}}}},tok);
+    if(w.start!=null)timed.push({n,s:w.start,e:w.end});
+    const xs=(ex.get(a.ayah+':'+i)||[]).map(x=>el('span',{class:'tx',title:'كلمة زائدة سُمعت'},'+ '+x.heard));
+    return el('span',{},n,...xs,' ')}),ayahMarker(a.ayah))));
+  const dur=Math.max(res.durationSec,.1),tl=el('div',{class:'tl2',role:'group','aria-label':'خط زمني للتسجيل'});
+  timed.forEach(t=>tl.append(el('button',{type:'button',class:'tseg '+(t.n.className.match(/op-\w+/)||[''])[0],style:'inset-inline-start:'+(100*t.s/dur)+'%;width:'+Math.max(.8,100*(t.e-t.s)/dur)+'%','aria-label':'انتقل إلى '+t.n.textContent,on:{click:()=>{if(audio){audio.currentTime=t.s;audio.play().catch(()=>{})}t.n.click()}}})));
+  const ph=el('i',{class:'tph'});tl.append(ph);
+  let raf=0,last=null;const loop=()=>{const c=audio.currentTime;ph.style.insetInlineStart=(100*c/dur)+'%';let cur=null;for(const t of timed)if(c>=t.s&&c<=t.e+.15){cur=t;break}
+    if(cur!==last){last&&last.n.classList.remove('cur');cur&&cur.n.classList.add('cur');last=cur}raf=requestAnimationFrame(loop)};
+  if(audio){audio.onplay=()=>{cancelAnimationFrame(raf);loop()};audio.onpause=audio.onended=()=>cancelAnimationFrame(raf);audio.onseeked=()=>{cancelAnimationFrame(raf);if(!audio.paused)loop();else{const c=audio.currentTime;ph.style.insetInlineStart=(100*c/dur)+'%'}}}
+  const rate=audio?el('select',{'aria-label':'سرعة التشغيل',on:{change:e=>{audio.playbackRate=+e.target.value}}},[.75,1,1.25].map(v=>el('option',{value:v,...(v===1?{selected:true}:{})},ar(v)+'×'))):null;
+  box.append(el('div',{class:'tsum'},
+      el('div',{class:'feat'},el('b',{},ar(S.matched+S.near)+' من '+ar(S.expectedWords)),el('span',{class:'small'},'كلمات مطابقة أو قريبة')),
+      el('div',{class:'feat'},el('b',{},ar(S.omitted)),el('span',{class:'small'},'كلمات لم تُسمع')),
+      el('div',{class:'feat'},el('b',{},ar(S.substituted)),el('span',{class:'small'},'كلمات مختلفة')),
+      el('div',{class:'feat'},el('b',{},ar(S.extra)),el('span',{class:'small'},'كلمات زائدة'))),
+    el('div',{class:'msg warn',style:'margin:10px 0'},res.note),
+    el('p',{class:'small'},'غير مقيَّم: النطق وأحكام التجويد (لا يوجد نموذج صوتي مُثبَت الدقة). لا توجد درجة إجمالية. مراجعة المعلم: لم تُرسل بعد.'),
+    audio?el('div',{class:'row',style:'align-items:center'},tl,rate):null,
+    el('div',{class:'tslegend small'},el('span',{class:'tw op-near'},'قريبة'),el('span',{class:'tw op-substituted'},'مختلفة'),el('span',{class:'tw op-omitted'},'لم تُسمع'),el('span',{class:'tx'},'+ زائدة')),
+    text,note1);
+}
+async function tasmiTab(body){
+  await quranMeta();const cnt=n=>(REF.find(x=>x.surah===n)||{}).ayahCount||7;
+  let cap=null;try{cap=await api('GET','/me/recitations/capabilities')}catch{}
+  const msg=el('div'),res=el('div'),hist=el('div'),sel=surahSelect(1),f=el('input',{type:'number',min:1,value:1}),t=el('input',{type:'number',min:1,value:4}),
+    consent=el('input',{type:'checkbox',id:'tsc'}),meter=el('div',{class:'lvl'},el('i')),clock=el('span',{class:'mono'},mmss(0)),audio=el('audio',{controls:'',style:'width:100%;display:none;margin:8px 0'}),
+    hide=el('input',{type:'checkbox',id:'tsh',checked:true});
+  let blob=null,mr=null,stream=null,timer=0,raf=0,ac=null,showText=false;
+  const sync=()=>{const c=cnt(Number(sel.value));t.max=f.max=c;if(+t.value>c)t.value=c;if(+f.value>c)f.value=1};sel.addEventListener('change',()=>{f.value=1;t.value=Math.min(4,cnt(+sel.value));sync()});sync();
+  const rec=el('button',{type:'button',class:'recbtn',on:{click:()=>start()}},'🎙 ابدأ التسجيل'),stop=el('button',{type:'button',class:'ghost',disabled:true,on:{click:()=>{if(mr&&mr.state==='recording')mr.stop()}}},'إيقاف'),
+    go=el('button',{type:'button',class:'gold',disabled:true,on:{click:()=>analyze()}},'حلّل التسجيل'),
+    file=el('input',{type:'file',accept:'audio/*','aria-label':'رفع تسجيل صوتي',on:{change:e=>{const x=e.target.files[0];if(!x)return;if(x.size>8*1024*1024){note(msg,'الملف أكبر من ٨ ميغابايت.','warn');return}setBlob(x)}}});
+  const setBlob=b=>{blob=b;audio.src=URL.createObjectURL(b);audio.style.display='block';go.disabled=false;res.replaceChildren();note(msg,'التسجيل جاهز. استمع إليه ثم اضغط «حلّل التسجيل».','ok')};
+  const toggle=on=>{rec.disabled=on;stop.disabled=!on;if(!on){meter.firstChild.style.width='0'}};
+  const start=async()=>{
+    if(!consent.checked){note(msg,'وافق أولًا على إرسال الصوت إلى مزوّد التحليل.','warn');return}
+    if(!window.MediaRecorder||!navigator.mediaDevices){note(msg,'متصفحك لا يدعم التسجيل المباشر. ارفع ملفًا صوتيًا بدلًا من ذلك.','warn');return}
+    try{stream=await navigator.mediaDevices.getUserMedia({audio:true})}catch{note(msg,'تعذّر الوصول إلى الميكروفون. اسمح للمتصفح باستخدامه.','err');return}
+    const mt=tasmiMime(),ch=[];mr=new MediaRecorder(stream,mt?{mimeType:mt}:undefined);
+    mr.ondataavailable=e=>{if(e.data.size)ch.push(e.data)};
+    mr.onstop=()=>{clearInterval(timer);cancelAnimationFrame(raf);stream.getTracks().forEach(x=>x.stop());try{ac&&ac.close()}catch{}toggle(false);setBlob(new Blob(ch,{type:mr.mimeType||mt||'audio/webm'}))};
+    try{const AC=window.AudioContext||window.webkitAudioContext;ac=new AC();const an=ac.createAnalyser();an.fftSize=512;ac.createMediaStreamSource(stream).connect(an);const buf=new Uint8Array(an.fftSize);
+      const tick=()=>{an.getByteTimeDomainData(buf);let m=0;for(const v of buf)m=Math.max(m,Math.abs(v-128));meter.firstChild.style.width=Math.min(100,m*1.6)+'%';raf=requestAnimationFrame(tick)};tick()}catch{}
+    const t0=Date.now();timer=setInterval(()=>{const s=(Date.now()-t0)/1000;clock.textContent=mmss(s);if(s>=TS_MAX)stop.click()},250);
+    mr.start();toggle(true);go.disabled=true;note(msg,'🔴 جارٍ التسجيل… اضغط «إيقاف» عند الانتهاء (الحد ٤ دقائق).')};
+  const analyze=()=>run(msg,async()=>{
+    if(!blob)throw new Error('سجّل أو ارفع تسجيلًا أولًا');if(!consent.checked)throw new Error('وافق أولًا على إرسال الصوت إلى مزوّد التحليل');
+    const r0={surah:+sel.value,from:+f.value,to:+t.value};if(r0.to<r0.from)throw new Error('نطاق الآيات غير صحيح');
+    go.disabled=true;note(msg,'⏳ جارٍ إرسال التسجيل وتحليله… قد يستغرق ذلك نصف دقيقة.');res.replaceChildren();
+    try{const r=await api('POST','/me/recitations/analyze',{surah:r0.surah,fromAyah:r0.from,toAyah:r0.to,mime:blob.type||'audio/webm',audioBase64:await toB64(blob),consentExternalProcessing:true});
+      msg.replaceChildren();await showResult(res,r.result,r0,audio);loadHist()}finally{go.disabled=false}});
+  const loadHist=()=>run(hist,async()=>{const r=await api('GET','/me/recitations');
+    if(!r.attempts.length){hist.replaceChildren(empty('لا محاولات محفوظة بعد.'));return}
+    const rows=r.attempts.map(a=>{const S=a.summary||{};const ok=a.status==='analyzed';return[fmt(a.createdAt),surahName(a.surah)+' '+ar(a.fromAyah)+'–'+ar(a.toAyah),ok?ar(S.matched+S.near)+' من '+ar(S.expectedWords):'أدلة غير كافية',
+      el('span',{},el('button',{class:'ghost sm',on:{click:()=>run(msg,async()=>{const x=await api('GET','/me/recitations/'+a.id);res.replaceChildren();await showResult(res,x.result,{surah:x.surah,from:x.fromAyah,to:x.toAyah},null);res.prepend(el('p',{class:'small'},'محاولة محفوظة: التسجيل الصوتي لا يُحفظ، لذلك لا يتوفر التشغيل المتزامن.'));res.scrollIntoView({behavior:'smooth'})})}},'عرض'),' ',
+        el('button',{class:'ghost sm',on:{click:()=>run(msg,async()=>{if(!confirm('حذف هذه المحاولة؟'))return;await api('DELETE','/me/recitations/'+a.id);loadHist()})}},'حذف'))]});
+    const same=r.attempts.filter(a=>a.status==='analyzed'&&a.surah===+sel.value&&a.fromAyah===+f.value&&a.toAyah===+t.value).slice(0,6).reverse().map(a=>ar(a.summary.matched+a.summary.near)+'/'+ar(a.summary.expectedWords));
+    hist.replaceChildren(...[table(['التاريخ','المقطع','مطابقة',''],rows),same.length>1?el('p',{class:'small'},'تطوّرك في هذا المقطع بين المحاولات: '+same.join(' ← ')):null].filter(Boolean))});
+  const unavailable=!cap||!cap.available;
+  body.append(el('div',{class:'card'},el('h2',{},'تسميع بتحليل آلي'),
+      el('p',{class:'small'},'اختر المقطع وسجّل تلاوتك أو ارفع ملفًا. يُحوَّل الصوت إلى نص ثم يُقارَن كلمةً كلمةً بنص المصحف المعتمد، فتظهر الكلمات التي لم تُسمع أو اختلفت أو زادت، ويمكنك الاستماع إلى كل موضع. هذه ملاحظات آلية محتملة لا حكم شرعي ولا تقييم، ولا يُقيَّم النطق ولا التجويد آليًا.'),
+      unavailable?el('div',{class:'msg warn'},'خدمة التحليل غير مفعّلة على الخادم الآن؛ يمكنك التسجيل والاستماع فقط.'):null,
+      el('div',{class:'row'},field('السورة',sel),field('من الآية',f),field('إلى الآية',t)),
+      el('label',{class:'chk',for:'tsc'},consent,' أوافق على إرسال تسجيلي الصوتي إلى مزوّد خارجي ('+(cap&&cap.provider?cap.provider:'غير محدد')+') لتحويله إلى نص. لا يُحفظ الصوت عندنا؛ يُحفظ التحليل فقط ويمكنك حذفه.'),
+      el('div',{class:'recrow'},rec,stop,clock,meter),el('p',{class:'small'},'أو ارفع ملفًا (WebM أو Ogg أو WAV أو MP3 أو M4A، حتى ٨ ميغابايت): '),file,audio,go,msg),
+    el('div',{class:'card'},el('h3',{},'نتيجة التحليل'),el('p',{class:'small'},'التلاوة المرجعية لقارئ معتمد غير متاحة بعد (ترخيص الصوت قرار المالك)؛ لذا لا مقارنة صوتية بين تسجيلك وتلاوة مرجعية.'),res),
+    el('div',{class:'card'},el('h3',{},'محاولاتي'),hist));
+  loadHist();
+}
 async function todayTab(body){
   const [due,mast]=await Promise.all([api('GET','/me/hifz/due'),api('GET','/me/mastery')]),st=streakOf(mast.activeDays);
   body.append(el('div',{class:'grid'},

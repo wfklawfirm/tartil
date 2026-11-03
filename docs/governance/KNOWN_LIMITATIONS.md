@@ -51,3 +51,9 @@
 
 ## 36. Tartil 2.0 pass (2026-11-03)
 Homepage, light default, pattern engine and gallery done. Still absent: juz/hizb/page navigation, Meccan/Medinan, word meanings, parent workspace, tajweed tooltips on the Highlight path, browser E2E for journeys A-G, WebKit verification. Originals of the 19 units / 105 competencies are not in the repository. See docs/11_FINAL_RELEASE_READINESS.md.
+
+## 37. Personal recitation (tasmi') slice (2026-11-03)
+Built: migration 0013 (applied live), `recitation.ts` (word-level alignment), API `/me/recitations/*`, UI `#/me/tasmi`, 9 tests. Deployed as edge function v21.
+- LIVE BLOCKER (observed): the OpenAI speech-to-text call from the live function returns HTTP 429 (quota / billing / rate limit on the configured key). Capabilities endpoint reports available, but a real analysis has NOT succeeded end-to-end live. The owner must check the OpenAI account (billing/quota) or supply another STT provider key.
+- Live smoke found and fixed a real defect the local tests could not catch: `Buffer` is not a global in the Supabase edge runtime (explicit `node:buffer` import added).
+- Pronunciation and tajweed are NOT assessed; no calibrated confidence; no teacher-review UI for attempts yet; Whisper accuracy on tajweed recitation unmeasured; real microphone/Safari not exercised.

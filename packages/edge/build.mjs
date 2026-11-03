@@ -13,6 +13,7 @@ cut(/  app\.addHook\('onError', async \(\) => \{\}\);\n/, 'onError hook');
 cut(/  if \(d\.webIndexPath\) \{[\s\S]*?\n  \}\n/, 'web block');
 writeFileSync(new URL('app.ts', out), appSrc);
 writeFileSync(new URL('auth.ts', out), read('api/src/auth.ts'));
+writeFileSync(new URL('recitation.ts', out), read('api/src/recitation.ts'));
 writeFileSync(new URL('pg.ts', out), read('api/src/pg.ts'));
 writeFileSync(new URL('database.ts', out), read('database/src/context.ts') + `\nexport interface Executor {\n  exec(sql: string): Promise<unknown>;\n  query<T = Record<string, unknown>>(sql: string, params?: unknown[]): Promise<{ rows: T[] }>;\n}\n`);
 writeFileSync(new URL('deno.json', out), JSON.stringify({ imports: { fastify: 'npm:fastify@5.2.1', zod: 'npm:zod@3.25.76', pg: 'npm:pg@8.13.1', '@tartil/database': './database.ts' } }, null, 2));
@@ -55,6 +56,20 @@ const ai = oaKey ? {
     return String(t);
   },
 } : undefined;
+const recitation = oaKey ? {
+  name: 'openai:whisper-1',
+  capabilities: { transcribe: true, wordTimestamps: true, verseIdentification: false, memorisationAccuracy: true, pronunciation: false as const, tajweed: false as const, calibratedConfidence: false as const },
+  async transcribe(audio: Uint8Array, mime: string) {
+    const ext = mime.replace('audio/', '') || 'webm';
+    const fd = new FormData();
+    fd.append('file', new Blob([audio], { type: mime }), 'recitation.' + ext);
+    fd.append('model', 'whisper-1'); fd.append('language', 'ar'); fd.append('response_format', 'verbose_json'); fd.append('timestamp_granularities[]', 'word');
+    const r = await fetch('https://api.openai.com/v1/audio/transcriptions', { method: 'POST', headers: { authorization: 'Bearer ' + oaKey }, body: fd, signal: AbortSignal.timeout(100000) });
+    if (!r.ok) throw new Error('stt_failed_' + r.status);
+    const j = await r.json();
+    return { text: String(j.text ?? ''), durationSec: Number(j.duration ?? 0), words: (j.words ?? []).map((w: { word: unknown; start: unknown; end: unknown }) => ({ word: String(w.word), start: Number(w.start), end: Number(w.end) })) };
+  },
+} : undefined;
 const j = (status: number, body: unknown) => new Response(JSON.stringify(body), { status, headers: { 'content-type': 'application/json' } });
 let appPromise: Promise<ReturnType<typeof buildApp>> | null = null;
 function getApp() {
@@ -62,7 +77,7 @@ function getApp() {
     if (!dbUrl || !root) throw new Error('missing runtime configuration');
     const db = pgDb(new pg.Pool({ connectionString: dbUrl, max: 3 }));
     await assertSafeRoles(db);                       // refuses to serve if the app path could bypass RLS
-    const app = buildApp({ service: db, app: db, storage, ai, jwtSecret: createHash('sha256').update('tartil-jwt-v1:' + root).digest('hex') });
+    const app = buildApp({ service: db, app: db, storage, ai, recitation, jwtSecret: createHash('sha256').update('tartil-jwt-v1:' + root).digest('hex') });
     await app.ready();
     return app;
   })().catch(e => { appPromise = null; throw e; });
