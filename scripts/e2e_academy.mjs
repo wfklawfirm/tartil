@@ -75,6 +75,9 @@ try {
     await page.waitForSelector(waitSel || '#app .acx', { timeout: 8000 });
     await page.waitForTimeout(30);
   };
+  // عبارات داخلية ومعرّفات خام يجب ألا تظهر للمتعلم (F-04/F-05)
+  const INTERNAL = /SPR-|D11|BLUEPRINT|CLAUDE\.md|المالك(?![\u0621-\u064A])|ترخيص الصوت|اعتماد الإدارة العلمية|\b[A-Z]\d{1,2}-[LS]\d{1,2}\b|\bP\d\d\b/;
+  const internalHit = (id, t) => { const m = INTERNAL.exec(t); if (m) fail(id, `عبارة/معرّف داخلي ظاهر «${m[0]}» … ${t.slice(Math.max(0, m.index - 30), m.index + 30).replace(/\s+/g, ' ')}`); };
   const noErrs = id => { if (pageErrors.length) fail(id, 'أخطاء JS: ' + pageErrors.join(' | ')); };
 
   // (1) home
@@ -93,6 +96,7 @@ try {
       const t = await page.locator('#app').innerText();
       if (!t.includes('رحلتك خطوة خطوة')) fail(id, 'لا يحتوي «رحلتك خطوة خطوة»');
       noErrs(id); await scanText(id); await hOverflow(id);
+      internalHit(id, await page.locator('#app').evaluate(e => e.textContent));
     } catch (e) { fail(id, e.message.split('\n')[0]); }
   }
 
@@ -103,21 +107,22 @@ try {
       await go('/academy/l/' + l, '.acx h1');
       // الخطوات كلها داخل الصفحة: نص كل خطوة + أكبر تجاوز أفقي
       const r = await page.evaluate(async () => {
-        const texts = [], over = [];
-        const snap = () => { texts.push(document.querySelector('#app').innerText);
+        const texts = [], over = [], raw = [];
+        const snap = () => { texts.push(document.querySelector('#app').innerText); raw.push(document.querySelector('#app').textContent);
           over.push(document.documentElement.scrollWidth - document.documentElement.clientWidth); };
         snap();
         for (let i = 0; i < 40; i++) {
           const nx = [...document.querySelectorAll('.nav2 button')].find(b => b.textContent.trim() === 'التالي');
           if (!nx) break; nx.click(); snap();
         }
-        return { texts, over };
+        return { texts, over, raw };
       });
       r.texts.forEach((t0, i) => {
         const t = t0.replace(ALLOWED, '');
         for (const w of BANNED) if (hit(t, w) >= 0) { const k = hit(t, w);
           fail(`${id}#${i}`, `كلمة محظورة «${w}» … ${t.slice(Math.max(0, k - 25), k + 25).replace(/\s+/g, ' ')}`); }
       });
+      r.raw.forEach((t, i) => internalHit(`${id}#${i}`, t));
       const mo = Math.max(...r.over); if (mo > 0) fail(id, `تمرير أفقي بمقدار ${mo}px عند 390`);
       if (!r.texts[r.texts.length - 1].includes('ختام الدرس')) fail(id, 'لم يصل إلى «ختام الدرس»');
       noErrs(id);
@@ -170,6 +175,157 @@ try {
     await stuCtx.close();
     const t2 = (await (async () => { await go('/academy/p/' + adultProg.slug, '.acx h1'); return page.locator('#app').innerText(); })());
     if (t2.includes('مخصّص للبالغين') && !t2.includes('رحلتك')) fail('gate/adult-account', 'حساب بالغ حُجب');
+  }
+
+  // (6) إصلاحات F-01..F-12 (ما لا يحتاج قرار المالك)
+  {
+    // 6a) وضع المرشد مفعّل: لوحة المرشد وأدلة البرامج لا تُظهر معرّفات/عبارات داخلية
+    await page.evaluate(() => { try { localStorage.setItem('acx_guide', 'true'); } catch {} });
+    for (const l of lessonIds) {
+      const id = 'guide-lesson/' + l;
+      try {
+        await go('/academy/l/' + l, '.acx h1');
+        const raws = await page.evaluate(() => { const o = [document.querySelector('#app').textContent];
+          for (let i = 0; i < 40; i++) { const nx = [...document.querySelectorAll('.nav2 button')].find(b => b.textContent.trim() === 'التالي'); if (!nx) break; nx.click(); o.push(document.querySelector('#app').textContent); } return o; });
+        raws.forEach((t, i) => internalHit(`${id}#${i}`, t));
+      } catch (e) { fail(id, e.message.split('\n')[0]); }
+    }
+    await page.evaluate(() => { try { localStorage.removeItem('acx_guide'); } catch {} });
+
+    // 6b) F-05: الشرط المسبق يظهر بعنوان البرنامج مع رابط لا بمعرّفه
+    {
+      const progs = JSON.parse(fs.readFileSync(path.join(ROOT, 'academy-programs.json'), 'utf8')).programs;
+      const p = progs.find(x => (x.prerequisites || []).some(t => /P\d\d/.test(t)));
+      const pre = progs.find(x => x.id === p.prerequisites[0].match(/P\d\d/)[0]);
+      await go('/academy/p/' + p.slug, '.acx h1');
+      const t = await page.locator('#app').innerText();
+      if (!t.includes('يُفضَّل قبلها: ' + pre.title)) fail('F-05/prereq', 'الشرط المسبق لا يظهر بعنوان البرنامج: ' + pre.title);
+      if (!(await page.locator(`#app a[href="#/academy/p/${pre.slug}"]`).count())) fail('F-05/prereq-link', 'لا رابط للبرنامج المسبق');
+    }
+    // 6c) F-04: برنامج مؤجّل لا يعرض سبب التأجيل الداخلي
+    {
+      const progs = JSON.parse(fs.readFileSync(path.join(ROOT, 'academy-programs.json'), 'utf8')).programs;
+      for (const p of progs.filter(x => x.status === 'adults_gated')) {
+        await go('/academy/p/' + p.slug, '.acx h1');
+        const t = await page.locator('#app').evaluate(e => e.textContent);
+        if (/D11|BLUEPRINT/.test(t)) fail('F-04/gated/' + p.id, 'سبب التأجيل الداخلي ظاهر');
+      }
+    }
+    // 6d) F-07: لوحة المراجعة محجوبة لغير المراجع ورابطها مخفي؛ ومتاحة للمراجع
+    {
+      await go('/academy', '.pcard');
+      if (await page.locator('#app a[href="#/academy/review"]').count()) fail('F-07/link', 'رابط بوابة المراجعين ظاهر لغير المراجع');
+      for (const h of ['/academy/review', '/academy/review/K1', '/academy/K1']) {
+        await go(h, '#app .acx');
+        const t = await page.locator('#app').innerText();
+        if (!t.includes('للمراجعين العلميين المعتمدين فقط')) fail('F-07/gate' + h, 'لا رسالة حجب');
+        if (t.includes('المراسي المصدرية') || t.includes('سجل مصدر')) fail('F-07/leak' + h, 'محتوى المراجعة ظاهر لغير المراجع');
+      }
+      const rvCtx = await browser.newContext({ viewport: { width: 390, height: 800 }, locale: 'ar' });
+      await rvCtx.addInitScript(() => { try { sessionStorage.setItem('t', 'e2e-token'); } catch {} });
+      await rvCtx.route('**/api/**', r => r.fulfill({ status: 200, contentType: 'application/json',
+        body: JSON.stringify({ id: 'u3', displayName: 'مراجع', roles: [], memberships: [{ institutionId: 'i1', role: 'scholarly_reviewer' }] }) }));
+      const rp = await rvCtx.newPage();
+      await rp.goto(`${BASE}/index.html#/academy/review`); await rp.waitForSelector('#app .acx', { timeout: 8000 }); await rp.waitForTimeout(300);
+      const rt = await rp.locator('#app').innerText();
+      if (rt.includes('للمراجعين العلميين المعتمدين فقط') || !rt.includes('لوحة المراجعة')) fail('F-07/reviewer', 'المراجع لا يصل إلى اللوحة');
+      await rp.goto(`${BASE}/index.html#/academy`); await rp.waitForSelector('.pcard', { timeout: 8000 });
+      if (!(await rp.locator('#app a[href="#/academy/review"]').count())) fail('F-07/reviewer-link', 'رابط البوابة غير ظاهر للمراجع');
+      await rvCtx.close();
+    }
+    // 6e) F-08: زر «أنهيتُ» مخفي حتى النهاية، ثم يعيد إلى الكفاية
+    {
+      const sid = scenarioIds[0];
+      await go('/academy/s/' + sid, '.acx h3');
+      if (await page.locator('#sc-fin').isVisible()) fail('F-08/start', 'زر الإنهاء ظاهر قبل النهاية');
+      for (let i = 0; i < 40; i++) { const o = page.locator('button.opt'); if (!(await o.count())) break; await o.first().click(); }
+      if (!(await page.locator('#sc-fin').isVisible())) fail('F-08/end', 'زر الإنهاء غير ظاهر عند النهاية');
+      await page.locator('#sc-fin').click(); await page.waitForTimeout(100);
+      if (!/#\/academy\/c\/[A-Za-z0-9-]+$/.test(await page.evaluate(() => location.hash))) fail('F-08/target', 'لا يعود إلى صفحة الكفاية');
+    }
+    // 6f) F-12: جملة التوضيح التي تكشف الجواب مطويّة خلف زر
+    {
+      await go('/academy/l/T6-L2', '.acx h1');
+      let found = false;
+      for (let i = 0; i < 12 && !found; i++) {
+        if (await page.locator('details.reveal').count()) {
+          found = true;
+          const vis = await page.locator('#app').innerText();
+          if (vis.includes('ما جاء في المصدر ب غير صحيح')) fail('F-12/leak', 'الجواب ظاهر قبل الكشف');
+          if (!(await page.locator('details.reveal').first().evaluate(e => e.textContent.includes('ما جاء في المصدر ب غير صحيح') && !e.open))) fail('F-12/fold', 'الجملة ليست داخل تفصيل مطوي');
+        } else { const nx = page.locator('.nav2 button', { hasText: 'التالي' }); if (!(await nx.count())) break; await nx.click(); }
+      }
+      if (!found) fail('F-12/none', 'لم يُعثر على التفصيل المطوي في T6-L2');
+    }
+    // 6g) الصفحة الرئيسية (F-02): شارة الحالة منفصلة ولا اقتطاع للنص عند 390
+    {
+      await go('/', '.eco');
+      const r = await page.evaluate(() => { const c = [...document.querySelectorAll('.ec:not(.lead) .small')];
+        return { n: document.querySelectorAll('.ec .ecs').length, clamp: c.filter(e => getComputedStyle(e).webkitLineClamp !== 'none').length,
+          cut: c.filter(e => e.scrollHeight > e.clientHeight + 1).length, paren: c.filter(e => /\([^)]*\)\s*$/.test(e.textContent)).length }; });
+      if (r.n < 4) fail('F-02/badge', 'شارات الحالة غير موجودة: ' + r.n);
+      if (r.clamp || r.cut) fail('F-02/clamp', 'نص بطاقات الرئيسية مقتطع');
+      if (r.paren) fail('F-02/paren', 'نص الحالة ما زال داخل الوصف');
+    }
+    // 6h) F-03/F-04: الأسس: لا عبارات داخلية، والنقر المتعدد لا يزيد العدّ، ونهاية الاختبار تعرض النتيجة
+    {
+      await go('/foundations', '#app .card');
+      await page.evaluate(() => { try { localStorage.setItem('fdMode', 'reg'); } catch {} });
+      await go('/', '.eco');
+      await go('/foundations', '#app .tabs');
+      const t0 = await page.locator('#app').innerText();
+      if (/الإدارة العلمية|بانتظار اعتماد/.test(t0)) fail('F-04/foundations', 'نص موجّه للإدارة ظاهر');
+      if (!(await page.locator('#app .hbtns button').count())) fail('F-03/setup', 'لا أزرار اختبار');
+      await page.evaluate(() => document.querySelectorAll('#app .hbtns button').forEach(b => b.click()));
+      await page.waitForTimeout(1900);
+      const q = await page.locator('#app').innerText();
+      if (!/السؤال ٢ من ١٠/.test(q)) fail('F-03/multiclick', 'النقر المتعدد قفز بالأسئلة: ' + (q.match(/السؤال [^\n]*/) || [''])[0]);
+      for (let i = 0; i < 9; i++) { await page.locator('#app .hbtns button').first().click(); await page.waitForTimeout(1500); }
+      const end = await page.locator('#app').innerText();
+      if (!/أجبتَ عن [^\n]* من ١٠ بشكل صحيح/.test(end)) fail('F-03/score', 'النتيجة لا تظهر في نهاية الاختبار');
+      await page.evaluate(() => { try { localStorage.removeItem('fdMode'); } catch {} });
+    }
+    // 6i) F-09: الجملة التحذيرية ظاهرة دائمًا والخطأ النحوي غائب
+    {
+      await go('/tajweed', '#app .tjn');
+      const t = await page.locator('#app .tjn').evaluate(e => e.innerText);
+      if (!t.includes('ولا يغني عن التلقّي من مقرئ مجاز')) fail('F-09/visible', 'جملة «لا يغني عن مقرئ مجاز» غير ظاهرة');
+      const all = await page.locator('#app').evaluate(e => e.textContent);
+      if (all.includes('ولا يُصدر المنصة')) fail('F-09/grammar', 'الخطأ النحوي ما زال موجودًا');
+    }
+    // 6j) F-01/F-10/F-11: تباين مقيس فعليًا في الفاتح والداكن (عنوان نشاط الصغار، ألوان التجويد، حدّ الحقل والزر الشبحي)
+    {
+      for (const theme of ['light', 'dark']) {
+        await page.evaluate(t => { try { localStorage.setItem('theme', t); } catch {} document.documentElement.setAttribute('data-theme', t); }, theme);
+        await go('/kids', '#app .kids');
+        await page.waitForTimeout(500);
+        if (!(await page.locator('#app .kids button.card').count())) { await page.locator('#app .kids .btn').first().click(); await page.waitForSelector('#app .kids button.card', { timeout: 4000 }); }
+        await page.waitForTimeout(500);
+        const m = await page.evaluate(() => {
+          const P = s => { const c = document.createElement('canvas').getContext('2d'); c.fillStyle = '#000'; c.fillStyle = s; c.fillRect(0, 0, 1, 1); const d = c.getImageData(0, 0, 1, 1).data; return [d[0], d[1], d[2], d[3]]; };
+          const L = c => { const f = v => { v /= 255; return v <= .03928 ? v / 12.92 : ((v + .055) / 1.055) ** 2.4 }; return .2126 * f(c[0]) + .7152 * f(c[1]) + .0722 * f(c[2]) };
+          const CR = (a, b) => { const x = L(a), y = L(b); return (Math.max(x, y) + .05) / (Math.min(x, y) + .05) };
+          const bgOf = e => { for (let n = e; n; n = n.parentElement) { const c = P(getComputedStyle(n).backgroundColor); if (c[3] > 250) return c; } return P(getComputedStyle(document.body).backgroundColor) };
+          const out = {};
+          const b = document.querySelector('#app .kids button.card > b'); out.kidsTitle = CR(P(getComputedStyle(b).color), bgOf(b.parentElement));
+          const card = P(getComputedStyle(document.documentElement).getPropertyValue('--card').trim() || '#fff'), page = P(getComputedStyle(document.body).backgroundColor);
+          out.tj = {};
+          for (const k of ['ghunna', 'ikhfa', 'idg_g', 'idg_n', 'iqlab', 'qalqala', 'madd']) { const s = document.createElement('span'); s.className = 'tj-' + k; s.textContent = 'x'; document.body.append(s); const c = P(getComputedStyle(s).color); s.remove(); out.tj[k] = Math.min(CR(c, card), CR(c, page)); }
+          const inp = document.createElement('input'); document.body.append(inp); const ib = P(getComputedStyle(inp).borderTopColor); inp.remove(); out.field = Math.min(CR(ib, card), CR(ib, page));
+          const g = document.createElement('button'); g.className = 'ghost'; document.body.append(g); const gb = P(getComputedStyle(g).borderTopColor); g.remove(); out.ghost = Math.min(CR(gb, card), CR(gb, page));
+          return out; });
+        if (m.kidsTitle < 4.5) fail('F-01/' + theme, 'عنوان بطاقة النشاط تباينه ' + m.kidsTitle.toFixed(2));
+        for (const [k, v] of Object.entries(m.tj)) if (v < 4.5) fail('F-10/' + theme + '/' + k, 'تباين لون التجويد ' + v.toFixed(2));
+        if (m.field < 3) fail('F-11/field/' + theme, 'حدّ الحقل ' + m.field.toFixed(2));
+        if (m.ghost < 3) fail('F-11/ghost/' + theme, 'حدّ الزر الشبحي ' + m.ghost.toFixed(2));
+      }
+      await page.evaluate(() => { try { localStorage.removeItem('theme'); } catch {} document.documentElement.setAttribute('data-theme', 'light'); });
+    }
+    // 6k) المصدر: لا عبارات المالك/الإدارة في ملفي الواجهة
+    for (const dir of ['web-vercel', 'web']) {
+      const src = fs.readFileSync(path.join(here, '../packages', dir, 'index.html'), 'utf8');
+      for (const w of ['ترخيص الصوت قرار المالك', 'بانتظار اعتماد الإدارة العلمية']) if (src.includes(w)) fail('F-04/source/' + dir, 'ما زالت العبارة في المصدر: ' + w);
+    }
   }
 } catch (e) {
   fail('fatal', e.stack || e.message);
