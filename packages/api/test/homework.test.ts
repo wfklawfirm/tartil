@@ -146,3 +146,28 @@ test('homework: mark-done mode, no-review shortcut, retry-disabled, requests, te
   assert.equal((await call('GET', `${b}/homework-templates`, admin.token)).body.templates.length, 0);
   assert.equal((await call('POST', `${b}/homework-templates`, kid.token, { name: 'xx', payload: { kind: 'revision', surah: 1, fromAyah: 1, toAyah: 7 } })).status, 403);
 });
+
+test('homework: attaching a tasmi attempt is a labelled hypothesis, copied only from the student\'s own attempt, never a grade', async () => {
+  const admin = await user('a-admin'), qari = await user('a-qari'), stu = await user('a-stu'), other = await user('a-other');
+  const inst = (await call('POST', '/institutions', admin.token, { name: 'Dar A', slug: 'dar-a' })).body.id as string;
+  const b = `/i/${inst}`;
+  for (const [u, role] of [[qari, 'qari'], [stu, 'student'], [other, 'student']] as const) await call('POST', `${b}/members`, admin.token, { email: u.email, role });
+  for (const u of [stu, other]) await call('POST', `${b}/students`, admin.token, { userId: u.id, isMinor: false });
+  await call('POST', `${b}/qari-assignments`, admin.token, { qariUserId: qari.id, studentUserId: stu.id });
+  await call('POST', `${b}/qari-assignments`, admin.token, { qariUserId: qari.id, studentUserId: other.id });
+  const att = async (uid: string) => (await db.query<{ id: string }>(`INSERT INTO recitation_attempts (user_id, surah, from_ayah, to_ayah, status, provider, duration_ms, result) VALUES ($1,112,1,4,'analyzed','test',1000,'{"summary":{"matched":4}}'::jsonb) RETURNING id`, [uid])).rows[0]!.id;
+  const mine = await att(stu.id), theirs = await att(other.id);
+  const mk = async (u: { id: string }) => { await call('POST', `${b}/homework`, qari.token, { kind: 'memorization', title: 'احفظ الإخلاص', surah: 112, fromAyah: 1, toAyah: 4, submissionMode: 'mark_done', studentUserIds: [u.id] }); };
+  await mk(stu); await mk(other);
+  const rid = async (u: { token: string }) => (await call('GET', `${b}/homework/mine`, u.token)).body.homework[0].id as string;
+  const r1 = await rid(stu), r2 = await rid(other);
+  // someone else's attempt id is NOT copied (hypothesis stays empty) but submission still succeeds
+  assert.equal((await call('POST', `${b}/homework/${r1}/submit`, stu.token, { kind: 'done', attemptId: theirs })).status, 201);
+  assert.equal((await call('GET', `${b}/homework/${r1}`, qari.token)).body.submissions[0].aiHypothesis, null);
+  assert.equal((await call('POST', `${b}/homework/${r2}/submit`, other.token, { kind: 'done', attemptId: theirs })).status, 201);
+  const sub = (await call('GET', `${b}/homework/${r2}`, qari.token)).body.submissions[0];
+  assert.equal(sub.aiHypothesis.kind, 'machine_hypothesis'); assert.equal(sub.aiHypothesis.notAGrade, true);
+  // status after submit is pending_review: the machine result never approves
+  assert.equal((await call('GET', `${b}/homework/${r2}`, qari.token)).body.item.status, 'pending_review');
+  void mine;
+});
