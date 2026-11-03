@@ -23,6 +23,7 @@ def check_scn(s,where,err,minage):
     if s.get('age_min',0)<minage: err.append(f'{where}: age_min below competency min_age')
     ends=[k for k,v in n.items() if not v.get('choices')]
     if not ends: err.append(f'{where}: no ending')
+ENR='--enriched' in sys.argv
 def main(files):
     allerr=[];tot=0
     for f in files:
@@ -42,6 +43,13 @@ def main(files):
                 for a in l.get('activities',[]):
                     need(a,['type','title','instructions'],w+'.activity',err)
                     if a.get('type') not in ATYPES: err.append(f'{w}: bad activity type {a.get("type")}')
+                if ENR:
+                    need(l,['hook','key_ideas','guide_script','closing'],w+'(enriched)',err)
+                    if not 2<=len(l.get('key_ideas',[]))<=4: err.append(f'{w}: key_ideas 2-4')
+                    for a in l.get('activities',[]):
+                        need(a,['learner_text'],w+'.activity(enriched)',err)
+                        if a.get('type')=='story' and len(str(a.get('learner_text','')).split())<120: err.append(f'{w}: story learner_text < 120 words')
+                        if a.get('type') in('discussion','reflection') and not a.get('questions'): err.append(f'{w}: {a.get("type")} needs questions[]')
                 lp=l.get('life_practice',{});need(lp,['task','steps','reflection_prompt','private_note'],w+'.life_practice',err)
                 fm=l.get('formative',{});need(fm,['ظهر','يتدرب','يحتاج_دعما'],w+'.formative',err)
                 if not 1<=len(l.get('activities',[]))<=4: err.append(f'{w}: 1-4 activities')
@@ -54,4 +62,4 @@ def main(files):
     for e in allerr[:80]: print(' -',e)
     sys.exit(1 if allerr else 0)
 if __name__=='__main__':
-    main(sys.argv[1:] or sorted(glob.glob(os.path.join(ROOT,'docs/human-formation/lessons/lessons_*.json'))))
+    main([a for a in sys.argv[1:] if not a.startswith('--')] or sorted(glob.glob(os.path.join(ROOT,'docs/human-formation/lessons/lessons_*.json'))))

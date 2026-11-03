@@ -24,6 +24,11 @@ function mapError(e: unknown): { status: number; code: string } {
   if (m.includes('plan_teacher_only') || m.includes('plan_share_requires_student') || m.includes('plan_teacher_fields_locked')) return { status: 403, code: m.includes('share') ? 'plan_share_requires_student' : 'plan_teacher_only' };
   if (m.includes('kid_teacher_only')) return { status: 403, code: 'kid_teacher_only' };
   if (m.includes('plan_illegal_transition')) return { status: 409, code: 'plan_illegal_transition' };
+  if (m.includes('reflection_age_minimum')) return { status: 403, code: 'reflection_age_minimum' };
+  if (m.includes('student_profile_missing')) return { status: 403, code: 'student_profile_missing' };
+  if (m.includes('approval_requires_three_role_approvals')) return { status: 409, code: 'approval_requires_three_role_approvals' };
+  if (m.includes('source_record_locked_after_submission') || m.includes('source_record_illegal_transition') || m.includes('record_not_under_review') || m.includes('source_record_starts_as_draft')) return { status: 409, code: m.match(/source_record_locked_after_submission|source_record_illegal_transition|record_not_under_review|source_record_starts_as_draft/)![0] };
+  if (m.includes('author_cannot_review_own_record') || m.includes('reviewer_lacks_role')) return { status: 403, code: m.includes('author') ? 'author_cannot_review_own_record' : 'reviewer_lacks_role' };
   if (m.includes('row-level security') || m.includes('permission denied')) return { status: 403, code: 'forbidden' };
   if (m.includes('duplicate key')) return { status: 409, code: 'already_exists' };
   if (m.includes('foreign key')) return { status: 422, code: 'invalid_reference' };
@@ -177,7 +182,7 @@ export function buildApp(d: Deps) {
     if (r) return reply.code(201).send({ id: (r.rows[0] as { id: string }).id });
   });
   app.post('/i/:inst/consents', async (req, reply) => {
-    const b = z.object({ studentUserId: uuid, purpose: z.enum(['audio_recording', 'live_session_recording', 'ai_analysis', 'data_processing']), expiresAt: z.string().datetime().optional() }).parse(req.body);
+    const b = z.object({ studentUserId: uuid, purpose: z.enum(['audio_recording', 'live_session_recording', 'ai_analysis', 'data_processing', 'reflection_journal']), expiresAt: z.string().datetime().optional() }).parse(req.body);
     const r = await tenant(req, reply, (tx, u, inst) => tx.query(`INSERT INTO consents (institution_id, student_user_id, granted_by_user_id, purpose, expires_at) VALUES ($1,$2,$3,$4,$5) RETURNING id`, [inst, b.studentUserId, u, b.purpose, b.expiresAt ?? null]));
     if (r) return reply.code(201).send({ id: (r.rows[0] as { id: string }).id });
   });
@@ -1008,6 +1013,162 @@ export function buildApp(d: Deps) {
     const b = z.object({ studentUserId: uuid, level: z.enum(['new', 'adv']) }).parse(req.body);
     const r = await tenant(req, reply, (tx, _u, inst) => tx.query(`UPDATE kid_profiles SET teacher_level = $3 WHERE institution_id = $1 AND student_user_id = $2 RETURNING student_user_id`, [inst, b.studentUserId, b.level]));
     if (r) return r.rows.length ? { ok: true } : reply.code(404).send({ error: 'not_found' });
+  });
+
+  // ---- Human Formation engines (migration 0017). Privacy contract: reflection/mission/scenario rows are the learner's alone (RLS); bodies and notes are
+  // never logged, never sent to any AI provider, never audited; there is NO route that lists, compares, ranks or aggregates several learners. ----
+  const noStore = (reply: FastifyReply) => reply.header('cache-control', 'no-store');
+  const refId = z.string().regex(/^[A-Za-z0-9][A-Za-z0-9._-]{0,63}$/);
+  const nodeId = z.string().regex(/^[A-Za-z0-9][A-Za-z0-9._-]{0,39}$/);
+  const compId = z.string().regex(/^[A-Z][0-9]{1,2}$/);
+  // source records: reviewers only (RLS); the DB trigger refuses 'approved' without three distinct role approvals on the current text
+  const srecCols = `id, competency_id AS "competencyId", version, title, review_status AS "reviewStatus", takhrij_status AS "takhrijStatus", rights_status AS "rightsStatus", created_by AS "createdBy", created_at AS "createdAt", updated_at AS "updatedAt"`;
+  app.get('/formation/source-records', async (req, reply) => {
+    const r = await personal(req, reply, async tx => (await tx.query(`SELECT ${srecCols} FROM source_records ORDER BY competency_id, version LIMIT 500`)).rows);
+    if (r) return { records: r };
+  });
+  app.post('/formation/source-records', async (req, reply) => {
+    const b = z.object({ competencyId: compId, version: z.number().int().min(1).max(1000), title: z.string().trim().min(1).max(300), contentMd: z.string().min(1).max(200000),
+      takhrijStatus: z.enum(['unverified', 'heading_only', 'verified', 'not_applicable']).optional(), rightsStatus: z.enum(['not_cleared', 'cleared', 'public_domain', 'not_applicable']).optional() }).parse(req.body);
+    const r = await personal(req, reply, (tx, u) => tx.query<{ id: string }>(`INSERT INTO source_records (competency_id, version, title, content_md, takhrij_status, rights_status, created_by) VALUES ($1,$2,$3,$4,COALESCE($5,'unverified'),COALESCE($6,'not_cleared'),$7) RETURNING id`,
+      [b.competencyId, b.version, b.title, b.contentMd, b.takhrijStatus ?? null, b.rightsStatus ?? null, u]));
+    if (r) return reply.code(201).send({ id: r.rows[0]!.id });
+  });
+  app.get('/formation/source-records/:id', async (req, reply) => {
+    const id = uuid.parse((req.params as { id: string }).id);
+    const r = await personal(req, reply, async tx => {
+      const rec = (await tx.query(`SELECT ${srecCols}, content_md AS "contentMd" FROM source_records WHERE id = $1`, [id])).rows[0];
+      if (!rec) return null;
+      const reviews = (await tx.query(`SELECT role, decision, note, reviewer_id AS "reviewerId", (content_sha256 = (SELECT content_sha256 FROM source_records WHERE id = $1)) AS "onCurrentText", created_at AS "createdAt" FROM source_record_reviews WHERE record_id = $1 ORDER BY id`, [id])).rows;
+      return { record: rec, reviews, approvalsComplete: (await tx.query<{ ok: boolean }>(`SELECT app.source_record_approvals_ok($1) AS ok`, [id])).rows[0]!.ok };
+    });
+    if (r === undefined) return;
+    return r ?? reply.code(404).send({ error: 'not_found' });
+  });
+  app.put('/formation/source-records/:id', async (req, reply) => {   // edits only while draft (DB-enforced); editing voids earlier approvals
+    const id = uuid.parse((req.params as { id: string }).id);
+    const b = z.object({ title: z.string().trim().min(1).max(300).optional(), contentMd: z.string().min(1).max(200000).optional(),
+      takhrijStatus: z.enum(['unverified', 'heading_only', 'verified', 'not_applicable']).optional(), rightsStatus: z.enum(['not_cleared', 'cleared', 'public_domain', 'not_applicable']).optional() }).parse(req.body);
+    const r = await personal(req, reply, tx => tx.query(`UPDATE source_records SET title = COALESCE($2, title), content_md = COALESCE($3, content_md), takhrij_status = COALESCE($4, takhrij_status), rights_status = COALESCE($5, rights_status) WHERE id = $1 RETURNING id`,
+      [id, b.title ?? null, b.contentMd ?? null, b.takhrijStatus ?? null, b.rightsStatus ?? null]));
+    if (r) return r.rows.length ? { ok: true } : reply.code(404).send({ error: 'not_found' });
+  });
+  app.post('/formation/source-records/:id/status', async (req, reply) => {
+    const id = uuid.parse((req.params as { id: string }).id);
+    const b = z.object({ to: z.enum(['draft', 'under_review', 'approved', 'rejected', 'retired']) }).parse(req.body);
+    const r = await personal(req, reply, tx => tx.query(`UPDATE source_records SET review_status = $2 WHERE id = $1 RETURNING review_status AS "reviewStatus"`, [id, b.to]));
+    if (r) return r.rows.length ? { ok: true, reviewStatus: (r.rows[0] as { reviewStatus: string }).reviewStatus } : reply.code(404).send({ error: 'not_found' });
+  });
+  app.post('/formation/source-records/:id/reviews', async (req, reply) => {
+    const id = uuid.parse((req.params as { id: string }).id);
+    const b = z.object({ role: z.enum(['scholarly', 'pedagogical', 'child_protection']), decision: z.enum(['approve', 'reject', 'changes']), note: z.string().max(4000).optional() }).parse(req.body);
+    if (b.decision !== 'approve' && !b.note?.trim()) return reply.code(400).send({ error: 'note_required' });
+    const r = await personal(req, reply, (tx, u) => tx.query(`INSERT INTO source_record_reviews (record_id, reviewer_id, role, decision, note) VALUES ($1,$2,$3,$4,$5) RETURNING id`, [id, u, b.role, b.decision, b.note?.trim() || null]));
+    if (r) return reply.code(201).send({ ok: true });
+  });
+
+  // reflection log: only the owner reads/deletes; no update, no sharing, no teacher/guardian/admin route at all
+  app.post('/i/:inst/reflections', async (req, reply) => {
+    const b = z.object({ body: z.string().trim().min(1).max(5000), promptRef: refId.optional() }).parse(req.body);
+    const r = await tenant(req, reply, (tx, u, inst) => tx.query<{ id: string }>(`INSERT INTO reflection_entries (institution_id, owner_id, prompt_ref, body) VALUES ($1,$2,$3,$4) RETURNING id`, [inst, u, b.promptRef ?? null, b.body]));
+    if (r) return noStore(reply).code(201).send({ id: r.rows[0]!.id });
+  });
+  app.get('/me/reflections', async (req, reply) => {
+    const r = await personal(req, reply, tx => tx.query(`SELECT id, institution_id AS "institutionId", prompt_ref AS "promptRef", body, created_at AS "createdAt" FROM reflection_entries ORDER BY created_at DESC LIMIT 200`));
+    if (r) return noStore(reply).send({ entries: r.rows });
+  });
+  app.delete('/me/reflections/:id', async (req, reply) => {
+    const id = uuid.parse((req.params as { id: string }).id);
+    const r = await personal(req, reply, tx => tx.query(`DELETE FROM reflection_entries WHERE id = $1 RETURNING id`, [id]));
+    if (r) return r.rows.length ? { ok: true } : reply.code(404).send({ error: 'not_found' });
+  });
+
+  // life missions: the learner's steps stay private; teacher/guardian get the state (started/completed) of ONE named learner, nothing else
+  app.put('/i/:inst/missions/:ref', async (req, reply) => {
+    const ref = refId.parse((req.params as { ref: string }).ref);
+    const b = z.object({ stepsDone: z.array(z.number().int().min(0).max(49)).max(50).optional(), complete: z.boolean().optional(), reflectionId: uuid.nullable().optional() }).parse(req.body);
+    const steps = b.stepsDone ? `{${[...new Set(b.stepsDone)].sort((x, y) => x - y).join(',')}}` : null;
+    const r = await tenant(req, reply, (tx, u, inst) => tx.query<{ id: string }>(`INSERT INTO life_mission_runs (institution_id, learner_id, mission_ref, steps_done, reflection_id, completed_at)
+        VALUES ($1,$2,$3,COALESCE($4::smallint[], '{}'),$5, CASE WHEN $6 THEN now() END)
+      ON CONFLICT (institution_id, learner_id, mission_ref) DO UPDATE SET steps_done = COALESCE($4::smallint[], life_mission_runs.steps_done),
+        reflection_id = CASE WHEN $7 THEN $5 ELSE life_mission_runs.reflection_id END, completed_at = COALESCE(life_mission_runs.completed_at, CASE WHEN $6 THEN now() END) RETURNING id`,
+      [inst, u, ref, steps, b.reflectionId ?? null, b.complete === true, b.reflectionId !== undefined]));
+    if (r) return noStore(reply).send({ id: r.rows[0]!.id });
+  });
+  app.get('/me/missions', async (req, reply) => {
+    const r = await personal(req, reply, tx => tx.query(`SELECT id, institution_id AS "institutionId", mission_ref AS "missionRef", steps_done AS "stepsDone", reflection_id AS "reflectionId", completed_at AS "completedAt", updated_at AS "updatedAt" FROM life_mission_runs ORDER BY updated_at DESC LIMIT 200`));
+    if (r) return noStore(reply).send({ missions: r.rows });
+  });
+  app.get('/i/:inst/missions/status', async (req, reply) => {   // a learner id is REQUIRED: there is no "all learners" form
+    const q = z.object({ learnerId: uuid }).parse(req.query);
+    const r = await tenant(req, reply, (tx, _u, inst) => tx.query(`SELECT mission_ref AS "missionRef", status, updated_at AS "updatedAt" FROM life_mission_status WHERE institution_id = $1 AND learner_id = $2 ORDER BY mission_ref`, [inst, q.learnerId]));
+    if (r) return { learnerId: q.learnerId, missions: r.rows, note: 'status_only' };
+  });
+  app.delete('/me/missions/:id', async (req, reply) => {
+    const id = uuid.parse((req.params as { id: string }).id);
+    const r = await personal(req, reply, tx => tx.query(`DELETE FROM life_mission_runs WHERE id = $1 RETURNING id`, [id]));
+    if (r) return r.rows.length ? { ok: true } : reply.code(404).send({ error: 'not_found' });
+  });
+
+  // scenario runs: node ids only, no score, learner-only, no aggregation (decision: none at all until a pedagogical reviewer and a k-threshold policy exist)
+  app.post('/i/:inst/scenarios', async (req, reply) => {
+    const b = z.object({ scenarioRef: refId, nodes: z.array(nodeId).min(1).max(100) }).parse(req.body);
+    const r = await tenant(req, reply, (tx, u, inst) => tx.query<{ id: string }>(`INSERT INTO scenario_runs (institution_id, learner_id, scenario_ref, chosen_nodes) VALUES ($1,$2,$3,$4::text[]) RETURNING id`, [inst, u, b.scenarioRef, `{${b.nodes.join(',')}}`]));
+    if (r) return noStore(reply).code(201).send({ id: r.rows[0]!.id });
+  });
+  app.get('/me/scenarios', async (req, reply) => {
+    const r = await personal(req, reply, tx => tx.query(`SELECT id, institution_id AS "institutionId", scenario_ref AS "scenarioRef", chosen_nodes AS nodes, created_at AS "createdAt" FROM scenario_runs ORDER BY created_at DESC LIMIT 200`));
+    if (r) return noStore(reply).send({ runs: r.rows });
+  });
+  app.delete('/me/scenarios/:id', async (req, reply) => {
+    const id = uuid.parse((req.params as { id: string }).id);
+    const r = await personal(req, reply, tx => tx.query(`DELETE FROM scenario_runs WHERE id = $1 RETURNING id`, [id]));
+    if (r) return r.rows.length ? { ok: true } : reply.code(404).send({ error: 'not_found' });
+  });
+
+  // formative observations: descriptive (appeared / practicing / needs_support), about ONE learner at a time; no listing across children
+  const obsCols = `id, learner_id AS "learnerId", author_id AS "authorId", author_role AS "authorRole", competency_id AS "competencyId", level, status, note, created_at AS "createdAt", updated_at AS "updatedAt"`;
+  app.post('/i/:inst/observations', async (req, reply) => {
+    const b = z.object({ learnerId: uuid, authorRole: z.enum(['qari', 'guardian']), competencyId: compId, level: z.number().int().min(1).max(5), status: z.enum(['appeared', 'practicing', 'needs_support']), note: z.string().trim().min(1).max(2000) }).parse(req.body);
+    const r = await tenant(req, reply, (tx, u, inst) => tx.query<{ id: string }>(`INSERT INTO formative_observations (institution_id, learner_id, author_id, author_role, competency_id, level, status, note) VALUES ($1,$2,$3,$4,$5,$6,$7,$8) RETURNING id`,
+      [inst, b.learnerId, u, b.authorRole, b.competencyId, b.level, b.status, b.note]));
+    if (r) return noStore(reply).code(201).send({ id: r.rows[0]!.id });
+  });
+  app.get('/i/:inst/observations', async (req, reply) => {
+    const q = z.object({ learnerId: uuid }).parse(req.query);   // required on purpose
+    const r = await tenant(req, reply, (tx, _u, inst) => tx.query(`SELECT ${obsCols} FROM formative_observations WHERE institution_id = $1 AND learner_id = $2 ORDER BY created_at DESC LIMIT 200`, [inst, q.learnerId]));
+    if (r) return noStore(reply).send({ learnerId: q.learnerId, observations: r.rows, note: 'descriptive_not_a_grade' });
+  });
+  app.put('/i/:inst/observations/:oid', async (req, reply) => {
+    const oid = uuid.parse((req.params as { oid: string }).oid);
+    const b = z.object({ level: z.number().int().min(1).max(5).optional(), status: z.enum(['appeared', 'practicing', 'needs_support']).optional(), note: z.string().trim().min(1).max(2000).optional() }).parse(req.body);
+    const r = await tenant(req, reply, tx => tx.query(`UPDATE formative_observations SET level = COALESCE($2, level), status = COALESCE($3, status), note = COALESCE($4, note) WHERE id = $1 RETURNING id`, [oid, b.level ?? null, b.status ?? null, b.note ?? null]));
+    if (r) return r.rows.length ? { ok: true } : reply.code(404).send({ error: 'not_found' });
+  });
+  app.delete('/i/:inst/observations/:oid', async (req, reply) => {
+    const oid = uuid.parse((req.params as { oid: string }).oid);
+    const r = await tenant(req, reply, tx => tx.query(`DELETE FROM formative_observations WHERE id = $1 RETURNING id`, [oid]));
+    if (r) return r.rows.length ? { ok: true } : reply.code(404).send({ error: 'not_found' });
+  });
+
+  // the learner's own data: export everything they can see about themselves, and erase what they own. Works for any institution, even after leaving it.
+  app.get('/me/formation/export', async (req, reply) => {
+    const r = await personal(req, reply, async tx => ({
+      reflections: (await tx.query(`SELECT id, institution_id AS "institutionId", prompt_ref AS "promptRef", body, created_at AS "createdAt" FROM reflection_entries ORDER BY created_at`)).rows,
+      missions: (await tx.query(`SELECT id, institution_id AS "institutionId", mission_ref AS "missionRef", steps_done AS "stepsDone", reflection_id AS "reflectionId", completed_at AS "completedAt", created_at AS "createdAt" FROM life_mission_runs ORDER BY created_at`)).rows,
+      scenarios: (await tx.query(`SELECT id, institution_id AS "institutionId", scenario_ref AS "scenarioRef", chosen_nodes AS nodes, created_at AS "createdAt" FROM scenario_runs ORDER BY created_at`)).rows,
+      observationsAboutMe: (await tx.query(`SELECT ${obsCols}, institution_id AS "institutionId" FROM formative_observations WHERE learner_id = app.current_user_id() ORDER BY created_at`)).rows,
+    }));
+    if (r) return noStore(reply).send({ exportedAt: new Date().toISOString(), ...r });
+  });
+  app.delete('/me/formation/data', async (req, reply) => {
+    z.object({ confirm: z.literal('DELETE_ALL_MY_FORMATION_DATA') }).parse(req.body);
+    const r = await personal(req, reply, async tx => ({
+      missions: (await tx.query(`DELETE FROM life_mission_runs RETURNING id`)).rows.length,
+      scenarios: (await tx.query(`DELETE FROM scenario_runs RETURNING id`)).rows.length,
+      reflections: (await tx.query(`DELETE FROM reflection_entries RETURNING id`)).rows.length,
+    }));
+    if (r) return { ok: true, deleted: r, note: 'observations_written_by_others_are_their_authors_records_and_are_not_deleted_here' };
   });
 
   // ---- Quran Core read API: nothing is served until a human has APPROVED an edition (enforced by RLS, not by this code) ----

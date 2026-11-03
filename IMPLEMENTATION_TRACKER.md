@@ -28,3 +28,6 @@
 | 24 Scholarly review report | PARTIAL (REVIEW_QUEUE: 44 items) |
 | 25 Roadmap | PARTIAL (PROJECT_STATE next steps) |
 | 26 Incomplete/external list | DONE (KNOWN_LIMITATIONS) |
+
+## 40. Formation engines backend (2026-11-03)
+Built locally: migration 0017 + `/formation/*`, `/me/reflections|missions|scenarios|formation/*`, `/i/:inst/{reflections,missions,scenarios,observations}`. Tests DB 49/49 and API 50/50 (before: 38 and 45). NOT live: migration not applied, edge function not redeployed, no UI. Blocked on owner decisions (retention policy for children's data; named reviewers). No scenario aggregation built.

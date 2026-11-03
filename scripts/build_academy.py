@@ -29,3 +29,10 @@ lo = {'status': 'draft-unreviewed', 'generated': '2026-11-03', 'units': units}
 for d in (root / 'packages' / 'web-vercel', root / 'packages' / 'web'):
     (d / 'academy-lessons.json').write_text(json.dumps(lo, ensure_ascii=False), encoding='utf-8')
 print(len(units), 'units with lessons;', sum(len(u['lessons']) for u in units.values()), 'lessons;', sum(len(u['scenarios']) for u in units.values()), 'scenarios')
+
+# programs (optional): docs/human-formation/programs.json -> academy-programs.json
+pf = hf / 'programs.json'
+if pf.exists():
+    for d in (root / 'packages' / 'web-vercel', root / 'packages' / 'web'):
+        (d / 'academy-programs.json').write_text(json.dumps(json.loads(pf.read_text(encoding='utf-8')), ensure_ascii=False), encoding='utf-8')
+    print('programs:', len(json.loads(pf.read_text(encoding='utf-8'))['programs']))

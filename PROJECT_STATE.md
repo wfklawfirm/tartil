@@ -83,3 +83,6 @@ Added mini-player, desktop side panel, timeline, certificate frame/print, progre
 
 ## 2026-11-03 Tartil 2.0
 Light-default ivory theme; ornament engine A-E + `#/gallery`; homepage rebuilt (hero, verse of the day, ecosystem, journey, institutional, trust, honest footer). Docs numbered 01-11 in docs/. Tests: API 31/31, integrity 2180, axe 0 violations/18 combos, no overflow at 11 viewports. See docs/11_FINAL_RELEASE_READINESS.md for what remains.
+
+## 2026-11-03 Formation engines backend (local only, NOT applied to production)
+Migration 0017 (source records with a three-role review trigger, private reflection log, life-mission runs + status projection, scenario runs, formative observations) plus API routes. Tests: DB 49/49 (was 38), API 50/50 (was 45), run locally on PGlite. Not applied to Supabase, edge function not redeployed, no UI. Waiting on owner decisions: child-data retention policy, named pedagogical and child-protection reviewers. See KNOWN_LIMITATIONS 40 and ADR-013.
