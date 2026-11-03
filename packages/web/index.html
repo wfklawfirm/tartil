@@ -9,6 +9,7 @@
 <title>ترتيل — منصة تعلّم القرآن وإتقانه</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Amiri+Quran&family=Amiri:wght@700&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Noto+Naskh+Arabic:wght@400;600;700&display=swap" rel="stylesheet">
+<script>try{var t=localStorage.getItem('theme')||'light';if(t!=='auto')document.documentElement.setAttribute('data-theme',t)}catch(e){document.documentElement.setAttribute('data-theme','light')}</script>
 <style>
 :root{--goldtx:#8a6416;--bg:#f7f4ec;--card:#fff;--ink:#1b2a24;--mute:#5b6b63;--line:#e3ddcc;--accent:#1c6b50;--accent2:#0f4a38;--accent-ink:#fff;--gold:#b88a2e;--soft:#eef5f0;--warn:#8a5a00;--bad:#a12c2c;--ok:#1c6b50;--shadow:0 1px 2px rgba(0,0,0,.05),0 6px 20px rgba(20,40,30,.06)}
 @media (prefers-color-scheme:dark){:root{--goldtx:#d9ad54;--bg:#0f1512;--card:#17211c;--ink:#e8efe9;--mute:#9bb0a6;--line:#2a3932;--accent:#4fb08c;--accent2:#7bd1ae;--accent-ink:#06130e;--gold:#d9ad54;--soft:#1b2a23;--warn:#e0b04a;--bad:#e27a7a;--ok:#6fd0a8;--shadow:none}}
@@ -201,6 +202,54 @@ body.mini main{padding-bottom:170px}
 .certf .cn2{font-family:var(--deco);font-size:26px;margin:2px 0 6px}.certf .cn3{font-size:20px;font-weight:700;color:var(--accent2);margin-bottom:6px}:root[data-theme=dark] .certf .cn3{color:var(--ink)}
 @media (prefers-color-scheme:dark){:root:not([data-theme=light]) .certf .ct,:root:not([data-theme=light]) .certf .cn3{color:var(--ink)}}
 @media print{body *{visibility:hidden}.printable,.printable *{visibility:visible}.printable{position:absolute;inset-inline:0;top:0;margin:0}#mini{display:none!important}@page{margin:14mm}}
+
+/* ===== homepage v2: ivory editorial layout, two-column hero, ornamental background zones ===== */
+body[data-page=home]{background:var(--bg)}
+body[data-page=home]::before{content:"";position:fixed;inset:0;z-index:-1;background:var(--pA) center top/72px;opacity:.20;pointer-events:none}
+body[data-page=tajweed]::before,body[data-page=qiraat]::before,body[data-page=auth]::before{content:"";position:absolute;inset:0 0 auto 0;height:300px;z-index:-1;pointer-events:none;opacity:.22;-webkit-mask-image:linear-gradient(#000,transparent);mask-image:linear-gradient(#000,transparent)}
+body[data-page=tajweed]::before{background:var(--pC) center top/80px}body[data-page=qiraat]::before{background:var(--pB) center top/96px}body[data-page=auth]::before{background:var(--pA) center top/72px}
+body{position:relative;min-height:100vh}
+.hero2{position:relative;display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:24px;align-items:center;max-width:1180px;margin:0 auto 26px;padding:30px 8px 10px}
+.hero2 .hmain{position:relative;z-index:1}
+.hero2 h1{font-family:var(--deco);font-size:clamp(34px,5.2vw,58px);line-height:1.35;margin:6px 0 10px;color:var(--accent2)}
+:root[data-theme=dark] .hero2 h1{color:var(--ink)}
+.hero2 p{font-size:19px;max-width:560px;color:var(--ink)}
+.hero2 .eyebrow{color:var(--goldtx);font-weight:700;font-size:15px}
+.hbtns{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:8px}.hbtns .btn{margin:0;padding:11px 26px}
+.linkbtn{background:transparent;color:var(--accent2);border:0;text-decoration:underline;text-underline-offset:4px;margin:0;padding:8px 6px;font-weight:700;min-height:44px}.linkbtn:hover{box-shadow:none}
+.heroart{display:block;justify-self:center;width:min(400px,100%);color:var(--gold);filter:drop-shadow(0 12px 30px rgba(23,63,53,.10))}
+.heroart svg{display:block;width:100%;height:auto;overflow:visible}
+.hero2 .mband{display:none}
+.votd{max-width:760px;margin:0 auto 22px;text-align:center;padding:14px 18px;border-top:1px solid var(--gold2);border-bottom:1px solid var(--gold2);background:linear-gradient(90deg,transparent,var(--soft),transparent)}
+.votd .ayah{font-size:clamp(24px,3.2vw,32px);line-height:2.2;margin:2px 0}.votd a{font-weight:600}
+.acts{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px;max-width:1180px;margin:0 auto 10px}
+.act{display:flex;flex-direction:column;gap:2px;padding:16px 18px;border:1px solid var(--line);border-inline-start:4px solid var(--gold);border-radius:var(--r);background:var(--card);text-decoration:none;color:var(--ink);box-shadow:var(--shadow);transition:transform .15s,border-color .15s}.act:hover{transform:translateY(-2px);border-color:var(--gold)}.act b{font-size:18px;color:var(--accent2)}:root[data-theme=dark] .act b{color:var(--ink)}
+.zone{position:relative;max-width:1180px;margin:0 auto;padding:6px 0 18px}
+.eco{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:16px}
+.ec{grid-column:span 3;display:flex;flex-direction:column;gap:6px;padding:20px;border:1px solid var(--line);border-radius:var(--r);background:var(--card);text-decoration:none;color:var(--ink);box-shadow:var(--shadow);transition:transform .15s,border-color .15s;position:relative;overflow:hidden}
+.ec:hover{transform:translateY(-3px);border-color:var(--gold)}.ec b{font-size:19px;color:var(--accent2)}:root[data-theme=dark] .ec b{color:var(--ink)}
+.ec .pi{width:50px;height:50px;color:var(--gold)}.ec .go{margin-top:auto;font-weight:700;color:var(--accent2)}
+.ec.lead{grid-column:span 6;background:linear-gradient(155deg,#173F35,#102D28);color:#F5F0E4;border-color:#102D28}
+.ec.lead::after{content:"";position:absolute;inset:0;background:var(--pA) center/72px;opacity:.28;pointer-events:none}
+.ec.lead>*{position:relative;z-index:1}.ec.lead b,.ec.lead .go{color:#FFFCF6}.ec.lead .small{color:#E4DCC6;font-size:16px}.ec.lead .pi{color:#D4BE8A;width:64px;height:64px}
+.ec.lead{justify-content:flex-end;min-height:250px}
+.ec.wide{grid-column:span 12;flex-direction:row;align-items:center;gap:20px;background:linear-gradient(90deg,var(--card),var(--soft))}.ec.wide .small{flex:1;font-size:16px}.ec.wide b{white-space:nowrap}.ec.wide .go{margin:0}
+.stages{list-style:none;margin:6px 0 0;padding:0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:0;position:relative;counter-reset:st}
+.stages li a{display:flex;flex-direction:column;align-items:center;text-align:center;gap:2px;text-decoration:none;color:var(--ink);padding:0 8px;position:relative}
+.stages li:not(:last-child) a::after{content:"";position:absolute;top:30px;inset-inline-end:-50%;width:100%;height:0;border-top:1.5px dashed var(--gold);z-index:0}
+.stages .sn{position:relative;z-index:1;display:flex;align-items:center;justify-content:center;width:60px;height:60px;background:var(--rose) center/contain no-repeat;color:var(--goldtx);font-weight:700;font-size:18px;margin-bottom:6px}
+.stages b{font-size:20px;color:var(--accent2)}:root[data-theme=dark] .stages b{color:var(--ink)}
+.inst{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:26px;align-items:center;padding:34px 30px;margin-top:20px;border:1px solid var(--gold2);border-radius:22px;background:var(--card);overflow:hidden;box-shadow:var(--shadow)}
+.inst::before{content:"";position:absolute;inset:0;background:var(--pC) center/80px;opacity:.20;-webkit-mask-image:linear-gradient(to left,#000 0%,transparent 60%);mask-image:linear-gradient(to left,#000 0%,transparent 60%);pointer-events:none}
+.inst>*{position:relative}.inst h2{font-family:var(--deco);font-size:clamp(26px,3.4vw,38px)}.caps{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.caps li{padding:10px 14px 10px 14px;border-radius:12px;background:var(--bg);border:1px solid var(--line);border-inline-start:3px solid var(--gold);font-size:16px}
+.trust{max-width:1180px;margin:22px auto 10px}
+.galrow{display:flex;flex-wrap:wrap;gap:16px}.gal{margin:0;width:200px}.gal .gs{height:130px;border:1px solid var(--line);border-radius:10px;background-color:var(--card)}.galrow .heroart{width:240px;justify-self:auto}
+footer{max-width:none;margin:30px 0 0;padding:30px 16px calc(40px + env(safe-area-inset-bottom));text-align:start;background:linear-gradient(180deg,transparent,var(--soft));border-top:1px solid var(--gold2)}
+.fcols{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr 1.6fr;gap:26px;font-size:15px}.fcols>div{display:flex;flex-direction:column;gap:6px}.fcols b{color:var(--accent2);font-size:16px}:root[data-theme=dark] .fcols b{color:var(--ink)}.fcols a{text-decoration:none;min-height:32px;display:inline-flex;align-items:center}.fcols span{color:var(--mute);line-height:1.8}
+@media (max-width:1023px){.ec.wide{flex-wrap:wrap}.ec{grid-column:span 6}.ec.lead{grid-column:span 12;min-height:0}.stages{grid-template-columns:1fr;gap:12px}.stages li a{flex-direction:row;text-align:start;gap:12px;align-items:center}.stages li:not(:last-child) a::after{display:none}.stages .sn{width:52px;height:52px;margin:0;flex:none}.stages li a>span.small{display:block}.inst{grid-template-columns:1fr}.fcols{grid-template-columns:1fr 1fr}}
+@media (max-width:800px){.hero2{grid-template-columns:1fr;padding:10px 4px 0;gap:6px}.heroart{display:none}.hero2 .mband{display:flex;align-items:center;gap:10px;color:var(--gold);margin-bottom:2px}.hero2 .mband .mm{width:56px!important;height:56px!important}.hero2 p{font-size:17px}.hbtns .btn{flex:1;text-align:center}.ec{grid-column:span 12}.inst{padding:24px 16px}.fcols{grid-template-columns:1fr}.eco{gap:12px}}
+@media (min-width:1500px){.hero2,.zone,.acts,.trust,.fcols{max-width:1320px}}
 </style>
 </head>
 <body>
@@ -208,7 +257,7 @@ body.mini main{padding-bottom:170px}
 <header class="top"><div class="bar"><a class="brand" href="#/"><i></i>ترتيل</a><nav class="main" id="nav" aria-label="التنقل الرئيسي"></nav><div id="who"></div><button id="theme" type="button" aria-label="تبديل المظهر"></button></div></header>
 <main id="app" tabindex="-1"></main>
 <div id="more" hidden></div><nav id="bnav" aria-label="التنقل السفلي"></nav>
-<footer>منصة تعليمية. لا تُصدر المنصة فتاوى ولا إجازات ولا أحكامًا شرعية؛ التقييمات يكتبها مقرئ بشري. نص المصحف: رواية حفص عن عاصم من مشروع تنزيل (tanzil.net)، وهو قيد التدقيق العلمي النهائي.</footer>
+<footer><div class="fcols"><div><b>المنصة</b><a href="#/">الرئيسية</a><a href="#/quran">القرآن الكريم</a><a href="#/search">بحث</a><a href="#/tajweed">التجويد</a><a href="#/qiraat">القراءات والإسناد</a></div><div><b>حسابي</b><a href="#/auth">دخول / تسجيل</a><a href="#/me">رحلتي</a><a href="#/app">لوحة المؤسسة</a></div><div><b>الثقة</b><span>لا تُصدر المنصة فتاوى ولا إجازات ولا أحكامًا شرعية؛ التقييمات يكتبها مقرئ بشري.</span><span>نص المصحف: رواية حفص عن عاصم من مشروع تنزيل (tanzil.net)، وهو قيد التدقيق العلمي النهائي.</span></div></div></footer>
 <script>
 "use strict";
 const $=(s,r=document)=>r.querySelector(s);
@@ -249,17 +298,46 @@ const SV={
  star:"<svg viewBox='0 0 100 100' fill='none' stroke='currentColor' stroke-width='3'><rect x='20' y='20' width='60' height='60'/><rect x='20' y='20' width='60' height='60' transform='rotate(45 50 50)'/><circle cx='50' cy='50' r='15'/></svg>",
  corner:"<svg viewBox='0 0 60 60' fill='none' stroke='currentColor' stroke-width='1.6' stroke-linecap='round'><path d='M3 58V16Q3 3 16 3H58'/><path d='M10 58V22Q10 10 22 10H58' stroke-opacity='.55'/><path d='M20 20q12-1 16-13q-13 1-16 13z'/><circle cx='20' cy='20' r='2.2' fill='currentColor'/></svg>",
  divider:"<svg viewBox='0 0 260 22' fill='none' stroke='currentColor' stroke-width='1.4' stroke-linecap='round'><path d='M4 11H102M158 11H256'/><path d='M102 11l5-4 5 4-5 4zM144 11l5-4 5 4-5 4z'/><rect x='122' y='3' width='16' height='16'/><rect x='122' y='3' width='16' height='16' transform='rotate(45 130 11)'/></svg>"};
-const SYM={book:"<path d='M4 5c3-1 6-1 8 1 2-2 5-2 8-1v13c-3-1-6-1-8 1-2-2-5-2-8-1zM12 6v13'/>",wave:"<path d='M3 12h2l2-6 3 12 3-9 2 5 2-2h4'/>",repeat:"<path d='M17 4l3 3-3 3M20 7H8a4 4 0 0 0-4 4M7 20l-3-3 3-3M4 17h12a4 4 0 0 0 4-4'/>",check:"<path d='M5 12l4 4 10-10'/>",scroll:"<path d='M6 4h10a2 2 0 0 1 2 2v12a2 2 0 0 0 2 2H8a2 2 0 0 1-2-2zM9 8h6M9 12h6'/>",arch:"<path d='M4 20V10a8 8 0 0 1 16 0v10M9 20v-6a3 3 0 0 1 6 0v6M3 20h18'/>",home:"<path d='M4 11l8-7 8 7v9H4zM10 20v-6h4v6'/>",search:"<circle cx='11' cy='11' r='6'/><path d='M16 16l4 4'/>",user:"<circle cx='12' cy='8' r='4'/><path d='M4 20c1-4 4-6 8-6s7 2 8 6'/>",more:"<circle cx='5' cy='12' r='1.5'/><circle cx='12' cy='12' r='1.5'/><circle cx='19' cy='12' r='1.5'/>"};
+const SYM={book:"<path d='M4 5c3-1 6-1 8 1 2-2 5-2 8-1v13c-3-1-6-1-8 1-2-2-5-2-8-1zM12 6v13'/>",wave:"<path d='M3 12h2l2-6 3 12 3-9 2 5 2-2h4'/>",repeat:"<path d='M17 4l3 3-3 3M20 7H8a4 4 0 0 0-4 4M7 20l-3-3 3-3M4 17h12a4 4 0 0 0 4-4'/>",check:"<path d='M5 12l4 4 10-10'/>",scroll:"<path d='M6 4h10a2 2 0 0 1 2 2v12a2 2 0 0 0 2 2H8a2 2 0 0 1-2-2zM9 8h6M9 12h6'/>",arch:"<path d='M4 20V10a8 8 0 0 1 16 0v10M9 20v-6a3 3 0 0 1 6 0v6M3 20h18'/>",home:"<path d='M4 11l8-7 8 7v9H4zM10 20v-6h4v6'/>",search:"<circle cx='11' cy='11' r='6'/><path d='M16 16l4 4'/>",user:"<circle cx='12' cy='8' r='4'/><path d='M4 20c1-4 4-6 8-6s7 2 8 6'/>",mic:"<rect x='9' y='3' width='6' height='11' rx='3'/><path d='M5 11a7 7 0 0 0 14 0M12 18v3'/>",mouth:"<path d='M4 12c4-6 12-6 16 0-4 6-12 6-16 0zM9 12h6'/>",more:"<circle cx='5' cy='12' r='1.5'/><circle cx='12' cy='12' r='1.5'/><circle cx='19' cy='12' r='1.5'/>"};
 const orn=(k,cls)=>{const s=document.createElement('span');s.className='orn '+(cls||'');s.setAttribute('aria-hidden','true');s.innerHTML=SV[k];return s};
 const corners=()=>['tl','tr','bl','br'].map(p=>orn('corner','cn '+p));
 const divider=()=>el('div',{class:'divider'},orn('divider'));
 const ico=(k,sz)=>{const s=document.createElement('span');s.setAttribute('aria-hidden','true');s.style.cssText='display:inline-block;line-height:0;width:'+(sz||24)+'px;height:'+(sz||24)+'px';s.innerHTML="<svg viewBox='0 0 24 24' width='100%' height='100%' fill='none' stroke='currentColor' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'>"+SYM[k]+"</svg>";return s};
 const pathIcon=k=>{const s=document.createElement('span');s.className='orn pi';s.setAttribute('aria-hidden','true');s.innerHTML="<svg viewBox='0 0 100 100' fill='none' stroke='currentColor' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'><rect x='14' y='14' width='72' height='72'/><rect x='14' y='14' width='72' height='72' transform='rotate(45 50 50)'/><g transform='translate(30 30) scale(1.67)' stroke-width='1.5'>"+SYM[k]+"</g></svg>";return s};
+
+/* ---------- ornamental background engine: ORIGINAL vector patterns generated from parameters (size s, colour c, opacity o, stroke w).
+   A tessellation · B Ottoman-style floral vine · C Andalusian/Maghribi {8/3} star lattice · D corner flourish · E illuminated medallion. All decorative (aria-hidden), behind content, never behind verses. ---------- */
+const PI2=Math.PI*2,fx=n=>+n.toFixed(2);
+function star83(cx,cy,r){let d='',k=0;for(let i=0;i<8;i++){const a=PI2*k/8-Math.PI/2;d+=(i?'L':'M')+fx(cx+r*Math.cos(a))+' '+fx(cy+r*Math.sin(a));k=(k+3)%8}return d+'Z'}
+const PATS={
+ A:o=>`<svg xmlns='http://www.w3.org/2000/svg' width='${o.s}' height='${o.s}' viewBox='0 0 72 72'><g fill='none' stroke='${o.c}' stroke-opacity='${o.o}' stroke-width='${o.w}'><rect x='14' y='14' width='44' height='44'/><rect x='14' y='14' width='44' height='44' transform='rotate(45 36 36)'/><circle cx='36' cy='36' r='7'/><circle cx='0' cy='0' r='7'/><circle cx='72' cy='0' r='7'/><circle cx='0' cy='72' r='7'/><circle cx='72' cy='72' r='7'/></g></svg>`,
+ B:o=>`<svg xmlns='http://www.w3.org/2000/svg' width='${o.s}' height='${o.s}' viewBox='0 0 96 96'><g fill='none' stroke='${o.c}' stroke-opacity='${o.o}' stroke-width='${o.w}' stroke-linecap='round'><path d='M48 10C40 22 38 34 48 46C58 34 56 22 48 10Z'/><path d='M48 46C34 40 26 30 28 16C38 20 46 32 48 46Z'/><path d='M48 46C62 40 70 30 68 16C58 20 50 32 48 46Z'/><path d='M48 46V86'/><path d='M48 66C38 66 30 72 28 82C38 82 46 78 48 66Z'/><path d='M48 66C58 66 66 72 68 82C58 82 50 78 48 66Z'/><circle cx='0' cy='48' r='6'/><circle cx='96' cy='48' r='6'/><path d='M0 42V54M96 42V54M-6 48H6M90 48H102'/></g></svg>`,
+ C:o=>`<svg xmlns='http://www.w3.org/2000/svg' width='${o.s}' height='${o.s}' viewBox='0 0 80 80'><g fill='none' stroke='${o.c}' stroke-opacity='${o.o}' stroke-width='${o.w}' stroke-linejoin='round'><path d='${star83(40,40,27)}'/><path d='${star83(0,0,27)}'/><path d='${star83(80,0,27)}'/><path d='${star83(0,80,27)}'/><path d='${star83(80,80,27)}'/><rect x='34' y='-6' width='12' height='12' transform='rotate(45 40 0)'/><rect x='34' y='74' width='12' height='12' transform='rotate(45 40 80)'/><rect x='-6' y='34' width='12' height='12' transform='rotate(45 0 40)'/><rect x='74' y='34' width='12' height='12' transform='rotate(45 80 40)'/></g></svg>`};
+const patUri=(k,o)=>{o={s:72,c:'#B99A58',o:.5,w:1,...o};return 'data:image/svg+xml,'+encodeURIComponent(PATS[k](o))};
+(function(){const mk=(c,o)=>'--pA:url("'+patUri('A',{s:72,c,o})+'");--pB:url("'+patUri('B',{s:96,c,o})+'");--pC:url("'+patUri('C',{s:80,c,o})+'")';
+  const L=mk('#B99A58',.55),D=mk('#CAB47A',.45),st=document.createElement('style');
+  st.textContent=':root{'+L+'}@media (prefers-color-scheme:dark){:root:not([data-theme=light]){'+D+'}}:root[data-theme=dark]{'+D+'}:root[data-theme=light]{'+L+'}';document.head.append(st)})();
+/* E: illuminated medallion — 24 petals, ring bands, {8/3} star, inner rosette; returns inner SVG markup in a 200x200 box (stroke = currentColor) */
+function medallionInner(){let g='',pet='M0 -93C7 -82 7 -72 0 -63C-7 -72 -7 -82 0 -93Z';
+  for(let i=0;i<24;i++)g+=`<path d='${pet}' transform='translate(100 100) rotate(${i*15})' fill='currentColor' fill-opacity='.07'/>`;
+  g+="<circle cx='100' cy='100' r='97' stroke-width='1.6'/><circle cx='100' cy='100' r='93.5' stroke-width='.7'/><circle cx='100' cy='100' r='60' stroke-width='1.2'/><circle cx='100' cy='100' r='56' stroke-width='.6'/>";
+  g+=`<path d='${star83(100,100,54)}' stroke-width='1.4'/><path d='${star83(100,100,34)}' stroke-width='1' transform='rotate(22.5 100 100)'/><circle cx='100' cy='100' r='20' stroke-width='1.2'/>`;
+  for(let i=0;i<8;i++)g+=`<ellipse cx='100' cy='88' rx='4.5' ry='9' transform='rotate(${i*45} 100 100)' stroke-width='.9'/>`;
+  return g+"<circle cx='100' cy='100' r='3' fill='currentColor'/>"}
+function medallion(sz,cls){const s=document.createElement('span');s.className='orn '+(cls||'');s.setAttribute('aria-hidden','true');s.style.cssText='width:'+sz+'px;height:'+sz+'px';s.innerHTML="<svg viewBox='0 0 200 200' fill='none' stroke='currentColor' stroke-linecap='round' stroke-linejoin='round'>"+medallionInner()+'</svg>';return s}
+/* hero composition: pointed (ogee) arch frame, lattice fill, medallion, name. Desktop only; mobile gets a compact band instead */
+function heroArt(){const s=document.createElement('div');s.className='orn heroart';s.setAttribute('aria-hidden','true');
+  s.innerHTML=`<svg viewBox='0 0 420 540' fill='none' stroke='currentColor' stroke-linecap='round' stroke-linejoin='round'><defs><pattern id='ha' width='56' height='56' patternUnits='userSpaceOnUse'><path d='${star83(28,28,20)}' stroke-width='.8' opacity='.5'/></pattern><clipPath id='hc'><path d='M30 540V210C30 120 120 50 210 18C300 50 390 120 390 210V540Z'/></clipPath></defs>
+  <path d='M30 540V210C30 120 120 50 210 18C300 50 390 120 390 210V540' stroke-width='2.2'/><path d='M44 540V214C44 130 128 64 210 36C292 64 376 130 376 214V540' stroke-width='.9'/><path d='M58 540V218C58 140 134 78 210 54C286 78 362 140 362 218V540' stroke-width='.6' stroke-opacity='.6'/>
+  <rect x='58' y='54' width='304' height='486' fill='url(#ha)' clip-path='url(#hc)' stroke='none'/>
+  <g transform='translate(70 110) scale(1.4)'>${medallionInner()}</g>
+  <path d='M30 538H390M44 531H376' stroke-width='1'/><path d='${star83(210,10,12)}' stroke-width='1.2'/><circle cx='210' cy='10' r='2' fill='currentColor'/>
+  <rect x='110' y='420' width='200' height='56' rx='28' stroke-width='1.2'/><text x='210' y='458' text-anchor='middle' font-family='Amiri,serif' font-size='34' fill='currentColor' stroke='none' font-weight='700'>القرآن الكريم</text></svg>`;return s}
 const ayahMarker=n=>el('span',{class:'aym',role:'img','aria-label':'الآية '+ar(n)},ar(n));
 /* theme: auto (system) / light / dark */
-function applyTheme(){let t='auto';try{t=localStorage.getItem('theme')||'auto'}catch{}if(t==='auto')document.documentElement.removeAttribute('data-theme');else document.documentElement.setAttribute('data-theme',t);
-  const b=$('#theme');if(b){b.innerHTML="<svg viewBox='0 0 24 24' width='22' height='22' fill='none' stroke='currentColor' stroke-width='1.8' stroke-linecap='round' aria-hidden='true'>"+(t==='dark'?"<path d='M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z'/>":t==='light'?"<circle cx='12' cy='12' r='4'/><path d='M12 2v2M12 20v2M2 12h2M20 12h2M5 5l1.4 1.4M17.6 17.6L19 19M5 19l1.4-1.4M17.6 6.4L19 5'/>":"<circle cx='12' cy='12' r='8'/><path d='M12 4a8 8 0 0 1 0 16z' fill='currentColor'/>")+'</svg>';b.setAttribute('aria-label','المظهر: '+(t==='dark'?'ليلي':t==='light'?'نهاري':'تلقائي')+' (اضغط للتبديل)')}}
-$('#theme').addEventListener('click',()=>{let t='auto';try{t=localStorage.getItem('theme')||'auto'}catch{}const n={auto:'light',light:'dark',dark:'auto'}[t]||'auto';try{localStorage.setItem('theme',n)}catch{}applyTheme()});
+function applyTheme(){let t='light';try{t=localStorage.getItem('theme')||'light'}catch{}if(t==='auto')document.documentElement.removeAttribute('data-theme');else document.documentElement.setAttribute('data-theme',t);
+  const b=$('#theme');if(b){b.innerHTML="<svg viewBox='0 0 24 24' width='22' height='22' fill='none' stroke='currentColor' stroke-width='1.8' stroke-linecap='round' aria-hidden='true'>"+(t==='dark'?"<path d='M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z'/>":t==='light'?"<circle cx='12' cy='12' r='4'/><path d='M12 2v2M12 20v2M2 12h2M20 12h2M5 5l1.4 1.4M17.6 17.6L19 19M5 19l1.4-1.4M17.6 6.4L19 5'/>":"<circle cx='12' cy='12' r='8'/><path d='M12 4a8 8 0 0 1 0 16z' fill='currentColor'/>")+'</svg>';b.setAttribute('aria-label','المظهر: '+(t==='dark'?'ليلي':t==='light'?'نهاري':'حسب الجهاز')+' (اضغط للتبديل)')}}
+$('#theme').addEventListener('click',()=>{let t='light';try{t=localStorage.getItem('theme')||'light'}catch{}const n={light:'dark',dark:'auto',auto:'light'}[t]||'light';try{localStorage.setItem('theme',n)}catch{}applyTheme()});
 applyTheme();
 function renderNav(active){
   const items=[['#/','الرئيسية','home'],['#/quran','القرآن الكريم','quran'],['#/search','بحث','search'],['#/tajweed','التجويد','tajweed'],['#/qiraat','القراءات','qiraat']];
@@ -283,7 +361,7 @@ async function route(){
   const parts=location.hash.replace(/^#\/?/,'').split('/').filter(Boolean),app=$('#app');
   window.scrollTo(0,0);
   if(token&&!ME){try{ME=await api('GET','/me')}catch{ME=null}}
-  const top=parts[0]||'';
+  const top=parts[0]||'';document.body.dataset.page=top||'home';
   try{
     if(top==='quran'){renderNav('quran');await quranRoute(app,parts)}
     else if(top==='search'){renderNav('search');await searchView(app,parts)}
@@ -291,6 +369,7 @@ async function route(){
     else if(top==='qiraat'){renderNav('qiraat');qiraatView(app)}
     else if(top==='review'){renderNav('review');await reviewView(app,parts)}
     else if(top==='me'){renderNav('me');await meView(app,parts)}
+    else if(top==='gallery'){renderNav('');gallery(app)}
     else if(top==='auth'){renderNav('');authView(app)}
     else if(top==='verify'){renderNav('');await verifyView(app,parts[1])}
     else if(top==='app'){renderNav('app');if(!token){location.hash='#/auth';return}await dashboard(app,parts)}
@@ -300,59 +379,66 @@ async function route(){
 window.addEventListener('hashchange',route);
 
 /* ---------- landing ---------- */
-const PATHS=[['book','اقرأ المصحف','114 سورة برواية حفص عن عاصم، مع تلاوة مسموعة وتفسير وترجمة اختيارية.','للجميع','#/quran','ابدأ القراءة'],
- ['wave','تعلّم التجويد','مخارج الحروف وصفاتها وأحكام النون والميم والمدود، بأمثلة من المصحف. (محتوى تمهيدي قيد المراجعة العلمية)','مبتدئ','#/tajweed','افتح المكتبة'],
- ['repeat','الحفظ والمراجعة','أضف ما تحفظه فتجدول المنصة مراجعته بتباعد تدريجي وتتابع أيامك.','يتطلب حسابًا','#/me/hifz','ابدأ الحفظ'],
- ['check','اختبر نفسك','اختبارات في التجويد، واختبار «أكمل الآية» من نص المصحف. (تمهيدية قيد المراجعة)','يتطلب حسابًا','#/me/quiz','ابدأ الاختبار'],
- ['scroll','القراءات والإسناد','تعريف بالقراءات العشر ورواتها وسجلّ لتدوين سندك يوثّقه مراجع بشري. لا إجازات تصدر عن المنصة.','متقدّم','#/qiraat','تصفّح'],
- ['arch','مسارات المؤسسات','مسارات من وحدات، وحلقات مباشرة، وتسجيل تلاوة يقيّمه مقرئ بشري.','للمؤسسات والمعلمين','#/app','لوحة المؤسسة']];
-function contCard(){const l=store.get('last',null);if(!l||!l.s)return '';
-  return el('div',{class:'card cont plain'},el('div',{},el('b',{},'أكمل القراءة من حيث توقفت'),el('span',{class:'small'},surahName(l.s)+' — الآية '+ar(l.a||1))),el('a',{class:'btn',style:'margin:0',href:'#/quran/'+l.s+'/'+(l.a||1)},'تابع القراءة'))}
+const ECO=[['book','اقرأ المصحف','114 سورة برواية حفص عن عاصم، مع تلاوة مسموعة بتمييز الآية الجارية، وتفسير وترجمة اختياريين، وبحث في القرآن كله.','#/quran','ابدأ القراءة','lead'],
+ ['wave','التجويد','أحكام النون والميم والمدود وغيرها، بأمثلة تُعرض من نص المصحف. (محتوى تمهيدي قيد المراجعة العلمية)','#/tajweed','افتح المكتبة'],
+ ['mouth','مخارج الحروف وصفاتها','المخارج السبعة عشر والصفات ومستكشف للحروف. (قيد المراجعة العلمية)','#/tajweed/makharij','استكشف'],
+ ['repeat','الحفظ والمراجعة','أضف ما تحفظه فتجدول المنصة مراجعته بتباعد تدريجي وتتابع أيامك وتقدّمك في كل سورة. (يتطلب حسابًا)','#/me/hifz','ابدأ الحفظ'],
+ ['mic','التسميع والتصحيح','سجّل تلاوتك من المتصفح فيستمع إليها مقرئ معيّن لك ويكتب ملاحظاته. (داخل مؤسسة)','#/app','للمؤسسات'],
+ ['scroll','القراءات والإسناد','تعريف بالقراءات العشر ورواتها، وسجلّ لتدوين سندك يوثّقه مراجع علمي بشري.','#/qiraat','تصفّح'],
+ ['check','اختبر نفسك','اختبارات في التجويد والمخارج، واختبار «أكمل الآية» من نص المصحف. (تمهيدية قيد المراجعة)','#/me/quiz','ابدأ الاختبار'],
+ ['arch','الحلقات والمسارات','مسارات من وحدات، وحلقات مباشرة بموعد وحضور، وشهادات إتمام قابلة للتحقق (وليست إجازات). تنشئ المؤسسة مسارها وتدير مقرئيها وطلابها من لوحة واحدة.','#/app','لوحة المؤسسة','wide']];
+const STAGES=[['تعلّم','مكتبة التجويد والمخارج','#/tajweed'],['تدرّب','اختبارات وحفظ بمراجعة متباعدة','#/me/quiz'],['سمّع','تسجيل التلاوة وإرسالها لمقرئ','#/app'],['تقيّم','ملاحظات المقرئ ومستوى كل ملاحظة','#/app'],['أتقن','خريطة الإتقان لسور المصحف','#/me/map']];
+function contBlock(){const l=store.get('last',null),act=(h,t,sub)=>el('a',{class:'act',href:h},el('b',{},t),el('span',{class:'small'},sub));
+  const items=token?[l&&l.s?act('#/quran/'+l.s+'/'+(l.a||1),'أكمل القراءة',surahName(l.s)+' — الآية '+ar(l.a||1)+' (آخر موضع على هذا الجهاز)'):act('#/quran','ابدأ القراءة','المصحف كاملًا'),act('#/me/hifz','راجع محفوظك','مراجعاتك المستحقة وتقدّمك'),act('#/me','رحلتي','اليوم، الحفظ، الاختبارات، الخريطة'),act('#/app','لوحتي','المؤسسات والحلقات والجلسات القادمة')]
+    :[act('#/auth','ابدأ التعلّم','أنشئ حسابًا مجانيًا لتُحفظ رحلتك'),act('#/tajweed','اكتشف المسارات','مكتبة التجويد والمخارج'),act('#/quran'+(l&&l.s?'/'+l.s+'/'+(l.a||1):''),l&&l.s?'أكمل من حيث توقفت':'تصفّح المصحف',l&&l.s?surahName(l.s)+' — الآية '+ar(l.a||1):'114 سورة')];
+  return el('section',{class:'acts','aria-label':'ابدأ من هنا'},...items)}
 async function landing(app){
-  const todayBox=el('div',{class:'ayat'});
-  const feat=(ic,t,d,h,l)=>el('div',{class:'feat'},el('div',{class:'ic'},ic),el('b',{},t),el('span',{class:'small'},d),h?el('a',{class:'btn ghost sm',style:'margin-top:8px;align-self:flex-start',href:h},l||'افتح'):'');
-  app.replaceChildren(
-    el('section',{class:'hero'},...corners(),el('div',{class:'eyebrow'},'ترتيل · منصة تعلّم القرآن'),el('h1',{},'تعلّم القرآن وأتقن تلاوته'),
-      el('p',{},'منصة عربية تجمع قراءة المصحف كاملًا، ومسارات تعلّم مرتّبة، وحلقات مباشرة، وتسجيل التلاوة وتقييمها على يد مقرئ بشري.'),
-      el('div',{},el('a',{class:'btn',href:'#/quran'},'اقرأ القرآن الآن'),el('a',{class:'btn alt',href:'#/tajweed'},'تعلّم التجويد'),token?el('a',{class:'btn alt',href:'#/app'},'افتح لوحتي'):el('a',{class:'btn alt',href:'#/auth'},'أنشئ حسابك مجانًا')),todayBox),
-    contCard(),
-    el('h2',{class:'sec'},'مسارات التعلّم'),divider(),
-    el('div',{class:'paths'},...PATHS.map(([ic,t,d,lvl,h,l])=>el('a',{class:'path',href:h},pathIcon(ic),el('b',{},t),el('span',{class:'small'},d),el('span',{class:'chip lvl'},lvl),el('span',{class:'go'},l+' ←')))),
-    el('h2',{class:'sec'},'رحلة التعلّم'),divider(),
-    el('div',{class:'journey'},el('div',{},el('b',{},'اقرأ'),el('span',{class:'small'},'المصحف كاملًا وتلاوة مسموعة')),el('div',{},el('b',{},'تعلّم'),el('span',{class:'small'},'التجويد والمخارج والصفات')),el('div',{},el('b',{},'احفظ'),el('span',{class:'small'},'مقاطع تُراجع بتباعد ذكي')),el('div',{},el('b',{},'اختبر وراجع'),el('span',{class:'small'},'اختبارات وخريطة إتقان'))),
-    el('details',{class:'card more',style:'margin-top:22px'},el('summary',{},'كل ما تقدّمه المنصة'),
-    el('div',{class:'grid'},
-      feat('🎧','استمع إلى التلاوة','أكثر من مئة قارئ برواية حفص، مع تمييز الآية الجارية وتكرارها للحفظ وتغيير السرعة. تُبثّ التلاوة من خدمة mp3quran.net العامة.','#/quran/1','استمع الآن'),
-      feat('🌐','ترجمة المعاني بالإنجليزية','ترجمة Clear Quran (Talal Itani) تُعرض اختياريًّا تحت المصحف مع النسبة إلى مترجمها. ليست قرآنًا، ولم يراجعها مراجع شرعي بعد.','#/quran/1','جرّبها في القارئ'),
-      feat('📖','المصحف كاملًا','114 سورة بالرسم العثماني، رواية حفص عن عاصم، مع بحث وإشارات مرجعية وتكبير الخط ومتابعة القراءة.','#/quran','اقرأ'),
-      feat('🔤','مكتبة التجويد','مخارج الحروف السبعة عشر، وصفاتها، وأحكام النون والميم والمدود، ومستكشف للحروف، مع أمثلة تُعرض من نص المصحف نفسه. (محتوى تمهيدي قيد المراجعة العلمية)','#/tajweed','افتح المكتبة'),
-      feat('🔁','حفظ ومراجعة ذكية','أضف المقاطع التي تحفظها فتجدول المنصة مراجعتها بتباعد تدريجي، وتتابع أيامك المتتالية وما بلغ حفظه من كل سورة.','#/me/hifz','ابدأ الحفظ (يتطلب حسابًا)'),
-      feat('✅','اختبر نفسك','اختبارات في المخارج والصفات وأحكام النون والميم والمدود، واختبار «أكمل الآية» يُولَّد من نص المصحف. (تمهيدية قيد المراجعة العلمية)','#/me/quiz','اختبر نفسك (يتطلب حسابًا)'),
-      feat('🗺️','خريطة الإتقان','لوحة بالسور الـ114 تُظهر تقدّم حفظك، ومهارات التجويد من نتائج اختباراتك.','#/me/map','خريطتي (يتطلب حسابًا)'),
-      feat('📱','تثبيت على الهاتف','تُثبَّت كتطبيق على هاتفك، ويُقرأ المصحف الذي فتحته من قبل دون اتصال.'),
-      feat('📜','القراءات والإسناد','تعريف بالقراءات العشر ورواتها، وسجلّ لتدوين سندك يوثّقه مراجع علمي بشري عند الاطّلاع على ما يثبته. المنصة لا تُصدر إجازات.','#/qiraat','القراءات'),
-      feat('🧭','مسارات ومناهج','تضع المؤسسة مسارات من وحدات (تلاوة، حفظ، تجويد، مراجعة) ويتابع الطالب تقدّمه وحدة بعد وحدة.','#/app','لوحة المؤسسة (يتطلب حسابًا)'),
-      feat('🕌','حلقات مباشرة','جلسات بموعد وحضور، وغرفة اتصال مرئي لا تُفتح إلا قبل الموعد، وبحضور المقرئ.'),
-      feat('🎙️','تلاوتك أمام مقرئ','سجّل تلاوتك من المتصفح، يستمع إليها المقرئ المعيّن لك ويكتب ملاحظاته ومستويات الملاحظة.'),
-      feat('🪪','جواز التعلّم والشهادات','سجلّ تقدّمك وشهادات إتمام المساق، قابلة للتحقق برمز عام، وهي ليست إجازة.'),
-      feat('🛡️','حماية الصغار','تسجيل القاصر يشترط وليّ أمر موثَّقًا وموافقة سارية، ويُفرض ذلك في قاعدة البيانات نفسها.'))),
-    el('h2',{class:'sec'},'كيف تبدأ؟'),divider(),
-    el('div',{class:'steps'},el('div',{},'أنشئ حسابك أو ادخل.'),el('div',{},'اطلب من مدير مؤسستك إضافتك، أو أنشئ مؤسستك الخاصة.'),el('div',{},'ابدأ مسارك، واحضر حلقتك، وأرسل تلاوتك.')),
-    el('div',{class:'card',style:'margin-top:22px'},el('h2',{},'التزاماتنا'),
+  const todayBox=el('div',{class:'votd'});
+  const go=id=>()=>{const e=document.getElementById(id);if(e)e.scrollIntoView({behavior:'smooth'})};
+  const hero=el('section',{class:'hero2'},
+    el('div',{class:'hmain'},el('span',{class:'mband','aria-hidden':'true'},medallion(84,'mm')),el('div',{class:'eyebrow'},'ترتيل · منصة تعلّم القرآن وإتقانه'),
+      el('h1',{},'رحلتك مع القرآن، من التعلّم إلى الإتقان'),
+      el('p',{},'منصة متكاملة لتعلّم القرآن الكريم وعلومه، تجمع المسارات التعليمية المتدرجة، والتدريب والتسميع، والتقييم، والتعليم بإشراف أهل الاختصاص.'),
+      el('div',{class:'hbtns'},el('a',{class:'btn',href:token?'#/me':'#/auth'},token?'تابع رحلتك':'ابدأ رحلتك'),el('a',{class:'btn ghost',href:'#/quran'},'اقرأ المصحف'),el('button',{class:'linkbtn',type:'button',on:{click:go('eco')}},'استكشف المنصة ↓'))),
+    heroArt());
+  const eco=el('section',{id:'eco',class:'zone zb'},el('h2',{class:'sec'},'مجالات التعلّم'),divider(),
+    el('div',{class:'eco'},...ECO.map(([ic,t,d,h,l,k])=>el('a',{class:'ec'+(k==='lead'?' lead':k==='wide'?' wide':''),href:h},pathIcon(ic),el('b',{},t),el('span',{class:'small'},d),el('span',{class:'go'},l+' ←')))));
+  const jr=el('section',{class:'zone'},el('h2',{class:'sec'},'رحلة المتعلّم'),divider(),
+    el('ol',{class:'stages'},...STAGES.map(([t,d,h],i)=>el('li',{},el('a',{href:h},el('span',{class:'sn'},ar(i+1)),el('b',{},t),el('span',{class:'small'},d))))));
+  const caps=['إدارة الأعضاء بأدوارهم: مدير ومقرئ وطالب ووليّ أمر','حلقات وجلسات بموعد وحضور وغرفة اتصال','مسارات من وحدات، مع ثمانية قوالب مبدئية (مسوّدات قيد المراجعة)','تسميع بتسجيل صوتي وملاحظات مقرئ بشري','شهادات إتمام مساق قابلة للتحقق (وليست إجازات)','مؤشرات المؤسسة وسجلّ تدقيق وعزل لبياناتها على مستوى قاعدة البيانات'];
+  const inst=el('section',{class:'inst zone zc'},el('div',{class:'imain'},el('h2',{},'للمراكز والجمعيات والمعاهد'),
+      el('p',{},'أنشئ مؤسستك بنفسك فتكون مديرها، وأضف مقرئيك وطلابك، وابدأ من قوالب مسارات جاهزة تعدّلها وتنشرها.'),
+      el('div',{class:'hbtns'},el('a',{class:'btn',href:token?'#/app':'#/auth'},token?'افتح لوحة المؤسسة':'أنشئ حساب مؤسستك'))),
+    el('ul',{class:'caps'},...caps.map(c=>el('li',{},c))));
+  const trust=el('section',{class:'card plain trust'},el('h2',{},'التزاماتنا'),
       el('ul',{style:'margin:0;padding-inline-start:20px'},
         el('li',{},'لا نغيّر حرفًا من نص القرآن؛ يُخزَّن كما هو ويُتحقَّق منه ببصمة رقمية.'),
         el('li',{},'لا فتاوى ولا أحكام ولا إجازات آلية؛ الذكاء الاصطناعي يقترح مسوّدات فقط ولا تصل للطالب قبل قبول مقرئ بشري.'),
         el('li',{},'كل محتوى تعليمي مستخرج آليًّا يبقى مسوّدة حتى يعتمده مراجع علمي.'),
-        el('li',{},'بياناتك معزولة بين المؤسسات على مستوى قاعدة البيانات.'))));
+        el('li',{},'تسجيل القاصر يشترط وليّ أمر موثَّقًا وموافقة سارية، ويُفرض ذلك في قاعدة البيانات نفسها.'),
+        el('li',{},'بياناتك معزولة بين المؤسسات على مستوى قاعدة البيانات، ويُثبَّت الموقع كتطبيق على الهاتف.')));
+  app.replaceChildren(hero,todayBox,contBlock(),eco,jr,inst,trust);
   try{ // verse of the day: deterministic by date, from the stored text
     const{ref}=await quranMeta();const total=ref.reduce((a,s)=>a+s.ayahCount,0);
     let i=Math.floor(Date.now()/864e5)*7919%total,s=0;while(i>=ref[s].ayahCount){i-=ref[s].ayahCount;s++}
     const d=await surahData(ref[s].surah),a=d.ayat[i];
-    if(a)todayBox.replaceChildren(el('div',{class:'small',style:'color:#fff;opacity:.85'},'آية اليوم'),el('p',{class:'ayah'},a.text+' ﴿'+ar(a.ayah)+'﴾'),el('a',{href:'#/quran/'+d.surah+'/'+a.ayah,style:'color:#fff'},surahName(d.surah)+' — الآية '+ar(a.ayah)))
+    if(a)todayBox.replaceChildren(el('span',{class:'small'},'آية اليوم'),el('p',{class:'ayah'},a.text,ayahMarker(a.ayah)),el('a',{href:'#/quran/'+d.surah+'/'+a.ayah},surahName(d.surah)+' — الآية '+ar(a.ayah)));
     else todayBox.remove()
   }catch{todayBox.remove()}
 }
 
+/* ---------- ornament design gallery (development aid, not linked from the UI): every pattern with its parameters, in the two themes ---------- */
+function gallery(app){
+  const swatch=(t,bg,sz,note)=>el('figure',{class:'gal'},el('div',{class:'gs',style:'background:'+bg+' center/'+sz+'px'}),el('figcaption',{class:'small'},t,el('br'),el('span',{class:'mono'},note)));
+  const tiers=(k,s0)=>[[.35,.8],[.55,1],[.8,1.4]].map(([o,w],i)=>swatch(k+' · '+['خفيف','متوسط','كثيف'][i],'url("'+patUri(k,{s:s0,c:'#B99A58',o,w})+'")',s0,'s='+s0+' o='+o+' w='+w));
+  const dark=(k,s0)=>swatch(k+' · ليلي','#10231F url("'+patUri(k,{s:s0,c:'#CAB47A',o:.55,w:1})+'")',s0,'c=#CAB47A');
+  app.replaceChildren(el('div',{class:'card plain'},el('h2',{},'معرض الزخارف (للتطوير)'),el('p',{class:'small'},'كل نمط يُولَّد من معاملات (الحجم s، الشدة o، سماكة الخط w، اللون c). المحرك: PATS وpatUri وmedallionInner وheroArt في index.html. لا يظهر هذا المسار في واجهة المستخدم.')),
+    el('div',{class:'card plain'},el('h3',{},'A — تجانب هندسي (نجمة ثمانية)'),el('div',{class:'galrow'},...tiers('A',72),dark('A',72))),
+    el('div',{class:'card plain'},el('h3',{},'B — كرمة نباتية بأسلوب عثماني'),el('div',{class:'galrow'},...tiers('B',96),dark('B',96))),
+    el('div',{class:'card plain'},el('h3',{},'C — شبكة أندلسية/مغربية {8/3}'),el('div',{class:'galrow'},...tiers('C',80),dark('C',80))),
+    el('div',{class:'card plain'},el('h3',{},'D — زخرفة الزاوية · فاصل · علامة الآية · إطار السورة'),el('div',{class:'galrow',style:'align-items:center'},el('div',{style:'position:relative;width:120px;height:120px;border:1px solid var(--line)'},orn('corner','cn tl'),orn('corner','cn br')),el('div',{style:'min-width:240px'},divider()),ayahMarker(7),el('section',{class:'cartouche',style:'min-width:260px;margin:14px'},orn('star','med s'),el('h1',{style:'font-size:28px'},'سورة الفاتحة'),orn('star','med e')))),
+    el('div',{class:'card plain'},el('h3',{},'E — القلادة المذهّبة والتكوين الرئيسي'),el('div',{class:'galrow',style:'align-items:center;color:var(--gold)'},medallion(200),medallion(110),medallion(56),heroArt())));
+}
 /* ---------- Quran ---------- */
 async function quranRoute(app,parts){
   const n=parseInt(parts[1],10);

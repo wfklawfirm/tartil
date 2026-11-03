@@ -44,6 +44,10 @@
 
 34b. Tajweed colouring now paints character ranges with the CSS Custom Highlight API (Safari 17.2+, Chrome 105+, Firefox 140+), leaving the verse as one plain text node so no word is split. Colour tooltips are not available on this path (the legend is). Older browsers fall back to coloured spans with joiners (limitation 34 applies). Verified in Chromium only; iPhone result is for the owner to confirm.
 
-35. Visual redesign (2026-11-03): verified in Chromium only (no real Safari/iPhone, screen reader or device); web fonts unavailable in the test sandbox so typography was seen with fallbacks; logged-in pages checked only with a mocked API; no lesson workspace, curriculum timeline, certificate redesign or persistent audio mini-player; Meccan/Medinan is not shown because it is not in the stored source. See docs/FINAL_DESIGN_QA.md.
+35. Visual redesign (2026-11-03): verified in Chromium only (no real Safari/iPhone, screen reader or device); web fonts unavailable in the test sandbox so typography was seen with fallbacks; logged-in pages checked only with a mocked API; no lesson workspace, curriculum timeline, certificate redesign or persistent audio mini-player; Meccan/Medinan is not shown because it is not in the stored source. See docs/09_VISUAL_QA.md.
 
 35b. Added 2026-11-03: audio mini-player, desktop side panel, curriculum timeline, certificate frame, passport progress bars. Same verification limits as 35 (Chromium, mocked data for logged-in pages); per-unit completion not displayed; playback still stops on leaving the reader.
+
+
+## 36. Tartil 2.0 pass (2026-11-03)
+Homepage, light default, pattern engine and gallery done. Still absent: juz/hizb/page navigation, Meccan/Medinan, word meanings, parent workspace, tajweed tooltips on the Highlight path, browser E2E for journeys A-G, WebKit verification. Originals of the 19 units / 105 competencies are not in the repository. See docs/11_FINAL_RELEASE_READINESS.md.

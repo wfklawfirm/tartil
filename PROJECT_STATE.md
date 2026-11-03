@@ -78,4 +78,8 @@ Owner reported the detached letters/gaps remained on iPhone after joiner and ali
 Owner supplied a full UI/UX master brief. Done: identity tokens (light/night, manual switch), original SVG ornament library, reader rebuilt (surah header, collapsed tools, reading canvas, rosette markers), home rebuilt, mobile bottom navigation, 44 px targets, focus, reduced motion, print. Docs: UI_UX_AUDIT, QURANIC_DESIGN_SYSTEM, PAGE_REDESIGN_REPORT, FINAL_DESIGN_QA; screenshots in docs/design-screens; `scripts/qa/reader_integrity.mjs` regression. Gaps listed in PAGE_REDESIGN_REPORT.
 
 ## 2026-11-03 redesign completion
-Added mini-player, desktop side panel, timeline, certificate frame/print, progress bars, CLS fixes (lab CLS 0.006/0). Remaining gaps in docs/PAGE_REDESIGN_REPORT.md.
+Added mini-player, desktop side panel, timeline, certificate frame/print, progress bars, CLS fixes (lab CLS 0.006/0). Remaining gaps in docs/07_ROUTE_AND_ROLE_COVERAGE.md.
+
+
+## 2026-11-03 Tartil 2.0
+Light-default ivory theme; ornament engine A-E + `#/gallery`; homepage rebuilt (hero, verse of the day, ecosystem, journey, institutional, trust, honest footer). Docs numbered 01-11 in docs/. Tests: API 31/31, integrity 2180, axe 0 violations/18 combos, no overflow at 11 viewports. See docs/11_FINAL_RELEASE_READINESS.md for what remains.
