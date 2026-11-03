@@ -755,7 +755,13 @@ async function hwToday(pane,ctx){
     const act=[];
     if(h.status==='assigned'||h.status==='viewed'||h.status==='needs_retry')act.push(el('button',{class:'btn lg',on:{click:()=>run(stat,async()=>{await api('POST',ctx.b+'/homework/'+hid+'/start');load()})}},'ابدأ الواجب'));
     if(h.submissionMode==='mark_done')act.push(el('button',{class:'btn lg gold',on:{click:()=>run(stat,async()=>{await api('POST',ctx.b+'/homework/'+hid+'/submit',{kind:'done'});load()})}},'أنهيت الواجب'));
-    else if(ctx.has('student')){
+    if(h.submissionMode==='mark_done'&&h.surah&&ctx.has('student')&&!sel)act.push(el('button',{class:'btn lg ghost',on:{click:()=>run(stat,async()=>{
+      const r=await api('GET','/me/recitations');const l=r.attempts.filter(a=>a.surah===h.surah);
+      if(!l.length){note(stat,'لا توجد محاولات تسميع لهذه السورة. جرّب «تسميعي» أولًا (اختياري).');return}
+      const s=el('select',{'aria-label':'محاولة التسميع'},l.map(a=>el('option',{value:a.id},ar(a.fromAyah)+'–'+ar(a.toAyah)+' · '+new Date(a.createdAt).toLocaleString('ar'))));
+      stat.replaceChildren(el('div',{class:'card plain'},field('اختر محاولة',s),el('p',{class:'small'},'تُرفق كفرضية آلية فقط؛ ليست درجة، والحكم لمعلّمك. فشل التحليل لا يمنع التسليم.'),
+        el('button',{class:'btn gold',on:{click:()=>run(stat,async()=>{await api('POST',ctx.b+'/homework/'+hid+'/submit',{kind:'done',attemptId:s.value});load()})}},'أنهيت الواجب وأرفق النتيجة')))})}},'أرفق نتيجة تسميعي'));
+    if(h.submissionMode==='mark_done'){}else if(ctx.has('student')){
       let blob=null,mr=null;const prev=el('audio',{controls:'',style:'width:100%;margin-top:8px;display:none'});
       const rec=el('button',{class:'btn lg',on:{click:async()=>{try{const s=await navigator.mediaDevices.getUserMedia({audio:true});const ch=[];mr=new MediaRecorder(s);mr.ondataavailable=e=>ch.push(e.data);mr.onstop=()=>{blob=new Blob(ch,{type:'audio/webm'});s.getTracks().forEach(t=>t.stop());prev.src=URL.createObjectURL(blob);prev.style.display='block';note(stat,'تم التسجيل. استمع إليه ثم أرسله.')};mr.start();note(stat,'🔴 جارٍ التسجيل… اضغط «إيقاف» عند الانتهاء')}catch{note(stat,'تعذّر الوصول إلى الميكروفون. اسمح للمتصفح باستخدامه.','err')}}}},'🎙️ سجّل تلاوتك');
       const stop=el('button',{class:'btn lg ghost',on:{click:()=>{if(mr&&mr.state==='recording')mr.stop()}}},'إيقاف');
