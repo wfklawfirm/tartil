@@ -452,7 +452,7 @@ function renderNav(active){
   else if(token)who.replaceChildren();
   else who.replaceChildren(el('a',{class:'btn sm',href:'#/auth',style:'margin:0'},'دخول / تسجيل'));
   /* mobile bottom navigation: four main destinations + a menu for the rest */
-  const main=[['#/','الرئيسية','home','home'],['#/quran','المصحف','quran','book'],['#/search','بحث','search','search'],['#/tajweed','التجويد','tajweed','wave']];
+  const main=[['#/','الرئيسية','home','home'],['#/quran','المصحف','quran','book'],['#/search','بحث','search','search'],['#/tajweed','التجويد','tajweed','wave'],['#/academy','التكوين','academy','user']];
   const more=el('button',{type:'button','aria-haspopup':'true','aria-expanded':'false',on:{click:()=>{const m=$('#more');m.hidden=!m.hidden;more.setAttribute('aria-expanded',String(!m.hidden))}}},ico('more'),'المزيد');
   $('#bnav').replaceChildren(...main.map(([h,t,k,i])=>el('a',{href:h,class:k===active?'on':'','aria-current':k===active?'page':null},ico(i),t)),more);
   const rest=[['#/kids','أكاديمية الصغار'],['#/academy','أكاديمية التكوين الإنساني'],['#/demo','جولة في الواجبات'],['#/plan','خطتي'],['#/foundations','الأسس: الحروف والحركات'],['#/qiraat','القراءات والإسناد']];if(token&&ME&&ME.memberships&&ME.memberships.length)rest.push(['#/app/'+ME.memberships[0].institutionId+'/homework','الواجبات']);if(token)rest.push(['#/me','رحلتي'],['#/app','لوحتي']);if(token&&isScholar())rest.push(['#/review','المراجعة العلمية']);
