@@ -1,0 +1,1235 @@
+{
+ "program": "P06",
+ "status": "draft-unreviewed",
+ "total_sessions": 20,
+ "sessions": [
+  {
+   "session_number": 1,
+   "week": 1,
+   "stage": "P06-A",
+   "title": "أربعة أسئلة قبل أن أفهم",
+   "competency": "K1",
+   "competency_title": "فهم الكلام في سياقه",
+   "objective": "أن يسمّي المتعلم المتكلم والمخاطَب والموقف في نص قصير حياتي.",
+   "min_age": 10,
+   "duration_min": 35,
+   "components": [
+    {
+     "type": "intro",
+     "minutes": 4,
+     "ref": {
+      "kind": "lesson",
+      "id": "K1-L1"
+     },
+     "text": "اطرح الافتتاحية: «لا تقترب من هناك»، واترك المتعلمين يخمّنون دقيقة دون تصحيح."
+    },
+    {
+     "type": "source_teaching",
+     "minutes": 10,
+     "ref": {
+      "kind": "lesson",
+      "id": "K1-L1"
+     },
+     "text": "اقرأ قصة تميم بصوت هادئ، ثم اطرح أسئلتها واحدًا واحدًا. أنصت لكل جواب بلا حكم، ولا تُملِ العبرة؛ دعهم يصلون إليها."
+    },
+    {
+     "type": "interactive_practice",
+     "minutes": 17,
+     "ref": {
+      "kind": "lesson",
+      "id": "K1-L1"
+     },
+     "text": "وزّع البطاقات الثلاث على أزواج. مرّ بينهم وساعد من يتعثر بالمثال المحلول فقط. ثم أضف البطاقة الرابعة واسأل: ما الظرف الذي غيّر المعنى؟ ثم اجمع الأزواج وعلّقوا على سؤال: هل اختلفتم في أي جواب؟ ما سبب الاختلاف؟ لا تسأل أي زوج أخطأ."
+    },
+    {
+     "type": "assessment",
+     "minutes": 0,
+     "embedded_in": "interactive_practice",
+     "ref": {
+      "kind": "lesson",
+      "id": "K1-L1"
+     },
+     "text": "ملاحظة تكوينية وصفية أثناء الممارسة، دون درجات.",
+     "criteria": {
+      "ظهر": "يسمّي المتكلم والمخاطَب والموقف في لافتة أو رسالة قصيرة دون مساعدة، ويصف ما يريده المتكلم بكلماته.",
+      "يتدرب": "يسمّي المتكلم والمخاطَب ويحتاج تذكيرًا بسؤال الموقف أو سؤال الغاية.",
+      "يحتاج_دعما": "يحتاج أمثلة ملموسة وقراءة مشتركة مع المعلم ليميّز بين المتكلم والمخاطَب."
+     }
+    },
+    {
+     "type": "reflection",
+     "minutes": 4,
+     "ref": {
+      "kind": "lesson",
+      "id": "K1-L1"
+     },
+     "text": "تأمل فردي خاص في الدفتر (لا يُجمع ولا يُقرأ)، ثم اختم بالجملة الجامعة وأعطِ السؤال البيتي."
+    }
+   ],
+   "homework": {
+    "optional": true,
+    "out_of_session": true,
+    "text": "يختار المتعلم لافتة أو رسالة عامة من يومه ويسمّي من يتكلم ولمن وماذا يريد.",
+    "estimated_minutes": 12,
+    "ref": {
+     "kind": "lesson",
+     "id": "K1-L1"
+    }
+   },
+   "review_status": "unreviewed"
+  },
+  {
+   "session_number": 2,
+   "week": 1,
+   "stage": "P06-A",
+   "title": "الرسالة المقتطعة",
+   "competency": "K1",
+   "competency_title": "فهم الكلام في سياقه",
+   "objective": "أن يتدرب المتعلم على سؤال: ما الذي سبق هذا السطر؟ وما الذي لا أعرفه بعد؟",
+   "min_age": 10,
+   "duration_min": 8,
+   "components": [
+    {
+     "type": "intro",
+     "minutes": 2,
+     "ref": {
+      "kind": "scenario",
+      "id": "K1-S1"
+     },
+     "text": "قراءة مقدمة الموقف."
+    },
+    {
+     "type": "interactive_practice",
+     "minutes": 4,
+     "ref": {
+      "kind": "scenario",
+      "id": "K1-S1"
+     },
+     "text": "يختار المتعلمون في 2 قرارات متتابعة ويقرؤون عاقبة كل اختيار."
+    },
+    {
+     "type": "reflection",
+     "minutes": 2,
+     "ref": {
+      "kind": "scenario",
+      "id": "K1-S1"
+     },
+     "text": "حديث عن النهاية التي وصلوا إليها وسؤال التأمل في آخر الموقف."
+    }
+   ],
+   "review_status": "unreviewed"
+  },
+  {
+   "session_number": 3,
+   "week": 2,
+   "stage": "P06-A",
+   "title": "الجملة المقتطعة ليست الجملة كاملة",
+   "competency": "K1",
+   "competency_title": "فهم الكلام في سياقه",
+   "objective": "أن يشرح المتعلم بكلماته كيف يغيّر السياق معنى الكلام، وأن الجواب لسائل معيّن ليس قاعدة للجميع.",
+   "min_age": 10,
+   "duration_min": 40,
+   "components": [
+    {
+     "type": "intro",
+     "minutes": 4,
+     "ref": {
+      "kind": "lesson",
+      "id": "K1-L2"
+     },
+     "text": "اطرح الافتتاحية واترك دقيقة للتخمين دون أن تحكم على الإجابات."
+    },
+    {
+     "type": "source_teaching",
+     "minutes": 13,
+     "ref": {
+      "kind": "lesson",
+      "id": "K1-L2"
+     },
+     "text": "جولة الاقتطاع: اعرض سطر «سأتأخر قليلًا» وحده، ثم اقرأ الحوار كاملًا، وناقشوا الفرق. ثم اسأل: ما الذي كان قبل هذا السطر؟"
+    },
+    {
+     "type": "interactive_practice",
+     "minutes": 20,
+     "ref": {
+      "kind": "lesson",
+      "id": "K1-L2"
+     },
+     "text": "نقاش «هل الجواب للجميع؟»: اقرأ الموقف، ثم اطرح الأسئلة واحدًا واحدًا. المطلوب فكرة واحدة: جواب السائل مرتبط بحاله. ثم نشاط الفقرة: كل متعلم يكتب بقالب الأسئلة، ثم يقرؤها لزميله."
+    },
+    {
+     "type": "assessment",
+     "minutes": 0,
+     "embedded_in": "interactive_practice",
+     "ref": {
+      "kind": "lesson",
+      "id": "K1-L2"
+     },
+     "text": "ملاحظة تكوينية وصفية أثناء الممارسة، دون درجات.",
+     "criteria": {
+      "ظهر": "يشرح بكلماته كيف غيّر السياق معنى الجملة، ويتجنب تعميم جواب قيل لشخص معيّن.",
+      "يتدرب": "يلاحظ أثر السياق في المثال الذي أمامه ويحتاج تلميحًا ليطبقه على مثال جديد.",
+      "يحتاج_دعما": "يميل إلى الحكم على الجملة وحدها ويحتاج إعادة العرض خطوة خطوة مع أسئلة موجِّهة."
+     }
+    },
+    {
+     "type": "reflection",
+     "minutes": 3,
+     "ref": {
+      "kind": "lesson",
+      "id": "K1-L2"
+     },
+     "text": "اختم بالجملة الجامعة والسؤال البيتي."
+    }
+   ],
+   "homework": {
+    "optional": true,
+    "out_of_session": true,
+    "text": "ينتبه المتعلم هذا الأسبوع لجملة سمعها مقتطعة ثم عرف سياقها فتغير فهمه.",
+    "estimated_minutes": 12,
+    "ref": {
+     "kind": "lesson",
+     "id": "K1-L2"
+    }
+   },
+   "review_status": "unreviewed"
+  },
+  {
+   "session_number": 4,
+   "week": 2,
+   "stage": "P06-A",
+   "title": "سؤال واحد وجوابان",
+   "competency": "K1",
+   "competency_title": "فهم الكلام في سياقه",
+   "objective": "أن يقرر المتعلم في موقف «سؤال واحد وجوابان» ويرى عاقبة اختياره.",
+   "min_age": 10,
+   "duration_min": 8,
+   "components": [
+    {
+     "type": "intro",
+     "minutes": 2,
+     "ref": {
+      "kind": "scenario",
+      "id": "K1-S2"
+     },
+     "text": "قراءة مقدمة الموقف."
+    },
+    {
+     "type": "interactive_practice",
+     "minutes": 4,
+     "ref": {
+      "kind": "scenario",
+      "id": "K1-S2"
+     },
+     "text": "يختار المتعلمون في 2 قرارات متتابعة ويقرؤون عاقبة كل اختيار."
+    },
+    {
+     "type": "reflection",
+     "minutes": 2,
+     "ref": {
+      "kind": "scenario",
+      "id": "K1-S2"
+     },
+     "text": "حديث عن النهاية التي وصلوا إليها وسؤال التأمل في آخر الموقف."
+    }
+   ],
+   "review_status": "unreviewed"
+  },
+  {
+   "session_number": 5,
+   "week": 3,
+   "stage": "P06-A",
+   "title": "المعنى الحرفي والمقصود",
+   "competency": "K1",
+   "competency_title": "فهم الكلام في سياقه",
+   "objective": "أن يفرّق المتعلم بين المعنى الحرفي والمقصود بتوجيه المعلم، وبين الخبر والمثل والجواب عن سؤال.",
+   "min_age": 11,
+   "duration_min": 45,
+   "components": [
+    {
+     "type": "intro",
+     "minutes": 5,
+     "ref": {
+      "kind": "lesson",
+      "id": "K1-L3"
+     },
+     "text": "افتتح بسؤال «هل عندك ساعة؟» واترك التخمينات تتنوع."
+    },
+    {
+     "type": "source_teaching",
+     "minutes": 15,
+     "ref": {
+      "kind": "lesson",
+      "id": "K1-L3"
+     },
+     "text": "بطاقات الحرفي والمقصود: أزواج، مثال محلول، ثم تبادل الأجوبة. أضف بطاقة العبارتين المتقاربتين، وأكّد أن التأكيد قرينة لا حكم."
+    },
+    {
+     "type": "interactive_practice",
+     "minutes": 22,
+     "ref": {
+      "kind": "lesson",
+      "id": "K1-L3"
+     },
+     "text": "لعبة الخبر والمثل والجواب: اعرض العبارات الثلاث، واسأل عن السبب لا عن الصواب فقط. أضف جولة «هل بين الفقرتين صلة؟» قبل مشروع النص الجديد. ثم مشروع النص الجديد: وزّع النصوص مع بطاقات سياقها؛ كل متعلم يعرض لزميله."
+    },
+    {
+     "type": "assessment",
+     "minutes": 0,
+     "embedded_in": "interactive_practice",
+     "ref": {
+      "kind": "lesson",
+      "id": "K1-L3"
+     },
+     "text": "ملاحظة تكوينية وصفية أثناء الممارسة، دون درجات.",
+     "criteria": {
+      "ظهر": "يفرّق بين المعنى الحرفي والمقصود في عبارات يومية، ويعرض سياق نص جديد بكلماته.",
+      "يتدرب": "يفرّق في الأمثلة المألوفة ويحتاج توجيهًا في الأمثلة الجديدة.",
+      "يحتاج_دعما": "يتمسك بالمعنى الحرفي أو يخمّن بلا قرائن، ويحتاج مثالًا مصوّرًا وتدريبًا إضافيًّا على أسئلة السياق."
+     }
+    },
+    {
+     "type": "reflection",
+     "minutes": 3,
+     "ref": {
+      "kind": "lesson",
+      "id": "K1-L3"
+     },
+     "text": "اختم بالجملة الجامعة والسؤال البيتي."
+    }
+   ],
+   "homework": {
+    "optional": true,
+    "out_of_session": true,
+    "text": "يشرح المتعلم لأحد أفراد أسرته مثالًا من يومه فُهم على غير مراده الأول.",
+    "estimated_minutes": 12,
+    "ref": {
+     "kind": "lesson",
+     "id": "K1-L3"
+    }
+   },
+   "review_status": "unreviewed"
+  },
+  {
+   "session_number": 6,
+   "week": 3,
+   "stage": "P06-B",
+   "title": "من قال؟ وكيف عرف؟",
+   "competency": "K2",
+   "competency_title": "أتثبّت قبل أن أصدّق وأنشر",
+   "objective": "أن يسمّي المتعلم مصدر الخبر ويفرّق بين من رأى بنفسه ومن سمع من غيره ومن ظنّ.",
+   "min_age": 10,
+   "duration_min": 35,
+   "components": [
+    {
+     "type": "intro",
+     "minutes": 4,
+     "ref": {
+      "kind": "lesson",
+      "id": "K2-L1"
+     },
+     "text": "اطرح الافتتاحية واسمع الإجابات الأولى دون تعليق."
+    },
+    {
+     "type": "source_teaching",
+     "minutes": 13,
+     "ref": {
+      "kind": "lesson",
+      "id": "K2-L1"
+     },
+     "text": "اقرأ القصة، ثم اطرح الأسئلة واحدًا واحدًا. سجّل على لوح مشترك الأسئلة التي يقترحها المتعلمون، واقرأ بعضها بلا تعليق على أصحابها."
+    },
+    {
+     "type": "interactive_practice",
+     "minutes": 16,
+     "ref": {
+      "kind": "lesson",
+      "id": "K2-L1"
+     },
+     "text": "لعبة «رأى أم سمع أم ظنّ؟»: وزّع البطاقات، واترك المجموعات تفرز وتناقش. مفتاح المرشد: 1 و6 رأى، 2 و4 و5 سمع من غيره، 3 ظنّ (والعبارة 4 قد تُعدّ سماعًا مباشرًا). ثم أضف تقسيم علم/غلبة ظن/تخمين (يحتاج مراجعة قبل الاعتماد) واسأل: ما الصيغة المناسبة لكل عبارة؟ ثم اجمع ما توصلوا إليه: أي نوع أقرب للتأكد؟ وكيف نسأل دون اتهام؟"
+    },
+    {
+     "type": "assessment",
+     "minutes": 0,
+     "embedded_in": "interactive_practice",
+     "ref": {
+      "kind": "lesson",
+      "id": "K2-L1"
+     },
+     "text": "ملاحظة تكوينية وصفية أثناء الممارسة، دون درجات.",
+     "criteria": {
+      "ظهر": "يسمّي مصدر الخبر ويفرّق بين الرؤية والسماع والظن في أمثلة بسيطة.",
+      "يتدرب": "يسمّي المصدر ويحتاج تذكيرًا بسؤال كيف عرف.",
+      "يحتاج_دعما": "يخلط بين الخبر ومصدره ويحتاج بطاقات مصوّرة وتدرجًا في الأمثلة."
+     }
+    },
+    {
+     "type": "reflection",
+     "minutes": 2,
+     "ref": {
+      "kind": "lesson",
+      "id": "K2-L1"
+     },
+     "text": "اختم بالجملة الجامعة وأعطِ السؤال البيتي."
+    }
+   ],
+   "homework": {
+    "optional": true,
+    "out_of_session": true,
+    "text": "يلاحظ المتعلم خبرًا بسيطًا في يومه ويحدد من قاله وكيف عرف قائله.",
+    "estimated_minutes": 12,
+    "ref": {
+     "kind": "lesson",
+     "id": "K2-L1"
+    }
+   },
+   "review_status": "unreviewed"
+  },
+  {
+   "session_number": 7,
+   "week": 4,
+   "stage": "P06-B",
+   "title": "لماذا نتحقق؟ مصدر ثانٍ مستقل",
+   "competency": "K2",
+   "competency_title": "أتثبّت قبل أن أصدّق وأنشر",
+   "objective": "أن يشرح المتعلم لماذا نتحقق من الخبر، وأن يجد مصدرًا ثانيًا مستقلًّا من مصادر معدّة.",
+   "min_age": 10,
+   "duration_min": 40,
+   "components": [
+    {
+     "type": "intro",
+     "minutes": 4,
+     "ref": {
+      "kind": "lesson",
+      "id": "K2-L2"
+     },
+     "text": "اطرح الافتتاحية، ثم جهّز الصف للعبة."
+    },
+    {
+     "type": "source_teaching",
+     "minutes": 10,
+     "ref": {
+      "kind": "lesson",
+      "id": "K2-L2"
+     },
+     "text": "نفّذ سلسلة الهمس مرة واحدة، دون لوم أحد عند تغيّر الخبر."
+    },
+    {
+     "type": "interactive_practice",
+     "minutes": 21,
+     "ref": {
+      "kind": "lesson",
+      "id": "K2-L2"
+     },
+     "text": "ناقش التغيّر وأثره على الأخبار المهمة. ثم نشاط المصدر الثاني: بطاقات المصادر الثلاثة، ثم اختيار الأكثر استقلالًا وتعليله. الجواب المتوقع: ب. (تنبيه للمعلم: مشهد الدموع والهدوء مأخوذ من مبدأ يحتاج مراجعة قبل الاعتماد؛ لا تعمّم منه على كل من يشكو.)"
+    },
+    {
+     "type": "assessment",
+     "minutes": 0,
+     "embedded_in": "interactive_practice",
+     "ref": {
+      "kind": "lesson",
+      "id": "K2-L2"
+     },
+     "text": "ملاحظة تكوينية وصفية أثناء الممارسة، دون درجات.",
+     "criteria": {
+      "ظهر": "يشرح لماذا نتحقق ويجد مصدرًا ثانيًا مستقلًّا في بطاقات معدّة.",
+      "يتدرب": "يشرح السبب ويحتاج مساعدة في معرفة استقلال المصدر.",
+      "يحتاج_دعما": "يميل إلى تصديق الخبر لمجرد أنه مألوف ويحتاج أمثلة أكثر وتشجيعًا على السؤال."
+     }
+    },
+    {
+     "type": "reflection",
+     "minutes": 5,
+     "ref": {
+      "kind": "lesson",
+      "id": "K2-L2"
+     },
+     "text": "اختم بالجملة الجامعة والسؤال البيتي."
+    }
+   ],
+   "homework": {
+    "optional": true,
+    "out_of_session": true,
+    "text": "يؤخر المتعلم مشاركة خبر حتى يسأل شخصًا موثوقًا.",
+    "estimated_minutes": 12,
+    "ref": {
+     "kind": "lesson",
+     "id": "K2-L2"
+    }
+   },
+   "review_status": "unreviewed"
+  },
+  {
+   "session_number": 8,
+   "week": 4,
+   "stage": "P06-B",
+   "title": "رسالة إلغاء الرحلة",
+   "competency": "K2",
+   "competency_title": "أتثبّت قبل أن أصدّق وأنشر",
+   "objective": "أن يقرر المتعلم في موقف «رسالة إلغاء الرحلة» ويرى عاقبة اختياره.",
+   "min_age": 10,
+   "duration_min": 8,
+   "components": [
+    {
+     "type": "intro",
+     "minutes": 2,
+     "ref": {
+      "kind": "scenario",
+      "id": "K2-S1"
+     },
+     "text": "قراءة مقدمة الموقف."
+    },
+    {
+     "type": "interactive_practice",
+     "minutes": 4,
+     "ref": {
+      "kind": "scenario",
+      "id": "K2-S1"
+     },
+     "text": "يختار المتعلمون في 2 قرارات متتابعة ويقرؤون عاقبة كل اختيار."
+    },
+    {
+     "type": "reflection",
+     "minutes": 2,
+     "ref": {
+      "kind": "scenario",
+      "id": "K2-S1"
+     },
+     "text": "حديث عن النهاية التي وصلوا إليها وسؤال التأمل في آخر الموقف."
+    }
+   ],
+   "review_status": "unreviewed"
+  },
+  {
+   "session_number": 9,
+   "week": 5,
+   "stage": "P06-B",
+   "title": "قائمة الفحص والقرار",
+   "competency": "K2",
+   "competency_title": "أتثبّت قبل أن أصدّق وأنشر",
+   "objective": "أن يستعمل المتعلم قائمة فحص من ثلاثة أسئلة ويقرر: أنشر أم أؤخر أم لا أنشر، ويعلل.",
+   "min_age": 10,
+   "duration_min": 40,
+   "components": [
+    {
+     "type": "intro",
+     "minutes": 5,
+     "ref": {
+      "kind": "lesson",
+      "id": "K2-L3"
+     },
+     "text": "اطرح الافتتاحية ثم علّق قائمة الفحص أمام الجميع."
+    },
+    {
+     "type": "source_teaching",
+     "minutes": 14,
+     "ref": {
+      "kind": "lesson",
+      "id": "K2-L3"
+     },
+     "text": "مجموعات: تطبيق القائمة على الأخبار الثلاثة. القرارات المقترحة للمرشد: الأول يؤخَّر حتى يُسأل عن مصدر ثانٍ، الثاني لا يُنشر، الثالث يمكن نشره لأن مصدره حاضر ومعلَن؛ وكل مجموعة تعلّل. أضف تمرين «أوقف قبل أن تضغط مشاركة» قبل كتابة القرار."
+    },
+    {
+     "type": "interactive_practice",
+     "minutes": 18,
+     "ref": {
+      "kind": "lesson",
+      "id": "K2-L3"
+     },
+     "text": "تبادل النتائج بين المجموعات بأدب، مع التركيز على التعليل لا على من أصاب. ثم نقاش «خبر صحيح لكنه يؤذي»: اقرأ الموقف واطرح الأسئلة. أكّد أن إخبار بالغ حين يتأذى أحد حقيقةً ليس نميمة."
+    },
+    {
+     "type": "assessment",
+     "minutes": 0,
+     "embedded_in": "interactive_practice",
+     "ref": {
+      "kind": "lesson",
+      "id": "K2-L3"
+     },
+     "text": "ملاحظة تكوينية وصفية أثناء الممارسة، دون درجات.",
+     "criteria": {
+      "ظهر": "يطبق القائمة على خبر تعليمي ويقرر ويعلل، ويذكر أن الخبر الصحيح قد يضر نشره.",
+      "يتدرب": "يطبق القائمة ويحتاج تذكيرًا بسؤال النفع والضرر.",
+      "يحتاج_دعما": "ينشر قبل أن يسأل ويحتاج تدريبًا تدريجيًّا وحوارًا هادئًا حول أثر النشر."
+     }
+    },
+    {
+     "type": "reflection",
+     "minutes": 3,
+     "ref": {
+      "kind": "lesson",
+      "id": "K2-L3"
+     },
+     "text": "اختم بالجملة الجامعة والسؤال البيتي."
+    }
+   ],
+   "homework": {
+    "optional": true,
+    "out_of_session": true,
+    "text": "يطبق المتعلم القائمة على رسالة تعليمية يعدّها المعلم أو أحد الكبار في أسرته.",
+    "estimated_minutes": 12,
+    "ref": {
+     "kind": "lesson",
+     "id": "K2-L3"
+    }
+   },
+   "review_status": "unreviewed"
+  },
+  {
+   "session_number": 10,
+   "week": 5,
+   "stage": "P06-B",
+   "title": "خبر صحيح لكنه يؤذي",
+   "competency": "K2",
+   "competency_title": "أتثبّت قبل أن أصدّق وأنشر",
+   "objective": "أن يقرر المتعلم في موقف «خبر صحيح لكنه يؤذي» ويرى عاقبة اختياره.",
+   "min_age": 10,
+   "duration_min": 8,
+   "components": [
+    {
+     "type": "intro",
+     "minutes": 2,
+     "ref": {
+      "kind": "scenario",
+      "id": "K2-S2"
+     },
+     "text": "قراءة مقدمة الموقف."
+    },
+    {
+     "type": "interactive_practice",
+     "minutes": 4,
+     "ref": {
+      "kind": "scenario",
+      "id": "K2-S2"
+     },
+     "text": "يختار المتعلمون في 2 قرارات متتابعة ويقرؤون عاقبة كل اختيار."
+    },
+    {
+     "type": "reflection",
+     "minutes": 2,
+     "ref": {
+      "kind": "scenario",
+      "id": "K2-S2"
+     },
+     "text": "حديث عن النهاية التي وصلوا إليها وسؤال التأمل في آخر الموقف."
+    }
+   ],
+   "review_status": "unreviewed"
+  },
+  {
+   "session_number": 11,
+   "week": 6,
+   "stage": "P06-C",
+   "title": "سؤال التوقف: ما الدليل؟",
+   "competency": "T2",
+   "competency_title": "التفكير النقدي وكشف المغالطات",
+   "objective": "أن يسمّي المتعلم مغالطة واحدة (التعميم المتسرع) في إعلان خيالي.",
+   "min_age": 10,
+   "duration_min": 35,
+   "components": [
+    {
+     "type": "intro",
+     "minutes": 5,
+     "ref": {
+      "kind": "lesson",
+      "id": "T2-L1"
+     },
+     "text": "ترحيب وسؤال الافتتاح؛ اترك المتعلمين يجيبون بحرية دون تصحيح."
+    },
+    {
+     "type": "source_teaching",
+     "minutes": 8,
+     "ref": {
+      "kind": "lesson",
+      "id": "T2-L1"
+     },
+     "text": "اقرأ القصة بصوت حي، وتوقف عند «انظر إلى كلمة كل» واسأل: ما الذي يبدو ناقصًا؟"
+    },
+    {
+     "type": "interactive_practice",
+     "minutes": 19,
+     "ref": {
+      "kind": "lesson",
+      "id": "T2-L1"
+     },
+     "text": "النقاش في ثنائيات؛ مرّ بين الثنائيات واستمع، ولا تذكر اسم طفل بعينه. ثم التدريب على الأسئلة الثلاثة: حلّ الإعلان الأول معًا ثم اتركهم يحلون الثاني والثالث."
+    },
+    {
+     "type": "assessment",
+     "minutes": 0,
+     "embedded_in": "interactive_practice",
+     "ref": {
+      "kind": "lesson",
+      "id": "T2-L1"
+     },
+     "text": "ملاحظة تكوينية وصفية أثناء الممارسة، دون درجات.",
+     "criteria": {
+      "ظهر": "يسمّي التعميم المتسرع بكلماته ويشير إلى كلمة «كل» في الإعلان.",
+      "يتدرب": "يتذكر السؤال لكنه يحتاج تلميحًا ليطبقه على إعلان جديد.",
+      "يحتاج_دعما": "يصدّق الإعلان دون سؤال؛ يحتاج مرافقة هادئة وأمثلة أبسط وأقرب إلى حياته."
+     }
+    },
+    {
+     "type": "reflection",
+     "minutes": 3,
+     "ref": {
+      "kind": "lesson",
+      "id": "T2-L1"
+     },
+     "text": "أعطهم دقيقتين: ما السؤال الذي سيحملونه إلى البيت؟ واشرح مهمة الأسبوع."
+    }
+   ],
+   "homework": {
+    "optional": true,
+    "out_of_session": true,
+    "text": "أن يسأل «ما الدليل؟» عن إعلان واحد في البيت خلال الأسبوع بصوت هادئ.",
+    "estimated_minutes": 10,
+    "ref": {
+     "kind": "lesson",
+     "id": "T2-L1"
+    }
+   },
+   "review_status": "unreviewed"
+  },
+  {
+   "session_number": 12,
+   "week": 6,
+   "stage": "P06-C",
+   "title": "قلم الخط الجميل",
+   "competency": "T2",
+   "competency_title": "التفكير النقدي وكشف المغالطات",
+   "objective": "أن يقرر المتعلم في موقف «قلم الخط الجميل» ويرى عاقبة اختياره.",
+   "min_age": 10,
+   "duration_min": 8,
+   "components": [
+    {
+     "type": "intro",
+     "minutes": 2,
+     "ref": {
+      "kind": "scenario",
+      "id": "T2-S1"
+     },
+     "text": "قراءة مقدمة الموقف."
+    },
+    {
+     "type": "interactive_practice",
+     "minutes": 4,
+     "ref": {
+      "kind": "scenario",
+      "id": "T2-S1"
+     },
+     "text": "يختار المتعلمون في 2 قرارات متتابعة ويقرؤون عاقبة كل اختيار."
+    },
+    {
+     "type": "reflection",
+     "minutes": 2,
+     "ref": {
+      "kind": "scenario",
+      "id": "T2-S1"
+     },
+     "text": "حديث عن النهاية التي وصلوا إليها وسؤال التأمل في آخر الموقف."
+    }
+   ],
+   "review_status": "unreviewed"
+  },
+  {
+   "session_number": 13,
+   "week": 7,
+   "stage": "P06-C",
+   "title": "لماذا هذه مغالطة؟",
+   "competency": "T2",
+   "competency_title": "التفكير النقدي وكشف المغالطات",
+   "objective": "أن يشرح المتعلم بكلماته لماذا يكون تعميم أو تشبيه ما ضعيفًا.",
+   "min_age": 10,
+   "duration_min": 35,
+   "components": [
+    {
+     "type": "intro",
+     "minutes": 5,
+     "ref": {
+      "kind": "lesson",
+      "id": "T2-L2"
+     },
+     "text": "اسأل: هل سبق أن اخترتَ شيئًا لأنه يشبه شيئًا أحببته؟ اسمع ثلاث إجابات."
+    },
+    {
+     "type": "source_teaching",
+     "minutes": 8,
+     "ref": {
+      "kind": "lesson",
+      "id": "T2-L2"
+     },
+     "text": "اقرأ القصة، وتوقف عند سؤال ريم «ما الذي أحببتَه؟» واطلب توقعات."
+    },
+    {
+     "type": "interactive_practice",
+     "minutes": 17,
+     "ref": {
+      "kind": "lesson",
+      "id": "T2-L2"
+     },
+     "text": "شرح البطاقتين، ثم تبدأ الثنائيات اللعبة؛ مرّ بينهم وشجّع الشرح بـ«لأن». ثم اجمع الإجابات: ماذا فعلنا حين اختلفنا في البطاقة؟"
+    },
+    {
+     "type": "assessment",
+     "minutes": 0,
+     "embedded_in": "interactive_practice",
+     "ref": {
+      "kind": "lesson",
+      "id": "T2-L2"
+     },
+     "text": "ملاحظة تكوينية وصفية أثناء الممارسة، دون درجات.",
+     "criteria": {
+      "ظهر": "يشرح السبب في جملة تتضمن «لأن» ويربطه بالبطاقة.",
+      "يتدرب": "يختار البطاقة المناسبة لكنه يتردد في الشرح.",
+      "يحتاج_دعما": "يكتفي بقول «لا أعرف»؛ يحتاج مثالًا محسوسًا ومساحة أمان ليجرب."
+     }
+    },
+    {
+     "type": "reflection",
+     "minutes": 5,
+     "ref": {
+      "kind": "lesson",
+      "id": "T2-L2"
+     },
+     "text": "تأمل الجملة المكتوبة وتبادل الأوراق؛ ثم مهمة الأسبوع."
+    }
+   ],
+   "homework": {
+    "optional": true,
+    "out_of_session": true,
+    "text": "أن يشرح لأحد أفراد أسرته مثالًا ضعيف الدليل بجملة «ضعيفة لأن…».",
+    "estimated_minutes": 10,
+    "ref": {
+     "kind": "lesson",
+     "id": "T2-L2"
+    }
+   },
+   "review_status": "unreviewed"
+  },
+  {
+   "session_number": 14,
+   "week": 7,
+   "stage": "P06-C",
+   "title": "اللعبة والامتحان",
+   "competency": "T2",
+   "competency_title": "التفكير النقدي وكشف المغالطات",
+   "objective": "أن يقرر المتعلم في موقف «اللعبة والامتحان» ويرى عاقبة اختياره.",
+   "min_age": 10,
+   "duration_min": 8,
+   "components": [
+    {
+     "type": "intro",
+     "minutes": 2,
+     "ref": {
+      "kind": "scenario",
+      "id": "T2-S2"
+     },
+     "text": "قراءة مقدمة الموقف."
+    },
+    {
+     "type": "interactive_practice",
+     "minutes": 4,
+     "ref": {
+      "kind": "scenario",
+      "id": "T2-S2"
+     },
+     "text": "يختار المتعلمون في 2 قرارات متتابعة ويقرؤون عاقبة كل اختيار."
+    },
+    {
+     "type": "reflection",
+     "minutes": 2,
+     "ref": {
+      "kind": "scenario",
+      "id": "T2-S2"
+     },
+     "text": "حديث عن النهاية التي وصلوا إليها وسؤال التأمل في آخر الموقف."
+    }
+   ],
+   "review_status": "unreviewed"
+  },
+  {
+   "session_number": 15,
+   "week": 8,
+   "stage": "P06-C",
+   "title": "قائمة المغالطات: أكشفها بنفسي",
+   "competency": "T2",
+   "competency_title": "التفكير النقدي وكشف المغالطات",
+   "objective": "أن يكشف المتعلم مغالطة في نص قصير بالاستعانة بقائمة من أربع بطاقات.",
+   "min_age": 11,
+   "duration_min": 40,
+   "components": [
+    {
+     "type": "intro",
+     "minutes": 6,
+     "ref": {
+      "kind": "lesson",
+      "id": "T2-L3"
+     },
+     "text": "اسأل: متى سمعتم كلامًا مقنعًا ثم شككتم فيه؟ دقيقتان فقط."
+    },
+    {
+     "type": "source_teaching",
+     "minutes": 6,
+     "ref": {
+      "kind": "lesson",
+      "id": "T2-L3"
+     },
+     "text": "اعرض البطاقات الأربع بأسئلتها وعلّقها على اللوح."
+    },
+    {
+     "type": "interactive_practice",
+     "minutes": 26,
+     "ref": {
+      "kind": "lesson",
+      "id": "T2-L3"
+     },
+     "text": "التطبيق على النصوص الثلاثة: كل ثنائي يضع البطاقة ويكتب السؤال، ثم مقارنة سريعة. ثم نقاش «الفكرة أم صاحبها؟» بالأسئلة، واطلب إعادة صياغة الرد بصوت مسموع. ثم مشروع بطاقتي: وقت للكتابة، ثم عرض ثنائي أو جماعي."
+    },
+    {
+     "type": "assessment",
+     "minutes": 0,
+     "embedded_in": "interactive_practice",
+     "ref": {
+      "kind": "lesson",
+      "id": "T2-L3"
+     },
+     "text": "ملاحظة تكوينية وصفية أثناء الممارسة، دون درجات.",
+     "criteria": {
+      "ظهر": "يختار البطاقة ويصيغ سؤال الكشف ويقترح صياغة بديلة.",
+      "يتدرب": "يكشف المغالطة بمساعدة القائمة ويحتاج وقتًا لصياغة البديل.",
+      "يحتاج_دعما": "يخلط بين الاعتراض على الفكرة والاعتراض على قائلها؛ يحتاج مزيدًا من التدريب على فصل الفكرة عن صاحبها."
+     }
+    },
+    {
+     "type": "reflection",
+     "minutes": 2,
+     "ref": {
+      "kind": "lesson",
+      "id": "T2-L3"
+     },
+     "text": "اختم بسؤال: أي سؤال ستحمله هذا الأسبوع؟"
+    }
+   ],
+   "homework": {
+    "optional": true,
+    "out_of_session": true,
+    "text": "أن يكشف مغالطة في إعلان أو عبارة عامة خلال الأسبوع ويدوّنها مع سؤال الكشف.",
+    "estimated_minutes": 12,
+    "ref": {
+     "kind": "lesson",
+     "id": "T2-L3"
+    }
+   },
+   "review_status": "unreviewed"
+  },
+  {
+   "session_number": 16,
+   "week": 8,
+   "stage": "P06-D",
+   "title": "ما المشكلة بجملة؟",
+   "competency": "T5",
+   "competency_title": "حل المشكلات",
+   "objective": "أن يحدد المتعلم مشكلة صغيرة بجملة واضحة.",
+   "min_age": 10,
+   "duration_min": 35,
+   "components": [
+    {
+     "type": "intro",
+     "minutes": 4,
+     "ref": {
+      "kind": "lesson",
+      "id": "T5-L1"
+     },
+     "text": "اسأل: هل قلتم يومًا «كل شيء خرب»؟ ماذا حدث بعدها؟"
+    },
+    {
+     "type": "source_teaching",
+     "minutes": 8,
+     "ref": {
+      "kind": "lesson",
+      "id": "T5-L1"
+     },
+     "text": "اقرأ القصة مع توقف عند سؤال مروان: «حتى حقيبتك؟»."
+    },
+    {
+     "type": "interactive_practice",
+     "minutes": 19,
+     "ref": {
+      "kind": "lesson",
+      "id": "T5-L1"
+     },
+     "text": "التدريب على تحويل الشكاوى: مثالان معًا ثم أربعة بالثنائيات. ثم لعبة مشكلة أم شعور؟ مع الحرص على احترام المشاعر وعدم الاستهزاء."
+    },
+    {
+     "type": "assessment",
+     "minutes": 0,
+     "embedded_in": "interactive_practice",
+     "ref": {
+      "kind": "lesson",
+      "id": "T5-L1"
+     },
+     "text": "ملاحظة تكوينية وصفية أثناء الممارسة، دون درجات.",
+     "criteria": {
+      "ظهر": "يحدد مشكلة بجملة محددة قابلة للعمل.",
+      "يتدرب": "يكتب مشكلة بجملة عامة ويحتاج تلميحًا ليحددها.",
+      "يحتاج_دعما": "يصف المشكلة بتعبيرات عامة أو شعورية؛ يحتاج أمثلة وأسئلة مساعدة."
+     }
+    },
+    {
+     "type": "reflection",
+     "minutes": 4,
+     "ref": {
+      "kind": "lesson",
+      "id": "T5-L1"
+     },
+     "text": "كتابة مشكلة بيتية بجملة واحدة والاتفاق على مهمة البيت."
+    }
+   ],
+   "homework": {
+    "optional": true,
+    "out_of_session": true,
+    "text": "أن يكتب مشكلة صغيرة في بيته بجملة واحدة.",
+    "estimated_minutes": 10,
+    "ref": {
+     "kind": "lesson",
+     "id": "T5-L1"
+    }
+   },
+   "review_status": "unreviewed"
+  },
+  {
+   "session_number": 17,
+   "week": 9,
+   "stage": "P06-D",
+   "title": "من أين جاءت؟ وما الذي نقص؟",
+   "competency": "T5",
+   "competency_title": "حل المشكلات",
+   "objective": "أن يذكر المتعلم سببًا محتملًا للمشكلة ويحدد ما ينقص الحل.",
+   "min_age": 10,
+   "duration_min": 40,
+   "components": [
+    {
+     "type": "intro",
+     "minutes": 5,
+     "ref": {
+      "kind": "lesson",
+      "id": "T5-L2"
+     },
+     "text": "اسأل: ما أول سؤال تسأله حين يقع شيء؟ اسمع ثلاث إجابات."
+    },
+    {
+     "type": "source_teaching",
+     "minutes": 9,
+     "ref": {
+      "kind": "lesson",
+      "id": "T5-L2"
+     },
+     "text": "اقرأ القصة وتوقف عند «ماذا حدث بالضبط؟» واطلب توقعاتهم."
+    },
+    {
+     "type": "interactive_practice",
+     "minutes": 21,
+     "ref": {
+      "kind": "lesson",
+      "id": "T5-L2"
+     },
+     "text": "شرح العناصر الثمانية، وحل المشروع المتعثر في ثنائيات. ثم النقاش بلا لوم: أخبر المتعلمين أن الأجوبة متعددة."
+    },
+    {
+     "type": "assessment",
+     "minutes": 0,
+     "embedded_in": "interactive_practice",
+     "ref": {
+      "kind": "lesson",
+      "id": "T5-L2"
+     },
+     "text": "ملاحظة تكوينية وصفية أثناء الممارسة، دون درجات.",
+     "criteria": {
+      "ظهر": "يذكر سببًا محتملًا بلا اتهام ويحدد عنصرًا ناقصًا.",
+      "يتدرب": "يذكر سببًا ويحتاج مساعدة في تحديد العنصر الناقص.",
+      "يحتاج_دعما": "يميل إلى اتهام شخص بعينه؛ يحتاج دعمًا ليفصل الوصف عن اللوم."
+     }
+    },
+    {
+     "type": "reflection",
+     "minutes": 5,
+     "ref": {
+      "kind": "lesson",
+      "id": "T5-L2"
+     },
+     "text": "كتابة سبب محتمل وعنصر ناقص لمشكلة بيتية، ومهمة الأسبوع."
+    }
+   ],
+   "homework": {
+    "optional": true,
+    "out_of_session": true,
+    "text": "أن يحدد في مشكلة بيتية سببًا محتملًا وعنصرًا ناقصًا.",
+    "estimated_minutes": 10,
+    "ref": {
+     "kind": "lesson",
+     "id": "T5-L2"
+    }
+   },
+   "review_status": "unreviewed"
+  },
+  {
+   "session_number": 18,
+   "week": 9,
+   "stage": "P06-D",
+   "title": "أقترح حلولًا وأجرّب",
+   "competency": "T5",
+   "competency_title": "حل المشكلات",
+   "objective": "أن يقترح المتعلم حلين على الأقل ويجرب أحدهما ويصف ما تغيّر.",
+   "min_age": 10,
+   "duration_min": 45,
+   "components": [
+    {
+     "type": "intro",
+     "minutes": 5,
+     "ref": {
+      "kind": "lesson",
+      "id": "T5-L3"
+     },
+     "text": "اسأل: كم فكرة جربتم لحل مشكلة قبل أن تتركوها؟"
+    },
+    {
+     "type": "source_teaching",
+     "minutes": 5,
+     "ref": {
+      "kind": "lesson",
+      "id": "T5-L3"
+     },
+     "text": "عرض خريطة المشكلة بمثال محلول على اللوح."
+    },
+    {
+     "type": "interactive_practice",
+     "minutes": 28,
+     "ref": {
+      "kind": "lesson",
+      "id": "T5-L3"
+     },
+     "text": "كل متعلم يملأ خريطته لركنه، ومرّ بينهم لتقرأ الحلين. ثم شرح التجربة الصغيرة وورقة التسجيل لثلاثة أيام."
+    },
+    {
+     "type": "assessment",
+     "minutes": 0,
+     "embedded_in": "interactive_practice",
+     "ref": {
+      "kind": "lesson",
+      "id": "T5-L3"
+     },
+     "text": "ملاحظة تكوينية وصفية أثناء الممارسة، دون درجات.",
+     "criteria": {
+      "ظهر": "يقترح حلين ويجرب ويصف النتيجة وما تعلمه.",
+      "يتدرب": "يجرب حلًّا ويحتاج مساعدة في وصف ما تغيّر.",
+      "يحتاج_دعما": "يتوقف عند أول عقبة؛ يحتاج تشجيعًا على التجربة والتعلم من الفشل."
+     }
+    },
+    {
+     "type": "reflection",
+     "minutes": 7,
+     "ref": {
+      "kind": "lesson",
+      "id": "T5-L3"
+     },
+     "text": "التأمل المكتوب ومهمة البيت بمشاركة ولي الأمر."
+    }
+   ],
+   "homework": {
+    "optional": true,
+    "out_of_session": true,
+    "text": "مشكلة حقيقية في البيت يحلها مع أهله بخريطة المشكلة.",
+    "estimated_minutes": 10,
+    "ref": {
+     "kind": "lesson",
+     "id": "T5-L3"
+    }
+   },
+   "review_status": "unreviewed"
+  },
+  {
+   "session_number": 19,
+   "week": 10,
+   "stage": "P06-D",
+   "title": "الجسر المنهار",
+   "competency": "T5",
+   "competency_title": "حل المشكلات",
+   "objective": "أن يقرر المتعلم في موقف «الجسر المنهار» ويرى عاقبة اختياره.",
+   "min_age": 10,
+   "duration_min": 8,
+   "components": [
+    {
+     "type": "intro",
+     "minutes": 2,
+     "ref": {
+      "kind": "scenario",
+      "id": "T5-S1"
+     },
+     "text": "قراءة مقدمة الموقف."
+    },
+    {
+     "type": "interactive_practice",
+     "minutes": 4,
+     "ref": {
+      "kind": "scenario",
+      "id": "T5-S1"
+     },
+     "text": "يختار المتعلمون في 2 قرارات متتابعة ويقرؤون عاقبة كل اختيار."
+    },
+    {
+     "type": "reflection",
+     "minutes": 2,
+     "ref": {
+      "kind": "scenario",
+      "id": "T5-S1"
+     },
+     "text": "حديث عن النهاية التي وصلوا إليها وسؤال التأمل في آخر الموقف."
+    }
+   ],
+   "review_status": "unreviewed"
+  },
+  {
+   "session_number": 20,
+   "week": 10,
+   "stage": "P06-D",
+   "title": "الغرفة الفوضوية",
+   "competency": "T5",
+   "competency_title": "حل المشكلات",
+   "objective": "أن يقرر المتعلم في موقف «الغرفة الفوضوية» ويرى عاقبة اختياره.",
+   "min_age": 10,
+   "duration_min": 8,
+   "components": [
+    {
+     "type": "intro",
+     "minutes": 2,
+     "ref": {
+      "kind": "scenario",
+      "id": "T5-S2"
+     },
+     "text": "قراءة مقدمة الموقف."
+    },
+    {
+     "type": "interactive_practice",
+     "minutes": 4,
+     "ref": {
+      "kind": "scenario",
+      "id": "T5-S2"
+     },
+     "text": "يختار المتعلمون في 2 قرارات متتابعة ويقرؤون عاقبة كل اختيار."
+    },
+    {
+     "type": "reflection",
+     "minutes": 2,
+     "ref": {
+      "kind": "scenario",
+      "id": "T5-S2"
+     },
+     "text": "حديث عن النهاية التي وصلوا إليها وسؤال التأمل في آخر الموقف."
+    }
+   ],
+   "review_status": "unreviewed"
+  }
+ ]
+}

@@ -1,0 +1,314 @@
+{
+ "program": "P01",
+ "status": "draft-unreviewed",
+ "total_sessions": 5,
+ "sessions": [
+  {
+   "session_number": 1,
+   "week": 1,
+   "stage": "P01-A",
+   "title": "ثلاث نعم اليوم",
+   "competency": "C6",
+   "competency_title": "الشكر والامتنان: أعرف وأفرح وأعمل",
+   "objective": "أن يسمّي الطفل نعمًا في حياته ويعرف من كان سببًا فيها.",
+   "min_age": 5,
+   "duration_min": 20,
+   "components": [
+    {
+     "type": "intro",
+     "minutes": 2,
+     "ref": {
+      "kind": "lesson",
+      "id": "C6-L1"
+     },
+     "text": "اطرح الافتتاحية بصوت دافئ."
+    },
+    {
+     "type": "source_teaching",
+     "minutes": 6,
+     "ref": {
+      "kind": "lesson",
+      "id": "C6-L1"
+     },
+     "text": "اقرأ قصة كنان وناقش أسئلتها."
+    },
+    {
+     "type": "interactive_practice",
+     "minutes": 10,
+     "ref": {
+      "kind": "lesson",
+      "id": "C6-L1"
+     },
+     "text": "العبوا لعبة بطاقات النعم. ثم درّب الأطفال على سجل ثلاث نعم. وأضف شرط «نعمة غير مادية» وجملة «أذكر نعمة وأنا حزين» (مبدأ C6-09، يحتاج مراجعة)."
+    },
+    {
+     "type": "assessment",
+     "minutes": 0,
+     "embedded_in": "interactive_practice",
+     "ref": {
+      "kind": "lesson",
+      "id": "C6-L1"
+     },
+     "text": "ملاحظة تكوينية وصفية أثناء الممارسة، دون درجات.",
+     "criteria": {
+      "ظهر": "يسمّي نعمًا من يومه ويقول شكرًا لأحد.",
+      "يتدرب": "يسمّي نعمة أو اثنتين بمساعدة صور.",
+      "يحتاج_دعما": "يصعب عليه تسمية النعم؛ تُستعمل بطاقات ومحادثة قصيرة بلا لوم."
+     }
+    },
+    {
+     "type": "reflection",
+     "minutes": 2,
+     "ref": {
+      "kind": "lesson",
+      "id": "C6-L1"
+     },
+     "text": "الملخص ومهمة كلمة الشكر."
+    }
+   ],
+   "homework": {
+    "optional": true,
+    "out_of_session": true,
+    "text": "يسجل كل يوم ثلاث نعم ويقول كلمة شكر لإنسان.",
+    "estimated_minutes": 10,
+    "ref": {
+     "kind": "lesson",
+     "id": "C6-L1"
+    }
+   },
+   "review_status": "unreviewed"
+  },
+  {
+   "session_number": 2,
+   "week": 1,
+   "stage": "P01-A",
+   "title": "نسيتُ أن أشكر",
+   "competency": "C6",
+   "competency_title": "الشكر والامتنان: أعرف وأفرح وأعمل",
+   "objective": "أن يقرر المتعلم في موقف «نسيتُ أن أشكر» ويرى عاقبة اختياره.",
+   "min_age": 5,
+   "duration_min": 12,
+   "components": [
+    {
+     "type": "intro",
+     "minutes": 2,
+     "ref": {
+      "kind": "scenario",
+      "id": "C6-S1"
+     },
+     "text": "قراءة مقدمة الموقف."
+    },
+    {
+     "type": "interactive_practice",
+     "minutes": 8,
+     "ref": {
+      "kind": "scenario",
+      "id": "C6-S1"
+     },
+     "text": "يختار المتعلمون في 4 قرارات متتابعة ويقرؤون عاقبة كل اختيار."
+    },
+    {
+     "type": "reflection",
+     "minutes": 2,
+     "ref": {
+      "kind": "scenario",
+      "id": "C6-S1"
+     },
+     "text": "حديث عن النهاية التي وصلوا إليها وسؤال التأمل في آخر الموقف."
+    }
+   ],
+   "review_status": "unreviewed"
+  },
+  {
+   "session_number": 3,
+   "week": 2,
+   "stage": "P01-A",
+   "title": "الرحمة تُرى",
+   "competency": "C3",
+   "competency_title": "الرحمة: أنتبه وألطف",
+   "objective": "أن يسمّي الطفل مظاهر الرحمة التي يراها في بيته ومدرسته.",
+   "min_age": 5,
+   "duration_min": 20,
+   "components": [
+    {
+     "type": "intro",
+     "minutes": 2,
+     "ref": {
+      "kind": "lesson",
+      "id": "C3-L1"
+     },
+     "text": "اقرأ الافتتاحية وأعطِ الأطفال لحظة للتفكير."
+    },
+    {
+     "type": "source_teaching",
+     "minutes": 7,
+     "ref": {
+      "kind": "lesson",
+      "id": "C3-L1"
+     },
+     "text": "اقرأ قصة ريان بصوت دافئ وأسئلتها."
+    },
+    {
+     "type": "interactive_practice",
+     "minutes": 6,
+     "ref": {
+      "kind": "lesson",
+      "id": "C3-L1"
+     },
+     "text": "لعبة ابحث عن اللطف مع لوحة تُعلَّق عليها صور أو رسوم. وأضف مشهدي عامل المقصف والجار الكبير (مبدأ C3-05) دون أي إيحاء بتشغيل الأطفال."
+    },
+    {
+     "type": "assessment",
+     "minutes": 0,
+     "embedded_in": "interactive_practice",
+     "ref": {
+      "kind": "lesson",
+      "id": "C3-L1"
+     },
+     "text": "ملاحظة تكوينية وصفية أثناء الممارسة، دون درجات.",
+     "criteria": {
+      "ظهر": "يشير إلى مواقف رحمة ويسميها بكلماته.",
+      "يتدرب": "يرى بعض المواقف بمساعدة صور أو أسئلة موجهة.",
+      "يحتاج_دعما": "لا يلاحظ الحاجات من حوله؛ تُستعمل صور ووقفات قصيرة بلا لوم."
+     }
+    },
+    {
+     "type": "reflection",
+     "minutes": 5,
+     "ref": {
+      "kind": "lesson",
+      "id": "C3-L1"
+     },
+     "text": "تمثيل بأجسامنا بلطف وبدون إيذاء ثم الملخص. وأضف سؤال «كم عمره؟ وماذا يحتاج؟» (مبدأ C3-02)."
+    }
+   ],
+   "homework": {
+    "optional": true,
+    "out_of_session": true,
+    "text": "يلاحظ في بيته موقف رحمة واحدًا ويرويه إن شاء.",
+    "estimated_minutes": 10,
+    "ref": {
+     "kind": "lesson",
+     "id": "C3-L1"
+    }
+   },
+   "review_status": "unreviewed"
+  },
+  {
+   "session_number": 4,
+   "week": 3,
+   "stage": "P01-B",
+   "title": "في الاستراحة",
+   "competency": "C3",
+   "competency_title": "الرحمة: أنتبه وألطف",
+   "objective": "أن يقرر المتعلم في موقف «في الاستراحة» ويرى عاقبة اختياره.",
+   "min_age": 5,
+   "duration_min": 10,
+   "components": [
+    {
+     "type": "intro",
+     "minutes": 2,
+     "ref": {
+      "kind": "scenario",
+      "id": "C3-S1"
+     },
+     "text": "قراءة مقدمة الموقف."
+    },
+    {
+     "type": "interactive_practice",
+     "minutes": 6,
+     "ref": {
+      "kind": "scenario",
+      "id": "C3-S1"
+     },
+     "text": "يختار المتعلمون في 3 قرارات متتابعة ويقرؤون عاقبة كل اختيار."
+    },
+    {
+     "type": "reflection",
+     "minutes": 2,
+     "ref": {
+      "kind": "scenario",
+      "id": "C3-S1"
+     },
+     "text": "حديث عن النهاية التي وصلوا إليها وسؤال التأمل في آخر الموقف."
+    }
+   ],
+   "review_status": "unreviewed"
+  },
+  {
+   "session_number": 5,
+   "week": 3,
+   "stage": "P01-B",
+   "title": "أتلو مع معلمي",
+   "competency": "K4",
+   "competency_title": "أتلو وأحفظ وأراجع برفق",
+   "objective": "أن يتلو الطفل قدرًا قصيرًا مع معلمه بهدوء ويردد خلفه.",
+   "min_age": 5,
+   "duration_min": 20,
+   "components": [
+    {
+     "type": "intro",
+     "minutes": 3,
+     "ref": {
+      "kind": "lesson",
+      "id": "K4-L1"
+     },
+     "text": "افتتح بالسؤال، واجلس مع الطفل في مكان هادئ، واترك له أن يقول ما يشاء بكلماته."
+    },
+    {
+     "type": "source_teaching",
+     "minutes": 10,
+     "ref": {
+      "kind": "lesson",
+      "id": "K4-L1"
+     },
+     "text": "جلسة التلاوة: تسليم، نية بسيطة بكلمات الطفل، قراءتك البطيئة، ثم ترديده. اكتفِ بما تسمح به طاقته اليوم دون كمية ثابتة. (ملاحظة للمعلم، تحتاج مراجعة قبل الاعتماد ولا تُقدَّم للطفل: ضبط الأداء يؤخذ مشافهة من معلم متقن؛ فالمنصة تذكّر ولا تحل محل التلقي، ولا تحكم على الأداء ولا تمنح إجازة.)"
+    },
+    {
+     "type": "interactive_practice",
+     "minutes": 5,
+     "ref": {
+      "kind": "lesson",
+      "id": "K4-L1"
+     },
+     "text": "لعبة «أتذكر مع صديقي»: دون تصحيح بين الطفلين، والمرجع هو المعلم."
+    },
+    {
+     "type": "assessment",
+     "minutes": 0,
+     "embedded_in": "interactive_practice",
+     "ref": {
+      "kind": "lesson",
+      "id": "K4-L1"
+     },
+     "text": "ملاحظة تكوينية وصفية أثناء الممارسة، دون درجات.",
+     "criteria": {
+      "ظهر": "يتلو مع معلمه ويردد بهدوء ويعيد القدر القصير.",
+      "يتدرب": "يردد مع تلميحات ويحتاج وقتًا أطول.",
+      "يحتاج_دعما": "يتعب بسرعة أو يقلق ويحتاج جلسات أقصر وتواصلًا مع ولي الأمر."
+     }
+    },
+    {
+     "type": "reflection",
+     "minutes": 2,
+     "ref": {
+      "kind": "lesson",
+      "id": "K4-L1"
+     },
+     "text": "اشكر الطفل واختم بالجملة الجامعة، وأعطِ السؤال البيتي لولي الأمر."
+    }
+   ],
+   "homework": {
+    "optional": true,
+    "out_of_session": true,
+    "text": "يتلو الطفل مع أحد الكبار في أسرته أو معلمه قدرًا قصيرًا في وقت هادئ.",
+    "estimated_minutes": 10,
+    "ref": {
+     "kind": "lesson",
+     "id": "K4-L1"
+    }
+   },
+   "review_status": "unreviewed"
+  }
+ ]
+}

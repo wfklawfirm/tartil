@@ -1,0 +1,1087 @@
+{
+ "schema": "p07-competency-map/1",
+ "program": "P07",
+ "status": "draft-unreviewed",
+ "generated": "2026-11-03",
+ "directive": "TARTIL 14.1 items 3, 6, 18",
+ "age_band": "10-12",
+ "title": {
+  "current": "أضبط غضبي وأصلح",
+  "recommended": "أتعلّم كيف أتعامل مع غضبي",
+  "tagline_ar": "أفهم ما أشعر به، وأختار ما أفعله، وأطلب العون حين أحتاج.",
+  "tagline_en": "I understand what I feel, I choose what I do, and I ask for help when I need it.",
+  "slug_recommendation": "إبقاء الـslug الحالي adbut-ghadabi لثبات الروابط (قرار المالك عند التنفيذ؛ لا يُعدَّل programs.json في هذه المرحلة).",
+  "alternatives_considered": [
+   {
+    "title": "أضبط غضبي وأصلح",
+    "verdict": "ليس الأفضل: «أضبط» توحي بالكتم والسيطرة بينما حاجز S5 يمنع نصح الكتم المزمن (وفي ANG-02 أن الغضب المكتوم قد يتحول ضغينة)؛ و«وأصلح» تحمّل الطفل عبء الإصلاح في العنوان مع أن الإصلاح كفاية واحدة من ثمان ومشروطة بالاقتضاء؛ والعنوان يشبه عنوان P02 «أضبط نفسي...» فيحدث التباس."
+   },
+   {
+    "title": "أتعلّم كيف أتعامل مع غضبي",
+    "verdict": "الموصى به: محايد، لا يوحي بالكتم ولا يحمّل الطفل عبئًا أخلاقيًّا، ويعبّر عن عملية تعلم (فهم ثم اختيار ثم عون)."
+   },
+   {
+    "title": "أفهم غضبي وأحسن التصرف",
+    "verdict": "بديل مقبول: يبرز الفرق بين الشعور والتصرف لكنه أقل بساطة على طفل في العاشرة."
+   },
+   {
+    "title": "برنامج أشمل لإدارة الذات يحوي برنامج الغضب",
+    "verdict": "مرفوض الآن: يزيد عدد البرامج والتعقيد خلافًا لسقف D10 في BLUEPRINT، ويُبقي الخلط الذي سبّب المشكلة. تُحال المواد غير المرتبطة إلى برامج مضيفة (القسم 7)."
+   }
+  ]
+ },
+ "assessment_note": "وصف فقط: ظهر / يتدرب / يحتاج دعمًا؛ بلا درجات ولا مقارنة.",
+ "referral_note": "أي أمر يتعلق بتعامل الأطفال مع الغضب الشديد أو المتكرر أو المصحوب بأذى يُحال إلى مختص؛ المنهج لا يشخّص ولا يعالج.",
+ "competencies": [
+  {
+   "id": "AG1",
+   "name_ar": "أفهم غضبي",
+   "name_en": "Understanding anger",
+   "description_ar": "يسمّي المتعلم غضبه ويصف بعض علاماته في جسمه وكلامه وأفكاره، ويعرف أنه شعور طبيعي يتفاوت في شدته وفي سرعة اشتعاله وهدوئه بين الناس، وليس دليلًا على سوء في شخصه.",
+   "description_en": "The learner names their anger, describes some of its signs in body, speech and thoughts, and knows it is a normal feeling that varies in strength and in how fast it flares and fades from person to person; it is not evidence of a bad character.",
+   "indicators": [
+    {
+     "ar": "يسمّي غضبه بكلمة أدق (غاضب، منزعج، محبَط، مجروح) ويفرّق بينها في موقف من حياته.",
+     "en": "Chooses a more precise word (angry, annoyed, frustrated, hurt) and tells them apart in a situation from their own life."
+    },
+    {
+     "ar": "يصف علامة أو علامتين تظهران في جسمه أو كلامه حين يبدأ غضبه.",
+     "en": "Describes one or two signs that show in body or speech when anger starts."
+    },
+    {
+     "ar": "يقول بكلماته إن الغضب شعور طبيعي وإن المحاسبة تكون على التصرف لا على الشعور.",
+     "en": "Says in their own words that anger is a natural feeling and that accountability is for actions, not for feelings."
+    },
+    {
+     "ar": "يذكر أحيانًا شعورًا يختبئ تحت الغضب (إهانة، تعب، غيرة، خوف) دون أن يُلحّ عليه أحد بالإفصاح.",
+     "en": "Can sometimes name a feeling hiding under anger (humiliation, tiredness, jealousy, fear), without anyone pressing for disclosure."
+    }
+   ],
+   "support_signals_ar": [
+    "يقول مرارًا إنه «سيئ» أو إن غضبه «لا يمكن السيطرة عليه أبدًا».",
+    "يبدو مكتومًا لدرجة القلق أو يتجنب أي تعبير عن الضيق."
+   ],
+   "support_signals_en": [
+    "Repeatedly says they are \"bad\" or that their anger \"can never be controlled\".",
+    "Seems so bottled up that it is worrying, or avoids any expression of distress."
+   ],
+   "domain_links": [
+    {
+     "competency": "S5",
+     "levels": [
+      "L1",
+      "L2"
+     ],
+     "note": "يسمّي غضبه؛ يشرح جسده حين يغضب (مراجعة لما يتقنه من برامج الأعمار الأصغر ثم تعميقه)"
+    }
+   ],
+   "principles": {
+    "ANG": [
+     "ANG-04",
+     "ANG-07",
+     "ANG-15",
+     "ANG-16"
+    ],
+    "S5": [
+     "S5-01",
+     "S5-02",
+     "S5-10"
+    ],
+    "S6": [],
+    "S1": [
+     "S1-06"
+    ],
+    "K4": [],
+    "cross": []
+   },
+   "reusable_lessons": [
+    {
+     "ref": "S5-L3",
+     "status": "adapt",
+     "note": "نشاط «ما الذي أشعل غضبي؟» يخدم AG1 وAG3؛ الدرس مزدحم (ثلاثة أنشطة في 30 دقيقة) ويُقسَّم في المرحلة 5-6."
+    },
+    {
+     "ref": "S5-L1",
+     "status": "catch_up_link",
+     "note": "كُتب لعمر 6–9 ويُستضاف في P02؛ رابط تعويضي اختياري لمن لم يسمّ غضبه من قبل، لا يُكرَّر في P07."
+    },
+    {
+     "ref": "S5-S1",
+     "status": "catch_up_link",
+     "note": "سيناريو لعمر 6 فأكثر (أخي كسر لعبتي)؛ للمراجعة فقط ولا يصلح مادة رئيسة لعمر 10–12."
+    }
+   ],
+   "lesson_gaps": [
+    {
+     "id": "NL1",
+     "title_ar": "شعوري وتصرفي: ما الذي يمكنني أن أفعله بين الاثنين؟",
+     "title_en": "My feeling and my action: what choices sit between them?",
+     "serves": [
+      "AG1",
+      "AG2"
+     ],
+     "note": "درس جديد لعمر 10–12 بمفردات مشاعر أدق، ويوضح أن أنماط الغضب تتفاوت بلا تنميط بالجنس أو العمر، ويعيد تعريف «القوة» (ANG-07)؛ لا يوجد درس 10–12 قائم يغطي ذلك."
+    }
+   ]
+  },
+  {
+   "id": "AG2",
+   "name_ar": "أفرّق بين شعوري وتصرفي",
+   "name_en": "Separating feeling from action",
+   "description_ar": "يقول «أنا غاضب» دون أن يحوّل الشعور تلقائيًّا إلى فعل أو كلام جارح، ويدرك أن بين الشعور والتصرف خيارات، ويتحمل مسؤولية ما يفعل لا ما يشعر؛ ويعرف أن الاستفزاز لا يبرر الأذى ولا يُعفي من استفزّه من مسؤوليته أيضًا.",
+   "description_en": "Says \"I am angry\" without automatically turning the feeling into harmful action or speech; understands that choices exist between feeling and action; owns what they do, not what they feel; and knows provocation does not justify harm and does not remove the provoker’s own responsibility either.",
+   "indicators": [
+    {
+     "ar": "يذكر ثلاثة ردود ممكنة لموقف مثير ويصف أثر كل واحد منها.",
+     "en": "Lists three possible responses to a provoking situation and describes the effect of each."
+    },
+    {
+     "ar": "يقول جملة تفصل الشعور عن الفعل («أنا غاضب لكنني لن أضرب ولن أصرخ»).",
+     "en": "Says a sentence that separates feeling from action (\"I am angry but I will not hit or shout\")."
+    },
+    {
+     "ar": "يسمّي ما لا يُقال ولا يُفعل ولو غضب المرء (إيذاء جسدي، سباب، كذب، قذف، إفشاء سر).",
+     "en": "Names what is not said or done even in anger (physical harm, insults, lying, slander, revealing secrets)."
+    },
+    {
+     "ar": "يميّز بين مسؤوليته عن تصرفه وما سبّبه غيره من استفزاز، دون أن يلوم نفسه لومًا جارحًا.",
+     "en": "Distinguishes their responsibility for their action from what others provoked, without harsh self-blame."
+    }
+   ],
+   "support_signals_ar": [
+    "يتكرر منه إيذاء الآخرين أو نفسه جسديًّا عند الغضب.",
+    "يرى أن «الغضب هو الذي فعل ذلك» دائمًا ولا يتصور بديلًا."
+   ],
+   "support_signals_en": [
+    "Repeatedly hurts others or self physically when angry.",
+    "Always says \"the anger did it\" and cannot imagine an alternative."
+   ],
+   "domain_links": [
+    {
+     "competency": "S5",
+     "levels": [
+      "L3",
+      "L4"
+     ],
+     "note": "يتوقف ثم يختار؛ يختار ردًّا هادئًا في خلاف"
+    }
+   ],
+   "principles": {
+    "ANG": [
+     "ANG-05",
+     "ANG-06",
+     "ANG-07",
+     "ANG-16"
+    ],
+    "S5": [
+     "S5-04",
+     "S5-05",
+     "S5-10"
+    ],
+    "S6": [
+     "S6-02"
+    ],
+    "S1": [],
+    "K4": [],
+    "cross": []
+   },
+   "reusable_lessons": [
+    {
+     "ref": "S5-S2",
+     "status": "reuse",
+     "note": "سيناريو لعمر 10 (ملاحظة في الصف) صالح لتمرين اختيار الرد؛ يُراجَع توزيع الأدوار والنهايات."
+    },
+    {
+     "ref": "S5-L3",
+     "status": "adapt",
+     "note": "جزء الخطة والرد الهادئ؛ انظر AG1."
+    }
+   ],
+   "lesson_gaps": [
+    {
+     "id": "NL1",
+     "title_ar": "شعوري وتصرفي (انظر AG1)",
+     "title_en": "My feeling and my action (see AG1)",
+     "serves": [
+      "AG1",
+      "AG2"
+     ],
+     "note": "درس واحد يخدم الكفايتين."
+    }
+   ]
+  },
+  {
+   "id": "AG3",
+   "name_ar": "ألاحظ مواقفي المثيرة وإشاراتي المبكرة",
+   "name_en": "Noticing triggers and early signals",
+   "description_ar": "يتعرف المتعلم على المواقف والكلمات التي تثير غضبه عادة، وعلى العلامة المبكرة التي تسبق اشتداده، ويحدد خطوته الأولى الصغيرة قبل أن يشتعل الموقف.",
+   "description_en": "The learner recognises the situations and words that usually trigger their anger and the early sign that comes before it escalates, and decides on a small first step before the situation heats up.",
+   "indicators": [
+    {
+     "ar": "يحدد ثلاثة مواقف أو كلمات تثير غضبه عادة (لعب تنافسي، سخرية، جدال لا ينتهي، ظلم ظاهر...).",
+     "en": "Identifies three situations or words that usually trigger their anger (competitive play, teasing, endless arguing, visible unfairness...)."
+    },
+    {
+     "ar": "يذكر لكل موقف علامة مبكرة جسدية أو فكرية تسبق انفجاره.",
+     "en": "Names, for each, an early bodily or mental sign that comes before the outburst."
+    },
+    {
+     "ar": "يتوقع موقفًا قريبًا محتملًا ويقول ما سيفعله أول ما تظهر العلامة.",
+     "en": "Predicts a likely upcoming situation and says what they will do as soon as the sign appears."
+    },
+    {
+     "ar": "يلاحظ عوامل أخرى تسرّع غضبه (تعب، جوع، ازدحام، منافسة) ويتحدث عنها بلا تبرير للأذى.",
+     "en": "Notices other factors that speed up their anger (tiredness, hunger, crowding, competition) without using them to excuse harm."
+    }
+   ],
+   "support_signals_ar": [
+    "لا يستطيع تذكر أي موقف أو يبدو أن كل المواقف تثيره بشدة.",
+    "تتكرر المواقف المثيرة بسبب أذى مستمر يقع عليه (تنمر، تهديد)."
+   ],
+   "support_signals_en": [
+    "Cannot recall any situation, or nearly everything provokes strong anger.",
+    "Triggers repeat because of ongoing harm done to the child (bullying, threats)."
+   ],
+   "domain_links": [
+    {
+     "competency": "S5",
+     "levels": [
+      "L2",
+      "L3"
+     ],
+     "note": "يشرح جسده حين يغضب؛ يتوقف"
+    }
+   ],
+   "principles": {
+    "ANG": [
+     "ANG-01",
+     "ANG-17"
+    ],
+    "S5": [
+     "S5-01",
+     "S5-02"
+    ],
+    "S6": [],
+    "S1": [
+     "S1-02",
+     "S1-06"
+    ],
+    "K4": [],
+    "cross": []
+   },
+   "reusable_lessons": [
+    {
+     "ref": "S5-L3",
+     "status": "adapt",
+     "note": "نشاط بطاقات الأسباب («ما الذي أشعل غضبي؟») أساس لدرس مستقل في المثيرات."
+    }
+   ],
+   "lesson_gaps": [
+    {
+     "id": "NL2",
+     "title_ar": "مثيراتي وإشاراتي المبكرة",
+     "title_en": "My triggers and early signals",
+     "serves": [
+      "AG3"
+     ],
+     "note": "بطاقة «ثلاثة مواقف، علامة، خطوة أولى» (ANG-01) على أمثلة من البيت والمدرسة والشاشة، دون حكم؛ لا درس قائم لعمر 10–12."
+    }
+   ]
+  },
+  {
+   "id": "AG4",
+   "name_ar": "أختار مهارة تهدّئني",
+   "name_en": "Using emotion-regulation skills",
+   "description_ar": "يختار المتعلم من مجموعة صغيرة من مهارات التهدئة ما يناسبه (توقف، تغيير الوضع أو المكان، سكوت، ماء، حركة، حديث هادئ مع النفس، طلب مهلة)، ويجرّبها وهو هادئ ثم عند بداية الغضب، ويؤجّل قراره بالرد حتى يهدأ، ويعدّل خطته بعد التجربة.",
+   "description_en": "The learner chooses from a small set of calming skills what suits them (pause, change posture or place, silence, water, movement, calm self-talk, asking for a break), tries them first when calm and then as anger begins, delays deciding how to respond until calmer, and adjusts the plan after trying.",
+   "indicators": [
+    {
+     "ar": "يذكر ثلاث مهارات تهدئة ويحدد ما نفعه منها بعد تجربتها.",
+     "en": "Names three calming skills and says which helped after trying them."
+    },
+    {
+     "ar": "يقول جملة طلب مهلة («أحتاج دقيقة») بدل الرد الفوري.",
+     "en": "Says a break-request sentence (\"I need a minute\") instead of replying at once."
+    },
+    {
+     "ar": "يؤجّل الرد أو القرار في موقف تمثيلي أو حقيقي ثم يصف ما حدث.",
+     "en": "Delays the reply or decision in a role-play or real situation, then describes what happened."
+    },
+    {
+     "ar": "يكتب بطاقة «وقفتي» وهو هادئ، ويحتفظ بها لنفسه.",
+     "en": "Writes a \"my pause\" card while calm and keeps it to themselves."
+    },
+    {
+     "ar": "يعدّل خطته بعد التجربة (ما نفع وما لم ينفع) دون حكم على نفسه.",
+     "en": "Adjusts the plan after trying (what worked, what did not) without judging themselves."
+    }
+   ],
+   "support_signals_ar": [
+    "لا تفلح أي مهارة معه ويستمر غضب شديد لمدة طويلة أو تتكرر النوبات.",
+    "تبدو عليه أعراض ضيق جسدي أو قلق عند تجربة التمارين (تنفس، سكون)."
+   ],
+   "support_signals_en": [
+    "No skill helps and intense anger lasts a long time or outbursts recur.",
+    "Signs of bodily distress or anxiety when trying exercises (breathing, stillness)."
+   ],
+   "domain_links": [
+    {
+     "competency": "S5",
+     "levels": [
+      "L3",
+      "L4"
+     ],
+     "note": "يتوقف ثم يتنفس بتوجيه؛ يختار ردًّا هادئًا في خلاف"
+    }
+   ],
+   "principles": {
+    "ANG": [
+     "ANG-05",
+     "ANG-11",
+     "ANG-16",
+     "ANG-17"
+    ],
+    "S5": [
+     "S5-03",
+     "S5-05",
+     "S5-08",
+     "S5-10"
+    ],
+    "S6": [],
+    "S1": [
+     "S1-02"
+    ],
+    "K4": [],
+    "cross": []
+   },
+   "reusable_lessons": [
+    {
+     "ref": "S5-L3",
+     "status": "adapt",
+     "note": "مشروع «خطة المرة القادمة» وبطاقة «وقفتي»؛ ينفصل عن بقية الدرس."
+    },
+    {
+     "ref": "S5-L2",
+     "status": "catch_up_link",
+     "note": "«وقفة الثلاث» (عمر 7–9، يُستضاف في P02): رابط اختياري للمراجعة؛ ولا تُنسخ في P07."
+    },
+    {
+     "ref": "X3-L1",
+     "status": "optional_link",
+     "note": "«هدوء قبل أن نبدأ» (عمر 8–10، يُستضاف في P20 ومحوره الإصغاء للتلاوة): رابط اختياري لتهيئة الجسد والانتباه؛ يُفحص ملاءمته قبل أي ربط."
+    }
+   ],
+   "lesson_gaps": [
+    {
+     "id": "NL3",
+     "title_ar": "صندوق أدواتي للتهدئة",
+     "title_en": "My calming toolbox",
+     "serves": [
+      "AG4"
+     ],
+     "note": "يجرب المتعلم أدوات متنوعة وهو هادئ ثم يختار؛ مهارات التنظيم المعاصرة (تنفس، استرخاء، حركة، حديث ذاتي) مبادئ عامة تحتاج مراجعًا مختصًا (القسم 7)."
+    },
+    {
+     "id": "NL8",
+     "title_ar": "خطتي الشخصية (ختام)",
+     "title_en": "My personal plan (capstone)",
+     "serves": [
+      "AG2",
+      "AG3",
+      "AG4",
+      "AG5",
+      "AG8"
+     ],
+     "note": "ورقة خاصة بالمتعلم يملكها ولا تُرسل لأحد."
+    }
+   ]
+  },
+  {
+   "id": "AG5",
+   "name_ar": "أعبّر عن اعتراضي بمسؤولية",
+   "name_en": "Responsible expression of objection",
+   "description_ar": "يقول المتعلم ما يزعجه ويطلب ما يحتاجه بوضوح وهدوء بصيغة تصف الموقف والشعور والطلب، دون كذب أو سباب أو قذف أو نشر أسرار، ويفرّق بين الاعتراض على موقف ظالم والانتقام الشخصي، ولا يسكت عن أذى بحجة اللطف.",
+   "description_en": "The learner says what bothers them and asks for what they need clearly and calmly in a form that states the situation, the feeling and the request, without lying, insults, slander or spreading secrets; separates objecting to an unfair situation from personal revenge; and does not stay silent about harm in the name of politeness.",
+   "indicators": [
+    {
+     "ar": "يصوغ جملة اعتراض من ثلاثة أجزاء (الموقف، شعوري، طلبي) ويقولها بنبرة هادئة.",
+     "en": "Builds a three-part objection (situation, my feeling, my request) and says it in a calm tone."
+    },
+    {
+     "ar": "يحذف من ردّه ما لا يُقال ولو غضب (سباب، كذب، سخرية من الأهل أو الشكل).",
+     "en": "Removes from their reply what is never said even in anger (insults, lies, mocking family or appearance)."
+    },
+    {
+     "ar": "يختار الوقت والمكان المناسبين للاعتراض (على انفراد وبعد أن يهدأ).",
+     "en": "Chooses a suitable time and place for the objection (in private, after calming)."
+    },
+    {
+     "ar": "يميّز بين «أُهنتُ» و«وقع ظلم أو ضرر» ويختار ردًّا مناسبًا لكل منهما، ومنه طلب كبير.",
+     "en": "Tells apart \"I was insulted\" from \"something unfair or harmful happened\" and picks a fitting response to each, including asking an adult."
+    },
+    {
+     "ar": "يعترض بحزم حين يلزم ولا يتنازل عن حقه بحجة اللطف.",
+     "en": "Objects firmly when needed and does not give up their right in the name of politeness."
+    }
+   ],
+   "support_signals_ar": [
+    "يخاف من أي اعتراض أو يرى أن الاعتراض «عدوان» ويكتم ما يؤذيه.",
+    "يتعرض لإساءة متكررة ولا يجدي معها الاعتراض اللطيف."
+   ],
+   "support_signals_en": [
+    "Fears any objection or treats it as \"aggression\" and swallows what hurts.",
+    "Faces repeated mistreatment for which a polite objection is not enough."
+   ],
+   "domain_links": [
+    {
+     "competency": "S5",
+     "levels": [
+      "L4"
+     ],
+     "note": "يختار ردًّا هادئًا في خلاف"
+    },
+    {
+     "competency": "R2",
+     "levels": [
+      "L3"
+     ],
+     "note": "التواصل الواضح اللطيف: يصوغ طلبًا بحاجة وشعور وطلب (بند مشترك مع P08)"
+    }
+   ],
+   "principles": {
+    "ANG": [
+     "ANG-06",
+     "ANG-08",
+     "ANG-09",
+     "ANG-15",
+     "ANG-17",
+     "ANG-19"
+    ],
+    "S5": [
+     "S5-06",
+     "S5-07"
+    ],
+    "S6": [],
+    "S1": [],
+    "K4": [],
+    "cross": [
+     "C1-07"
+    ]
+   },
+   "reusable_lessons": [
+    {
+     "ref": "R2-L3",
+     "status": "shared_link",
+     "note": "«أطلب بلطف» (9–11، 30 دقيقة، يُستضاف في P08): رابط مشترك بسجل إنجاز واحد؛ لا ينسخ."
+    },
+    {
+     "ref": "S5-S2",
+     "status": "reuse",
+     "note": "سيناريو الملاحظة الجارحة في الصف."
+    },
+    {
+     "ref": "R2-L4",
+     "status": "optional_link",
+     "note": "«أنصح ولا أعيّر» (10–12): يخدم تقديم الملاحظة لا الاعتراض؛ رابط اختياري ويبقى في P08."
+    }
+   ],
+   "lesson_gaps": [
+    {
+     "id": "NL4",
+     "title_ar": "أعترض بلطف وحزم: ما أقوله وما لا أقوله",
+     "title_en": "Objecting kindly and firmly: what I say and what I never say",
+     "serves": [
+      "AG5"
+     ],
+     "note": "يغطي حدود الرد (ANG-06)، والفرق بين الغضب لنفسي ولظلم وقع (ANG-09)، والرفق مع الحزم (ANG-08)؛ ويبقى R2-L3 لصيغة الطلب."
+    }
+   ]
+  },
+  {
+   "id": "AG6",
+   "name_ar": "أتعامل مع خلاف بسيط",
+   "name_en": "Handling a simple disagreement",
+   "description_ar": "في خلاف بسيط مع قرين أو أخ يسمع المتعلم الطرف الآخر ويعرض وجهة نظره بأمانة قبل رأيه، ويتثبت من قصده قبل أن يردّ أو يحكم، ويقترح حلًّا بسيطًا أو يطلب وسيطًا عادلًا، ويعرف متى يتحول الخلاف إلى أذى (تنمر، تهديد) فيطلب كبيرًا فورًا.",
+   "description_en": "In a simple disagreement with a peer or sibling the learner listens to the other side and states their view fairly before their own, checks the other’s intent before replying or judging, proposes a simple solution or asks for a fair go-between, and knows when a disagreement has turned into harm (bullying, threats) and asks an adult immediately.",
+   "indicators": [
+    {
+     "ar": "يعرض وجهة نظر الآخر بصيغة يقرّها الآخر.",
+     "en": "States the other’s view in a form the other would accept."
+    },
+    {
+     "ar": "يسأل «ماذا حدث؟ وهل قصد؟» قبل اللوم أو الرد.",
+     "en": "Asks \"what happened, and did they mean it?\" before blaming or replying."
+    },
+    {
+     "ar": "يقترح حلًّا يراعي الطرفين في خلاف بسيط.",
+     "en": "Proposes a solution that respects both sides in a simple dispute."
+    },
+    {
+     "ar": "يطلب وسيطًا عادلًا حين يتعذر الاتفاق ويذكر ما يجعل الوسيط مناسبًا (يسمع الجميع، لا غرض له، هادئ).",
+     "en": "Asks for a fair go-between when agreement fails and says what makes one suitable (hears everyone, has no stake, calm)."
+    },
+    {
+     "ar": "يميّز الخلاف من التنمر أو التهديد، ويطلب كبيرًا فورًا في الثاني دون محاولة حله وحده.",
+     "en": "Tells a disagreement from bullying or threats and asks an adult at once in the latter, without trying to solve it alone."
+    }
+   ],
+   "support_signals_ar": [
+    "خلافات متكررة تنتهي بعنف أو تهديد.",
+    "يُدفع باستمرار إلى دور الضحية أو المعتدي."
+   ],
+   "support_signals_en": [
+    "Repeated disputes ending in violence or threats.",
+    "Is repeatedly pushed into the role of victim or aggressor."
+   ],
+   "domain_links": [
+    {
+     "competency": "R3",
+     "levels": [
+      "L1",
+      "L2",
+      "L3"
+     ],
+     "note": "إدارة الخلاف وحل النزاع (بنود مشتركة مع P08)"
+    },
+    {
+     "competency": "S5",
+     "levels": [
+      "L4"
+     ],
+     "note": "يختار ردًّا هادئًا في خلاف"
+    }
+   ],
+   "principles": {
+    "ANG": [
+     "ANG-10",
+     "ANG-12",
+     "ANG-18",
+     "ANG-19",
+     "ANG-21"
+    ],
+    "S5": [
+     "S5-07"
+    ],
+    "S6": [
+     "S6-06"
+    ],
+    "S1": [],
+    "K4": [],
+    "cross": [
+     "C4-P5",
+     "C4-P6",
+     "C4-P7",
+     "C4-P10"
+    ]
+   },
+   "reusable_lessons": [
+    {
+     "ref": "R3-L1",
+     "status": "shared_link",
+     "note": "«أسمّي الخلاف» (10–11، 30 د؛ P08)."
+    },
+    {
+     "ref": "R3-L2",
+     "status": "shared_link",
+     "note": "«رأي مختلف أم عداوة؟» (10–12، 35 د؛ P08)."
+    },
+    {
+     "ref": "R3-S3",
+     "status": "shared_link",
+     "note": "«حين يتحول الخلاف إلى أذى» (سيناريو، عمر 10؛ P08): سند لـAG6 وAG8."
+    },
+    {
+     "ref": "R3-L3",
+     "status": "optional_link",
+     "note": "«أعرض وجهة نظر الآخر» (11–13، 35 د؛ P08): يتداخل مع C4-L4 فيُحسم التكرار بين المراجعين."
+    },
+    {
+     "ref": "R5-L4",
+     "status": "optional_link",
+     "note": "«حين يزعل صديقي» (10–14، 45 د؛ P08): يتجاوز سقف 35–40 دقيقة لعمر 10–13 فيُختصر قبل الاستعمال."
+    }
+   ],
+   "lesson_gaps": [
+    {
+     "id": "NL5",
+     "title_ar": "قصد أم خطأ؟ ومن يعين بيننا؟",
+     "title_en": "Intent or accident? And who can help between us?",
+     "serves": [
+      "AG6",
+      "AG8"
+     ],
+     "note": "التثبت من القصد (ANG-10)، واختيار وسيط عادل (ANG-12 وANG-21)؛ لا يكرر R3-L1/L2."
+    }
+   ]
+  },
+  {
+   "id": "AG7",
+   "name_ar": "أعتذر وأصلح حين يلزم",
+   "name_en": "Apologising and repairing when appropriate",
+   "description_ar": "حين يكون هو من أخطأ يسمّي المتعلم ما فعل دون تبرير أو لوم للغير، ويعتذر بصدق ويعرض إصلاحًا مناسبًا بقراره هو، ويعرف أن الاعتذار لا يُلزم من تضرر بقبوله ولا بالعفو، وأنه لا يُطلب منه اعتذار عن أذى وقع عليه، ثم يمضي دون جلد للذات.",
+   "description_en": "When they are the one who erred, the learner names what they did without excuses or blaming others, apologises sincerely and offers a fitting repair by their own decision; knows an apology does not oblige the harmed person to accept or forgive, that they are not asked to apologise for harm done to them, and then moves on without self-flagellation.",
+   "indicators": [
+    {
+     "ar": "يصوغ اعتذارًا من ثلاث خطوات (ما فعلتُ، آسف، ما سأصلحه) دون «لكن» تبرّر.",
+     "en": "Builds a three-step apology (what I did, I am sorry, what I will fix) without a justifying \"but\"."
+    },
+    {
+     "ar": "يختار إصلاحًا يناسب الضرر (كلمة، إعادة شيء، طلب عون كبير).",
+     "en": "Chooses a repair that fits the harm (a word, returning something, asking an adult’s help)."
+    },
+    {
+     "ar": "يتقبل ألا يُقبل اعتذاره فورًا ولا يلحّ على الآخر.",
+     "en": "Accepts that the apology may not be accepted at once and does not press the other person."
+    },
+    {
+     "ar": "يميّز موقفًا لا يُطلب منه فيه الاعتذار لأن الأذى وقع عليه، ويخبر بالغًا موثوقًا.",
+     "en": "Recognises a situation where no apology is asked of them because the harm was done to them, and tells a trusted adult."
+    },
+    {
+     "ar": "يصف خطأه بنبرة وصفية («حدث كذا») ثم ينتقل إلى ما سيفعله.",
+     "en": "Describes the mistake in a factual tone (\"this happened\") and moves on to what they will do."
+    }
+   ],
+   "support_signals_ar": [
+    "يكرر لنفسه أنه سيئ أو لا يزول عنه شعور الذنب.",
+    "يعتذر بدافع الخوف أو يُضغط عليه ليعتذر عن أذى وقع عليه."
+   ],
+   "support_signals_en": [
+    "Keeps telling themselves they are bad, or guilt does not lift.",
+    "Apologises out of fear, or is pressured to apologise for harm done to them."
+   ],
+   "domain_links": [
+    {
+     "competency": "S6",
+     "levels": [
+      "L2",
+      "L3"
+     ],
+     "note": "يشرح خطوات الإصلاح؛ يعتذر ويصلح بتوجيه"
+    }
+   ],
+   "principles": {
+    "ANG": [
+     "ANG-04",
+     "ANG-20"
+    ],
+    "S5": [
+     "S5-09"
+    ],
+    "S6": [
+     "S6-01",
+     "S6-02",
+     "S6-03",
+     "S6-04",
+     "S6-06",
+     "S6-09"
+    ],
+    "S1": [
+     "S1-03",
+     "S1-09"
+    ],
+    "K4": [],
+    "cross": [
+     "C4-P10"
+    ]
+   },
+   "reusable_lessons": [
+    {
+     "ref": "S6-L3",
+     "status": "reuse",
+     "note": "«اعتذار حقيقي» (10–12، 30 د): مباشر لهذه الكفاية، وفيه حاجز عدم الاعتذار عن أذى وقع على الطفل."
+    },
+    {
+     "ref": "S6-S2",
+     "status": "reuse",
+     "note": "«رسالة لم تكن لطيفة» (سيناريو، عمر 10)."
+    },
+    {
+     "ref": "S6-L1",
+     "status": "catch_up_link",
+     "note": "(8–9، P05): رابط تعويضي."
+    },
+    {
+     "ref": "S6-L2",
+     "status": "catch_up_link",
+     "note": "(8–10، P05): النموذج الثلاثي؛ رابط تعويضي."
+    }
+   ],
+   "lesson_gaps": [
+    {
+     "id": "NL6",
+     "title_ar": "حين أتلقى اعتذارًا أو لا يُقبل اعتذاري",
+     "title_en": "When I receive an apology, or mine is not accepted",
+     "serves": [
+      "AG7"
+     ],
+     "note": "درس قصير يعالج الجانب الآخر (ANG-04 وS6-06): قبول الاعتذار اختيار صاحبه، وعدم الإلحاح؛ ولا يعالج ضحايا الأذى الشديد فهذه للمختص."
+    }
+   ]
+  },
+  {
+   "id": "AG8",
+   "name_ar": "أطلب المساعدة حين أحتاج",
+   "name_en": "Seeking help when needed",
+   "description_ar": "يعرف المتعلم علامات أنه لا يستطيع وحده (غضب شديد أو متكرر، أذى له أو لغيره، تهديد أو تنمر، خوف)، ويسمّي بالغًا موثوقًا ويقول جملة طلب العون بوضوح، ويفهم أن طلب المساعدة ليس ضعفًا ولا وشاية، وأنه لا يُلام على ما يُفعل به.",
+   "description_en": "The learner knows the signs that they cannot manage alone (intense or repeated anger, harm to self or others, threats or bullying, fear), names a trusted adult and says a clear help-seeking sentence; understands that asking for help is neither weakness nor tale-telling and that they are not blamed for what is done to them.",
+   "indicators": [
+    {
+     "ar": "يسمّي اثنين أو ثلاثة بالغين موثوقين يستطيع اللجوء إليهم.",
+     "en": "Names two or three trusted adults they could go to."
+    },
+    {
+     "ar": "يذكر مواقف يطلب فيها كبيرًا فورًا (أذى، تهديد، خوف، غضب لا يخمد).",
+     "en": "Lists situations in which they ask an adult at once (harm, threats, fear, anger that will not settle)."
+    },
+    {
+     "ar": "يقول جملة عون محددة («أنا غاضب وأحتاج أن أفكّر معك»؛ «يحدث لي شيء لا أريده، أحتاج مساعدة»).",
+     "en": "Says a specific help sentence (\"I am angry and need to think this through with you\"; \"something unwanted is happening, I need help\")."
+    },
+    {
+     "ar": "يفرّق بين طلب العون والوشاية بكلماته.",
+     "en": "Tells help-seeking from tale-telling in their own words."
+    }
+   ],
+   "support_signals_ar": [
+    "لا يسمّي أي بالغ يثق به.",
+    "يخاف من العقاب أو اللوم إن طلب المساعدة."
+   ],
+   "support_signals_en": [
+    "Cannot name any adult they trust.",
+    "Fears punishment or blame for asking."
+   ],
+   "domain_links": [
+    {
+     "competency": "S5",
+     "levels": [
+      "L1",
+      "L2",
+      "L3"
+     ],
+     "note": "حواجز الإحالة في S5 (العنف والغضب المزمن)"
+    },
+    {
+     "competency": "S6",
+     "levels": [
+      "L3"
+     ],
+     "note": "متى يلزم عون كبير"
+    }
+   ],
+   "principles": {
+    "ANG": [
+     "ANG-11",
+     "ANG-12",
+     "ANG-21"
+    ],
+    "S5": [],
+    "S6": [
+     "S6-09"
+    ],
+    "S1": [
+     "S1-09"
+    ],
+    "K4": [],
+    "cross": []
+   },
+   "reusable_lessons": [
+    {
+     "ref": "R3-S3",
+     "status": "shared_link",
+     "note": "«حين يتحول الخلاف إلى أذى» (عمر 10؛ P08)."
+    },
+    {
+     "ref": "S4-S2",
+     "status": "age_check",
+     "note": "«ليس صبرًا» (سيناريو عمر 7؛ P02): نمط جيد لكن لغته لعمر أصغر؛ يُعاد كتابة لعمر 10–12 إن اختير."
+    },
+    {
+     "ref": "S4-L2",
+     "status": "catch_up_link",
+     "note": "(7–9؛ P02): الصبر لا يعني السكوت عن الأذى؛ رابط تعويضي."
+    }
+   ],
+   "lesson_gaps": [
+    {
+     "id": "NL7",
+     "title_ar": "من أسأل؟ ومتى لا أكفي وحدي؟",
+     "title_en": "Whom do I ask, and when am I not enough on my own?",
+     "serves": [
+      "AG8"
+     ],
+     "note": "خريطة البالغين الموثوقين وعلامات طلب العون وجمل العون؛ يلزمه مراجع حماية الطفل وتحديد مسارات الإحالة المحلية قبل أي نص نهائي؛ المصادر التراثية (ANG-11 وANG-12) تغطي المشورة لا الإحالة."
+    }
+   ]
+  }
+ ],
+ "learning_outcomes": [
+  {
+   "id": "LO1",
+   "ar": "يسمّي غضبه ويصف علامتين له، ويقول إن الشعور طبيعي وإن المسؤولية عن التصرف.",
+   "en": "Names their anger, describes two of its signs, and says the feeling is natural while responsibility lies with action.",
+   "competencies": [
+    "AG1",
+    "AG2"
+   ]
+  },
+  {
+   "ar": "يذكر ثلاثة ردود ممكنة لموقف مثير ويصف أثر كل منها، ويسمّي ما لا يُقال ولا يُفعل ولو غضب.",
+   "en": "Lists three possible responses to a provoking situation with their effects, and names what is never said or done even in anger.",
+   "id": "LO2",
+   "competencies": [
+    "AG2"
+   ]
+  },
+  {
+   "ar": "يحدد ثلاثة مواقف تثير غضبه وعلامة مبكرة لكل منها وخطوة أولى.",
+   "en": "Identifies three triggers, an early sign for each and a first step.",
+   "id": "LO3",
+   "competencies": [
+    "AG3"
+   ]
+  },
+  {
+   "ar": "يجرّب ثلاث مهارات تهدئة ويختار ما يناسبه، ويؤجّل ردّه في موقف تمثيلي أو حقيقي.",
+   "en": "Tries three calming skills, chooses what suits them and delays their reply in a role-play or real situation.",
+   "id": "LO4",
+   "competencies": [
+    "AG4"
+   ]
+  },
+  {
+   "ar": "يصوغ اعتراضًا هادئًا من ثلاثة أجزاء بلا سباب ولا كذب، ويختار الوقت والمكان المناسبين.",
+   "en": "Builds a calm three-part objection without insults or lies and picks a suitable time and place.",
+   "id": "LO5",
+   "competencies": [
+    "AG5"
+   ]
+  },
+  {
+   "ar": "في خلاف بسيط يعرض رأي الآخر بأمانة، ويتثبت من القصد، ويقترح حلًّا أو يطلب وسيطًا عادلًا.",
+   "en": "In a simple disagreement, states the other’s view fairly, checks intent, and proposes a solution or asks for a fair go-between.",
+   "id": "LO6",
+   "competencies": [
+    "AG6"
+   ]
+  },
+  {
+   "ar": "يعتذر ويعرض إصلاحًا عند الاقتضاء بقراره، ويعرف أن الاعتذار لا يُلزم المتضرر بالقبول وأنه لا يعتذر عن أذى وقع عليه.",
+   "en": "Apologises and offers a repair when appropriate by their own decision, and knows an apology does not oblige the harmed person to accept and that they never apologise for harm done to them.",
+   "id": "LO7",
+   "competencies": [
+    "AG7"
+   ]
+  },
+  {
+   "ar": "يسمّي بالغين موثوقين ومواقف يطلب فيها العون فورًا ويقول جملة عون محددة.",
+   "en": "Names trusted adults and the situations where they ask for help at once, and says a specific help sentence.",
+   "id": "LO8",
+   "competencies": [
+    "AG8"
+   ]
+  },
+  {
+   "ar": "يكتب لنفسه خطة شخصية قصيرة (مثيراتي، علامتي، أدواتي، جملة اعتراضي، من أطلب) يملكها ولا تُرسل لأحد.",
+   "en": "Writes a short private plan (my triggers, my sign, my tools, my objection sentence, whom I ask) that they own and is sent to no one.",
+   "id": "LO9",
+   "competencies": [
+    "AG3",
+    "AG4",
+    "AG5",
+    "AG8"
+   ]
+  }
+ ],
+ "guide_only_principles": [
+  {
+   "id": "GP1",
+   "ar": "لا يعظ المرشد أو الوالد الطفل في ذروة غضبه؛ ينتظر حتى يهدأ ثم يتحدث.",
+   "en": "The mentor or parent does not lecture a child at the peak of anger; wait until calm, then talk.",
+   "principles": [
+    "ANG-13"
+   ]
+  },
+  {
+   "id": "GP2",
+   "ar": "عبارة التهدئة تُقدَّم بنبرة عون لا اتهام (لا «اهدأ» أمام الآخرين)، ويُترك للطفل الاختيار.",
+   "en": "Calming suggestions are offered as help, not accusation (no public \"calm down\"), leaving the child a choice.",
+   "principles": [
+    "ANG-14"
+   ]
+  },
+  {
+   "id": "GP3",
+   "ar": "لا يقرر البالغ ما يترتب على الطفل وهو غاضب، ولا عقاب في المنهج.",
+   "en": "The adult does not decide consequences for the child while angry; there is no punishment in the curriculum.",
+   "principles": [
+    "ANG-05"
+   ]
+  },
+  {
+   "id": "GP4",
+   "ar": "لا يُضغط على الطفل ليعتذر أو ليعفو أو ليحكي؛ والاعتذار والعفو قراره، ويُستمع إليه فقط.",
+   "en": "No pressure to apologise, forgive or disclose; these are the child’s decisions and the adult only listens.",
+   "principles": [
+    "ANG-04",
+    "S6-06"
+   ]
+  },
+  {
+   "id": "GP5",
+   "ar": "يصبر المرشد على تعثر المتعلم ولا يشدد العتاب ولا يضخّم الأخطاء.",
+   "en": "The mentor is patient with a learner’s lapses and does not intensify reproach or magnify mistakes.",
+   "principles": [
+    "S1-10",
+    "K4-05"
+   ]
+  },
+  {
+   "id": "GP6",
+   "ar": "الملاحظة وصفية فقط بإذن الطفل (ظهر/يتدرب/يحتاج دعمًا) بلا درجات ولا مقارنة.",
+   "en": "Observation is descriptive only and with the child’s permission (appeared / practising / needs support), with no scores or comparison.",
+   "principles": []
+  }
+ ],
+ "moved_out": [
+  {
+   "items": [
+    "S1-L1",
+    "S1-L2",
+    "S1-S1"
+   ],
+   "theme_ar": "مراجعة اليوم والفعل والنية",
+   "theme_en": "Daily review; action and intention",
+   "decision": "move",
+   "destination": "برنامج لعمر 10–12 لم يُنشأ بعد (مقترح: «أرتّب يومي وأراجعه») مع S2 أدناه",
+   "note_ar": "لا تخدم هدف برنامج الغضب مباشرة. S1-L2 رابط اختياري من AG6/AG7 (التثبت من القصد) دون تضمين. حاجز عدم جلد الذات (S1-09) ينتقل معها.",
+   "note_en": "Does not serve the anger objective directly. S1-L2 may be an optional link from AG6/AG7 (checking intent), not embedded. The anti-self-flagellation guard (S1-09) travels with it."
+  },
+  {
+   "items": [
+    "S2-L1",
+    "S2-L2",
+    "S2-S1"
+   ],
+   "theme_ar": "تنظيم الوقت",
+   "theme_en": "Time management",
+   "decision": "move",
+   "destination": "البرنامج المقترح نفسه؛ وتُنظر X4-L4..L6 (S2، تُستضاف حاليًّا في P22 بعمر 12–17) مرشحة لنفس المضيف",
+   "note_ar": "أمثلة المالك: تنظيم الوقت برنامج مستقل مع رابط اختياري.",
+   "note_en": "Owner’s own example: time management is a separate program with an optional link."
+  },
+  {
+   "items": [
+    "K4-L3",
+    "K4-S2"
+   ],
+   "theme_ar": "جدول مراجعة المحفوظ",
+   "theme_en": "Quran review schedule",
+   "decision": "move",
+   "destination": "P20 (نواة القرآن للصغار، 9–12، وفيه K4) أو P21 عند المراجعة",
+   "note_ar": "المثال الصريح في توجيه المالك: لا تدخل مراجعة المحفوظ في برنامج الغضب لمجرد الانضباط وتنظيم الذات.",
+   "note_en": "The explicit example in the owner’s directive: memorisation review does not enter the anger program merely because it involves discipline."
+  },
+  {
+   "items": [
+    "C1-L4"
+   ],
+   "theme_ar": "الصدق حين يكلّف",
+   "theme_en": "Honesty when it costs",
+   "decision": "move",
+   "destination": "برنامج قيم لعمر 10–12 لم يُنشأ بعد (مقترح مع C4 وC5 أدناه)؛ P03 لا يغطي إلا L1–L3 بعمر 8",
+   "note_ar": "درس يتيم بلا مضيف بعد خروجه.",
+   "note_en": "Becomes an orphan without a host once removed."
+  },
+  {
+   "items": [
+    "C4-L4",
+    "C4-S2"
+   ],
+   "theme_ar": "الإنصاف",
+   "theme_en": "Fairness",
+   "decision": "move",
+   "destination": "البرنامج المقترح للقيم؛ وC4-L4 يتداخل مع R3-L3 (يعرض رأي الآخر بأمانة) فيحسم المراجعون إبقاء أحدهما مرجعًا والآخر رابطًا",
+   "note_ar": "AG6 تستعمل R3-L3 رابطًا اختياريًّا بدل تكرار الدرس.",
+   "note_en": "AG6 uses R3-L3 as an optional link instead of repeating the lesson."
+  },
+  {
+   "items": [
+    "C5-L4"
+   ],
+   "theme_ar": "قبول النقد",
+   "theme_en": "Accepting criticism",
+   "decision": "move",
+   "destination": "البرنامج المقترح للقيم",
+   "note_ar": "الغضب من النقد يظهر في AG1/AG5 دون استضافة درس قبول النقد نفسه.",
+   "note_en": "Anger at criticism is touched by AG1/AG5 without hosting the accepting-criticism lesson itself."
+  }
+ ],
+ "contemporary_general_principles_need_specialist": [
+  {
+   "id": "CG1",
+   "ar": "المشاعر معلومات عن الموقف لا أحكام على الشخص؛ تسمية الشعور تساعد على التعامل معه.",
+   "en": "Feelings are information about a situation, not verdicts on the person; naming a feeling helps in handling it."
+  },
+  {
+   "id": "CG2",
+   "ar": "الفصل بين الشعور (مقبول) والتصرف (محدود ومسؤول عنه).",
+   "en": "Separating feeling (acceptable) from behaviour (bounded and owned)."
+  },
+  {
+   "id": "CG3",
+   "ar": "مهارات التنظيم: توقف، إبطاء التنفس، استرخاء الجسد، الحركة، تغيير المكان، الحديث الذاتي الهادئ؛ وتُتدرَّب وقت الهدوء قبل أن تُطلب وقت الغضب. (تحتاج مختصًّا يقرر ما يناسب الأطفال ومن يُستثنى منها وكيف تُقدَّم.)",
+   "en": "Regulation skills — pause, slow breathing, body relaxation, movement, changing place, calm self-talk — are rehearsed when calm before they are needed in the heat of anger. (A specialist must decide what suits children, who is excused, and how to present them.)"
+  },
+  {
+   "id": "CG4",
+   "ar": "الاستراحة الاختيارية للهدوء تختلف عن العزل العقابي؛ يختارها الطفل ولا تُفرض عقوبةً.",
+   "en": "A voluntary calming break differs from punitive isolation: the child chooses it and it is never imposed as punishment."
+  },
+  {
+   "id": "CG5",
+   "ar": "صيغة الاعتراض الإنسانية: وصف الموقف، وأثره على الشعور، والطلب المحدد، بدل الاتهام والتعميم.",
+   "en": "Assertive objection form — situation, effect/feeling, specific request — instead of accusation and generalisation."
+  },
+  {
+   "id": "CG6",
+   "ar": "خطوات حل المشكلة بين الأقران: تحديد المشكلة، وسماع الطرفين، واقتراح خيارات، واختيار حل، ومراجعته.",
+   "en": "Peer problem-solving steps: define the problem, hear both sides, propose options, choose, review."
+  },
+  {
+   "id": "CG7",
+   "ar": "هدوء البالغ ونبرته يعينان الطفل على الهدوء، والتعليق على السلوك لا على الشخص.",
+   "en": "An adult’s calm tone helps the child calm down; comment on behaviour, not on the person."
+  },
+  {
+   "id": "CG8",
+   "ar": "عند الأقران في هذه السن حساسية عالية للتقييم والإحراج، فتؤثر السخرية والإهانة في سرعة الغضب.",
+   "en": "Peers at this age are highly sensitive to evaluation and embarrassment, so teasing and humiliation affect how fast anger rises."
+  },
+  {
+   "id": "CG9",
+   "ar": "التعب والجوع والنوم القليل والازدحام عوامل تسرّع الانفعال عند كثيرين.",
+   "en": "Tiredness, hunger, little sleep and crowding make many people react faster."
+  },
+  {
+   "id": "CG10",
+   "ar": "معايير التمييز بين الغضب العادي وما يحتاج مساعدة مختص (الشدة والتكرار والمدة والأذى والتأثير في الحياة اليومية) يضعها مختص ولا يضعها المنهج.",
+   "en": "Criteria separating ordinary anger from what needs a specialist (intensity, frequency, duration, harm, effect on daily life) are set by a specialist, not by the curriculum."
+  }
+ ],
+ "session_estimate": {
+  "current": "16 جلسة (8 أسابيع × 2 × 35 د)",
+  "working_estimate": "10–12 جلسة (5–6 أسابيع × 2 × 35 د)",
+  "basis": "ثمانية كفايات، منها دروس قائمة قابلة للاستعمال (S5-L3 بعد التقسيم، S6-L3، R2-L3، R3-L1، R3-L2) وسبعة دروس جديدة بالإضافة إلى الخاتمة؛ لا يُملأ الزمن بصورة مصطنعة، والقرار النهائي لمرحلة تخطيط الجلسات."
+ },
+ "open_decisions": [
+  "اعتماد العنوان المنقّح وبقاء الـslug (القسم 2).",
+  "الاستعاضة عن شرط P02 (عمر 7–8) بفحص جاهزية لا يُحتسب درجة، مع روابط تعويضية اختيارية لـS5-L1/L2 وS6-L1/L2.",
+  "مضيف الدروس المنقولة: هل يُنشأ برنامجان (إدارة اليوم والوقت؛ القيم لعمر 10–12) أم تُدمج في برامج قائمة؟ وهل P20 مضيف K4-L3/K4-S2؟",
+  "تسمية المراجعين (علمي، تربوي نمائي، حماية الطفل) وإضافة مراجع مختص بالصحة النفسية للطفل لمهارات التنظيم ومعايير الإحالة.",
+  "أي مهارات تنظيم (تنفس، استرخاء، حركة) تُدرَّس فعلًا، وكيف يُعالَج الأطفال المستثنون منها.",
+  "حسم تكرار C4-L4/R3-L3 وR2-L3 وتحديد هل تُحتسب الدروس المشتركة مرة واحدة في سجل الإنجاز.",
+  "عدد الجلسات: تقدير عملي أولي 10–12 جلسة (5–6 أسابيع) بدل 16؛ يُحسم في مرحلة تخطيط الجلسات.",
+  "سياسة الاحتفاظ بالبيانات وحذفها (شرط قبل أي إطلاق عام: PEDAGOGY 8)."
+ ]
+}

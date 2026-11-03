@@ -4,6 +4,8 @@ import { z } from 'zod';
 import { readFileSync } from 'node:fs';
 import { withContext, type Executor, type TransactionalDb, type TxLike } from '@tartil/database';
 import { analyzeRecitation, normalizeAr, type RecitationAIProvider, type ExpectedWord } from './recitation.ts';
+import { registerAcademyProgress } from './academy-progress.ts';
+import { registerAcademyContent } from './academy-content.ts';
 import { hashPassword, verifyPassword, signToken, verifyToken, verifyTokenFull } from './auth.ts';
 
 /** `service` = privileged owner/service connection (registration, login, bootstrap, email lookup only).
@@ -22,6 +24,8 @@ function mapError(e: unknown): { status: number; code: string } {
   if (m.includes('homework_retry_not_allowed')) return { status: 409, code: 'homework_retry_not_allowed' };
   if (m.includes('homework_illegal_transition')) return { status: 409, code: 'homework_illegal_transition' };
   if (m.includes('plan_teacher_only') || m.includes('plan_share_requires_student') || m.includes('plan_teacher_fields_locked')) return { status: 403, code: m.includes('share') ? 'plan_share_requires_student' : 'plan_teacher_only' };
+  if (m.includes('academy_progress_budget_exceeded')) return { status: 409, code: 'academy_progress_budget_exceeded' };
+  if (m.includes('academy_progress_payload_ok')) return { status: 400, code: 'validation_failed' };
   if (m.includes('kid_teacher_only')) return { status: 403, code: 'kid_teacher_only' };
   if (m.includes('plan_illegal_transition')) return { status: 409, code: 'plan_illegal_transition' };
   if (m.includes('reflection_age_minimum')) return { status: 403, code: 'reflection_age_minimum' };
@@ -29,6 +33,7 @@ function mapError(e: unknown): { status: number; code: string } {
   if (m.includes('approval_requires_three_role_approvals')) return { status: 409, code: 'approval_requires_three_role_approvals' };
   if (m.includes('source_record_locked_after_submission') || m.includes('source_record_illegal_transition') || m.includes('record_not_under_review') || m.includes('source_record_starts_as_draft')) return { status: 409, code: m.match(/source_record_locked_after_submission|source_record_illegal_transition|record_not_under_review|source_record_starts_as_draft/)![0] };
   if (m.includes('author_cannot_review_own_record') || m.includes('reviewer_lacks_role')) return { status: 403, code: m.includes('author') ? 'author_cannot_review_own_record' : 'reviewer_lacks_role' };
+  if (m.includes('reviewer_roles_are_appointed_by_the_owner') || m.includes('minor_flag_cannot_be_lowered_here') || m.includes('homework_review_fields_teacher_only')) return { status: 403, code: 'forbidden' };
   if (m.includes('row-level security') || m.includes('permission denied')) return { status: 403, code: 'forbidden' };
   if (m.includes('duplicate key')) return { status: 409, code: 'already_exists' };
   if (m.includes('foreign key')) return { status: 422, code: 'invalid_reference' };
@@ -1240,6 +1245,8 @@ export function buildApp(d: Deps) {
     });
     return r ?? reply.code(404).send({ error: 'edition_not_available' });
   });
+  registerAcademyProgress(app, { service: d.service, personal, tenant });   // TARTIL 14.1 item 16 (migration 0019)
+  registerAcademyContent(app, d);   // academy publication lifecycle (migration 0020)
   app.get('/health', async () => ({ ok: true }));
   return app;
 }

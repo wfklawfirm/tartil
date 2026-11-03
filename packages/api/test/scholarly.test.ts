@@ -23,7 +23,7 @@ before(async () => {
 test('scholarly workspace: only reviewers; guarded workflow; approval recorded; publish blocked until licence cleared; history kept', async () => {
   const admin = await user('sadmin'), scholar = await user('sscholar'), other = await user('sother');
   const inst = (await call('POST', '/institutions', admin.token, { name: 'Dar S', slug: 'dar-s' })).body.id as string;
-  assert.equal((await call('POST', `/i/${inst}/members`, admin.token, { email: scholar.email, role: 'scholarly_reviewer' })).status, 201);
+  await db.query(`INSERT INTO memberships (institution_id, user_id, role) VALUES ($1,$2,'scholarly_reviewer')`, [inst, scholar.id]);   // reviewer roles are appointed by the owner, not via the tenant API (0018)
   const item = (await db.query<{ id: string }>(`INSERT INTO scholarly_items (kind, title_ar, body, source_unit_ids) VALUES ('concept','مفهوم تجريبي','{"summary":"x"}','{SRC-000001#toc-1.p0001}') RETURNING id`)).rows[0]!.id;
 
   assert.equal((await call('GET', '/scholarly/items')).status, 401);
@@ -56,8 +56,8 @@ test('scholarly workspace: only reviewers; guarded workflow; approval recorded; 
 test('sanad register: self-declared; own entries only; scholar (not the holder) decides; users cannot self-verify', async () => {
   const admin = await user('nadmin'), scholar = await user('nscholar'), holder = await user('nholder'), other = await user('nother');
   const inst = (await call('POST', '/institutions', admin.token, { name: 'Dar N', slug: 'dar-n' })).body.id as string;
-  await call('POST', `/i/${inst}/members`, admin.token, { email: scholar.email, role: 'scholarly_reviewer' });
-  await call('POST', `/i/${inst}/members`, admin.token, { email: holder.email, role: 'scholarly_reviewer' });   // a scholar who also declares their own sanad
+  await db.query(`INSERT INTO memberships (institution_id, user_id, role) VALUES ($1,$2,'scholarly_reviewer')`, [inst, scholar.id]);
+  await db.query(`INSERT INTO memberships (institution_id, user_id, role) VALUES ($1,$2,'scholarly_reviewer')`, [inst, holder.id]);   // a scholar who also declares their own sanad
   const add = await call('POST', '/me/sanad', other.token, { riwayah: 'حفص عن عاصم', teacherName: 'الشيخ فلان', yearHijri: 1440, documentNote: 'إجازة مكتوبة' });
   assert.equal(add.status, 201); assert.equal(add.body.status, 'declared');
   assert.equal((await call('POST', '/me/sanad', other.token, { riwayah: 'x', teacherName: 'y' })).status, 400);

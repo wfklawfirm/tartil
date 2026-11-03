@@ -170,9 +170,6 @@ html[dir=rtl] .cn.tl{transform:scaleX(-1)}html[dir=rtl] .cn.tr{transform:none}ht
   #bnav a,#bnav button{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;min-height:54px;padding:4px 2px;margin:0;border-radius:10px;border:0;background:transparent;color:var(--mute);text-decoration:none;font-size:12px;font-weight:600;line-height:1.3;box-shadow:none}
   #bnav a svg,#bnav button svg{width:24px;height:24px}
   #bnav a.on{color:var(--accent2);background:var(--soft)}:root[data-theme=dark] #bnav a.on{color:var(--ink)}
-  #more{position:fixed;inset-inline:8px;bottom:calc(66px + env(safe-area-inset-bottom));z-index:21;background:var(--card);border:1px solid var(--gold2);border-radius:14px;padding:6px;box-shadow:0 10px 30px rgba(0,0,0,.2);display:grid}
-  #more[hidden]{display:none}
-  #more a{padding:12px 14px;border-radius:10px;text-decoration:none;color:var(--ink);min-height:44px;font-weight:600}
   .brand{font-size:26px}.hero{padding:44px 14px 30px}.hero .cn{width:40px;height:40px}
   .cartouche{padding:12px 46px 10px;margin-inline:6px}.cartouche .med{width:34px;height:34px;margin-top:-17px;padding:4px}.cartouche .med.s{inset-inline-start:7px}.cartouche .med.e{inset-inline-end:7px}
   .mushaf{padding:28px 14px 22px;border-radius:14px}
@@ -366,12 +363,180 @@ button.card .small{color:var(--mute);font-weight:400}
 .ec .ecs{display:block;width:fit-content;max-width:100%;white-space:normal;border-radius:12px;padding:2px 10px;line-height:1.6;margin:2px 0 0}
 .ec:not(.lead) .ecs{grid-column:2}
 .acx .reveal{margin:8px 0}.acx .reveal>summary{cursor:pointer;font-weight:600;min-height:44px;display:flex;align-items:center}
-</style></head>
+</style>
+<style>
+/* F-13/F-16/F-17/F-18 (TARTIL_13_ACADEMY_UX) */
+html{scroll-padding-top:76px;scroll-padding-bottom:84px}
+.sr{position:absolute!important;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+[tabindex="-1"]:focus{outline:none}
+.tabsw{position:relative;margin:0 0 14px}.tabsw>.tabs{margin:0}
+.tabs [role=tab]{display:inline-flex;align-items:center;min-height:40px;padding:7px 14px;margin:0;border-radius:10px;border:1px solid var(--line);color:var(--ink);font-weight:600;font-size:15px;background:var(--card);text-decoration:none;cursor:pointer;white-space:nowrap;box-shadow:none;transform:none}
+.tabs [role=tab][aria-selected=true]{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.tabs [role=tab]:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+@media (pointer:coarse){.tabs [role=tab]{min-height:44px}}
+@media (max-width:700px){.tabs{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;padding:2px 1px}.tabs::-webkit-scrollbar{display:none}.tabs>*{flex:0 0 auto}}
+.tabsw::before,.tabsw::after{content:"";position:absolute;top:0;bottom:0;width:30px;pointer-events:none;opacity:0;transition:opacity .15s;z-index:1}
+.tabsw::before{left:0;background:linear-gradient(to right,var(--bg),transparent)}
+.tabsw::after{right:0;background:linear-gradient(to left,var(--bg),transparent)}
+.tabsw.fl::before,.tabsw.fr::after{opacity:1}
+.acx .actools .tabsw{margin:0}.acx .actools .tabsw.jw{flex:1 1 320px;min-width:0}.acx .tabsw.jw .jump{flex:none}
+.acx .jump a[aria-current]{color:var(--ink);border-bottom-color:var(--gold)}
+.hubgrid .feat{display:flex;flex-direction:column;gap:4px}.hubgrid .feat .btn{margin-top:auto;align-self:flex-start}
+.authcard .tabs [role=tab]{width:auto;margin:0}
+/* file chooser (F-18) */
+.filebtn{position:relative;display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin:6px 0}
+.filebtn input[type=file]{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer;font-size:0}
+.filebtn .fb{display:inline-flex;align-items:center;min-height:44px;padding:9px 18px;border-radius:10px;border:1px solid var(--field,var(--line));background:transparent;color:var(--ink);font-weight:700;pointer-events:none}
+.filebtn input:focus-visible+.fb{outline:3px solid var(--gold);outline-offset:2px}
+.filebtn .fn{color:var(--mute);font-size:14px;overflow-wrap:anywhere}
+/* responsive table (F-17): cards on phones */
+.rt .chip{white-space:nowrap}
+@media (max-width:600px){
+  .rtw{overflow:visible!important}
+  .rt,.rt tbody,.rt tr,.rt td{display:block;width:100%}
+  .rt thead{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+  .rt tr{border:1px solid var(--line);border-radius:12px;padding:6px 12px;margin:0 0 10px;background:var(--card)}
+  .rt td{display:flex;justify-content:space-between;align-items:center;gap:12px;border-bottom:1px dashed var(--line);padding:8px 0;text-align:end}
+  .rt td:last-child{border-bottom:0;justify-content:flex-end}
+  .rt td::before{content:attr(data-label);color:var(--mute);font-weight:600;text-align:start}
+  .rt td:last-child::before{content:none}
+}
+</style>
+<style id="acx-css2">
+/* TARTIL 14.1 UX/UI redesign of the Academy (scoped to .acx). Calm, quiet surfaces; one accent; fewer boxes. Tokens only, so light/dark follow the project. */
+.acx{max-width:860px;font-family:var(--ui)}
+.acx h1,.acx h2,.acx h3{font-family:var(--ui)}
+.acx .back{display:inline-flex;align-items:center;min-height:44px;color:var(--mute);text-decoration:none;font-weight:600;font-size:15px}
+.acx .back:hover{color:var(--ink);text-decoration:underline}
+.acx .ameta{margin:-6px 0 18px;text-align:center;color:var(--mute);font-size:15px}
+.acx .ribbon{font-size:13px;font-weight:600;padding:1px 10px;border-color:var(--gold2);color:var(--goldtx);background:transparent}
+/* program header */
+.acx .phero{padding:2px 0 22px;margin:0 0 20px;border-bottom:1px solid var(--line)}
+.acx .phero h1{font-family:var(--deco);font-size:clamp(32px,6vw,46px);line-height:1.3;margin:10px 0 8px;color:var(--accent2)}
+:root[data-theme=dark] .acx .phero h1{color:var(--ink)}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]) .acx .phero h1{color:var(--ink)}}
+.acx .phero .lead,.acx .gsec+.lead,.acx .lead{font-size:18px;line-height:1.9;max-width:58ch;margin:0 0 16px;color:var(--ink)}
+.acx .facts2{display:flex;flex-wrap:wrap;gap:10px 28px;margin:0;padding:0;list-style:none}
+.acx .facts2 li{display:flex;flex-direction:column;font-size:14px;color:var(--mute);line-height:1.6}
+.acx .facts2 b{font-size:16px;color:var(--ink);font-weight:600}
+/* progress (one quiet panel) */
+.acx .pprog{display:grid;gap:10px;padding:18px 20px;border:1px solid var(--gold2);border-radius:18px;background:var(--card);margin:0 0 6px}
+.acx .pprog .row1{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.acx .pprog .row1 b{font-size:19px;color:var(--accent2)}
+:root[data-theme=dark] .acx .pprog .row1 b{color:var(--ink)}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]) .acx .pprog .row1 b{color:var(--ink)}}
+.acx .pprog .btn{margin:0;min-width:96px;text-align:center}
+.acx .pprog .stats{display:flex;gap:6px 18px;flex-wrap:wrap}
+.acx .pprog .local{border-top:1px dashed var(--line);padding-top:8px}
+.acx .bar2{height:8px;border-radius:999px;background:var(--soft);border:1px solid var(--line);overflow:hidden}
+.acx .bar2 i{display:block;height:100%;background:var(--accent);border-radius:999px;transition:width .3s}
+/* section headings and text */
+.acx h2.sh{margin:30px 0 8px;font-size:21px;display:flex;align-items:center;gap:10px}
+.acx h2.sh::before{content:"";width:4px;height:1em;border-radius:2px;background:var(--gold);flex:none}
+.acx .goal{font-size:18px;line-height:1.95;margin:0;max-width:60ch}
+.acx .skills{list-style:none;margin:6px 0 0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:6px 22px}
+.acx .skills li{position:relative;padding-inline-start:22px;line-height:1.8}
+.acx .skills li::before{content:"";position:absolute;inset-inline-start:0;top:.75em;width:8px;height:8px;border-radius:2px;background:var(--gold);transform:rotate(45deg)}
+/* journey */
+.acx .tl{position:relative;margin:8px 0 0}
+.acx .stage{position:relative;padding:0 0 26px;padding-inline-start:52px;border:0}
+.acx .stage::before{content:"";position:absolute;inset-inline-start:17px;top:38px;bottom:2px;width:2px;background:var(--line)}
+.acx .stage:last-child::before{display:none}
+.acx .stage .no{position:absolute;inset-inline-start:0;top:0;width:36px;height:36px;border-radius:999px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:15px;background:var(--card);color:var(--mute);border:2px solid var(--line)}
+.acx .stage.done .no{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.acx .stage.cur .no{border-color:var(--gold);color:var(--accent2);box-shadow:0 0 0 4px color-mix(in srgb,var(--gold) 22%,transparent)}
+:root[data-theme=dark] .acx .stage.cur .no{color:var(--ink)}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]) .acx .stage.cur .no{color:var(--ink)}}
+.acx .stage.cap .no{border-color:var(--gold);color:var(--goldtx)}
+.acx .stage h3{margin:2px 0 2px;font-size:19px;line-height:1.5}
+.acx .stage h3 small{font-weight:400;color:var(--mute);font-size:14px}
+.acx .stage .why{margin:0 0 8px;color:var(--mute);font-size:15px;line-height:1.8}
+.acx .items{border-top:1px solid var(--line)}
+.acx .item{display:flex;gap:12px;align-items:center;min-height:56px;padding:8px 2px;margin:0;border:0;border-bottom:1px solid var(--line);border-radius:0;background:none;color:var(--ink);text-decoration:none}
+.acx .item:hover{background:color-mix(in srgb,var(--soft) 70%,transparent)}
+.acx .item .mk{flex:none;width:22px;height:22px;border-radius:999px;border:2px solid var(--field,var(--line));display:flex;align-items:center;justify-content:center;font-size:13px;color:var(--accent-ink)}
+.acx .item.done .mk{background:var(--accent);border-color:var(--accent)}
+.acx .item.next .mk{border-color:var(--gold);box-shadow:0 0 0 3px color-mix(in srgb,var(--gold) 25%,transparent)}
+.acx .item.done{opacity:1}.acx .item.done::after{content:none}
+.acx .item .tx{flex:1;min-width:0;display:flex;flex-direction:column;line-height:1.6}
+.acx .item .tx b{font-weight:600;font-size:16.5px}
+.acx .item .tx small{color:var(--mute);font-size:13.5px}
+.acx .item .k{flex:none;font-size:13px;padding:0;background:none;color:var(--mute)}
+.acx .item .k.now{color:var(--goldtx);font-weight:700}
+.acx .mission{margin:12px 0 0;padding:4px 14px;border:0;border-inline-start:3px solid var(--gold);border-radius:0;background:none;line-height:1.85}
+.acx .mission b{color:var(--goldtx)}
+/* folds with a visible chevron (replaces the removed browser marker) */
+.acx details.fold{border:1px solid var(--line);border-radius:14px;padding:4px 16px;margin:10px 0;background:var(--card)}
+.acx details.fold summary,.acx .reveal>summary{list-style:none;cursor:pointer;font-weight:700;min-height:48px;display:flex;align-items:center;gap:10px}
+.acx details.fold summary::-webkit-details-marker{display:none}
+.acx details.fold summary::after{content:"";flex:none;margin-inline-start:auto;width:9px;height:9px;border-inline-end:2px solid var(--mute);border-bottom:2px solid var(--mute);transform:rotate(45deg);transition:transform .15s}
+.acx details.fold[open]>summary::after{transform:rotate(-135deg)}
+.acx details.fold[open]>summary{border-bottom:1px solid var(--line);margin-bottom:8px}
+.acx details.fold>p{margin:6px 0 10px}
+.acx details.fold>button{margin:6px 0 14px}
+.acx details.faq{background:var(--card)}
+/* guide pages */
+.acx .gh1{font-size:clamp(26px,5vw,34px);margin:6px 0 2px}
+.acx .seg{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0 6px}
+.acx .tabs2 [role=tab],.acx .tabs2 a,.acx .tabs2 button{min-height:44px}
+.acx .seg a{display:inline-flex;align-items:center;min-height:44px;padding:6px 18px;border-radius:999px;border:1px solid var(--line);color:var(--ink);text-decoration:none;font-weight:600;background:var(--card)}
+.acx .seg a[aria-current]{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.acx .gsec{margin:0 0 6px}
+.acx .resp{padding:6px 14px;margin:8px 0;border-inline-start:3px solid var(--gold2)}
+.acx .ack label.chk{display:flex;gap:10px;align-items:flex-start;margin:6px 0 10px;color:var(--ink);font-size:16px;min-height:44px}
+.acx .ack input{margin-top:6px;flex:none}
+.acx .foradults{margin:22px 0 0}
+.acx .foradults a{display:inline-flex;align-items:center;min-height:44px}
+.acx .prereq a,.acx p.small a{display:inline-block;min-height:32px;padding:4px 0}
+/* home */
+.acx .grid{grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px}
+.acx .agroup{margin:26px 0 6px}
+.acx .ghead{margin:0 0 10px}.acx .ghead h2{font-size:22px}
+.acx .pcard{padding:16px 18px;gap:6px;border:1px solid var(--line);border-radius:16px;background:var(--card);color:var(--ink);box-shadow:none;transition:border-color .15s}
+.acx .pcard:hover{transform:none;border-color:var(--gold)}
+.acx .pcard h3{font-size:19px;line-height:1.5;margin:0;color:var(--accent2)}
+:root[data-theme=dark] .acx .pcard h3{color:var(--ink)}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]) .acx .pcard h3{color:var(--ink)}}
+.acx .pcard .tag{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin:0;color:var(--mute);font-size:15px;line-height:1.75}
+.acx .pcard .info{margin-top:auto;padding-top:6px;color:var(--mute);font-size:14px}
+.acx .sess{list-style:none;display:flex;gap:8px 14px;flex-wrap:wrap;margin:6px 0 0;padding:0}
+.acx .sess li{display:flex;align-items:center;gap:8px;color:var(--ink);font-weight:600}
+.acx .sess .n{width:26px;height:26px;border-radius:999px;background:var(--soft);border:1px solid var(--gold2);display:inline-flex;align-items:center;justify-content:center;font-size:13px}
+.acx .foot{margin:28px 0 8px}
+/* lesson player */
+.acx .lhead{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin:0 0 8px}
+.acx .lhead .gswitch{margin:0;min-height:44px}
+.acx .lesson{padding:20px 20px 18px;border-radius:20px}
+.acx .phases{list-style:none;display:flex;gap:6px;flex-wrap:wrap;margin:0 0 12px;padding:0}
+.acx .phases li{font-size:13px;padding:1px 12px;border-radius:999px;border:1px solid var(--line);color:var(--mute);background:transparent}
+.acx .phases li.past{color:var(--accent2);border-color:var(--gold2)}
+:root[data-theme=dark] .acx .phases li.past{color:var(--ink)}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]) .acx .phases li.past{color:var(--ink)}}
+.acx .phases li.on{background:var(--accent);color:var(--accent-ink);border-color:var(--accent);font-weight:700}
+.acx .lesson .ptxt{font-size:14px;color:var(--mute);margin:0 0 6px}
+.acx .lesson .bar2{margin:0 0 18px}
+.acx .lt{font-family:var(--deco);font-size:clamp(28px,5vw,36px);margin:0 0 8px;line-height:1.35}
+.acx .st{font-size:21px;margin:0 0 10px}
+.acx .obj{font-size:18px;line-height:1.95;margin:0 0 12px}
+.acx .inter{margin:16px 0 4px;padding:14px 16px;border-radius:14px;background:var(--soft);border:1px solid var(--line)}
+.acx .inter h3{margin:0 0 6px;font-size:17px}
+.acx .inter .qs{margin:6px 0}
+.acx .inter .fb{margin:10px 0 0;padding:0;background:none;color:var(--mute);font-size:15px}
+.acx .core .privacy{margin:6px 0 4px}
+.acx .nav2{align-items:center;margin-top:20px}
+.acx .nexthint{text-align:center;color:var(--mute);font-size:14px;margin-top:8px;min-height:1.4em}
+.acx .lesson button,.acx .nav2 button{min-width:96px}
+.acx .opt{min-height:48px;border-radius:14px}
+.acx .meta1{flex:1 1 220px;min-width:0}
+@media (max-width:600px){.acx .lesson{padding:16px 14px}.acx .pprog{padding:16px 14px}.acx .stage{padding-inline-start:46px}.acx .stage::before{inset-inline-start:15px}.acx .stage .no{width:32px;height:32px}.acx .stage::before{top:34px}.acx .skills{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:reduce){.acx *,.acx *::before,.acx *::after{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
 <body>
 <a class="skip" href="#app">تخطَّ إلى المحتوى</a>
 <header class="top"><div class="bar"><a class="brand" href="#/"><i></i>ترتيل</a><nav class="main" id="nav" aria-label="التنقل الرئيسي"></nav><div id="who"></div><button id="theme" type="button" aria-label="تبديل المظهر"></button></div></header>
 <main id="app" tabindex="-1"></main>
-<div id="more" hidden></div><nav id="bnav" aria-label="التنقل السفلي"></nav>
+<nav id="bnav" aria-label="التنقل السفلي"></nav>
 <footer><div class="fcols"><div><b>المنصة</b><a href="#/">الرئيسية</a><a href="#/quran">القرآن الكريم</a><a href="#/search">بحث</a><a href="#/tajweed">التجويد</a><a href="#/foundations">الأسس</a><a href="#/kids">أكاديمية الصغار</a><a href="#/academy">أكاديمية التكوين</a><a href="#/qiraat">القراءات والإسناد</a></div><div><b>حسابي</b><a href="#/auth">دخول / تسجيل</a><a href="#/me">رحلتي</a><a href="#/app">لوحة المؤسسة</a></div><div><b>الثقة</b><span>لا تُصدر المنصة فتاوى ولا إجازات ولا أحكامًا شرعية؛ التقييمات يكتبها مقرئ بشري.</span><span>نص المصحف: رواية حفص عن عاصم من مشروع تنزيل (tanzil.net)، وهو قيد التدقيق العلمي النهائي.</span></div></div></footer>
 <script>
 "use strict";
@@ -389,7 +554,7 @@ const note=(box,text,cls='')=>{box.replaceChildren(el('div',{class:'msg '+cls},t
 const run=async(box,fn)=>{try{await fn()}catch(e){note(box,e.message,'err');if(e.status===401&&!token)setTimeout(route,300)}};
 let fieldN=0;
 const field=(l,i)=>{const id='f'+(++fieldN);if(i&&i.nodeType===1&&!i.id)i.id=id;return el('div',{},el('label',{for:i&&i.id||id},l),i)};
-const table=(heads,rows)=>el('div',{style:'overflow-x:auto'},el('table',{},el('thead',{},el('tr',{},heads.map(h=>el('th',{},h)))),el('tbody',{},rows.map(r=>el('tr',{},r.map(c=>el('td',{},c)))))));
+const table=(heads,rows,cls)=>el('div',{style:'overflow-x:auto',class:cls?'rtw':null},el('table',{class:cls||null},el('thead',{},el('tr',{},heads.map(h=>el('th',{},h)))),el('tbody',{},rows.map(r=>el('tr',{},r.map((c,i)=>el('td',{'data-label':cls&&heads[i]||null},c)))))));
 const fmt=d=>d?new Date(d).toLocaleString('ar',{dateStyle:'medium',timeStyle:'short'}):'—';
 const ar=n=>Number(n).toLocaleString('ar-EG');
 const empty=t=>el('div',{class:'empty'},t);
@@ -450,30 +615,65 @@ function heroArt(){const s=document.createElement('div');s.className='orn heroar
   <rect x='110' y='420' width='200' height='56' rx='28' stroke-width='1.2'/><text x='210' y='458' text-anchor='middle' font-family='Amiri,serif' font-size='34' fill='currentColor' stroke='none' font-weight='700'>القرآن الكريم</text></svg>`;return s}
 const roseSvg=()=>{const d=document.createElement('span');d.className='rs';d.setAttribute('aria-hidden','true');d.innerHTML="<svg viewBox='0 0 40 40' width='100%' height='100%' fill='none' stroke='currentColor' stroke-width='1.7'><rect x='8' y='8' width='24' height='24'/><rect x='8' y='8' width='24' height='24' transform='rotate(45 20 20)'/><circle cx='20' cy='20' r='9.4' stroke-width='1'/></svg>";return d};
 const pageHead=(t,sub)=>el('header',{class:'phead'},el('span',{class:'pm','aria-hidden':'true'},medallion(64,'pmm')),el('h1',{},t),sub?el('p',{class:'small'},sub):null,divider());
+/* Tabs (F-16): tablist/tab/tabpanel; roving tabindex + arrows; active tab scrolled into view; edge fade when overflowing */
+let tabSeq=0;
+function tabsFade(list,w){const u=()=>{const rtl=getComputedStyle(list).direction==='rtl',max=list.scrollWidth-list.clientWidth,l=Math.round(list.scrollLeft);let L=false,R=false;if(max>2){if(rtl){L=l>-max+1;R=l<-1}else{L=l>1;R=l<max-1}}w.classList.toggle('fl',L);w.classList.toggle('fr',R)};
+  list.addEventListener('scroll',u,{passive:true});if(window.ResizeObserver)new ResizeObserver(u).observe(list);requestAnimationFrame(u);return u}
+function tabsReveal(list,item){if(!item)return;const a=list.getBoundingClientRect(),b=item.getBoundingClientRect();list.scrollLeft+=(b.left+b.width/2)-(a.left+a.width/2)}
+function Tabs(items,cur,o={}){
+  const id='tb'+(++tabSeq),list=el('div',{class:'tabs'+(o.cls?' '+o.cls:''),role:'tablist','aria-label':o.label||null}),w=el('div',{class:'tabsw'+(o.wcls?' '+o.wcls:''),style:o.style||null},list),els=[];
+  const upd=tabsFade(list,w);
+  if(o.panel){o.panel.setAttribute('role','tabpanel');o.panel.id=o.panel.id||id+'-p'}
+  const mark=k=>{els.forEach(([key,n])=>{const on=key===k;n.setAttribute('aria-selected',String(on));n.tabIndex=on?0:-1;n.className=on?'on':'';if(on&&o.panel)o.panel.setAttribute('aria-labelledby',n.id)})};
+  const pick=k=>{mark(k);tabsReveal(list,els.find(x=>x[0]===k)[1]);upd();if(o.onSelect)o.onSelect(k)};
+  items.forEach(([k,t])=>{const a={role:'tab',id:id+'-'+k,'aria-controls':o.panel?o.panel.id:null};
+    const n=o.href?el('a',{...a,href:o.href(k)},t):el('button',{...a,type:'button',on:{click:()=>pick(k)}},t);els.push([k,n]);list.append(n)});
+  mark(cur);
+  list.addEventListener('keydown',e=>{const keys=['ArrowLeft','ArrowRight','Home','End'];if(!keys.includes(e.key))return;
+    const i=els.findIndex(x=>x[1]===document.activeElement);if(i<0)return;const rtl=getComputedStyle(list).direction==='rtl';let j=i;
+    if(e.key==='Home')j=0;else if(e.key==='End')j=els.length-1;else j=(i+((e.key==='ArrowRight')===!rtl?1:-1)+els.length)%els.length;
+    e.preventDefault();const t=els[j];t[1].focus();tabsReveal(list,t[1]);if(!o.href)pick(t[0])});
+  requestAnimationFrame(()=>{tabsReveal(list,(els.find(x=>x[0]===cur)||[])[1]);upd()});
+  w.select=pick;return w}
 const ayahMarker=n=>el('span',{class:'aym',role:'img','aria-label':'الآية '+ar(n)},roseSvg(),el('i',{},ar(n)));
 /* theme: auto (system) / light / dark */
 function applyTheme(){let t='light';try{t=localStorage.getItem('theme')||'light'}catch{}if(t==='auto')document.documentElement.removeAttribute('data-theme');else document.documentElement.setAttribute('data-theme',t);
   const b=$('#theme');if(b){b.innerHTML="<svg viewBox='0 0 24 24' width='22' height='22' fill='none' stroke='currentColor' stroke-width='1.8' stroke-linecap='round' aria-hidden='true'>"+(t==='dark'?"<path d='M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z'/>":t==='light'?"<circle cx='12' cy='12' r='4'/><path d='M12 2v2M12 20v2M2 12h2M20 12h2M5 5l1.4 1.4M17.6 17.6L19 19M5 19l1.4-1.4M17.6 6.4L19 5'/>":"<circle cx='12' cy='12' r='8'/><path d='M12 4a8 8 0 0 1 0 16z' fill='currentColor'/>")+'</svg>';b.setAttribute('aria-label','المظهر: '+(t==='dark'?'ليلي':t==='light'?'نهاري':'حسب الجهاز')+' (اضغط للتبديل)')}}
 $('#theme').addEventListener('click',()=>{let t='light';try{t=localStorage.getItem('theme')||'light'}catch{}const n={light:'dark',dark:'auto',auto:'light'}[t]||'light';try{localStorage.setItem('theme',n)}catch{}applyTheme()});
 applyTheme();
-function renderNav(active){
+const BNAV=[['journey','رحلتي','home'],['learn','تعلّم','scroll'],['practise','تدرّب','mic'],['explore','استكشف','book'],['account','حسابي','user']];
+const BDEST={me:'journey',plan:'journey',learn:'learn',foundations:'learn',tajweed:'learn',kids:'learn',academy:'learn',qiraat:'learn',demo:'learn',practise:'practise',quran:'explore',search:'explore',verify:'explore',app:'account',auth:'account',review:'account'};
+const bHref=k=>k==='journey'?(token?'#/me':'#/plan'):k==='learn'?'#/learn':k==='practise'?'#/practise':k==='explore'?'#/quran':(token?'#/app':'#/auth');
+function renderNav(active,parts){
   const items=[['#/','الرئيسية','home'],['#/quran','القرآن','quran'],['#/search','بحث','search'],['#/tajweed','التجويد','tajweed'],['#/foundations','الأسس','foundations'],['#/kids','الصغار','kids'],['#/academy','التكوين','academy'],['#/qiraat','القراءات','qiraat']];
   if(token)items.push(['#/me','رحلتي','me'],['#/app','لوحتي','app']);
   if(token&&isScholar())items.push(['#/review','المراجعة العلمية','review']);
   $('#nav').replaceChildren(...items.map(([h,t,k])=>el('a',{href:h,class:k===active?'on':'','aria-current':k===active?'page':null},t)));
   const who=$('#who');
-  if(token&&ME)who.replaceChildren(ME.displayName,el('button',{class:'ghost sm',on:{click:()=>{setToken(null);location.hash='#/';route()}}},'خروج'));
+  if(token&&ME)who.replaceChildren(ME.displayName,el('button',{class:'ghost sm',on:{click:()=>{acLogoutPrompt();setToken(null);location.hash='#/';route()}}},'خروج'));
   else if(token)who.replaceChildren();
   else who.replaceChildren(el('a',{class:'btn sm',href:'#/auth',style:'margin:0'},'دخول / تسجيل'));
-  /* mobile bottom navigation: four main destinations + a menu for the rest */
-  const main=[['#/','الرئيسية','home','home'],['#/quran','المصحف','quran','book'],['#/search','بحث','search','search'],['#/tajweed','التجويد','tajweed','wave'],['#/academy','التكوين','academy','user']];
-  const more=el('button',{type:'button','aria-haspopup':'true','aria-expanded':'false',on:{click:()=>{const m=$('#more');m.hidden=!m.hidden;more.setAttribute('aria-expanded',String(!m.hidden))}}},ico('more'),'المزيد');
-  $('#bnav').replaceChildren(...main.map(([h,t,k,i])=>el('a',{href:h,class:k===active?'on':'','aria-current':k===active?'page':null},ico(i),t)),more);
-  const rest=[['#/kids','أكاديمية الصغار'],['#/academy','أكاديمية التكوين الإنساني'],['#/demo','جولة في الواجبات'],['#/plan','خطتي'],['#/foundations','الأسس: الحروف والحركات'],['#/qiraat','القراءات والإسناد']];if(token&&ME&&ME.memberships&&ME.memberships.length)rest.push(['#/app/'+ME.memberships[0].institutionId+'/homework','الواجبات']);if(token)rest.push(['#/me','رحلتي'],['#/app','لوحتي']);if(token&&isScholar())rest.push(['#/review','المراجعة العلمية']);
-  rest.push(token?['#/auth','حسابي']:['#/auth','دخول / تسجيل']);
-  const mm=$('#more');mm.hidden=true;mm.replaceChildren(...rest.map(([h,t])=>el('a',{href:h,on:{click:()=>{mm.hidden=true}}},t)));
+  /* mobile bottom navigation: five destinations (TARTIL_13_ACADEMY_UX 3.2); no menu sheet */
+  let bd=BDEST[active]||'';const sub=parts&&parts[1];
+  if(active==='me'&&['tasmi','hifz','quiz','map'].includes(sub))bd='practise';else if(active==='me'&&sub==='sanad')bd='account';
+  $('#bnav').replaceChildren(...BNAV.map(([k,t,i])=>el('a',{href:bHref(k),class:k===bd?'on':'','aria-current':k===bd?'page':null},ico(i),t)));
 }
+/* hub pages for the new destinations: plain lists built from pageHead + feat cards */
+const HUBS={
+  learn:{t:'تعلّم',sub:'مسارات منظّمة تختار منها ما يناسبك',items:[['#/foundations','الأسس: الحروف والحركات','الحروف والأشكال والحركات والمقاطع بخطوات هادئة.'],['#/tajweed','التجويد','المخارج والصفات والأحكام والمدود.'],['#/kids','أكاديمية الصغار','بطاقات كبيرة وأنشطة قصيرة للصغار.'],['#/academy','أكاديمية التكوين','رحلات قصيرة ومتدرّجة في الخُلق وضبط النفس والتفكير.'],['#/qiraat','القراءات والإسناد','القراءات والروايات وتوثيق الإسناد.'],['#/demo','جولة في الواجبات','عرض توضيحي لكيفية عمل الواجبات.']]},
+  practise:{t:'تدرّب',sub:'مراجعة وتسميع واختبار ذاتي',items:[['#/me/hifz','حفظي','مراجعة المقاطع المحفوظة بتباعد تدريجي.',1],['#/me/tasmi','تسميع','تسجيل تلاوتك والحصول على ملاحظات أولية.',1],['#/me/quiz','اختبر نفسك','أسئلة قصيرة في التجويد وأكمل الآية.',1],['#/me/map','خريطة الإتقان','ما أتقنته وما يحتاج مراجعة.',1],['#/foundations','اختبار الأساس','اختبار الحروف والحركات دون حساب.'],['#/kids','أنشطة الصغار','أنشطة قصيرة لا تحتاج حسابًا.']]}
+};
+function hubView(app,k){const h=HUBS[k];
+  app.replaceChildren(pageHead(h.t,h.sub),el('div',{class:'grid hubgrid'},...h.items.map(([href,t,d,needs])=>{const gate=needs&&!token;
+    return el('div',{class:'feat'},el('b',{},t),el('span',{class:'small'},d),gate?el('span',{class:'small'},'يتطلب حسابًا'):null,el('a',{class:'btn sm',href:gate?'#/auth':href},gate?'سجّل الدخول':'افتح'))})))}
+const SITE_T='ترتيل — منصة تعلّم القرآن وإتقانه',TT={app:'لوحتي',auth:'الدخول والتسجيل',verify:'التحقق من شهادة',gallery:'معرض التصميم',academy:'أكاديمية التكوين'};
+function setTitle(top){const app=$('#app');if(!top){document.title=SITE_T;return}
+  const h=app.querySelector('h1'),tb=app.querySelector('.tabs:not(.tabs2) [role=tab][aria-selected=true]');
+  let a=h?h.textContent.trim():(TT[top]||'');if(!a){const h2=app.querySelector('h2');a=h2?h2.textContent.trim():''}
+  const p=[];if(tb&&tb.textContent.trim()!==a)p.push(tb.textContent.trim());if(a)p.push(a);p.push('ترتيل');document.title=p.join(' — ')}
+let routedOnce=false;
 async function route(){
+  const ae=document.activeElement,wasTab=!!(ae&&ae.getAttribute&&ae.getAttribute('role')==='tab');
   if(!/^#\/quran\/\d/.test(location.hash))stopAudio();
   const parts=location.hash.replace(/^#\/?/,'').split('/').filter(Boolean),app=$('#app');
   window.scrollTo(0,0);
@@ -485,19 +685,23 @@ async function route(){
     else if(top==='tajweed'){renderNav('tajweed');await tajweedView(app,parts)}
     else if(top==='qiraat'){renderNav('qiraat');qiraatView(app)}
     else if(top==='review'){renderNav('review');await reviewView(app,parts)}
-    else if(top==='me'){renderNav('me');await meView(app,parts)}
-    else if(top==='foundations'){renderNav('');foundationsView(app)}
-    else if(top==='plan'){renderNav('');await planView(app)}
-    else if(top==='demo'){renderNav('');demoHomework(app)}
-    else if(top==='kids'){renderNav('');kidsView(app)}
+    else if(top==='me'){renderNav('me',parts);await meView(app,parts)}
+    else if(top==='learn'||top==='practise'){renderNav(top);hubView(app,top)}
+    else if(top==='foundations'){renderNav('foundations');foundationsView(app)}
+    else if(top==='plan'){renderNav('plan');await planView(app)}
+    else if(top==='demo'){renderNav('demo');demoHomework(app)}
+    else if(top==='kids'){renderNav('kids');kidsView(app)}
     else if(top==='academy'){renderNav('academy');await academyView(app,parts)}
     else if(top==='gallery'){renderNav('');gallery(app)}
-    else if(top==='auth'){renderNav('');authView(app)}
-    else if(top==='verify'){renderNav('');await verifyView(app,parts[1])}
+    else if(top==='auth'){renderNav('auth');authView(app)}
+    else if(top==='verify'){renderNav('verify');await verifyView(app,parts[1])}
     else if(top==='app'){renderNav('app');if(!token){location.hash='#/auth';return}await dashboard(app,parts)}
     else if(top===''){renderNav('home');await landing(app)}
     else{renderNav('');app.replaceChildren(el('div',{class:'card plain statepg'},el('span',{class:'pm','aria-hidden':'true'},medallion(84,'pmm')),el('h1',{},'الصفحة غير موجودة'),el('p',{},'لم نجد ما تبحث عنه. ربما تغيّر الرابط أو كُتب خطأً.'),el('div',{class:'hbtns'},el('a',{class:'btn',href:'#/'},'العودة إلى الرئيسية'),el('a',{class:'btn ghost',href:'#/quran'},'تصفّح المصحف'))))}
   }catch(e){app.replaceChildren(el('div',{class:'card plain statepg'},el('span',{class:'pm','aria-hidden':'true'},medallion(64,'pmm')),el('h1',{},'تعذّر عرض الصفحة'),el('div',{class:'msg err'},e.message),el('div',{class:'hbtns'},el('a',{class:'btn',href:'#/'},'الرئيسية'),el('button',{class:'btn ghost',type:'button',on:{click:()=>route()}},'إعادة المحاولة'))))}
+  setTitle(top);
+  if(routedOnce){let t=wasTab?app.querySelector('[role=tab][aria-selected=true]'):null;if(!t){t=app.querySelector('h1')||app;if(!t.hasAttribute('tabindex'))t.setAttribute('tabindex','-1')}try{t.focus({preventScroll:true})}catch{}}
+  routedOnce=true;
 }
 window.addEventListener('hashchange',route);
 
@@ -743,11 +947,12 @@ function authView(app){
   const act=el('button',{on:{click:()=>run(box,async()=>{
     if(mode==='register'){await api('POST','/auth/register',{displayName:nm.value.trim(),email:em.value.trim(),password:pw.value,adultConfirmed:adult.checked===true})}
     const r=await api('POST','/auth/login',{email:em.value.trim(),password:pw.value});setToken(r.token);ME=null;location.hash='#/app';route()})}},'دخول');
-  const tabs=el('div',{class:'tabs'});
-  const set=m=>{mode=m;tabs.replaceChildren(el('a',{href:'javascript:void 0',class:m==='login'?'on':'',on:{click:()=>set('login')}},'دخول'),el('a',{href:'javascript:void 0',class:m==='register'?'on':'',on:{click:()=>set('register')}},'حساب جديد'));
+  const panel=el('div'),tabs=Tabs([['login','دخول'],['register','حساب جديد']],'login',{label:'نوع الدخول',panel,onSelect:m=>set(m)});
+  const set=m=>{mode=m;
     nmF.style.display=adF.style.display=m==='register'?'':'none';act.textContent=m==='login'?'دخول':'إنشاء الحساب والدخول';pw.autocomplete=m==='login'?'current-password':'new-password';box.replaceChildren()};
-  app.replaceChildren(el('div',{class:'authwrap'},el('span',{class:'pm','aria-hidden':'true'},medallion(84,'pmm')),el('div',{class:'card authcard',style:'max-width:460px;margin:10px auto'},el('h2',{},'مرحبًا بك في ترتيل'),tabs,nmF,field('البريد الإلكتروني',em),field('كلمة المرور (10 أحرف على الأقل)',pw),adF,act,box,
+  app.replaceChildren(el('div',{class:'authwrap'},el('span',{class:'pm','aria-hidden':'true'},medallion(84,'pmm')),el('div',{class:'card authcard',style:'max-width:460px;margin:10px auto'},el('h1',{style:'font-size:20px;margin:0 0 10px'},'مرحبًا بك في ترتيل'),tabs,panel,
     el('p',{class:'small'},'استعادة كلمة المرور عبر البريد غير متاحة بعد؛ تواصل مع مدير مؤسستك.'))));
+  panel.append(nmF,field('البريد الإلكتروني',em),field('كلمة المرور (10 أحرف على الأقل)',pw),adF,act,box);
   set('login');
 }
 
@@ -779,7 +984,7 @@ async function dashboard(app,parts){
   const body=el('div');
   app.replaceChildren(el('div',{class:'card',style:'display:flex;gap:14px;flex-wrap:wrap;align-items:center;justify-content:space-between'},
       el('div',{},el('h2',{style:'margin:0'},inst.name),roles.map(r=>el('span',{class:'chip'},ROLE[r]||r))),insts.length>1?instSel:''),
-    el('div',{class:'tabs'},SECTIONS.filter(([k])=>k!=='admin'||ctx.admin).map(([k,t])=>el('a',{href:'#/app/'+id+'/'+k,class:k===sec?'on':''},t))),body);
+    Tabs(SECTIONS.filter(([k])=>k!=='admin'||ctx.admin),sec,{label:'أقسام اللوحة',href:k=>'#/app/'+id+'/'+k,panel:body}),body);
   const views={overview,tracks,halaqat,homework:homeworkView,recitation,certs,assistant,people,admin:adminView};
   try{await views[sec](body,ctx)}catch(e){body.replaceChildren(el('div',{class:'msg err'},e.message))}
   if(sec==='overview'){const d=el('details',{class:'card'},el('summary',{style:'cursor:pointer;font-weight:700'},'إنشاء مؤسسة جديدة'),newInst());body.append(d)}
@@ -795,13 +1000,13 @@ const fdShuffle=a=>{a=[...a];for(let i=a.length-1;i>0;i--){const j=Math.floor(Ma
 function foundationsView(app){
   let mode='';try{mode=localStorage.getItem('fdMode')||''}catch{}
   const root=el('div'),draw=()=>{
-    if(!mode){root.replaceChildren(el('div',{class:'card plain statepg'},el('h1',{},'ابدأ من الأساس'),el('p',{},'اختر ما يناسبك. يمكنك التغيير في أي وقت.'),
-      el('div',{class:'hbtns'},[['kids','للصغار: بطاقات كبيرة وخطوة واحدة في كل مرة'],['adult','للكبار: عرض هادئ ومحترم وبوتيرتك أنت'],['reg','لدي معرفة بالحروف: أريد الاختبار مباشرة']].map(([k,t])=>el('button',{class:'btn lg'+(k==='adult'?' gold':''),type:'button',on:{click:()=>{mode=k;try{localStorage.setItem('fdMode',k)}catch{}draw()}}},t)))));return}
+    if(!mode){root.replaceChildren(pageHead('ابدأ من الأساس','اختر ما يناسبك. يمكنك التغيير في أي وقت.'),
+      el('div',{class:'hbtns',style:'justify-content:center'},[['kids','للصغار: بطاقات كبيرة وخطوة واحدة في كل مرة'],['adult','للكبار: عرض هادئ ومحترم وبوتيرتك أنت'],['reg','لدي معرفة بالحروف: أريد الاختبار مباشرة']].map(([k,t])=>el('button',{class:'btn lg'+(k==='adult'?' gold':''),type:'button',on:{click:()=>{mode=k;try{localStorage.setItem('fdMode',k)}catch{}draw()}}},t))));return}
     const T=[['letters','الحروف'],['forms','أشكال الحرف'],['harakat','الحركات'],['syll','المقاطع'],['quiz','اختبر نفسك']];let cur=mode==='reg'?'quiz':'letters';
-    const tabs=el('div',{class:'tabs'}),pane=el('div',{class:'fd '+(mode==='kids'?'fdk':'fda')});
-    const show=k=>{cur=k;tabs.replaceChildren(...T.map(([key,t])=>el('a',{href:'javascript:void 0',class:key===cur?'on':'',on:{click:()=>show(key)}},t)));pane.replaceChildren(({letters:fdLetters,forms:fdForms,harakat:fdHarakat,syll:fdSyll,quiz:fdQuiz})[k]())};
-    root.replaceChildren(el('h1',{style:'margin:0 0 6px'},'الأساس: الحروف والحركات'),
-      el('p',{class:'small'},'محتوى تمهيدي قيد المراجعة. لا نستعمل صوتًا آليًا في تعليم الحروف؛ ستُضاف تسجيلات بشرية معتمدة لاحقًا. تقدّمك محفوظ على هذا الجهاز فقط.'),
+    const pane=el('div',{class:'fd '+(mode==='kids'?'fdk':'fda')});
+    const show=k=>{cur=k;pane.replaceChildren(({letters:fdLetters,forms:fdForms,harakat:fdHarakat,syll:fdSyll,quiz:fdQuiz})[k]())};
+    const tabs=Tabs(T,cur,{label:'أقسام الأساس',panel:pane,onSelect:show});
+    root.replaceChildren(pageHead('الأساس: الحروف والحركات','محتوى تمهيدي قيد المراجعة. لا نستعمل صوتًا آليًا في تعليم الحروف؛ ستُضاف تسجيلات بشرية معتمدة لاحقًا. تقدّمك محفوظ على هذا الجهاز فقط.'),
       el('button',{class:'ghost sm',type:'button',on:{click:()=>{mode='';try{localStorage.removeItem('fdMode')}catch{}draw()}}},'تغيير النمط'),tabs,pane);show(cur)};
   const cell=(big,small)=>el('div',{class:'fdc',role:'group','aria-label':small||big},el('span',{class:'fdl',lang:'ar'},big),small?el('span',{class:'small'},small):'');
   function fdLetters(){return el('div',{class:'fdg'},FD_LET.map(([l,n])=>cell(l,n)))}
@@ -832,10 +1037,10 @@ async function homeworkView(body,ctx){
   const learner=ctx.has('student')||ctx.has('guardian'),T=[];
   if(learner)T.push(['today','واجبي اليوم']);
   if(ctx.staff)T.push(['assign','تكليف جديد'],['queue','بانتظار المراجعة'],['track','المتابعة']);
-  let cur=T[0][0];const tabs=el('div',{class:'tabs'}),pane=el('div');
-  const show=k=>{cur=k;tabs.replaceChildren(...T.map(([key,t])=>el('a',{href:'javascript:void 0',class:key===cur?'on':'',on:{click:()=>show(key)}},t)));pane.replaceChildren();
+  let cur=T[0][0];const pane=el('div');
+  const show=k=>{cur=k;pane.replaceChildren();
     ({today:hwToday,assign:hwAssign,queue:hwQueue,track:hwTrack})[k](pane,ctx)};
-  body.append(tabs,pane);show(cur);
+  const tabs=Tabs(T,cur,{label:'أقسام الواجبات',panel:pane,onSelect:show});body.append(tabs,pane);show(cur);
 }
 /* ---------- offline queue for homework: only the two light actions (start, "I finished") are queued on this device and replayed in order when the network returns. Audio is never queued. The server remains the authority: a replay the server refuses (e.g. already closed) is dropped, not forced. ---------- */
 const HWQ={get:()=>store.get('hwq',[]),set(v){store.set('hwq',v)},
@@ -1141,7 +1346,7 @@ function accountForm(){
   const box=el('div'),cur=el('input',{type:'password',autocomplete:'current-password',dir:'ltr'}),nw=el('input',{type:'password',autocomplete:'new-password',dir:'ltr'});
   return el('div',{},field('كلمة المرور الحالية',cur),field('كلمة المرور الجديدة (10 أحرف على الأقل)',nw),
     el('button',{on:{click:()=>run(box,async()=>{const r=await api('POST','/auth/change-password',{currentPassword:cur.value,newPassword:nw.value});setToken(r.token);ME=await api('GET','/me');cur.value=nw.value='';note(box,'تم تغيير كلمة المرور وإنهاء الجلسات الأخرى','ok')})}},'تغيير كلمة المرور'),' ',
-    el('button',{class:'ghost',on:{click:()=>run(box,async()=>{await api('POST','/auth/logout-all');setToken(null);location.hash='#/auth';route()})}},'إنهاء كل الجلسات على كل الأجهزة'),box,
+    el('button',{class:'ghost',on:{click:()=>run(box,async()=>{acLogoutPrompt();await api('POST','/auth/logout-all');setToken(null);location.hash='#/auth';route()})}},'إنهاء كل الجلسات على كل الأجهزة'),box,
     el('p',{class:'small'},'استعادة كلمة المرور عبر البريد غير متاحة بعد (لا مزوّد بريد مربوط).'));
 }
 /* ---------- Tajweed library (introductory content, provisional: pending scholarly review) ---------- */
@@ -1225,7 +1430,7 @@ async function tajweedView(app,parts){
     body.append(el('div',{class:'card'},el('h2',{},'مستكشف الحروف'),el('div',{style:'display:flex;gap:6px;flex-wrap:wrap'},LETTERS.map(c=>el('button',{class:'ghost',style:'margin:0;font-size:22px;min-width:48px',on:{click:()=>{
       out.replaceChildren(el('h2',{style:'font-size:44px;margin:0'},c),el('p',{},el('b',{},'المخرج: '),makhrajOf(c)+((c==='ن'||c==='م')?' (والغنة من الخيشوم)':'')),el('p',{},el('b',{},'الصفات: '),sifatOf(c).join('، ')))}}},c)))),out)}
   app.replaceChildren(pageHead('التجويد'),el('div',{class:'msg warn tjn'},el('p',{style:'margin:0'},'محتوى تمهيدي قيد المراجعة العلمية، ولا يغني عن التلقّي من مقرئ مجاز.'),el('details',{},el('summary',{},'التفاصيل'),el('p',{style:'margin:8px 0 0'},TJ_NOTE))),
-    el('div',{class:'tabs',style:'margin-top:12px'},T.map(([k,t])=>el('a',{href:'#/tajweed/'+k,class:k===cur?'on':''},t))),body);
+    Tabs(T,cur,{label:'أقسام التجويد',href:k=>'#/tajweed/'+k,panel:body,style:'margin-top:12px'}),body);
 }
 /* ---------- ready-made track templates ---------- */
 const TEMPLATES=[
@@ -1284,7 +1489,7 @@ async function meView(app,parts){
   if(!token){location.hash='#/auth';return}
   const T=[['today','اليوم'],['tasmi','تسميع'],['hifz','حفظي'],['quiz','اختبر نفسك'],['map','خريطة الإتقان'],['sanad','سندي']],cur=T.some(t=>t[0]===parts[1])?parts[1]:'today';
   const body=el('div');
-  app.replaceChildren(el('h1',{style:'margin:0 0 10px'},'رحلتي'),el('div',{class:'tabs'},T.map(([k,t])=>el('a',{href:'#/me/'+k,class:k===cur?'on':''},t))),body);
+  app.replaceChildren(pageHead('رحلتي'),Tabs(T,cur,{label:'أقسام رحلتي',href:k=>'#/me/'+k,panel:body}),body);
   if(cur==='today')await todayTab(body);else if(cur==='tasmi')await tasmiTab(body);else if(cur==='hifz')await hifzTab(body);else if(cur==='quiz')quizTab(body,parts[2]);else if(cur==='sanad')await sanadTab(body);else await mapTab(body)}
 /* ---------- memorisation trainer: hides real words visually (the text itself is never altered); tap a hidden word to peek ---------- */
 const FIRSTLETTER=/^[؀-ۿ][ً-ٰٟۖ-ۭ]*/;
@@ -1355,7 +1560,8 @@ async function tasmiTab(body){
   const sync=()=>{const c=cnt(Number(sel.value));t.max=f.max=c;if(+t.value>c)t.value=c;if(+f.value>c)f.value=1};sel.addEventListener('change',()=>{f.value=1;t.value=Math.min(4,cnt(+sel.value));sync()});sync();
   const rec=el('button',{type:'button',class:'recbtn',on:{click:()=>start()}},'🎙 ابدأ التسجيل'),stop=el('button',{type:'button',class:'ghost',disabled:true,on:{click:()=>{if(mr&&mr.state==='recording')mr.stop()}}},'إيقاف'),
     go=el('button',{type:'button',class:'gold',disabled:true,on:{click:()=>analyze()}},'حلّل التسجيل'),
-    file=el('input',{type:'file',accept:'audio/*','aria-label':'رفع تسجيل صوتي',on:{change:e=>{const x=e.target.files[0];if(!x)return;if(x.size>8*1024*1024){note(msg,'الملف أكبر من ٨ ميغابايت.','warn');return}setBlob(x)}}});
+    fileName=el('span',{class:'fn',id:'tsfn'},'لم يُختر ملف'),fileIn=el('input',{type:'file',accept:'audio/*','aria-label':'رفع تسجيل صوتي','aria-describedby':'tsfn',on:{change:e=>{const x=e.target.files[0];if(!x){fileName.textContent='لم يُختر ملف';return}fileName.textContent=x.name;if(x.size>8*1024*1024){note(msg,'الملف أكبر من ٨ ميغابايت.','warn');return}setBlob(x)}}}),
+    file=el('label',{class:'filebtn'},fileIn,el('span',{class:'fb','aria-hidden':'true'},'اختيار ملف صوتي'),fileName);
   const setBlob=b=>{blob=b;audio.src=URL.createObjectURL(b);audio.style.display='block';go.disabled=false;res.replaceChildren();note(msg,'التسجيل جاهز. استمع إليه ثم اضغط «حلّل التسجيل».','ok')};
   const toggle=on=>{rec.disabled=on;stop.disabled=!on;if(!on){meter.firstChild.style.width='0'}};
   const start=async()=>{
@@ -1460,8 +1666,29 @@ function acMd(text){
 
 /* ===== Human Formation Academy (draft, unreviewed). Learner views: programs, program journey, lesson player, scenarios. Reviewer view: #/academy/review ===== */
 const AC={};
-const acLS={get(k,d){try{const v=localStorage.getItem(k);return v==null?d:JSON.parse(v)}catch{return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch{}}};
-const acDone=()=>acLS.get('acx_done',{});
+const acLS={get(k,d){try{const v=localStorage.getItem(k);return v==null?d:JSON.parse(v)}catch{return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch{}},del(k){try{localStorage.removeItem(k)}catch{}}};
+/* TARTIL 14.1: the learner notebook and progress live in this browser only (localStorage). Keys are per user: "acx:user:<userId>:<name>", or "acx:guest:<name>" when no user is known. Old unscoped keys (acx_done, acx_ref_*) are only read as guest data. Nothing here calls the server. */
+const acD=s=>String(s).replace(/\d/g,d=>'٠١٢٣٤٥٦٧٨٩'[d]);
+const acNs=()=>'acx:'+(ME&&ME.id?'user:'+ME.id:'guest')+':';
+const acLegacy=n=>n==='done'?'acx_done':n.startsWith('ref:')?'acx_ref_'+n.slice(4):null;
+const acGet=(n,d)=>{let v=acLS.get(acNs()+n,undefined);if(v===undefined&&acNs()==='acx:guest:'){const o=acLegacy(n);if(o)v=acLS.get(o,undefined)}return v===undefined?d:v};
+const acSet=(n,v)=>acLS.set(acNs()+n,v);
+const acDone=()=>acGet('done',{})||{};
+const acMarkDone=id=>{const d=acDone();d[id]=1;acSet('done',d)};
+function acKeys(pre){const o=[];try{for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i);if(k&&k.startsWith(pre))o.push(k)}}catch{}return o}
+const acLegacyKeys=()=>acKeys('acx_').filter(k=>k!=='acx_seen');
+const acHasData=()=>acKeys(acNs()).length>0||(acNs()==='acx:guest:'&&acLegacyKeys().length>0);
+function acWipe(){acKeys(acNs()).forEach(k=>acLS.del(k));if(acNs()==='acx:guest:')acLegacyKeys().forEach(k=>acLS.del(k))}
+function acDeleteMine(){if(!confirm('سيُحذف دفتر التأمّل وتقدّمك في الأكاديمية من هذا الجهاز نهائيًّا ولا يمكن استرجاعهما. هل تريد الحذف؟'))return false;acWipe();return true}
+/* logout: data stays detached under the user's own key; the person is asked whether to erase it now. Guest data is never erased without this confirmation. */
+function acLogoutPrompt(){try{if(!acHasData())return;if(confirm('دفتر تأمّلك وتقدّمك في الأكاديمية محفوظان على هذا الجهاز فقط.\n\nموافق: احذفهما الآن من هذا الجهاز.\nإلغاء: أبقِهما (لن يراهما حساب آخر، ويعودان عند دخولك بحسابك).'))acWipe()}catch{}}
+const AC_ADULT_ROLES=['qari','tenant_admin','guardian','scholarly_reviewer','safeguarding_officer'];
+const acRoleAdult=()=>!!(ME&&ME.memberships&&ME.memberships.some(m=>AC_ADULT_ROLES.includes(m.role)));
+const acCanGuide=()=>!acStudentAcct()&&(acRoleAdult()||!!acGet('mentor',false));
+function acAck(onOk){const cb=el('input',{type:'checkbox',id:'ac-ack'}),btn=el('button',{type:'button',id:'ac-ack-go',disabled:true,on:{click:()=>{acSet('mentor',{ack:true,at:new Date().toISOString()});onOk()}}},'أدخل وضع المرشد');
+  cb.addEventListener('change',()=>{btn.disabled=!cb.checked});
+  return el('div',{class:'note ack',role:'group','aria-label':'إقرار وضع المرشد'},el('p',{style:'margin:0 0 8px'},'هذه الأدلة موجّهة إلى الكبار: المرشد أو المعلّم أو وليّ الأمر. لا تُعرض على حساب طالب.'),
+    el('label',{class:'chk',for:'ac-ack'},cb,el('span',{},'أقرّ بأنني بالغ (١٨ سنة فأكثر)، وأنني مرشد أو معلّم أو وليّ أمر وأستعمل هذه الأدلة بهذه الصفة.')),btn)}
 const KIND={lesson:'درس',scenario:'سيناريو'},ATYPE={story:'قصة',scenario:'سيناريو',discussion:'حوار',practice:'تدريب',reflection:'تأمل',project:'مشروع',game:'لعبة'};
 const acBlocks=(ps,story)=>{const out=[];let ul=null,ol=null;const flush=()=>{if(ul){out.push(el('ul',{class:'ls'},...ul));ul=null}if(ol){out.push(el('ol',{class:'ls'},...ol));ol=null}};
   for(const t of ps){let m;if((m=/^\s*[-•–]\s+(.*)$/.exec(t))){if(ol){out.push(el('ol',{class:'ls'},...ol));ol=null}(ul=ul||[]).push(el('li',{},m[1]))}else if((m=/^\s*[0-9٠-٩]+\s*[.)\-–]\s+(.*)$/.exec(t))){if(ul){out.push(el('ul',{class:'ls'},...ul));ul=null}(ol=ol||[]).push(el('li',{},m[1]))}else if((m=/^\s*((?:للمقارنة\s+)?بعد أن تجيب)\s*[:：]\s*(.+)$/.exec(t))){flush();out.push(el('details',{class:'fold reveal'},el('summary',{},'اعرض التوضيح بعد أن تجيب'),el('p',{},m[2])))}else{flush();out.push(el('p',{style:story?'':'margin:6px 0'},t))}}
@@ -1469,11 +1696,14 @@ const acBlocks=(ps,story)=>{const out=[];let ul=null,ol=null;const flush=()=>{if
 /* learner-facing text must not show internal ids: lesson/scenario ids (T4-L1) and programme ids (P13) become titles resolved from the data; owner/source jargon is neutralised. Display layer only: the generated JSON is untouched. */
 const AC_ID='(?:[A-Z]\\d{1,2}-[LS]\\d{1,2}|P\\d\\d)';
 const acIdTitle=id=>{if(/^P\d\d$/.test(id)){const q=(AC.P||[]).find(x=>x.id===id);return q?q.title:null}const L=AC.les&&AC.les[id],S=AC.scn&&AC.scn[id];return L?L.l.title:S?S.s.title:null};
-function acClean(t){if(typeof t!=='string'||!/[A-Z]\d|SPR-|المالك|D11/.test(t))return t;
+function acClean(t){if(typeof t!=='string'||!/[A-Z]\d|SPR-|المالك|CLAUDE|BLUEPRINT/.test(t))return t;
   const idsOf=g=>g.match(new RegExp(AC_ID,'g'))||[];
   t=t.replace(new RegExp('\\s*[(（]\\s*((?:'+AC_ID+'(?:\\s*(?:،|,|/|و)\\s*|\\s+)?)+)\\s*[)）]','g'),(m,g,off,all)=>{const ts=idsOf(g).map(acIdTitle).filter(Boolean);if(!ts.length)return '';const before=all.slice(0,off);return ts.every(x=>before.includes(x))?'':' ('+ts.map(x=>'«'+x+'»').join(' و')+')'});
   t=t.replace(new RegExp('«\\s*('+AC_ID+')\\s*»|\\b('+AC_ID+')\\b','g'),(m,a,b)=>{const x=acIdTitle(a||b);return x?'«'+x+'»':''});
-  t=t.replace(/\s*يختاره المالك/g,' معتمد').replace(/؛\s*المصدر المعاصر يضيفه المالك/g,'؛ يُضاف مصدر معاصر لاحقًا').replace(/\s*\((?:[^()]*?)(?:CLAUDE\.md|قرار المالك|D11|BLUEPRINT)[^()]*\)/g,'');
+  t=t.replace(/\s*يختاره المالك/g,' معتمد').replace(/؛\s*المصدر المعاصر يضيفه المالك/g,'؛ يُضاف مصدر معاصر لاحقًا');
+  /* any internal marker: decision ids (D12), SPR-*, BLUEPRINT, CLAUDE(.md), owner-decision jargon. A parenthesis that holds one is dropped whole; a bare one is dropped alone. */
+  const TECH='(?:CLAUDE(?:\\.md)?|قرار المالك|BLUEPRINT\\w*|SPR-[\\w-]*|\\bD\\d+\\b)';
+  t=t.replace(new RegExp('\\s*[(（][^()（）]*'+TECH+'[^()（）]*[)）]','g'),'').replace(new RegExp('\\s*'+TECH,'g'),'');
   return t.replace(/\s{2,}/g,' ').replace(/\s+([.،؛:])/g,'$1')}
 const acDeep=o=>typeof o==='string'?acClean(o):Array.isArray(o)?o.map(acDeep):o&&typeof o==='object'?Object.fromEntries(Object.entries(o).map(([k,v])=>[k,acDeep(v)])):o;
 const acP=(t)=>String(t||'').split(/\n{2,}|\r?\n/).filter(x=>x.trim()).map(acClean);
@@ -1488,58 +1718,107 @@ async function acLoad(){
 const acCrumb=(...a)=>el('div',{class:'crumbs'},...a.flatMap((x,i)=>[i?' ‹ ':'',x.h?el('a',{href:x.h},x.t):x.t]));
 const acDraft=()=>el('span',{class:'ribbon',title:'لم تُراجَع علميًّا ولا تربويًّا بعد'},'مسودة قيد المراجعة');
 const ACG=[['k','الصغار','من 5 إلى 12 سنة',p=>p.age_min<=12],['t','الناشئة','من 13 إلى 17 سنة',p=>p.age_min>=13&&p.age_max<=17&&!['P12','P13'].includes(p.id)],['y','الشباب والحياة المهنية','من 16 سنة فأكثر',p=>['P12','P14','P24'].includes(p.id)],['f','الأسرة والمعلمون','للبالغين ولمن يرعى ويعلّم',p=>['P13','P15','P16'].includes(p.id)]];
-const acAge=(a,b)=>b>=90?'من '+a+' سنة فأكثر':a===b?a+' سنوات':'من '+a+' إلى '+b+' سنة';
-const acAgeStr=r=>{const m=String(r||'').match(/(\d+)\s*[-–]\s*(\d+)/);if(m)return acAge(+m[1],+m[2]);const n=String(r||'').match(/(\d+)\s*\+/);return n?acAge(+n[1],99):String(r||'')+' سنة'};
-const acLv=l=>'المستوى '+String(l).replace(/\D/g,'');
-function acTabs(cur){return el('div',{class:'tabs2',role:'tablist'},...[['','البرامج'],['c','الكفايات']].map(([h,t])=>el('a',{href:'#/academy'+(h?'/'+h:''),class:cur===h?'on':'','aria-current':cur===h?'page':null},t)))}
-function acProgCard(p){const n=p.stages.reduce((a,s)=>a+s.items.length,0);
-  return el('a',{class:'pcard',href:'#/academy/p/'+p.slug},el('h3',{},p.title),el('p',{class:'tag'},p.tagline),
-    el('div',{class:'meta'},el('span',{class:'pill'},acAge(p.age_min,p.age_max)),el('span',{class:'pill'},p.duration_weeks+' أسابيع'),el('span',{class:'pill'},n+' وحدة'),p.status==='adults_gated'?el('span',{class:'pill warn'},'بانتظار مراجعة متخصصة'):null))}
+const acAge=(a,b)=>acD(b>=90?'من '+a+' سنة فأكثر':a===b?a+' سنوات':'من '+a+' إلى '+b+' سنة');
+const acAgeStr=r=>{const m=String(r||'').match(/(\d+)\s*[-–]\s*(\d+)/);if(m)return acAge(+m[1],+m[2]);const n=String(r||'').match(/(\d+)\s*\+/);return n?acAge(+n[1],99):acD(String(r||'')+' سنة')};
+const acLv=l=>'المستوى '+acD(String(l).replace(/\D/g,''));
+function acTabs(cur,panel){return Tabs([['','البرامج'],['c','الكفايات']],cur,{cls:'tabs2',label:'أقسام الأكاديمية',href:k=>'#/academy'+(k?'/'+k:''),panel})}
+function acProgCard(p){const n=p.stages.reduce((a,s)=>a+s.items.length,0),done=acDone(),dn=p.stages.reduce((a,s)=>a+s.items.filter(i=>done[i.ref]).length,0);
+  return el('a',{class:'pcard',href:'#/academy/p/'+p.slug},el('h3',{},acClean(p.title)),el('p',{class:'tag'},acClean(p.tagline)),
+    el('div',{class:'info'},acAge(p.age_min,p.age_max)+' · '+acD(p.duration_weeks)+' أسابيع · '+ar(n)+' خطوة'+(dn?' · أنجزتَ '+ar(dn):'')+(p.status==='adults_gated'?' · بانتظار مراجعة متخصصة':'')))}
+function acJump(groups){const list=el('div',{class:'jump',role:'navigation','aria-label':'الفئات'}),w=el('div',{class:'tabsw jw'},list),upd=tabsFade(list,w);
+  groups.forEach(g=>{const a=el('a',{href:'#/academy',on:{click:e=>{e.preventDefault();list.querySelectorAll('a').forEach(x=>x.removeAttribute('aria-current'));a.setAttribute('aria-current','true');tabsReveal(list,a);upd();const n=document.getElementById('ag-'+g.k);n&&n.scrollIntoView({behavior:'smooth',block:'start'})}}},g.t+' · '+g.list.length);list.append(a)});return w}
+function acPrivacyBox(){return el('details',{class:'fold',id:'ac-privacy'},el('summary',{},'خصوصية دفتري وتقدّمي'),
+  el('p',{},'دفتر التأمّل وتقدّمك يبقيان على هذا الجهاز ولا يُرسَلان إلى أحد؛ من يستعمل الجهاز نفسه قد يراهما. ولا يُزامَنان مع حسابك ولا مع أجهزتك الأخرى.'),
+  el('p',{class:'small'},'يُحفظ ما تكتبه باسم الحساب الذي دخلتَ به، فلا يختلط بحساب آخر على الجهاز نفسه.'),
+  el('button',{type:'button',class:'ghost',id:'ac-del',on:{click:()=>{if(acDeleteMine())route()}}},'احذف دفتري وتقدّمي من هذا الجهاز'))}
+function acAdultsBox(){if(acStudentAcct())return null;const box=el('details',{class:'fold',id:'ac-adults'});
+  const draw=()=>{const on=acCanGuide();box.replaceChildren(el('summary',{},'للمرشدين وأولياء الأمور'),
+    on?el('p',{},'يظهر دليل المرشد ودليل ولي الأمر في صفحة كل برنامج.'+(acRoleAdult()?'':' وضع المرشد مفعّل بإقرارك.')):el('p',{},'أدلة المرشد وولي الأمر تُفتح لحسابات المعلّمين والمقرئين وأولياء الأمور والمراجعين، أو بإقرار صريح منك أنك بالغ في هذا الدور.'),
+    ...(on?(acRoleAdult()?[]:[el('button',{type:'button',class:'ghost',on:{click:()=>{acSet('mentor',false);draw()}}},'أنهِ وضع المرشد')]):[acAck(draw)]))};draw();return box}
 function acHome(app){
   const ps=AC.P.slice().sort((a,b)=>a.id<b.id?-1:1),root=el('div',{class:'acx'});
   const groups=ACG.map(([k,t,sub,f])=>({k,t,sub,list:ps.filter(f)})).filter(g=>g.list.length);
+  const panel=el('div',{},...groups.map(g=>el('section',{id:'ag-'+g.k,class:'agroup'},el('div',{class:'ghead'},el('h2',{},g.t),el('span',{class:'small'},g.sub)),el('div',{class:'grid'},...g.list.map(acProgCard)))));
   const nL=Object.values(AC.U).reduce((a,u)=>a+u.lessons.length,0),nS=Object.values(AC.U).reduce((a,u)=>a+u.scenarios.length,0);
   root.append(
-    el('div',{class:'ahero slim'},el('div',{},el('h1',{},'أكاديمية التكوين'),el('p',{},'رحلات قصيرة ومتدرّجة في الخُلق وضبط النفس والتفكير والعلاقات والعمل: قصص وحوار وقرارات وتأمّل خاص، بلا درجات ولا مقارنة.'),el('div',{class:'meta',style:'margin-top:10px'},el('span',{class:'pill'},ps.length+' برنامجًا'),el('span',{class:'pill'},AC.D.competencies.length+' كفاية'),el('span',{class:'pill'},nL+' درسًا'),el('span',{class:'pill'},nS+' سيناريو'))),acDraft()),
-    el('div',{class:'actools'},acTabs(''),el('div',{class:'jump',role:'navigation','aria-label':'الفئات'},...groups.map(g=>el('a',{href:'#/academy',on:{click:e=>{e.preventDefault();const n=document.getElementById('ag-'+g.k);n&&n.scrollIntoView({behavior:'smooth',block:'start'})}}},g.t+' · '+g.list.length)))),
-    ...groups.map(g=>el('section',{id:'ag-'+g.k,class:'agroup'},el('div',{class:'ghead'},el('h2',{},g.t),el('span',{class:'small'},g.sub)),el('div',{class:'grid'},...g.list.map(acProgCard)))),
-    el('h2',{class:'sh'},'كيف تسير كل جلسة؟'),
-    el('div',{class:'steps5'},...[['ابدأ بسؤال','سؤال أو موقف قصير يفتح الموضوع.'],['اقرأ أو استمع','قصة من الحياة بشخصيات خيالية.'],['تحاور','أسئلة مفتوحة بلا إجابة وحيدة صحيحة.'],['قرّر وجرّب','سيناريو بخيارات وتدريب صغير.'],['طبّق وتأمّل','ممارسة في يومك وتأمّل خاص لا يراه أحد.']].map(([a,b],i)=>el('div',{class:'idea'},el('span',{class:'n'},String(i+1)),el('div',{},el('b',{},a)),el('div',{class:'small'},b)))),
-    el('p',{class:'small foot'},'الأكاديمية تربّي ولا تُفتي: لا تُصدر أحكامًا شرعية، وما يحتاج حكمًا يُرجَع فيه إلى المعلّم أو جهة الإفتاء المعتمدة. المادة كلها مسودة لم تُراجَع بعد. ',isScholar()?el('a',{href:'#/academy/review'},'بوابة المراجعين'):null));
+    pageHead('أكاديمية التكوين','رحلات قصيرة ومتدرّجة في الخُلق وضبط النفس والتفكير والعلاقات والعمل: قصص وحوار وقرارات وتأمّل خاص، بلا درجات ولا مقارنة.'),
+    el('p',{class:'ameta'},ar(ps.length)+' برنامجًا · '+ar(nL)+' درسًا · '+ar(nS)+' سيناريو ',acDraft()),
+    el('div',{class:'actools'},acTabs('',panel),acJump(groups)),
+    panel,
+    el('h2',{class:'sh'},'كل جلسة تسير هكذا'),
+    el('ol',{class:'sess'},...['أكتشف','أفهم','أتدرّب','أطبّق','أراجع'].map((t,i)=>el('li',{},el('span',{class:'n'},ar(i+1)),t))),
+    acPrivacyBox(),acAdultsBox(),
+    el('p',{class:'small foot'},'الأكاديمية تربّي ولا تُفتي؛ وما يحتاج حكمًا شرعيًّا يُرجَع فيه إلى المعلّم أو جهة الإفتاء المعتمدة. المادة مسودة لم تُراجَع بعد. ',isScholar()?el('a',{href:'#/academy/review'},'بوابة المراجعين'):null));
   app.replaceChildren(root)}
-function acGuideBox(g){g=acDeep(g);const li=a=>el('ul',{},...(a||[]).map(x=>el('li',{},x)));const G=g.for_guide||{},P=g.for_parent||{};
-  const sec=(t,...k)=>[el('h4',{style:'margin:14px 0 4px'},t),...k];
-  const guideEl=[el('p',{},G.overview||''),...sec('قبل البدء',li(G.before_start)),
-    ...sec('أسبوعًا بأسبوع',el('ol',{},...(G.week_by_week||[]).map(w=>el('li',{},el('b',{},(w.week?'الأسبوع '+w.week+' — ':'')+String(w.focus||'').replace(/[\s.:؟!]+$/,'')+'. '),w.tip)))),
-    ...sec('كيف تردّ في المواقف',...(G.how_to_respond||[]).map(h=>el('div',{class:'note',style:'margin:6px 0'},el('div',{},el('b',{},'الموقف: '),h.situation),el('div',{},el('b',{},'قل: '),h.say),el('div',{style:'color:var(--mute)'},el('b',{},'تجنّب: '),h.avoid)))),
-    ...sec('متى تُحيل الأمر',li(G.when_to_refer)),...sec('ما تحتاجه',li(G.materials))];
-  const parentEl=P.not_applicable?[]:[el('p',{},P.overview||''),...sec('ماذا تتوقعون',li(P.what_to_expect)),...sec('كيف تدعمونه في البيت',li(P.how_to_support_at_home)),...sec('نرجو تجنّب',li(P.please_avoid)),...sec('الخصوصية',el('p',{},P.privacy||''))];
-  const faqEl=(g.faq||[]).map(f=>el('details',{class:'fold'},el('summary',{},f.q),el('p',{},f.a)));
-  return el('div',{},el('h2',{class:'sh'},'دليل المرشد'),el('details',{class:'fold'},el('summary',{},'افتح دليل المرشد'),...guideEl),
-    parentEl.length?el('details',{class:'fold'},el('summary',{},'دليل ولي الأمر'),...parentEl):null,
-    faqEl.length?el('div',{},el('h2',{class:'sh'},'أسئلة شائعة'),...faqEl):null,
-    el('div',{class:'note draft'},'هذه الأدلة مسودة آلية لم تُراجَع بعد، وليست فتوى ولا استشارة متخصصة.'))}
-function acProgram(app,slug){
+const acHref=i=>'#/academy/'+(AC.les[i.ref]?'l/':'s/')+i.ref;
+const acItems=p=>p.stages.flatMap(s=>s.items);
+const acNextItem=p=>{const d=acDone();return acItems(p).find(i=>!d[i.ref])||null};
+const acItemTitle=i=>{const L=AC.les[i.ref],S=AC.scn[i.ref];return L?L.l.title:S?S.s.title:''};
+/* A section is only drawn when it has content (no empty headings). */
+const acHas=v=>Array.isArray(v)?v.some(acHas):v&&typeof v==='object'?Object.values(v).some(acHas):!!String(v==null?'':v).trim();
+const acList=a=>acHas(a)?el('ul',{class:'ls'},...a.filter(acHas).map(x=>el('li',{},x))):null;
+const acSec=(t,...k)=>{const kids=k.flat().filter(Boolean);return kids.length?el('section',{class:'gsec'},el('h2',{class:'sh'},t),...kids):null};
+const acFaq=fq=>{const items=(fq||[]).filter(f=>f&&acHas(f.q)&&acHas(f.a));return items.length?acSec('أسئلة شائعة',...items.map(f=>el('details',{class:'fold faq',open:true},el('summary',{},f.q),el('p',{},f.a)))):null};
+function acGuidePage(app,p,kind){
+  const root=el('div',{class:'acx acx-guide'}),back=el('a',{class:'back',href:'#/academy/p/'+p.slug},'‹ '+acClean(p.title));
+  const done=n=>{root.replaceChildren(back,...n.filter(Boolean));app.replaceChildren(root)};
+  if(acStudentAcct())return done([el('h1',{class:'gh1'},kind==='parent'?'دليل ولي الأمر':'دليل المرشد'),el('div',{class:'note'},'هذه الصفحة موجّهة إلى المرشدين وأولياء الأمور، ولا تُفتح من حساب طالب.')]);
+  if(!acCanGuide())return done([el('h1',{class:'gh1'},kind==='parent'?'دليل ولي الأمر':'دليل المرشد'),el('p',{},'للدخول إلى هذه الأدلة أقرّ بدورك أولًا.'),acAck(()=>acGuidePage(app,p,kind))]);
+  const g=acDeep(AC.G&&AC.G[p.id]||{}),G=g.for_guide||{},P=g.for_parent||{},hasParent=!!AC.G&&!!AC.G[p.id]&&!P.not_applicable&&acHas([P.overview,P.what_to_expect,P.how_to_support_at_home,P.please_avoid]);
+  const seg=el('div',{class:'seg',role:'navigation','aria-label':'الأدلة'},el('a',{href:'#/academy/p/'+p.slug+'/guide','aria-current':kind==='guide'?'page':null},'دليل المرشد'),hasParent?el('a',{href:'#/academy/p/'+p.slug+'/parent','aria-current':kind==='parent'?'page':null},'دليل ولي الأمر'):null);
+  const sp=acDeep({title:p.title,rhythm:p.rhythm,safeguards:p.safeguards,notes:p.guide_notes,gate:p.review_gate});
+  let body;
+  if(kind==='parent'){
+    if(!hasParent)body=[el('div',{class:'note'},'لا يتوجّه هذا البرنامج إلى ولي الأمر.')];
+    else body=[P.overview?el('p',{class:'lead'},P.overview):null,
+      acSec('ماذا يتعلّم الطفل؟',acList(P.what_to_expect)),acSec('كيف تسانده',acList(P.how_to_support_at_home)),acSec('ماذا لا تفعل',acList(P.please_avoid)),
+      acSec('متى تطلب المساعدة',acList(G.when_to_refer)),
+      acSec('الخصوصية الفعلية',el('p',{},'ما يكتبه الطفل في دفتره وتقدّمه في البرنامج يبقيان على هذا الجهاز ولا يُرسَلان إلى أحد. من يستعمل الجهاز نفسه قد يراهما، ولا يوجد حاليًّا نظام يتيح للمرشد أو للأسرة قراءتهما. إن أراد الطفل أن يُريك ما كتب فذلك باختياره. يمكنه حذفهما من صفحة الأكاديمية الرئيسية.')),
+      acFaq(g.faq)]}
+  else{
+    body=[G.overview?el('p',{class:'lead'},G.overview):null,
+      acSec('أهداف البرنامج',acList((p.outcomes||[]).map(acClean))),
+      acSec('خطة الجلسات',sp.rhythm?el('p',{class:'small'},'الإيقاع: '+sp.rhythm):null,acHas(G.week_by_week)?el('ol',{class:'ls'},...G.week_by_week.filter(w=>acHas([w.focus,w.tip])).map(w=>el('li',{},el('b',{},(w.week?'الأسبوع '+acD(w.week)+': ':'')+String(w.focus||'').replace(/[\s.:؟!]+$/,'')+'. '),w.tip))):null),
+      acSec('قبل البدء',acList(G.before_start)),acSec('ما تحتاجه',acList(G.materials)),
+      acSec('كيف تردّ في المواقف',...(G.how_to_respond||[]).filter(h=>acHas([h.situation,h.say])).map(h=>el('div',{class:'resp'},el('div',{},el('b',{},'الموقف: '),h.situation),el('div',{},el('b',{},'قل: '),h.say),h.avoid?el('div',{class:'small'},el('b',{},'تجنّب: '),h.avoid):null))),
+      acSec('حماية الطفل ومتى تُحيل',acList(sp.safeguards),acList(G.when_to_refer)),
+      acSec('حدود دورك',acHas(sp.notes)?el('p',{},sp.notes):null,el('p',{},'أنت ترافق ولا تُقيِّم إيمان المتعلم ولا أخلاقه، ولا تقرأ دفتره إلا إن أراك إياه بنفسه، ولا تُصدر حكمًا شرعيًّا.')),
+      acFaq(g.faq),
+      acHas(sp.gate)?el('p',{class:'small'},'جهة المراجعة المطلوبة قبل الاعتماد: '+sp.gate):null]}
+  done([el('h1',{class:'gh1'},kind==='parent'?'دليل ولي الأمر':'دليل المرشد'),el('p',{class:'small'},acClean(p.title)),seg,...body,el('p',{class:'small foot'},'مسودة لم تُراجَع بعد، وليست فتوى ولا استشارة متخصصة.')])}
+function acProgram(app,slug,sub){
   const p=AC.P.find(x=>x.slug===slug||x.id===slug);
   if(!p){app.replaceChildren(el('div',{class:'acx'},el('div',{class:'note'},'لم أجد هذا البرنامج.'),el('a',{href:'#/academy'},'← إلى الأكاديمية')));return}
-  const done=acDone(),tot=p.stages.reduce((a,s)=>a+s.items.length,0),dn=p.stages.reduce((a,s)=>a+s.items.filter(i=>done[i.ref]).length,0);
-  const itemEl=i=>{const L=AC.les[i.ref],S=AC.scn[i.ref];const t=L?L.l.title:S?S.s.title:i.ref;const sub=L?acLv(L.l.level)+' · '+L.l.duration_min+' دقيقة':'تفاعلي';
-    return el('a',{class:'item'+(done[i.ref]?' done':''),href:'#/academy/'+(L?'l/':'s/')+i.ref},el('span',{},el('b',{},t),' ',el('small',{},sub)),el('span',{class:'k'},KIND[i.kind]||(L?'درس':'سيناريو')))};
-  app.replaceChildren(el('div',{class:'acx'},
-    acCrumb({h:'#/academy',t:'الأكاديمية'},{t:p.title}),
-    el('div',{class:'ahero'},acDraft(),el('h1',{},p.title),el('p',{},p.tagline),
-      el('div',{class:'meta',style:'margin-top:8px'},el('span',{class:'pill'},acAge(p.age_min,p.age_max)),el('span',{class:'pill'},p.duration_weeks+' أسابيع'),el('span',{class:'pill'},p.rhythm),el('span',{class:'pill'},'تقدّمك على هذا الجهاز: '+dn+' من '+tot)),
+  if(sub==='guide'||sub==='parent')return acGuidePage(app,p,sub);
+  const done=acDone(),items=acItems(p),tot=items.length,dn=items.filter(i=>done[i.ref]).length,nxt=acNextItem(p);
+  const nAct=items.reduce((a,i)=>a+(AC.les[i.ref]?AC.les[i.ref].l.activities.length:1),0),nRef=items.filter(i=>acHas(acGet('ref:'+i.ref,''))).length;
+  const curStage=p.stages.findIndex(s=>s.items.some(i=>!done[i.ref]));
+  const itemEl=i=>{const L=AC.les[i.ref],S=AC.scn[i.ref],isDone=!!done[i.ref],isNext=nxt&&nxt.ref===i.ref;const sub=L?acLv(L.l.level)+' · '+acD(L.l.duration_min)+' دقيقة':'تفاعلي';
+    return el('a',{class:'item'+(isDone?' done':'')+(isNext?' next':''),href:acHref(i),'aria-label':acItemTitle(i)+(isDone?' — أنجزتَها':'')},el('span',{class:'mk','aria-hidden':'true'},isDone?'✓':''),el('span',{class:'tx'},el('b',{},acClean(acItemTitle(i)||i.ref)),el('small',{},sub)),isNext?el('span',{class:'k now'},'التالي'):el('span',{class:'k'},KIND[i.kind]||(L?'درس':'سيناريو')))};
+  const wk=s=>'الأسبوع '+acD(s.weeks);
+  const prog=el('div',{class:'bar2',role:'progressbar','aria-valuemin':'0','aria-valuemax':String(tot),'aria-valuenow':String(dn),'aria-valuetext':'أنجزتَ '+ar(dn)+' من '+ar(tot)+' خطوة'},el('i',{style:'width:'+(tot?Math.round(dn/tot*100):0)+'%'}));
+  const goBtn=nxt?el('a',{class:'btn',href:acHref(nxt),id:'ac-go'},'تابع'):null;
+  const prereq=p.prerequisites&&p.prerequisites.length?el('p',{class:'small'},'يُفضَّل قبلها: ',...p.prerequisites.flatMap((t,i)=>[i?'، ':'',...String(t).split(/(P\d\d)/).filter(Boolean).map(s=>{const q=/^P\d\d$/.test(s)&&AC.P.find(x=>x.id===s);return q?el('a',{href:'#/academy/p/'+q.slug},q.title):acClean(s)})])):null;
+  const nextP=p.next_programs&&p.next_programs.length?el('p',{class:'small'},'بعد هذا البرنامج: ',...p.next_programs.flatMap((id,i)=>{const q=AC.P.find(x=>x.id===id||x.slug===id);return q?[i?'، ':'',el('a',{href:'#/academy/p/'+q.slug},q.title)]:[]})):null;
+  const guideLinks=acCanGuide()?el('p',{class:'small foradults'},'للمرشد وولي الأمر: ',el('a',{href:'#/academy/p/'+p.slug+'/guide'},'دليل المرشد'),(AC.G&&AC.G[p.id]&&!(AC.G[p.id].for_parent||{}).not_applicable)?[' · ',el('a',{href:'#/academy/p/'+p.slug+'/parent'},'دليل ولي الأمر')]:null):null;
+  app.replaceChildren(el('div',{class:'acx acx-prog'},
+    el('a',{class:'back',href:'#/academy'},'‹ الأكاديمية'),
+    el('header',{class:'phero'},el('div',{class:'ptag'},acDraft()),el('h1',{},acClean(p.title)),el('p',{class:'lead'},acClean(p.tagline)),
+      el('ul',{class:'facts2'},el('li',{},'العمر',el('b',{},acAge(p.age_min,p.age_max))),el('li',{},'المدة',el('b',{},acD(p.duration_weeks)+' أسابيع')),el('li',{},'الإيقاع',el('b',{},acD(p.rhythm))),el('li',{},'الخطوات',el('b',{},ar(tot)))),
       p.status==='adults_gated'?el('div',{class:'note draft'},'برنامج للبالغين: لا يُفتح للجمهور قبل مراجعة علمية وتربوية وحماية.'):null),
-    el('h2',{class:'sh'},'ماذا ستكسب؟'),el('p',{},p.promise),el('ul',{class:'outcomes'},...p.outcomes.map(o=>el('li',{},o))),
-    p.prerequisites&&p.prerequisites.length?el('p',{class:'small'},'يُفضَّل قبلها: ',...p.prerequisites.flatMap((t,i)=>[i?'، ':'',...String(t).split(/(P\d\d)/).filter(Boolean).map(s=>{const q=/^P\d\d$/.test(s)&&AC.P.find(x=>x.id===s);return q?el('a',{href:'#/academy/p/'+q.slug},q.title):s})])):null,
+    el('section',{class:'pprog','aria-label':'تقدّمك'},el('div',{class:'row1'},el('b',{},'أنجزتَ '+ar(dn)+' من '+ar(tot)+' خطوة'),goBtn),prog,
+      el('div',{class:'small stats'},el('span',{},'أنشطة البرنامج: '+ar(nAct)),nRef?el('span',{},'تأمّلات كتبتَها: '+ar(nRef)):null),
+      nxt?el('div',{class:'small'},'الخطوة التالية المقترحة: ',el('b',{},acClean(acItemTitle(nxt)))):el('div',{class:'small'},'أتممتَ خطوات هذا البرنامج.'),
+      el('div',{class:'small local'},'التقدّم محفوظ على هذا الجهاز فقط، ولا يُزامَن مع حسابك ولا مع أجهزتك الأخرى.')),
+    el('h2',{class:'sh'},'هدف البرنامج'),el('p',{class:'goal'},acClean(p.promise)),
+    el('h2',{class:'sh'},'مهاراتك في هذه الرحلة'),el('ul',{class:'skills'},...p.outcomes.map(o=>el('li',{},acClean(o)))),
     el('h2',{class:'sh'},'رحلتك خطوة خطوة'),
-    el('div',{class:'tl'},...p.stages.map((s,i)=>el('div',{class:'stage'},el('div',{class:'no'},String(i+1)),el('h3',{},s.title,el('small',{style:'font-weight:400;color:var(--mute)'},' — الأسبوع '+s.weeks)),el('p',{class:'why'},s.purpose),...s.items.map(itemEl),
-      s.mission?el('div',{class:'mission'},el('b',{},'مهمتك: '+s.mission.title),el('div',{},s.mission.brief),s.mission.private_reflection?el('div',{class:'small',style:'color:var(--mute)'},'تأمّل خاص: '+s.mission.private_reflection):null):null,
-      s.check?el('div',{class:'check'},'كيف يُرى التقدّم؟ '+s.check):null))),
-    p.capstone?el('div',{class:'note'},el('b',{},'ختام البرنامج: '+p.capstone.title),el('div',{},p.capstone.brief),el('div',{class:'small',style:'color:var(--mute)'},p.capstone.deliverable)):null,
-    p.next_programs&&p.next_programs.length?el('p',{},'بعد هذا البرنامج: ',...p.next_programs.flatMap((id,i)=>{const q=AC.P.find(x=>x.id===id||x.slug===id);return q?[i?'، ':'',el('a',{href:'#/academy/p/'+q.slug},q.title)]:[]})):null,
-    AC.G&&AC.G[p.id]?acGuideBox(AC.G[p.id]):null,el('details',{class:'fold'},el('summary',{},'للمرشد وولي الأمر'),el('p',{},p.guide_notes||''),...(p.safeguards&&p.safeguards.length?[el('b',{},'حواجز الأمان'),el('ul',{},...p.safeguards.map(x=>el('li',{},x)))]:[]),el('p',{class:'small'},'جهة المراجعة المطلوبة قبل الاعتماد: '+(p.review_gate||'—'))),
-    el('div',{class:'note draft'},'مسودة: لم تُراجَع هذه المادة علميًّا ولا تربويًّا ولا من جهة حماية الطفل بعد، وليست فتوى.')))}
+    el('div',{class:'tl'},...p.stages.map((s,i)=>{const sd=s.items.filter(x=>done[x.ref]).length,st=sd===s.items.length?'done':i===curStage?'cur':'later';
+      return el('div',{class:'stage '+st},el('div',{class:'no','aria-hidden':'true'},st==='done'?'✓':ar(i+1)),el('h3',{},acClean(s.title),el('small',{}," · "+wk(s))),s.purpose?el('p',{class:'why'},acClean(s.purpose)):null,
+        el('div',{class:'items'},...s.items.map(itemEl)),
+        s.mission?el('p',{class:'mission'},el('b',{},'مهمتك: '+acClean(s.mission.title)),' ',acClean(s.mission.brief)):null)}),
+      p.capstone?el('div',{class:'stage cap'},el('div',{class:'no','aria-hidden':'true'},'★'),el('h3',{},'ختام البرنامج: '+acClean(p.capstone.title)),el('p',{class:'why'},acClean(p.capstone.brief))):null),
+    prereq,nextP,guideLinks))}
 function acScenarioBox(sc,onEnd){const box=el('div',{class:'lesson',style:'padding:16px'});let cur=sc.start,trail=[];
   const draw=()=>{const n=sc.nodes[cur];const k=[el('div',{class:'small',style:'color:var(--mute)'},'الموقف '+(trail.length+1)),el('h3',{style:'margin:0 0 4px'},sc.title),el('div',{class:'small',style:'color:var(--mute)'},sc.fictional_note||'')];
     if(!trail.length&&sc.premise)k.push(el('p',{},sc.premise));
@@ -1549,52 +1828,69 @@ function acScenarioBox(sc,onEnd){const box=el('div',{class:'lesson',style:'paddi
     else k.push(el('h4',{style:'margin:10px 0 4px'},'النهاية'),el('div',{class:'note'},el('b',{},'للتأمّل: '),n.reflection||''),el('button',{class:'ghost',type:'button',on:{click:()=>{cur=sc.start;trail=[];draw()}}},'جرّب مسارًا آخر'));
     if(onEnd)onEnd(!(n.choices&&n.choices.length));box.replaceChildren(...k)};draw();return box}
 function acScenarioPage(app,id){const S=AC.scn[id];
-  const fin=el('button',{type:'button',id:'sc-fin',style:'display:none',on:{click:()=>{const d=acDone();d[id]=1;acLS.set('acx_done',d);location.hash='#/academy/c/'+S.u.competency}}},'أنهيتُ السيناريو — العودة إلى الكفاية');
+  const fin=el('button',{type:'button',id:'sc-fin',style:'display:none',on:{click:()=>{acMarkDone(id);location.hash='#/academy/c/'+S.u.competency}}},'أنهيتُ السيناريو — العودة إلى الكفاية');
   if(!S){app.replaceChildren(el('div',{class:'acx'},el('div',{class:'note'},'لم أجد هذا السيناريو.')));return}
   const d=acDone();
   app.replaceChildren(el('div',{class:'acx'},acCrumb({h:'#/academy',t:'الأكاديمية'},{h:'#/academy/c/'+S.u.competency,t:S.u.title},{t:S.s.title}),acScenarioBox(S.s,e=>{fin.style.display=e?'':'none'}),
     el('div',{class:'nav2'},fin,el('a',{class:'btn ghost',href:'#/academy'},'الأكاديمية')),
     el('div',{class:'note draft'},'شخصيات هذا السيناريو خيالية من إعداد المنصة. لا درجات ولا إجابة وحيدة صحيحة.')))}
+/* Session path: أكتشف → أفهم → أتعلم من المصدر → أتدرّب → أطبّق → أراجع. Only the phases a lesson really contains are drawn. «أتعلم من المصدر» is not mapped to any step because the lesson data has no learner-facing source step (source_basis is reviewer-only). */
+const AC_PH={discover:'أكتشف',understand:'أفهم',source:'أتعلم من المصدر',practice:'أتدرّب',apply:'أطبّق',review:'أراجع'};
+const acPhase=(s,l)=>s==='intro'?'discover':s==='life'?'apply':s==='end'?'review':Array.isArray(s)?({story:'understand',discussion:'understand',scenario:'practice',game:'practice',practice:'practice',project:'apply',reflection:'review'}[(l.activities[s[1]]||{}).type]||'understand'):'understand';
 function acLesson(app,id){const R=AC.les[id];
   if(!R){app.replaceChildren(el('div',{class:'acx'},el('div',{class:'note'},'لم أجد هذا الدرس.')));return}
-  const {l,u}=R;let guide=acLS.get('acx_guide',false),step=0;
+  const {l,u}=R;let step=0;const canToggle=!acStudentAcct();
+  const isGuide=()=>acCanGuide()&&!!acGet('guideon',false);
   const steps=[];
   steps.push('intro');l.activities.forEach((a,i)=>steps.push(['act',i]));steps.push('life');steps.push('end');
-  const prog=el('i',{style:'width:0'}),body=el('div',{});
-  const actEl=a=>{const kids=[el('h3',{style:'margin:0 0 8px'},(ATYPE[a.type]||a.type)+': '+a.title)];
+  const phases=[...new Set(steps.map(s=>acPhase(s,l)))];
+  const stepName=s=>s==='intro'?'ابدأ':s==='life'?'ممارسة في يومك':s==='end'?'ختام الدرس':(ATYPE[(l.activities[s[1]]||{}).type]||'نشاط');
+  const prog=el('i',{style:'width:0'}),bar=el('div',{class:'bar2',role:'progressbar','aria-valuemin':'1','aria-valuemax':String(steps.length)},prog),ptxt=el('div',{class:'ptxt'}),track=el('ol',{class:'phases','aria-label':'مسار الجلسة'}),body=el('div',{class:'core'}),hint=el('div',{class:'nexthint'});
+  const actEl=a=>{const kids=[el('h2',{class:'st'},(ATYPE[a.type]||a.type)+': '+a.title)];
     if(a.learner_text){const ps=acP(a.learner_text);kids.push(el('div',{class:a.type==='story'?'story':''},...acBlocks(ps,a.type==='story')))}
-    else kids.push(el('div',{class:'note draft'},'نص هذا النشاط لم يُكتب للمتعلم بعد (يظهر وصف المرشد).'),el('p',{},acClean(a.instructions)));
-    if(a.questions&&a.questions.length)kids.push(el('ol',{class:'qs'},...a.questions.map(q=>el('li',{},acClean(q)))));
+    else kids.push(el('div',{class:'note draft'},'نص هذا النشاط لم يُكتب للمتعلم بعد.'),isGuide()?el('p',{},acClean(a.instructions)):null);
+    if(a.questions&&a.questions.length)kids.push(el('div',{class:'inter'},el('h3',{},'فكّر وتحدّث'),el('ol',{class:'qs'},...a.questions.map(q=>el('li',{},acClean(q)))),el('p',{class:'fb'},'لا توجد إجابة واحدة صحيحة. أجب عن سؤال واحد على الأقل بجملة، بصوتك أو بقلمك، ثم انتقل.')));
     if(a.type==='scenario'){const sc=u.scenarios[0];if(sc)kids.push(el('p',{},el('a',{class:'btn',href:'#/academy/s/'+sc.id},'ابدأ السيناريو التفاعلي')))}
-    if(guide&&a.learner_text)kids.push(el('details',{class:'fold',open:true},el('summary',{},'وصف المرشد'),el('p',{},acClean(a.instructions))));
+    if(isGuide()&&a.learner_text)kids.push(el('details',{class:'fold',open:true},el('summary',{},'وصف المرشد'),el('p',{},acClean(a.instructions))));
     return kids};
-  const draw=()=>{const s=steps[step];prog.style.width=Math.round(step/(steps.length-1)*100)+'%';let k=[];
-    if(s==='intro'){k=[el('div',{class:'small',style:'color:var(--mute)'},u.title+' · '+acLv(l.level)+' · '+acAgeStr(l.age_range)+' · '+l.duration_min+' دقيقة'),el('h1',{style:'margin:4px 0 8px;font-size:28px'},l.title),el('p',{},el('b',{},'هدف الدرس: '),l.objective)];
+  const draw=()=>{const s=steps[step],cur=acPhase(s,l);const g=isGuide();
+    prog.style.width=Math.round((step+1)/steps.length*100)+'%';bar.setAttribute('aria-valuenow',String(step+1));bar.setAttribute('aria-valuetext','الخطوة '+ar(step+1)+' من '+ar(steps.length));
+    ptxt.textContent='الخطوة '+ar(step+1)+' من '+ar(steps.length)+' · '+stepName(s);
+    const ci=phases.indexOf(cur);track.replaceChildren(...phases.map((p,i)=>el('li',{class:i<ci?'past':i===ci?'on':'','aria-current':i===ci?'step':null},AC_PH[p])));
+    let k=[];
+    if(s==='intro'){k=[el('h1',{class:'lt'},l.title),el('p',{class:'obj'},el('b',{},'هدف الدرس: '),l.objective)];
       if(l.hook)k.push(el('div',{class:'hook'},l.hook));
-      if(l.key_ideas&&l.key_ideas.length)k.push(el('h3',{},'أفكار الدرس'),el('div',{class:'ideas'},...l.key_ideas.map(x=>el('div',{class:'idea'},x))));
+      if(l.key_ideas&&l.key_ideas.length)k.push(el('h2',{class:'st'},'أفكار الدرس'),el('div',{class:'ideas'},...l.key_ideas.map(x=>el('div',{class:'idea'},x))));
       if(l.vocabulary&&l.vocabulary.length)k.push(el('details',{class:'fold'},el('summary',{},'مفردات'),el('ul',{},...l.vocabulary.map(v=>el('li',{},el('b',{},v.term+': '),v.meaning)))))}
     else if(Array.isArray(s)){k=actEl(l.activities[s[1]])}
-    else if(s==='life'){const lp=l.life_practice;k=[el('h2',{style:'margin:0 0 6px'},'ممارسة في يومك'),el('p',{style:'font-size:18px'},lp.task),el('ol',{class:'steps'},...lp.steps.map(x=>el('li',{},x))),el('h3',{},'تأمّل خاص'),el('p',{},lp.reflection_prompt),
-      (()=>{const key='acx_ref_'+id;const t=el('textarea',{placeholder:'اكتب لنفسك إن أحببت…',on:{input:e=>acLS.set(key,e.target.value)}});t.value=acLS.get(key,'');return t})(),
-      el('div',{class:'small',style:'color:var(--mute)'},'🔒 '+lp.private_note+' (يُحفظ هنا على هذا الجهاز فقط، ولا يراه أحد).')];
+    else if(s==='life'){const lp=l.life_practice;k=[el('h2',{class:'st'},'ممارسة في يومك'),el('p',{class:'obj'},lp.task),el('ol',{class:'steps'},...lp.steps.map(x=>el('li',{},x))),el('h3',{},'تأمّل خاص'),el('p',{},lp.reflection_prompt),
+      (()=>{const key='ref:'+id;const t=el('textarea',{placeholder:'اكتب لنفسك إن أحببت…','aria-label':'دفتر التأمّل',on:{input:e=>acSet(key,e.target.value)}});t.value=acGet(key,'');return t})(),
+      el('p',{class:'small privacy'},'يبقى ما تكتبه هنا على هذا الجهاز ولا يُرسَل إلى أحد؛ من يستعمل الجهاز نفسه قد يراه.'),
+      el('button',{type:'button',class:'ghost sm',id:'ac-del',on:{click:()=>{if(acDeleteMine()){route()}}}},'احذف دفتري وتقدّمي من هذا الجهاز')];
       if(lp.parent_note)k.push(el('div',{class:'note'},el('b',{},'للأسرة: '),lp.parent_note))}
-    else{const c=l.closing;k=[el('h2',{style:'margin:0 0 6px'},'ختام الدرس'),c?el('p',{style:'font-size:18px'},c.summary):el('p',{},'أحسنتَ المتابعة.'),c&&c.home_question?el('div',{class:'note'},el('b',{},'سؤال البيت: '),c.home_question):null,
-      el('div',{class:'note'},el('b',{},'كيف يُرى التقدّم؟ (وصفي بلا درجات)'),el('ul',{},el('li',{},'ظهر: '+l.formative['ظهر']),el('li',{},'يتدرّب: '+l.formative['يتدرب']),el('li',{},'يحتاج دعمًا: '+l.formative['يحتاج_دعما']))),
-      el('button',{type:'button',on:{click:()=>{const d=acDone();d[id]=1;acLS.set('acx_done',d);const i=u.lessons.findIndex(x=>x.id===id),nx=u.lessons[i+1];location.hash=nx?'#/academy/l/'+nx.id:'#/academy/c/'+u.competency}}},(()=>{const i=u.lessons.findIndex(x=>x.id===id);return u.lessons[i+1]?'أنهيتُ الدرس — الدرس التالي':'أنهيتُ الدرس'})())]}
-    if(guide){k.push(el('details',{class:'fold',open:true},el('summary',{},'لوحة المرشد'),
-      l.guide_script?el('ol',{class:'steps'},...l.guide_script.map(g=>el('li',{},(g.min!=null?'['+g.min+'د] ':'')+acClean(g.step)))):null,
-      el('b',{},'حواجز الأمان'),el('ul',{},...l.safeguards.map(x=>el('li',{},acClean(x))))))}
+    else{const c=l.closing,i0=u.lessons.findIndex(x=>x.id===id),nx=u.lessons[i0+1];
+      k=[el('h2',{class:'st'},'ختام الدرس'),c?el('p',{class:'obj'},c.summary):el('p',{},'أحسنتَ المتابعة.'),c&&c.home_question?el('div',{class:'note'},el('b',{},'سؤال البيت: '),c.home_question):null,
+        g&&l.formative?el('div',{class:'note'},el('b',{},'ملاحظة للمرشد: كيف يُرى التقدّم؟ (وصفي بلا درجات)'),el('ul',{},l.formative['ظهر']?el('li',{},'ظهر: '+l.formative['ظهر']):null,l.formative['يتدرب']?el('li',{},'يتدرّب: '+l.formative['يتدرب']):null,l.formative['يحتاج_دعما']?el('li',{},'يحتاج دعمًا: '+l.formative['يحتاج_دعما']):null)):null,
+        el('button',{type:'button',on:{click:()=>{acMarkDone(id);location.hash=nx?'#/academy/l/'+nx.id:'#/academy/c/'+u.competency}}},nx?'أنهيتُ الدرس — الدرس التالي':'أنهيتُ الدرس')]}
+    if(g){k.push(el('details',{class:'fold',open:true},el('summary',{},'لوحة المرشد'),
+      l.guide_script?el('ol',{class:'steps'},...l.guide_script.map(x=>el('li',{},(x.min!=null?'['+acD(x.min)+'د] ':'')+acClean(x.step)))):null,
+      acHas(l.safeguards)?[el('b',{},'حماية الطفل'),el('ul',{},...l.safeguards.map(x=>el('li',{},acClean(x))))]:null))}
     nav.replaceChildren(el('button',{type:'button',class:'ghost',disabled:step===0,on:{click:()=>{step--;draw();window.scrollTo(0,0)}}},'السابق'),step<steps.length-1?el('button',{type:'button',on:{click:()=>{step++;draw();window.scrollTo(0,0)}}},'التالي'):el('span',{}));
-    body.replaceChildren(...k.filter(Boolean))};
-  const nav=el('div',{class:'nav2'});
-  app.replaceChildren(el('div',{class:'acx'},acCrumb({h:'#/academy',t:'الأكاديمية'},{h:'#/academy/c/'+u.competency,t:u.title},{t:l.title}),
-    el('div',{style:'display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:8px'},acDraft(),el('button',{type:'button',class:'gswitch','aria-pressed':String(!!guide),on:{click:()=>{guide=!guide;acLS.set('acx_guide',guide);draw()}}},guide?'وضع المرشد: مفعّل':'وضع المرشد')),
-    el('div',{class:'lesson'},el('div',{class:'prog'},prog),body,nav)));
-  draw()}
+    hint.textContent=step<steps.length-1?'بعد ذلك: '+stepName(steps[step+1]):'';
+    body.replaceChildren(...k.flat().filter(Boolean))};
+  const nav=el('div',{class:'nav2'}),ackBox=el('div',{});
+  const gsw=canToggle?el('button',{type:'button',class:'gswitch','aria-pressed':'false',on:{click:()=>{
+    if(!acCanGuide()){ackBox.replaceChildren(acAck(()=>{ackBox.replaceChildren();acSet('guideon',true);sync();draw()}));return}
+    acSet('guideon',!isGuide());sync();draw()}}},'وضع المرشد'):null;
+  const sync=()=>{if(gsw){gsw.setAttribute('aria-pressed',String(isGuide()));gsw.textContent=isGuide()?'وضع المرشد: مفعّل':'وضع المرشد'}};
+  app.replaceChildren(el('div',{class:'acx acx-lesson'},acCrumb({h:'#/academy',t:'الأكاديمية'},{h:'#/academy/c/'+u.competency,t:u.title},{t:l.title}),
+    el('div',{class:'lhead'},el('div',{class:'small meta1'},u.title+' · '+acLv(l.level)+' · '+acAgeStr(l.age_range)+' · '+acD(l.duration_min)+' دقيقة'),gsw),ackBox,
+    el('div',{class:'lesson'},track,ptxt,bar,body,nav,hint)));
+  sync();draw()}
 function acCompetencies(app,id){
   const root=el('div',{class:'acx'});
-  if(!id){root.append(el('div',{class:'ahero'},acDraft(),el('h1',{},'الكفايات الأربعون'),el('p',{},'كل كفاية وحدة تعلّم من عدة دروس متدرّجة وسيناريوهات.')),acTabs('c'));
-    Object.entries(AC.D.domains).forEach(([k,v])=>{root.append(el('h2',{class:'sh'},v),el('div',{class:'grid'},...AC.D.competencies.filter(c=>c.domain===k).map(c=>{const u=AC.U[c.id];return el('a',{class:'pcard',href:'#/academy/c/'+c.id},el('div',{class:'meta'},el('span',{class:'pill'},c.id),el('span',{class:'pill'},'من سنّ '+c.min_age),u?el('span',{class:'pill'},u.lessons.length+' دروس'):null),el('h3',{},c.name),el('p',{class:'tag'},c.definition))})))});
+  if(!id){const panel=el('div');root.append(pageHead('الكفايات الأربعون','كل كفاية وحدة تعلّم من عدة دروس متدرّجة وسيناريوهات.'),el('div',{class:'ahero slim'},acDraft()),acTabs('c',panel),panel);
+    Object.entries(AC.D.domains).forEach(([k,v])=>{panel.append(el('h2',{class:'sh'},v),el('div',{class:'grid'},...AC.D.competencies.filter(c=>c.domain===k).map(c=>{const u=AC.U[c.id];return el('a',{class:'pcard',href:'#/academy/c/'+c.id},el('div',{class:'meta'},el('span',{class:'pill'},'من سنّ '+acD(c.min_age)),u?el('span',{class:'pill'},u.lessons.length+' دروس'):null),el('h3',{},c.name),el('p',{class:'tag'},c.definition))})))});
     app.replaceChildren(root);return}
   const c=AC.D.competencies.find(x=>x.id===id),u=AC.U[id];
   if(!c){root.append(el('div',{class:'note'},'لم أجد هذه الكفاية.'));app.replaceChildren(root);return}
@@ -1636,17 +1932,17 @@ async function academyView(app,parts){
   if(acGated(a,b)){app.replaceChildren(el('div',{class:'acx'},acCrumb({h:'#/academy',t:'الأكاديمية'},{t:'غير متاح لحسابك'}),el('div',{class:'note'},el('b',{},'هذا المحتوى مخصّص للبالغين.'),' الحسابات المرتبطة بمؤسسة كطالب (وقد يكون الطالب قاصرًا) لا تفتحه هنا. اطلب من معلّمك أو وليّ أمرك برنامجًا مناسبًا لعمرك.'),el('a',{href:'#/academy'},'← إلى الأكاديمية')));return}
   const isRv=a==='review'||(a&&AC.D.competencies.some(c=>c.id===a));
   if(isRv&&!isScholar()){app.replaceChildren(el('div',{class:'acx'},acCrumb({h:'#/academy',t:'الأكاديمية'},{t:'لوحة المراجعة'}),el('div',{class:'card'},el('h2',{},'لوحة المراجعة'),el('p',{},'هذه المساحة للمراجعين العلميين المعتمدين فقط.')),el('a',{href:'#/academy'},'← إلى الأكاديمية')));return}
-  if(a==='p')acProgram(app,b);else if(a==='l')acLesson(app,b);else if(a==='s')acScenarioPage(app,b);else if(a==='c')acCompetencies(app,b);else if(isRv)acReview(app,a==='review'?b:a);else acHome(app)}
+  if(a==='p')acProgram(app,b,parts[3]);else if(a==='l')acLesson(app,b);else if(a==='s')acScenarioPage(app,b);else if(a==='c')acCompetencies(app,b);else if(isRv)acReview(app,a==='review'?b:a);else acHome(app)}
 
 function kidsView(app){
   const S=kst.get(),root=el('div',{class:'kids'});
   const home=()=>{const s=kst.get();
-    if(!s.band){root.replaceChildren(el('div',{class:'card'},el('h1',{},'أكاديمية ترتيل للصغار'),el('p',{},'اختر الفئة المناسبة. العمر مؤشر مبدئي فقط؛ يمكنك تغييره، وإن كان الطفل متقدمًا فاختبار المستوى يتيح له تجاوز البداية.'),
+    if(!s.band){root.replaceChildren(pageHead('أكاديمية ترتيل للصغار'),el('div',{class:'card'},el('p',{},'اختر الفئة المناسبة. العمر مؤشر مبدئي فقط؛ يمكنك تغييره، وإن كان الطفل متقدمًا فاختبار المستوى يتيح له تجاوز البداية.'),
       ...Object.entries(KB).map(([k,v])=>el('button',{class:'btn lg ghost',type:'button',style:'display:block;width:100%;margin:8px 0',on:{click:()=>{const x=kst.get();x.band=k;kst.set(x);home()}}},v.n+' — '+v.t))));return}
     const B=KB[s.band],rec=kRecommend(),st=kStats();
     const act=(t,d,go,arg)=>el('button',{class:'card plain',type:'button',style:'text-align:start;width:100%;cursor:pointer',on:{click:()=>activity(go,arg)}},el('b',{},t),el('div',{class:'small'},d));
     const inst=ME&&ME.memberships&&ME.memberships.find(m=>m.role==='student'||m.role==='guardian');
-    root.replaceChildren(el('div',{class:'card'},el('h1',{},'أكاديمية ترتيل للصغار'),el('p',{class:'small'},'الفئة: '+B.n+' · '+B.t+' · '),
+    root.replaceChildren(pageHead('أكاديمية ترتيل للصغار'),el('div',{class:'card'},el('p',{class:'small'},'الفئة: '+B.n+' · '+B.t+' · '),
         el('button',{class:'ghost sm',type:'button',on:{click:()=>{const x=kst.get();x.band='';kst.set(x);home()}}},'تغيير الفئة'),' ',
         s.level?el('span',{class:'small'},s.level==='adv'?'المستوى: متقدّم (تجاوز البداية)':'المستوى: مبتدئ'):el('button',{class:'ghost sm',type:'button',on:{click:()=>activity('place')}},'اختبار مستوى سريع')),
       el('div',{class:'card hwbig'},el('span',{class:'small'},'مقترح لك الآن'),el('h2',{},rec.t),el('p',{},rec.d),el('button',{class:'btn lg',type:'button',on:{click:()=>activity(rec.go,rec.arg)}},'ابدأ')),
@@ -1757,7 +2053,7 @@ async function planView(app){
       el('span',{},surahName(s)+' — الآيات '+ar(a)+'–'+ar(b)),
       el('button',{class:'sm',on:{click:()=>run(msg,async()=>{if(!token)throw new Error('سجّل الدخول أولًا لحفظ المقطع.');await api('POST','/me/hifz',{surah:s,fromAyah:a,toAyah:b});note(msg,'أُضيف «'+surahName(s)+' '+ar(a)+'–'+ar(b)+'» إلى مراجعتك.','ok')})}},'أضِف إلى حفظي'))));
     out.replaceChildren(el('div',{class:'card'},el('h2',{},'خطتك المقترحة'),el('ul',{},...rows),wk,el('p',{class:'small'},'هذه خطة مبدئية مبنية على إجاباتك فقط وقابلة للتعديل في أي وقت. ليست تقييمًا لمستواك ولا حكمًا تربويًا؛ ويُفضَّل أن يعتمدها معلّمك إن كان لك معلّم.')),list,msg)};
-  app.replaceChildren(el('div',{class:'card'},el('h1',{},'خطتي'),el('p',{},'أجب عن أسئلة قليلة لنقترح عليك خطة بسيطة. لا نحفظ شيئًا إلا عند ضغطك «أضِف إلى حفظي».'),
+  app.replaceChildren(pageHead('خطتي'),el('div',{class:'card'},el('p',{},'أجب عن أسئلة قليلة لنقترح عليك خطة بسيطة. لا نحفظ شيئًا إلا عند ضغطك «أضِف إلى حفظي».'),
     el('div',{class:'row'},field('هدفي',goal),field('الاتجاه',dir),field('السورة',sel)),
     el('div',{class:'row'},field('دقائق يوميًا',mins),field('أيام أسبوعيًا',days),field('آيات في المقطع',size)),
     el('details',{},el('summary',{},'تخصيص أكثر (اختياري)'),el('div',{class:'row'},field('عدد آيات أريد حفظها',tgtN),field('تاريخ مستهدف',tgtD),field('وقتي المفضّل',prefT),field('لي معلّم أو حلقة',teacher))),el('button',{on:{click:build}},'اقترح خطتي')),out);app.prepend(today);planToday(today).then(()=>{if(PLAN_ST)build()});
@@ -1786,7 +2082,7 @@ async function hifzTab(body){
   async function load(){const r=await api('GET','/me/hifz');
     if(!r.items.length){list.replaceChildren(empty('لا مقاطع بعد.'));return}
     list.replaceChildren(table(['السورة','الآيات','الحالة','التباعد','المراجعة القادمة',''],r.items.map(x=>[surahName(x.surah),ar(x.fromAyah)+'–'+ar(x.toAyah),el('span',{class:'chip'},x.status==='memorized'?'محفوظ':'قيد الحفظ'),ar(x.intervalDays)+' يوم',new Date(x.dueAt)<=new Date(r.now)?'مستحقة الآن':fmt(x.dueAt),
-      el('button',{class:'ghost sm',on:{click:()=>run(msg,async()=>{if(!confirm('حذف هذا المقطع من مراجعتك؟'))return;await api('DELETE','/me/hifz/'+x.id);load()})}},'حذف')])))}
+      el('button',{class:'ghost sm',on:{click:()=>run(msg,async()=>{if(!confirm('حذف هذا المقطع من مراجعتك؟'))return;await api('DELETE','/me/hifz/'+x.id);load()})}},'حذف')]),'rt'))}
   await load()}
 function quizTab(body,key){
   if(key==='complete'){return completeAyah(body)}
@@ -1858,7 +2154,7 @@ async function reviewView(app,parts){
   if(!token){location.hash='#/auth';return}
   if(!isScholar()){app.replaceChildren(el('div',{class:'card'},el('h2',{},'المراجعة العلمية'),el('p',{},'هذه المساحة للمراجعين العلميين المعتمدين فقط. يُضيف مدير المؤسسة المراجع بدور «مراجع علمي» من تبويب «الأسرة والأعضاء».')));return}
   const cur=parts[1]==='sanad'?'sanad':'items',body=el('div');
-  app.replaceChildren(el('h1',{style:'margin:0 0 10px'},'المراجعة العلمية'),el('div',{class:'tabs'},[['items','المحتوى'],['sanad','طلبات توثيق الإسناد']].map(([k,t])=>el('a',{href:'#/review/'+k,class:k===cur?'on':''},t))),body);
+  app.replaceChildren(pageHead('المراجعة العلمية'),Tabs([['items','المحتوى'],['sanad','طلبات توثيق الإسناد']],cur,{label:'أقسام المراجعة',href:k=>'#/review/'+k,panel:body}),body);
   if(cur==='sanad')return reviewSanad(body);
   const st=parts[2]||'',r=await api('GET','/scholarly/items'+(st?'?state='+st:'')),det=el('div');
   body.append(el('div',{class:'card'},el('p',{class:'small'},'لا يُنشر أي محتوى مستخرج من الكتب إلا بعد اعتماده هنا، ولا يُنشر ما لم يُوثَّق ترخيصه (قرار مالك المنصة). كل انتقال يُسجَّل باسمك وتاريخه.'),

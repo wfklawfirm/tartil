@@ -1,0 +1,2979 @@
+{
+ "version": "0.1",
+ "status": "audit-draft-unreviewed",
+ "generated": "2026-11-03",
+ "note_ar": "تدقيق وتصميم بيانات فقط: لا تغيير في programs.json أو الدروس. القرارات مقترحات تحتاج مراجعة تربوية بشرية.",
+ "decision_vocabulary": [
+  "Keep",
+  "Rework",
+  "Relocate",
+  "Split",
+  "Remove from this program",
+  "Needs Source Review"
+ ],
+ "method": {
+  "severity_order": [
+   "تجميع غير منطقي",
+   "تكرار كفايات",
+   "تداخل مسارات",
+   "مستويات غير متجانسة",
+   "زمن غير منطقي"
+  ],
+  "timing": {
+   "declared": "duration_weeks × sessions_per_week × session_minutes (من حقل rhythm)",
+   "actual": "مجموع duration_min للدروس + تقدير للسيناريوهات (لا صفر): ceil((كلمات المقدمة + متوسط كلمات المسار)/90 + 1.5×قرارات + 2) بحد 8..20 دقيقة",
+   "thresholds": {
+    "over_error": 1.1,
+    "under_error": 0.6,
+    "under_warn": 0.75,
+    "stage_warn": [
+     0.6,
+     1.1
+    ],
+    "stage_error": [
+     0.4,
+     1.3
+    ]
+   }
+  },
+  "repetition": "(كفاية، مستوى) يُدرَّس في برنامجين لدروس أعمارها متداخلة بسنة على الأقل",
+  "overlap": "برنامجان بأعمار متداخلة سنة فأكثر ويشتركان في كفايتين أو Jaccard>=0.25",
+  "source": "يُعاد توليد المقاييس بـ python3 -I scripts/validate_coherence.py --json"
+ },
+ "item_audit": {
+  "P07": {
+   "scope_decision": {
+    "decision": "تعديل العنوان وتضييق النطاق إلى برنامج غضب مستقل؛ لا جعله برنامج إدارة ذات شاملًا",
+    "current_title": "أضبط غضبي وأصلح",
+    "proposed_title": "أتعلّم كيف أتعامل مع غضبي",
+    "proposed_tagline": "أفهم غضبي، وأختار تصرفي، وأصلح إن أخطأت.",
+    "keep_id_and_slug": true,
+    "why_ar": [
+     "«أضبط» توحي بالكتم والتحكم، وتتعارض مع حاجز الأمان القائم (لا يُنصح بكتمان الغضب)؛ و«أتعامل مع» تصف مهارة قابلة للتعلم.",
+     "وعد البرنامج الحالي يضم ثمانية موضوعات من ثلاثة مجالات (S وK وC) و8 كفايات بينها ست كفايات بعنصرين أو أقل: لا مخرج واحد يجمعها.",
+     "المحتوى المتاح فعلًا لـ10-12 عن الغضب هو S5-L3 وS5-S2 فقط (S5-L1 وS5-L2 مكتوبان لـ6-9 ويدرّسان في P02). مع S6-L3 وS6-S2 يصير لدينا أربعة عناصر مملوكة تغطي نحو 76 دقيقة (منها دقائق مقدَّرة للسيناريوهين)، فلا تكفي لثمانية أسابيع.",
+     "الاسم الشامل «إدارة الذات» غير مناسب: يضم مراجعة اليوم وتنظيم الوقت (S1/S2)، وهي كفايات مستقلة لها محتوى كافٍ (مع X4-L4..L6) لبرنامج قصير مستقل (P25 المقترح)."
+    ],
+    "duration_decision": "4 أسابيع × جلستان × 35 دقيقة = 8 جلسات (280 دقيقة) بدل 8 أسابيع؛ لا تُحقَّق حتى تُكتب أربعة دروس جديدة. الحد الأدنى في validate_programs هو 4 أسابيع فيصح.",
+    "outcomes": [
+     {
+      "id": "O1",
+      "text": "يسمّي انفعال الغضب وعلاماته في جسمه، ويفرّق بين شعوره وتصرفه"
+     },
+     {
+      "id": "O2",
+      "text": "يلاحظ المواقف والمثيرات التي ترفع غضبه ويصفها بلا لوم"
+     },
+     {
+      "id": "O3",
+      "text": "يستعمل مهارة تهدئة ويختار ردًّا من عدة بدائل"
+     },
+     {
+      "id": "O4",
+      "text": "يعبّر عن اعتراضه تعبيرًا مسؤولًا ويتعامل مع خلاف بسيط"
+     },
+     {
+      "id": "O5",
+      "text": "يعتذر ويصلح ما أفسده، دون أن يُحمَّل مسؤولية أذى وقع عليه"
+     },
+     {
+      "id": "O6",
+      "text": "يعرف متى وكيف يطلب مساعدة بالغ موثوق"
+     }
+    ],
+    "new_content_needed": [
+     "أسمّي غضبي وأعرف علاماته",
+     "الشعور ليس تصرفًا: ما بدائلي؟",
+     "أدواتي لأهدأ",
+     "أقول اعتراضي بلا أذى"
+    ],
+    "target_sessions": [
+     {
+      "n": 1,
+      "week": 1,
+      "title": "أسمّي غضبي وأعرف علاماته",
+      "outcome": "O1",
+      "source": "NEW (نسخة 10-12 من S5-L1 المكتوب لعمر 6-9)",
+      "status": "NEEDS_NEW_CONTENT"
+     },
+     {
+      "n": 2,
+      "week": 1,
+      "title": "الشعور ليس تصرفًا: ما بدائلي؟",
+      "outcome": "O1",
+      "source": "NEW",
+      "status": "NEEDS_NEW_CONTENT"
+     },
+     {
+      "n": 3,
+      "week": 2,
+      "title": "ملاحظة في الصف: ما الذي أشعل غضبي؟",
+      "outcome": "O2",
+      "source": "S5-S2",
+      "status": "EXISTING"
+     },
+     {
+      "n": 4,
+      "week": 2,
+      "title": "أدواتي لأهدأ",
+      "outcome": "O3",
+      "source": "NEW (توسيع S5-L2 المكتوب لعمر 7-9)",
+      "status": "NEEDS_NEW_CONTENT"
+     },
+     {
+      "n": 5,
+      "week": 3,
+      "title": "بعد أن أهدأ: سببي وخطتي",
+      "outcome": "O2,O3",
+      "source": "S5-L3",
+      "status": "EXISTING"
+     },
+     {
+      "n": 6,
+      "week": 3,
+      "title": "أقول اعتراضي بلا أذى",
+      "outcome": "O4",
+      "source": "رابط اختياري إلى R2-L3 وR3-L1 في P08، أو NEW",
+      "status": "OPTIONAL_LINK_OR_NEW"
+     },
+     {
+      "n": 7,
+      "week": 4,
+      "title": "اعتذار حقيقي وإصلاح",
+      "outcome": "O5,O6",
+      "source": "S6-L3",
+      "status": "EXISTING"
+     },
+     {
+      "n": 8,
+      "week": 4,
+      "title": "رسالة لم تكن لطيفة + خطتي الختامية + من أطلب عونه",
+      "outcome": "O5,O6",
+      "source": "S6-S2 (+ رابط اختياري إلى R3-S3)",
+      "status": "EXISTING"
+     }
+    ],
+    "optional_links": [
+     {
+      "to_ref": "R2-L3",
+      "program": "P08",
+      "serves": "O4",
+      "note": "أطلب بلطف (صياغة الحاجة والشعور والطلب)"
+     },
+     {
+      "to_ref": "R3-L1",
+      "program": "P08",
+      "serves": "O4",
+      "note": "أسمّي الخلاف"
+     },
+     {
+      "to_ref": "R3-S3",
+      "program": "P08",
+      "serves": "O6",
+      "note": "حين يتحول الخلاف إلى أذى (طلب مساعدة)"
+     },
+     {
+      "to_ref": "S5-L1",
+      "program": "P02",
+      "serves": "O1",
+      "note": "بطاقة تذكير فقط (لا إعادة تدريس)",
+      "role": "recap"
+     },
+     {
+      "to_ref": "S5-L2",
+      "program": "P02",
+      "serves": "O3",
+      "note": "بطاقة تذكير فقط",
+      "role": "recap"
+     }
+    ],
+    "answer_to_owner_question": "نعم: صيغة البرنامج الحالية تجمع موضوعات غير مترابطة؛ الترابط الوحيد هو القرب اللفظي من «ضبط النفس» والإصلاح. يبقى منه الغضب والاعتذار والإصلاح فقط."
+   },
+   "summary": {
+    "total": 16,
+    "by_decision": {
+     "Keep": 4,
+     "Rework": 0,
+     "Relocate": 11,
+     "Split": 1,
+     "Remove from this program": 0,
+     "Needs Source Review": 0
+    },
+    "kept": [
+     "S5-L3",
+     "S5-S2",
+     "S6-L3",
+     "S6-S2"
+    ],
+    "out_of_scope": 12
+   },
+   "items": [
+    {
+     "ref": "S1-L1",
+     "kind": "lesson",
+     "title": "ماذا فعلتُ اليوم؟",
+     "competency": "S1",
+     "level": "L1",
+     "lesson_ages": [
+      10,
+      12
+     ],
+     "minutes": 25,
+     "minutes_estimated": false,
+     "decision": "Relocate",
+     "flags": [
+      "source_review: S1-01 يحتاج مراجعة"
+     ],
+     "reason_ar": "هدف الدرس تسمية ما فعله المتعلم في يومه (مراجعة يومية عامة). هذا مخرج «إدارة الذات» لا مخرج فهم الغضب؛ ولا يوجد في الدرس موقف انفعالي ولا مثير ولا بديل استجابة. دخل البرنامج لأن «المراقبة الذاتية» قريبة لفظيًّا من «ضبط النفس». يبقى المحتوى سليمًا في برنامج مستقل لمراجعة اليوم وتنظيم الوقت، ويمكن أن يظهر هنا رابطًا اختياريًّا لمن أراد تدوين مواقفه.",
+     "destination": {
+      "program": "P25 (مقترح جديد: أرتّب يومي وأراجع نفسي)",
+      "stage": "أ",
+      "mode": "proposed_new_program",
+      "note": "ويُترك رابط اختياري من برنامج الغضب"
+     },
+     "destination_summary": "P25 (مقترح جديد: أرتّب يومي وأراجع نفسي)",
+     "serves_outcomes": []
+    },
+    {
+     "ref": "S1-L2",
+     "kind": "lesson",
+     "title": "الفعل والنية",
+     "competency": "S1",
+     "level": "L2",
+     "lesson_ages": [
+      10,
+      12
+     ],
+     "minutes": 25,
+     "minutes_estimated": false,
+     "decision": "Relocate",
+     "flags": [
+      "rework_if_reused: صياغة «الشعور والفعل والنية» للغضب"
+     ],
+     "reason_ar": "يفرّق الدرس بين الفعل والنية، وهذا غير التمييز المطلوب هنا بين الشعور والتصرف. وسؤال «لماذا فعلتُ ذلك؟» قد يتحول عند الغاضب إلى تبرير للأذى أو إلى لوم ذاتي، فيحتاج صياغة خاصة إن أُعيد استعماله في برنامج الغضب. المكان الأنسب برنامج المراجعة الذاتية.",
+     "destination": {
+      "program": "P25 (مقترح جديد: أرتّب يومي وأراجع نفسي)",
+      "stage": "أ",
+      "mode": "proposed_new_program",
+      "note": null
+     },
+     "destination_summary": "P25 (مقترح جديد: أرتّب يومي وأراجع نفسي)",
+     "serves_outcomes": []
+    },
+    {
+     "ref": "S1-S1",
+     "kind": "scenario",
+     "title": "دفتر المساء",
+     "competency": "S1",
+     "level": null,
+     "lesson_ages": [
+      10,
+      null
+     ],
+     "minutes": 8,
+     "minutes_estimated": true,
+     "decision": "Relocate",
+     "flags": [
+      "privacy_review: عبارة «لن يقرأه أحد»"
+     ],
+     "reason_ar": "سيناريو «دفتر المساء» عن مراجعة يوم عامة لا عن موقف غضب. يذكر أن الدفتر «لن يقرأه أحد غيره»، وهي عبارة خصوصية يجب أن تطابق الواقع التقني (التقدم محلي على الجهاز).",
+     "destination": {
+      "program": "P25 (مقترح جديد: أرتّب يومي وأراجع نفسي)",
+      "stage": "أ",
+      "mode": "proposed_new_program",
+      "note": null
+     },
+     "destination_summary": "P25 (مقترح جديد: أرتّب يومي وأراجع نفسي)",
+     "serves_outcomes": []
+    },
+    {
+     "ref": "S2-L1",
+     "kind": "lesson",
+     "title": "الوقت محدود وأنا لست آلة",
+     "competency": "S2",
+     "level": "L1",
+     "lesson_ages": [
+      10,
+      12
+     ],
+     "minutes": 25,
+     "minutes_estimated": false,
+     "decision": "Relocate",
+     "flags": [],
+     "reason_ar": "الوقت محدود وأين يذهب يومي: كفاية تنظيم الوقت (S2) المستقلة؛ لا علاقة تعليمية مباشرة بتنظيم الانفعال. تنظيم الوقت قد يخفف ضغوطًا تثير الغضب، لكن هذه علاقة بعيدة لا تكفي لإدخاله في تسلسل الغضب.",
+     "destination": {
+      "program": "P25 (مقترح جديد: أرتّب يومي وأراجع نفسي)",
+      "stage": "ب",
+      "mode": "proposed_new_program",
+      "note": null
+     },
+     "destination_summary": "P25 (مقترح جديد: أرتّب يومي وأراجع نفسي)",
+     "serves_outcomes": []
+    },
+    {
+     "ref": "S2-L2",
+     "kind": "lesson",
+     "title": "ما الأهم اليوم؟",
+     "competency": "S2",
+     "level": "L2",
+     "lesson_ages": [
+      10,
+      12
+     ],
+     "minutes": 30,
+     "minutes_estimated": false,
+     "decision": "Relocate",
+     "flags": [
+      "duplicates: X4-L4 (P22)"
+     ],
+     "reason_ar": "تخطيط يوم بثلاث مهام ووقت راحة؛ مخرج تنظيم وقت. يتكرر مستواه L2 في X4-L4 (P22) لأعمار متداخلة، فيُنظر في دمجهما في برنامج واحد بدل تكرارهما في برنامجين.",
+     "destination": {
+      "program": "P25 (مقترح جديد: أرتّب يومي وأراجع نفسي)",
+      "stage": "ب",
+      "mode": "proposed_new_program",
+      "note": null
+     },
+     "destination_summary": "P25 (مقترح جديد: أرتّب يومي وأراجع نفسي)",
+     "serves_outcomes": []
+    },
+    {
+     "ref": "S2-S1",
+     "kind": "scenario",
+     "title": "أسبوع مزدحم",
+     "competency": "S2",
+     "level": null,
+     "lesson_ages": [
+      10,
+      null
+     ],
+     "minutes": 8,
+     "minutes_estimated": true,
+     "decision": "Relocate",
+     "flags": [],
+     "reason_ar": "سيناريو أسبوع مزدحم (أولويات): يخدم S2 لا S5.",
+     "destination": {
+      "program": "P25 (مقترح جديد: أرتّب يومي وأراجع نفسي)",
+      "stage": "ب",
+      "mode": "proposed_new_program",
+      "note": null
+     },
+     "destination_summary": "P25 (مقترح جديد: أرتّب يومي وأراجع نفسي)",
+     "serves_outcomes": []
+    },
+    {
+     "ref": "S5-L3",
+     "kind": "lesson",
+     "title": "بعد أن أهدأ",
+     "competency": "S5",
+     "level": "L3",
+     "lesson_ages": [
+      10,
+      12
+     ],
+     "minutes": 30,
+     "minutes_estimated": false,
+     "decision": "Keep",
+     "flags": [
+      "source_review: S5-p02, S5-p06",
+      "objective_compound: يُفضّل حصر الإصلاح في S6-L3"
+     ],
+     "reason_ar": "الدرس هو لبّ البرنامج: يتأمل المتعلم بعد أن يهدأ سبب غضبه (مثير)، ويضع خطة للمرة القادمة (بدائل استجابة)، وهدفه بفعل قابل للملاحظة وعمره 10-12. ملاحظتان: هدفه مركّب (فهم السبب + خطة + إصلاح) والإصلاح يتداخل مع S6-L3 فيُحصر هنا في تلميح؛ وتأصيله يذكر ملاحظتين للمعلم (S5-p02، S5-p06) تحتاجان مراجعة مصدر.",
+     "destination": {
+      "program": "P07",
+      "stage": "ب",
+      "mode": "owned",
+      "note": null
+     },
+     "destination_summary": "",
+     "serves_outcomes": [
+      "O2",
+      "O3"
+     ]
+    },
+    {
+     "ref": "S5-S2",
+     "kind": "scenario",
+     "title": "ملاحظة في الصف",
+     "competency": "S5",
+     "level": null,
+     "lesson_ages": [
+      10,
+      null
+     ],
+     "minutes": 8,
+     "minutes_estimated": true,
+     "decision": "Keep",
+     "flags": [],
+     "reason_ar": "موقف مثير واضح (سخرية علنية من عمله) يتدرب فيه المتعلم على ملاحظة المثير والجسد والخيارات؛ عمره 10، ويخدم O2 وO3 مباشرة.",
+     "destination": {
+      "program": "P07",
+      "stage": "ب",
+      "mode": "owned",
+      "note": null
+     },
+     "destination_summary": "",
+     "serves_outcomes": [
+      "O2",
+      "O3"
+     ]
+    },
+    {
+     "ref": "K4-L3",
+     "kind": "lesson",
+     "title": "جدول مراجعتي",
+     "competency": "K4",
+     "level": "L3",
+     "lesson_ages": [
+      10,
+      14
+     ],
+     "minutes": 35,
+     "minutes_estimated": false,
+     "decision": "Relocate",
+     "flags": [
+      "duplicates: K4 L3 في P20 وP21",
+      "source_review: K4-06, K4-10"
+     ],
+     "reason_ar": "جدول مراجعة المحفوظ مع المعلم: كفاية الحفظ والمراجعة (K4) ولا تخدم أي مخرج للغضب. دخل البرنامج بحجة الانضباط وتنظيم الذات فقط، وهي قاعدة التشابه الدلالي التي يمنعها التوجيه. موطنه الطبيعي P21 (الحفظ المنهجي والمراجعة) وعمره 10-14 يناسب حدّ P21 (12+)، ولا يصلح في P20 لأن حدّه 9 سنوات. ولا يُحذف من قاعدة البيانات.",
+     "destination": {
+      "program": "P21",
+      "stage": "أ",
+      "mode": "owned",
+      "note": "قبل Q3-L2 أو بعده مباشرة؛ ويحتاج مراجعة تكرار K4 L3 مع X3-L3 وX3-L6"
+     },
+     "destination_summary": "P21 المرحلة أ",
+     "serves_outcomes": []
+    },
+    {
+     "ref": "K4-S2",
+     "kind": "scenario",
+     "title": "جدول مزدحم",
+     "competency": "K4",
+     "level": null,
+     "lesson_ages": [
+      10,
+      null
+     ],
+     "minutes": 8,
+     "minutes_estimated": true,
+     "decision": "Relocate",
+     "flags": [],
+     "reason_ar": "سيناريو «جدول مزدحم» عن جدول حفظ مرهق؛ يتبع K4-L3 ويلحق به.",
+     "destination": {
+      "program": "P21",
+      "stage": "أ",
+      "mode": "owned",
+      "note": null
+     },
+     "destination_summary": "P21 المرحلة أ",
+     "serves_outcomes": []
+    },
+    {
+     "ref": "S6-L3",
+     "kind": "lesson",
+     "title": "اعتذار حقيقي",
+     "competency": "S6",
+     "level": "L3",
+     "lesson_ages": [
+      10,
+      12
+     ],
+     "minutes": 30,
+     "minutes_estimated": false,
+     "decision": "Keep",
+     "flags": [
+      "source_review: S6-p04, S6-p06"
+     ],
+     "reason_ar": "الاعتذار والإصلاح ومتى يكفي الاعتذار ومتى يلزم تعويض أو عون كبير: يخدم O5 وO6 مباشرة، ويحمي المتعلم (لا يُطلب الاعتذار ممن وقع عليه الأذى). تأصيله يذكر ملاحظتين تحتاجان مراجعة (S6-p04، S6-p06). يحتاج المتعلم سابقًا S6-L1 وS6-L2 من P05 ليصح التسلسل (متحقق عبر روابط البرامج).",
+     "destination": {
+      "program": "P07",
+      "stage": "ج",
+      "mode": "owned",
+      "note": null
+     },
+     "destination_summary": "",
+     "serves_outcomes": [
+      "O5",
+      "O6"
+     ]
+    },
+    {
+     "ref": "S6-S2",
+     "kind": "scenario",
+     "title": "رسالة لم تكن لطيفة",
+     "competency": "S6",
+     "level": null,
+     "lesson_ages": [
+      10,
+      null
+     ],
+     "minutes": 8,
+     "minutes_estimated": true,
+     "decision": "Keep",
+     "flags": [
+      "variety: يتشابه إطاره مع S5-S2"
+     ],
+     "reason_ar": "موقف اعتذار بعد رسالة ساخرة، وهو الوجه المقابل لـS5-S2 (هناك المتضرر الغاضب وهنا من صدر منه الأذى). يخدم O5. تنبيه: مشهدان في موقف واحد (لوحة رسم يُسخر منها) فيُنوّع أحدهما إن وُسّع البرنامج.",
+     "destination": {
+      "program": "P07",
+      "stage": "ج",
+      "mode": "owned",
+      "note": null
+     },
+     "destination_summary": "",
+     "serves_outcomes": [
+      "O5"
+     ]
+    },
+    {
+     "ref": "C1-L4",
+     "kind": "lesson",
+     "title": "الصدق حين يكلّفني شيئًا",
+     "competency": "C1",
+     "level": "L4",
+     "lesson_ages": [
+      10,
+      13
+     ],
+     "minutes": 35,
+     "minutes_estimated": false,
+     "decision": "Split",
+     "flags": [
+      "source_review: C1-08",
+      "objective_vs_practice_mismatch"
+     ],
+     "reason_ar": "الدرس يحمل غرضين: ثمن الصدق في موقف يكلّف (كفاية C1)، وفحص الجزم بلا علم في الأخبار (كفاية التثبّت K2). هدفه المعلن الأول، لكن نشاطه وممارسته الحياتية (مراجعة خبر قبل نقله) من الثاني، فعدم الاتساق داخل الدرس نفسه. لا يخدم أي مخرج للغضب. يُقسم: جزء الأخبار والجزم إلى P06 المرحلة ب (التثبّت)، وجزء ثمن الصدق يبقى مرتبطًا بكفاية الصدق في برنامج قيم للناشئة أو رابط اختياري من P08.",
+     "destination": {
+      "program": "P06",
+      "stage": "ب",
+      "mode": "owned",
+      "note": "جزء الأخبار؛ وجزء ثمن الصدق: رابط اختياري P08"
+     },
+     "destination_summary": "P06 المرحلة ب (جزء الأخبار) + P08 رابط اختياري",
+     "serves_outcomes": []
+    },
+    {
+     "ref": "C4-L4",
+     "kind": "lesson",
+     "title": "أُنصف من يخالفني حين أعرض رأيه",
+     "competency": "C4",
+     "level": "L4",
+     "lesson_ages": [
+      10,
+      13
+     ],
+     "minutes": 35,
+     "minutes_estimated": false,
+     "decision": "Relocate",
+     "flags": [
+      "source_review: C4-P7 يحتاج مراجعة",
+      "duplicates: R3-L3"
+     ],
+     "reason_ar": "إنصاف الخصم وذكر حجته قبل الرد: مهارة خلاف وحوار (R3) أكثر منها غضبًا. يتداخل مع R3-L3 (أعرض وجهة نظر الآخر) في المهارة نفسها، وR3 يتطلب C4 أصلًا. موطنه P08 المرحلة ج. ويظهر رابطًا اختياريًّا في برنامج الغضب لمخرج «خلاف بسيط» O4. تأصيله مكتوب فيه «يحتاج مراجعة».",
+     "destination": {
+      "program": "P08",
+      "stage": "ج",
+      "mode": "owned",
+      "note": "مع R3-L3؛ يُنظر في دمجهما"
+     },
+     "destination_summary": "P08 المرحلة ج",
+     "serves_outcomes": []
+    },
+    {
+     "ref": "C4-S2",
+     "kind": "scenario",
+     "title": "قسمة المهام بين الإخوة",
+     "competency": "C4",
+     "level": null,
+     "lesson_ages": [
+      10,
+      null
+     ],
+     "minutes": 8,
+     "minutes_estimated": true,
+     "decision": "Relocate",
+     "flags": [],
+     "reason_ar": "سيناريو قسمة المهام بين الإخوة (إنصاف في خلاف بسيط): يتبع C4-L4.",
+     "destination": {
+      "program": "P08",
+      "stage": "ج",
+      "mode": "owned",
+      "note": null
+     },
+     "destination_summary": "P08 المرحلة ج",
+     "serves_outcomes": []
+    },
+    {
+     "ref": "C5-L4",
+     "kind": "lesson",
+     "title": "أقبل النقد وأصحح",
+     "competency": "C5",
+     "level": "L4",
+     "lesson_ages": [
+      10,
+      13
+     ],
+     "minutes": 35,
+     "minutes_estimated": false,
+     "decision": "Relocate",
+     "flags": [
+      "source_review: C5-07"
+     ],
+     "reason_ar": "قبول النقد وفحصه: كفاية التواضع C5 ومهارة التغذية الراجعة، وليس تنظيم الغضب. يقترن طبيعيًّا بـR2-L4 (أنصح ولا أعيّر: تقديم النصح) في P08 المرحلة أ، فيتعلم المتعلم تقديم النقد وتلقيه معًا. تأصيله يحتاج مراجعة (C5-07).",
+     "destination": {
+      "program": "P08",
+      "stage": "أ",
+      "mode": "owned",
+      "note": "بعد R2-L4"
+     },
+     "destination_summary": "P08 المرحلة أ",
+     "serves_outcomes": []
+    }
+   ]
+  }
+ },
+ "program_reports": [
+  {
+   "rank": 1,
+   "program": "P02",
+   "title": "أضبط نفسي وأسأل وأحفظ",
+   "severity": 35,
+   "severity_scale": "0-45 (أوزان 5/4/3/2/1 لدرجات 0-3 بالترتيب: تجميع، تكرار، تداخل، مستويات، زمن)",
+   "dimension_scores": {
+    "illogical_grouping": 3,
+    "competency_repetition": 3,
+    "overlap": 1,
+    "level_heterogeneity": 1,
+    "timing": 3
+   },
+   "raw": {
+    "grouping": 7,
+    "repetition": 7,
+    "overlap": 1,
+    "levels": 1,
+    "timing": 3
+   },
+   "summary_ar": "5 كفايات من 3 مجالات؛ 17 عنصرًا؛ الزمن الفعلي 306 دقيقة من 600 معلنة (51%)؛ أعلى خلل: تجميع غير منطقي.",
+   "notes_ar": [
+    "يتوازى مع P18: كفاية S3 بمستوياتها L1-L3 مكررة لعمر 6-9 (S3-L1..L3 هنا وX4-L1..L3 في P18)، وK4 مكررة أيضًا.",
+    "حزمة من خمس كفايات متباعدة (عادات، صبر، غضب، حفظ، أسئلة)؛ المحتوى 306 دقائق من 600 معلنة (51%)."
+   ],
+   "main_problem": "تجميع غير منطقي",
+   "recommended_action_ar": "إعادة تعريف مخرج واحد للبرنامج ونقل العناصر غير الخادمة إلى برامج أو روابط اختيارية",
+   "timing": {
+    "declared_sessions": 24,
+    "session_min": 25,
+    "declared_minutes": 600,
+    "content_minutes": 306,
+    "scenario_estimated_minutes": 56,
+    "ratio": 0.51,
+    "stages": [
+     {
+      "stage": "P02-A",
+      "capacity": 150,
+      "content": 86,
+      "ratio": 0.57,
+      "items": 5,
+      "sessions": 6
+     },
+     {
+      "stage": "P02-B",
+      "capacity": 150,
+      "content": 53,
+      "ratio": 0.35,
+      "items": 3,
+      "sessions": 6
+     },
+     {
+      "stage": "P02-C",
+      "capacity": 150,
+      "content": 91,
+      "ratio": 0.61,
+      "items": 5,
+      "sessions": 6
+     },
+     {
+      "stage": "P02-D",
+      "capacity": 150,
+      "content": 76,
+      "ratio": 0.51,
+      "items": 4,
+      "sessions": 6
+     }
+    ]
+   },
+   "levels_present": [
+    1,
+    2,
+    3
+   ],
+   "domains": [
+    "K",
+    "S",
+    "T"
+   ],
+   "thin_competencies": [
+    "K4",
+    "T1"
+   ],
+   "repeated_competency_levels": [
+    {
+     "ref": "S3-L1",
+     "other_ref": "X4-L1",
+     "other_program": "P18",
+     "competency": "S3",
+     "level": 1
+    },
+    {
+     "ref": "S3-L2",
+     "other_ref": "X4-L2",
+     "other_program": "P18",
+     "competency": "S3",
+     "level": 2
+    },
+    {
+     "ref": "S3-L3",
+     "other_ref": "X4-L3",
+     "other_program": "P18",
+     "competency": "S3",
+     "level": 3
+    },
+    {
+     "ref": "S4-L1",
+     "other_ref": "Y2-L4",
+     "other_program": "P19",
+     "competency": "S4",
+     "level": 1
+    },
+    {
+     "ref": "S4-L2",
+     "other_ref": "Y2-L5",
+     "other_program": "P19",
+     "competency": "S4",
+     "level": 2
+    },
+    {
+     "ref": "S4-L3",
+     "other_ref": "Y2-L6",
+     "other_program": "P19",
+     "competency": "S4",
+     "level": 3
+    },
+    {
+     "ref": "T1-L1",
+     "other_ref": "Y2-L7",
+     "other_program": "P19",
+     "competency": "T1",
+     "level": 1
+    }
+   ],
+   "overlapping_programs": [
+    {
+     "program": "P18",
+     "shared_competencies": [
+      "K4",
+      "S3"
+     ],
+     "jaccard": 0.33,
+     "declared_sequence_link": false
+    }
+   ],
+   "error_findings": [
+    "Timing: content 306 min fills only 51% of declared 600 min: duration is padded",
+    "Timing: stage P02-B: 53 min of content in 150 min of declared sessions (35%)"
+   ]
+  },
+  {
+   "rank": 2,
+   "program": "P18",
+   "title": "أسمع بهدوء وأرتّب يومي",
+   "severity": 34,
+   "severity_scale": "0-45 (أوزان 5/4/3/2/1 لدرجات 0-3 بالترتيب: تجميع، تكرار، تداخل، مستويات، زمن)",
+   "dimension_scores": {
+    "illogical_grouping": 2,
+    "competency_repetition": 3,
+    "overlap": 1,
+    "level_heterogeneity": 3,
+    "timing": 3
+   },
+   "raw": {
+    "grouping": 4,
+    "repetition": 6,
+    "overlap": 1,
+    "levels": 7,
+    "timing": 3
+   },
+   "summary_ar": "3 كفايات من 3 مجالات؛ 13 عنصرًا؛ الزمن الفعلي 155 دقيقة من 360 معلنة (43%)؛ أعلى خلل: تكرار كفايات.",
+   "notes_ar": [
+    "يكرر S3 L1-L3 الموجودة في P02 لأعمار متداخلة؛ وأجزاء Y1 (5-6 سنوات، 6-10 دقائق) داخل برنامج لعمر 7+.",
+    "دروس Y1 قصيرة جدًّا (6-10 دقائق) أمام جلسة 20 دقيقة؛ المحتوى 43% من الزمن المعلن."
+   ],
+   "main_problem": "تكرار كفايات",
+   "recommended_action_ar": "اختيار برنامج مالك واحد لكل (كفاية، مستوى) واستبدال المكرر ببطاقة تذكير",
+   "timing": {
+    "declared_sessions": 18,
+    "session_min": 20,
+    "declared_minutes": 360,
+    "content_minutes": 155,
+    "scenario_estimated_minutes": 32,
+    "ratio": 0.43,
+    "stages": [
+     {
+      "stage": "P18-A",
+      "capacity": 120,
+      "content": 30,
+      "ratio": 0.25,
+      "items": 4,
+      "sessions": 6
+     },
+     {
+      "stage": "P18-B",
+      "capacity": 120,
+      "content": 34,
+      "ratio": 0.28,
+      "items": 4,
+      "sessions": 6
+     },
+     {
+      "stage": "P18-C",
+      "capacity": 120,
+      "content": 91,
+      "ratio": 0.76,
+      "items": 5,
+      "sessions": 6
+     }
+    ]
+   },
+   "levels_present": [
+    1,
+    2,
+    3
+   ],
+   "domains": [
+    "K",
+    "R",
+    "S"
+   ],
+   "thin_competencies": [],
+   "repeated_competency_levels": [
+    {
+     "ref": "Y1-L7",
+     "other_ref": "K4-L1",
+     "other_program": "P01",
+     "competency": "K4",
+     "level": 1
+    },
+    {
+     "ref": "Y1-L8",
+     "other_ref": "K4-L1",
+     "other_program": "P01",
+     "competency": "K4",
+     "level": 1
+    },
+    {
+     "ref": "Y1-L9",
+     "other_ref": "K4-L1",
+     "other_program": "P01",
+     "competency": "K4",
+     "level": 1
+    },
+    {
+     "ref": "X4-L1",
+     "other_ref": "S3-L1",
+     "other_program": "P02",
+     "competency": "S3",
+     "level": 1
+    },
+    {
+     "ref": "X4-L2",
+     "other_ref": "S3-L2",
+     "other_program": "P02",
+     "competency": "S3",
+     "level": 2
+    },
+    {
+     "ref": "X4-L3",
+     "other_ref": "S3-L3",
+     "other_program": "P02",
+     "competency": "S3",
+     "level": 3
+    }
+   ],
+   "overlapping_programs": [
+    {
+     "program": "P02",
+     "shared_competencies": [
+      "K4",
+      "S3"
+     ],
+     "jaccard": 0.33,
+     "declared_sequence_link": false
+    }
+   ],
+   "error_findings": [
+    "Timing: content 155 min fills only 43% of declared 360 min: duration is padded",
+    "Timing: stage P18-A: 30 min of content in 120 min of declared sessions (25%)",
+    "Timing: stage P18-B: 34 min of content in 120 min of declared sessions (28%)"
+   ]
+  },
+  {
+   "rank": 3,
+   "program": "P13",
+   "title": "قائد ومرشد ناشئ",
+   "severity": 30,
+   "severity_scale": "0-45 (أوزان 5/4/3/2/1 لدرجات 0-3 بالترتيب: تجميع، تكرار، تداخل، مستويات، زمن)",
+   "dimension_scores": {
+    "illogical_grouping": 3,
+    "competency_repetition": 0,
+    "overlap": 3,
+    "level_heterogeneity": 2,
+    "timing": 2
+   },
+   "raw": {
+    "grouping": 9,
+    "repetition": 0,
+    "overlap": 3,
+    "levels": 3,
+    "timing": 2
+   },
+   "summary_ar": "6 كفايات من 3 مجالات؛ 17 عنصرًا؛ الزمن الفعلي 633 دقيقة من 720 معلنة (88%)؛ أعلى خلل: تجميع غير منطقي.",
+   "notes_ar": [
+    "ثلاثة مجالات (M وL وT) وتداخل كفايات مع P09 وP14 وP24؛ المرحلة د تضم دروس L5 (تعليم الغير) وهي للبالغين فقط بحسب PEDAGOGY 3.1، لكنها هنا لعمر 16+."
+   ],
+   "main_problem": "تجميع غير منطقي",
+   "recommended_action_ar": "إعادة تعريف مخرج واحد للبرنامج ونقل العناصر غير الخادمة إلى برامج أو روابط اختيارية",
+   "timing": {
+    "declared_sessions": 16,
+    "session_min": 45,
+    "declared_minutes": 720,
+    "content_minutes": 633,
+    "scenario_estimated_minutes": 33,
+    "ratio": 0.88,
+    "stages": [
+     {
+      "stage": "P13-A",
+      "capacity": 270,
+      "content": 143,
+      "ratio": 0.53,
+      "items": 4,
+      "sessions": 6
+     },
+     {
+      "stage": "P13-B",
+      "capacity": 180,
+      "content": 143,
+      "ratio": 0.79,
+      "items": 4,
+      "sessions": 4
+     },
+     {
+      "stage": "P13-C",
+      "capacity": 180,
+      "content": 212,
+      "ratio": 1.18,
+      "items": 6,
+      "sessions": 4
+     },
+     {
+      "stage": "P13-D",
+      "capacity": 90,
+      "content": 135,
+      "ratio": 1.5,
+      "items": 3,
+      "sessions": 2
+     }
+    ]
+   },
+   "levels_present": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "domains": [
+    "L",
+    "M",
+    "T"
+   ],
+   "thin_competencies": [
+    "T3",
+    "T4",
+    "T6"
+   ],
+   "repeated_competency_levels": [],
+   "overlapping_programs": [
+    {
+     "program": "P09",
+     "shared_competencies": [
+      "T3",
+      "T6"
+     ],
+     "jaccard": 0.25,
+     "declared_sequence_link": true
+    },
+    {
+     "program": "P14",
+     "shared_competencies": [
+      "M1",
+      "M2"
+     ],
+     "jaccard": 0.25,
+     "declared_sequence_link": true
+    },
+    {
+     "program": "P24",
+     "shared_competencies": [
+      "T4",
+      "T6"
+     ],
+     "jaccard": 0.18,
+     "declared_sequence_link": false
+    }
+   ],
+   "error_findings": [
+    "Timing: lesson is 55 min but the session is 45 min [L2-L3]",
+    "Timing: lesson is 55 min but the session is 45 min [L2-L4]",
+    "Timing: stage P13-D: 135 min of content in 90 min of declared sessions (150%)"
+   ]
+  },
+  {
+   "rank": 4,
+   "program": "P07",
+   "title": "أضبط غضبي وأصلح",
+   "severity": 29,
+   "severity_scale": "0-45 (أوزان 5/4/3/2/1 لدرجات 0-3 بالترتيب: تجميع، تكرار، تداخل، مستويات، زمن)",
+   "dimension_scores": {
+    "illogical_grouping": 3,
+    "competency_repetition": 2,
+    "overlap": 0,
+    "level_heterogeneity": 2,
+    "timing": 2
+   },
+   "raw": {
+    "grouping": 14,
+    "repetition": 3,
+    "overlap": 0,
+    "levels": 2,
+    "timing": 2
+   },
+   "summary_ar": "8 كفايات من 3 مجالات؛ 16 عنصرًا؛ الزمن الفعلي 353 دقيقة من 560 معلنة (63%)؛ أعلى خلل: تجميع غير منطقي.",
+   "notes_ar": [
+    "انظر item_audit.P07 للتفصيل: 12 من 16 عنصرًا خارج النطاق؛ المرحلة ج لا تملأ إلا 27% من أسبوعيها؛ ومتطلب P06 يناقض عمره (11) عمر P07 (10)."
+   ],
+   "main_problem": "تجميع غير منطقي",
+   "recommended_action_ar": "إعادة تعريف مخرج واحد للبرنامج ونقل العناصر غير الخادمة إلى برامج أو روابط اختيارية",
+   "timing": {
+    "declared_sessions": 16,
+    "session_min": 35,
+    "declared_minutes": 560,
+    "content_minutes": 353,
+    "scenario_estimated_minutes": 48,
+    "ratio": 0.63,
+    "stages": [
+     {
+      "stage": "P07-A",
+      "capacity": 140,
+      "content": 121,
+      "ratio": 0.86,
+      "items": 6,
+      "sessions": 4
+     },
+     {
+      "stage": "P07-B",
+      "capacity": 140,
+      "content": 81,
+      "ratio": 0.58,
+      "items": 4,
+      "sessions": 4
+     },
+     {
+      "stage": "P07-C",
+      "capacity": 140,
+      "content": 38,
+      "ratio": 0.27,
+      "items": 2,
+      "sessions": 4
+     },
+     {
+      "stage": "P07-D",
+      "capacity": 140,
+      "content": 113,
+      "ratio": 0.81,
+      "items": 4,
+      "sessions": 4
+     }
+    ]
+   },
+   "levels_present": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "domains": [
+    "C",
+    "K",
+    "S"
+   ],
+   "thin_competencies": [
+    "C1",
+    "C4",
+    "C5",
+    "K4",
+    "S5",
+    "S6"
+   ],
+   "repeated_competency_levels": [
+    {
+     "ref": "S2-L2",
+     "other_ref": "X4-L4",
+     "other_program": "P22",
+     "competency": "S2",
+     "level": 2
+    },
+    {
+     "ref": "K4-L3",
+     "other_ref": "X3-L3",
+     "other_program": "P20",
+     "competency": "K4",
+     "level": 3
+    },
+    {
+     "ref": "K4-L3",
+     "other_ref": "X3-L6",
+     "other_program": "P21",
+     "competency": "K4",
+     "level": 3
+    }
+   ],
+   "overlapping_programs": [],
+   "error_findings": [
+    "Sequence: prerequisite P06 is for older learners (age_min 11 > 10)",
+    "Timing: stage P07-C: 38 min of content in 140 min of declared sessions (27%)"
+   ]
+  },
+  {
+   "rank": 5,
+   "program": "P10",
+   "title": "أقرر بالشورى",
+   "severity": 28,
+   "severity_scale": "0-45 (أوزان 5/4/3/2/1 لدرجات 0-3 بالترتيب: تجميع، تكرار، تداخل، مستويات، زمن)",
+   "dimension_scores": {
+    "illogical_grouping": 3,
+    "competency_repetition": 1,
+    "overlap": 0,
+    "level_heterogeneity": 3,
+    "timing": 3
+   },
+   "raw": {
+    "grouping": 8,
+    "repetition": 2,
+    "overlap": 0,
+    "levels": 8,
+    "timing": 3
+   },
+   "summary_ar": "5 كفايات من 3 مجالات؛ 15 عنصرًا؛ الزمن الفعلي 503 دقيقة من 720 معلنة (70%)؛ أعلى خلل: تجميع غير منطقي.",
+   "notes_ar": [
+    "دروس S1-L3 وS2-L3 مكتوبة لـ12-14 داخل برنامج لعمر 15+ (محتوى لأصغر)، ودروس T4 بعضها لـ12-13.",
+    "يجمع القرار والتفكير والشورى والمراجعة الذاتية وتنظيم الوقت؛ المرحلة ب (S1/S2/T5) ثلاثة عناصر متباعدة."
+   ],
+   "main_problem": "تجميع غير منطقي",
+   "recommended_action_ar": "إعادة تعريف مخرج واحد للبرنامج ونقل العناصر غير الخادمة إلى برامج أو روابط اختيارية",
+   "timing": {
+    "declared_sessions": 16,
+    "session_min": 45,
+    "declared_minutes": 720,
+    "content_minutes": 503,
+    "scenario_estimated_minutes": 33,
+    "ratio": 0.7,
+    "stages": [
+     {
+      "stage": "P10-A",
+      "capacity": 270,
+      "content": 181,
+      "ratio": 0.67,
+      "items": 6,
+      "sessions": 6
+     },
+     {
+      "stage": "P10-B",
+      "capacity": 180,
+      "content": 110,
+      "ratio": 0.61,
+      "items": 3,
+      "sessions": 4
+     },
+     {
+      "stage": "P10-C",
+      "capacity": 270,
+      "content": 212,
+      "ratio": 0.79,
+      "items": 6,
+      "sessions": 6
+     }
+    ]
+   },
+   "levels_present": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "domains": [
+    "L",
+    "S",
+    "T"
+   ],
+   "thin_competencies": [
+    "S1",
+    "S2",
+    "T5"
+   ],
+   "repeated_competency_levels": [
+    {
+     "ref": "S2-L3",
+     "other_ref": "X4-L5",
+     "other_program": "P22",
+     "competency": "S2",
+     "level": 3
+    },
+    {
+     "ref": "S2-L3",
+     "other_ref": "X4-L6",
+     "other_program": "P22",
+     "competency": "S2",
+     "level": 3
+    }
+   ],
+   "overlapping_programs": [],
+   "error_findings": [
+    "Timing: lesson is 55 min but the session is 45 min [L1-L3]",
+    "Timing: lesson is 55 min but the session is 45 min [L1-L4]"
+   ]
+  },
+  {
+   "rank": 6,
+   "program": "P24",
+   "title": "العمل والمعرفة والمهارات اليومية",
+   "severity": 25,
+   "severity_scale": "0-45 (أوزان 5/4/3/2/1 لدرجات 0-3 بالترتيب: تجميع، تكرار، تداخل، مستويات، زمن)",
+   "dimension_scores": {
+    "illogical_grouping": 3,
+    "competency_repetition": 0,
+    "overlap": 1,
+    "level_heterogeneity": 3,
+    "timing": 1
+   },
+   "raw": {
+    "grouping": 9,
+    "repetition": 0,
+    "overlap": 1,
+    "levels": 11,
+    "timing": 1
+   },
+   "summary_ar": "7 كفايات من 4 مجالات؛ 32 عنصرًا؛ الزمن الفعلي 1035 دقيقة من 960 معلنة (108%)؛ أعلى خلل: تجميع غير منطقي.",
+   "notes_ar": [
+    "خلل تسلسل: T6 وK3 وT4 وS1 وT5 تبدأ بمستوى L2/L3 دون L1 أو متطلب (K2 وK1 وT3) في البرنامج أو سابقته.",
+    "حزمة من سبع كفايات (W وT وK وS) بزمن 108% (لا فراغ للمراجعة)؛ المرحلة أ تجمع المال والمعاملات."
+   ],
+   "main_problem": "تجميع غير منطقي",
+   "recommended_action_ar": "إعادة تعريف مخرج واحد للبرنامج ونقل العناصر غير الخادمة إلى برامج أو روابط اختيارية",
+   "timing": {
+    "declared_sessions": 24,
+    "session_min": 40,
+    "declared_minutes": 960,
+    "content_minutes": 1035,
+    "scenario_estimated_minutes": 90,
+    "ratio": 1.08,
+    "stages": [
+     {
+      "stage": "P24-A",
+      "capacity": 360,
+      "content": 322,
+      "ratio": 0.89,
+      "items": 10,
+      "sessions": 9
+     },
+     {
+      "stage": "P24-B",
+      "capacity": 240,
+      "content": 328,
+      "ratio": 1.37,
+      "items": 10,
+      "sessions": 6
+     },
+     {
+      "stage": "P24-C",
+      "capacity": 360,
+      "content": 385,
+      "ratio": 1.07,
+      "items": 12,
+      "sessions": 9
+     }
+    ]
+   },
+   "levels_present": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "domains": [
+    "K",
+    "S",
+    "T",
+    "W"
+   ],
+   "thin_competencies": [],
+   "repeated_competency_levels": [],
+   "overlapping_programs": [
+    {
+     "program": "P13",
+     "shared_competencies": [
+      "T4",
+      "T6"
+     ],
+     "jaccard": 0.18,
+     "declared_sequence_link": false
+    }
+   ],
+   "error_findings": [
+    "Sequence: T6 L2 taught without L1 of the same competency before it (in program or prerequisite programs) [X2-L1]",
+    "Sequence: K3 L2 taught without L1 of the same competency before it (in program or prerequisite programs) [X2-L4]",
+    "Sequence: S1 L2 taught without L1 of the same competency before it (in program or prerequisite programs) [Z1-L1]",
+    "Sequence: T5 L3 taught without L2 of the same competency before it (in program or prerequisite programs) [Z1-L4]",
+    "Sequence: T4 L2 taught without L1 of the same competency before it (in program or prerequisite programs) [Z1-L7]"
+   ]
+  },
+  {
+   "rank": 7,
+   "program": "P01",
+   "title": "خطواتي الأولى",
+   "severity": 24,
+   "severity_scale": "0-45 (أوزان 5/4/3/2/1 لدرجات 0-3 بالترتيب: تجميع، تكرار، تداخل، مستويات، زمن)",
+   "dimension_scores": {
+    "illogical_grouping": 2,
+    "competency_repetition": 2,
+    "overlap": 1,
+    "level_heterogeneity": 0,
+    "timing": 3
+   },
+   "raw": {
+    "grouping": 5,
+    "repetition": 5,
+    "overlap": 1,
+    "levels": 0,
+    "timing": 3
+   },
+   "summary_ar": "3 كفايات من 2 مجالات؛ 5 عنصرًا؛ الزمن الفعلي 76 دقيقة من 160 معلنة (47%)؛ أعلى خلل: تجميع غير منطقي.",
+   "notes_ar": [
+    "خمسة عناصر فقط (76 دقيقة من 160)؛ كفايتا C3 وC6 مكررتان مع P17."
+   ],
+   "main_problem": "تجميع غير منطقي",
+   "recommended_action_ar": "إعادة تعريف مخرج واحد للبرنامج ونقل العناصر غير الخادمة إلى برامج أو روابط اختيارية",
+   "timing": {
+    "declared_sessions": 8,
+    "session_min": 20,
+    "declared_minutes": 160,
+    "content_minutes": 76,
+    "scenario_estimated_minutes": 16,
+    "ratio": 0.47,
+    "stages": [
+     {
+      "stage": "P01-A",
+      "capacity": 80,
+      "content": 48,
+      "ratio": 0.6,
+      "items": 3,
+      "sessions": 4
+     },
+     {
+      "stage": "P01-B",
+      "capacity": 80,
+      "content": 28,
+      "ratio": 0.35,
+      "items": 2,
+      "sessions": 4
+     }
+    ]
+   },
+   "levels_present": [
+    1
+   ],
+   "domains": [
+    "C",
+    "K"
+   ],
+   "thin_competencies": [
+    "C3",
+    "C6",
+    "K4"
+   ],
+   "repeated_competency_levels": [
+    {
+     "ref": "C6-L1",
+     "other_ref": "Y1-L4",
+     "other_program": "P17",
+     "competency": "C6",
+     "level": 1
+    },
+    {
+     "ref": "C3-L1",
+     "other_ref": "Y1-L1",
+     "other_program": "P17",
+     "competency": "C3",
+     "level": 1
+    },
+    {
+     "ref": "K4-L1",
+     "other_ref": "Y1-L7",
+     "other_program": "P18",
+     "competency": "K4",
+     "level": 1
+    },
+    {
+     "ref": "K4-L1",
+     "other_ref": "Y1-L8",
+     "other_program": "P18",
+     "competency": "K4",
+     "level": 1
+    },
+    {
+     "ref": "K4-L1",
+     "other_ref": "Y1-L9",
+     "other_program": "P18",
+     "competency": "K4",
+     "level": 1
+    }
+   ],
+   "overlapping_programs": [
+    {
+     "program": "P17",
+     "shared_competencies": [
+      "C3",
+      "C6"
+     ],
+     "jaccard": 0.5,
+     "declared_sequence_link": false
+    }
+   ],
+   "error_findings": [
+    "Timing: content 76 min fills only 48% of declared 160 min: duration is padded",
+    "Timing: stage P01-B: 28 min of content in 80 min of declared sessions (35%)"
+   ]
+  },
+  {
+   "rank": 8,
+   "program": "P22",
+   "title": "السيرة والشمائل والآداب والمسؤولية",
+   "severity": 24,
+   "severity_scale": "0-45 (أوزان 5/4/3/2/1 لدرجات 0-3 بالترتيب: تجميع، تكرار، تداخل، مستويات، زمن)",
+   "dimension_scores": {
+    "illogical_grouping": 2,
+    "competency_repetition": 2,
+    "overlap": 0,
+    "level_heterogeneity": 2,
+    "timing": 2
+   },
+   "raw": {
+    "grouping": 5,
+    "repetition": 3,
+    "overlap": 0,
+    "levels": 3,
+    "timing": 2
+   },
+   "summary_ar": "5 كفايات من 3 مجالات؛ 31 عنصرًا؛ الزمن الفعلي 869 دقيقة من 720 معلنة (121%)؛ أعلى خلل: تجميع غير منطقي.",
+   "notes_ar": [
+    "يتجاوز زمنه المعلن (121%: 869 دقيقة مقابل 720)، ومرحلة H1 مرتبة بمستويات غير متدرجة (H1-L2 موسوم L4 قبل L2 وL3)، ومرحلة X4-B (S2) تبدأ بمستوى L2 دون L1.",
+    "يجمع السيرة والشمائل والأربعين والوقت والمسؤولية الرقمية: خمس كفايات من مجالات مختلفة."
+   ],
+   "main_problem": "تجميع غير منطقي",
+   "recommended_action_ar": "إعادة تعريف مخرج واحد للبرنامج ونقل العناصر غير الخادمة إلى برامج أو روابط اختيارية",
+   "timing": {
+    "declared_sessions": 24,
+    "session_min": 30,
+    "declared_minutes": 720,
+    "content_minutes": 869,
+    "scenario_estimated_minutes": 89,
+    "ratio": 1.21,
+    "stages": [
+     {
+      "stage": "P22-A",
+      "capacity": 180,
+      "content": 216,
+      "ratio": 1.2,
+      "items": 7,
+      "sessions": 6
+     },
+     {
+      "stage": "P22-B",
+      "capacity": 90,
+      "content": 161,
+      "ratio": 1.79,
+      "items": 6,
+      "sessions": 3
+     },
+     {
+      "stage": "P22-C",
+      "capacity": 90,
+      "content": 171,
+      "ratio": 1.9,
+      "items": 6,
+      "sessions": 3
+     },
+     {
+      "stage": "P22-D",
+      "capacity": 180,
+      "content": 126,
+      "ratio": 0.7,
+      "items": 5,
+      "sessions": 6
+     },
+     {
+      "stage": "P22-E",
+      "capacity": 180,
+      "content": 195,
+      "ratio": 1.08,
+      "items": 7,
+      "sessions": 6
+     }
+    ]
+   },
+   "levels_present": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "domains": [
+    "C",
+    "H",
+    "S"
+   ],
+   "thin_competencies": [],
+   "repeated_competency_levels": [
+    {
+     "ref": "X4-L4",
+     "other_ref": "S2-L2",
+     "other_program": "P07",
+     "competency": "S2",
+     "level": 2
+    },
+    {
+     "ref": "X4-L5",
+     "other_ref": "S2-L3",
+     "other_program": "P10",
+     "competency": "S2",
+     "level": 3
+    },
+    {
+     "ref": "X4-L6",
+     "other_ref": "S2-L3",
+     "other_program": "P10",
+     "competency": "S2",
+     "level": 3
+    }
+   ],
+   "overlapping_programs": [],
+   "error_findings": [
+    "Sequence: H1 L4 taught without L3 of the same competency before it (in program or prerequisite programs) [H1-L2]",
+    "Sequence: H1 level goes backwards (L2 after L4) [H1-L3]",
+    "Sequence: H1 level goes backwards (L3 after L4) [H1-L4]",
+    "Sequence: H1 level goes backwards (L3 after L4) [H1-L5]",
+    "Sequence: S2 L2 taught without L1 of the same competency before it (in program or prerequisite programs) [X4-L4]"
+   ]
+  },
+  {
+   "rank": 9,
+   "program": "P19",
+   "title": "أمانتي ومثابرتي وأسئلتي وكلامي اللطيف",
+   "severity": 23,
+   "severity_scale": "0-45 (أوزان 5/4/3/2/1 لدرجات 0-3 بالترتيب: تجميع، تكرار، تداخل، مستويات، زمن)",
+   "dimension_scores": {
+    "illogical_grouping": 2,
+    "competency_repetition": 2,
+    "overlap": 0,
+    "level_heterogeneity": 1,
+    "timing": 3
+   },
+   "raw": {
+    "grouping": 6,
+    "repetition": 5,
+    "overlap": 0,
+    "levels": 1,
+    "timing": 3
+   },
+   "summary_ar": "4 كفايات من 4 مجالات؛ 16 عنصرًا؛ الزمن الفعلي 333 دقيقة من 600 معلنة (56%)؛ أعلى خلل: تجميع غير منطقي.",
+   "notes_ar": [
+    "كفايات C2 وS4 وT1 وR2 متفرقة، وتكرر مستويات Y2 مع G (C2/S4/T1/R2) لأعمار 7-8."
+   ],
+   "main_problem": "تجميع غير منطقي",
+   "recommended_action_ar": "إعادة تعريف مخرج واحد للبرنامج ونقل العناصر غير الخادمة إلى برامج أو روابط اختيارية",
+   "timing": {
+    "declared_sessions": 24,
+    "session_min": 25,
+    "declared_minutes": 600,
+    "content_minutes": 333,
+    "scenario_estimated_minutes": 33,
+    "ratio": 0.56,
+    "stages": [
+     {
+      "stage": "P19-A",
+      "capacity": 150,
+      "content": 84,
+      "ratio": 0.56,
+      "items": 4,
+      "sessions": 6
+     },
+     {
+      "stage": "P19-B",
+      "capacity": 150,
+      "content": 83,
+      "ratio": 0.55,
+      "items": 4,
+      "sessions": 6
+     },
+     {
+      "stage": "P19-C",
+      "capacity": 150,
+      "content": 83,
+      "ratio": 0.55,
+      "items": 4,
+      "sessions": 6
+     },
+     {
+      "stage": "P19-D",
+      "capacity": 150,
+      "content": 83,
+      "ratio": 0.55,
+      "items": 4,
+      "sessions": 6
+     }
+    ]
+   },
+   "levels_present": [
+    1,
+    2,
+    3
+   ],
+   "domains": [
+    "C",
+    "R",
+    "S",
+    "T"
+   ],
+   "thin_competencies": [],
+   "repeated_competency_levels": [
+    {
+     "ref": "Y2-L1",
+     "other_ref": "C2-L1",
+     "other_program": "P03",
+     "competency": "C2",
+     "level": 1
+    },
+    {
+     "ref": "Y2-L4",
+     "other_ref": "S4-L1",
+     "other_program": "P02",
+     "competency": "S4",
+     "level": 1
+    },
+    {
+     "ref": "Y2-L5",
+     "other_ref": "S4-L2",
+     "other_program": "P02",
+     "competency": "S4",
+     "level": 2
+    },
+    {
+     "ref": "Y2-L6",
+     "other_ref": "S4-L3",
+     "other_program": "P02",
+     "competency": "S4",
+     "level": 3
+    },
+    {
+     "ref": "Y2-L7",
+     "other_ref": "T1-L1",
+     "other_program": "P02",
+     "competency": "T1",
+     "level": 1
+    }
+   ],
+   "overlapping_programs": [],
+   "error_findings": [
+    "Timing: content 333 min fills only 56% of declared 600 min: duration is padded"
+   ]
+  },
+  {
+   "rank": 10,
+   "program": "P08",
+   "title": "أصدقائي وخلافاتي",
+   "severity": 21,
+   "severity_scale": "0-45 (أوزان 5/4/3/2/1 لدرجات 0-3 بالترتيب: تجميع، تكرار، تداخل، مستويات، زمن)",
+   "dimension_scores": {
+    "illogical_grouping": 3,
+    "competency_repetition": 0,
+    "overlap": 0,
+    "level_heterogeneity": 2,
+    "timing": 2
+   },
+   "raw": {
+    "grouping": 8,
+    "repetition": 0,
+    "overlap": 0,
+    "levels": 2,
+    "timing": 2
+   },
+   "summary_ar": "6 كفايات من 3 مجالات؛ 19 عنصرًا؛ الزمن الفعلي 471 دقيقة من 560 معلنة (84%)؛ أعلى خلل: تجميع غير منطقي.",
+   "notes_ar": [],
+   "main_problem": "تجميع غير منطقي",
+   "recommended_action_ar": "إعادة تعريف مخرج واحد للبرنامج ونقل العناصر غير الخادمة إلى برامج أو روابط اختيارية",
+   "timing": {
+    "declared_sessions": 16,
+    "session_min": 35,
+    "declared_minutes": 560,
+    "content_minutes": 471,
+    "scenario_estimated_minutes": 71,
+    "ratio": 0.84,
+    "stages": [
+     {
+      "stage": "P08-A",
+      "capacity": 140,
+      "content": 117,
+      "ratio": 0.84,
+      "items": 5,
+      "sessions": 4
+     },
+     {
+      "stage": "P08-B",
+      "capacity": 140,
+      "content": 93,
+      "ratio": 0.66,
+      "items": 3,
+      "sessions": 4
+     },
+     {
+      "stage": "P08-C",
+      "capacity": 140,
+      "content": 129,
+      "ratio": 0.92,
+      "items": 6,
+      "sessions": 4
+     },
+     {
+      "stage": "P08-D",
+      "capacity": 140,
+      "content": 132,
+      "ratio": 0.94,
+      "items": 5,
+      "sessions": 4
+     }
+    ]
+   },
+   "levels_present": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "domains": [
+    "L",
+    "R",
+    "T"
+   ],
+   "thin_competencies": [
+    "R4",
+    "T1"
+   ],
+   "repeated_competency_levels": [],
+   "overlapping_programs": [],
+   "error_findings": [
+    "Timing: lesson is 45 min but the session is 35 min [R5-L4]"
+   ]
+  },
+  {
+   "rank": 11,
+   "program": "P14",
+   "title": "المسؤولية العامة والتقييم العادل",
+   "severity": 20,
+   "severity_scale": "0-45 (أوزان 5/4/3/2/1 لدرجات 0-3 بالترتيب: تجميع، تكرار، تداخل، مستويات، زمن)",
+   "dimension_scores": {
+    "illogical_grouping": 2,
+    "competency_repetition": 0,
+    "overlap": 1,
+    "level_heterogeneity": 2,
+    "timing": 3
+   },
+   "raw": {
+    "grouping": 4,
+    "repetition": 0,
+    "overlap": 1,
+    "levels": 2,
+    "timing": 3
+   },
+   "summary_ar": "4 كفايات من 2 مجالات؛ 16 عنصرًا؛ الزمن الفعلي 569 دقيقة من 800 معلنة (71%)؛ أعلى خلل: تجميع غير منطقي.",
+   "notes_ar": [],
+   "main_problem": "تجميع غير منطقي",
+   "recommended_action_ar": "إعادة تعريف مخرج واحد للبرنامج ونقل العناصر غير الخادمة إلى برامج أو روابط اختيارية",
+   "timing": {
+    "declared_sessions": 16,
+    "session_min": 50,
+    "declared_minutes": 800,
+    "content_minutes": 569,
+    "scenario_estimated_minutes": 49,
+    "ratio": 0.71,
+    "stages": [
+     {
+      "stage": "P14-A",
+      "capacity": 300,
+      "content": 222,
+      "ratio": 0.74,
+      "items": 6,
+      "sessions": 6
+     },
+     {
+      "stage": "P14-B",
+      "capacity": 200,
+      "content": 126,
+      "ratio": 0.63,
+      "items": 4,
+      "sessions": 4
+     },
+     {
+      "stage": "P14-C",
+      "capacity": 300,
+      "content": 221,
+      "ratio": 0.74,
+      "items": 6,
+      "sessions": 6
+     }
+    ]
+   },
+   "levels_present": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "domains": [
+    "L",
+    "M"
+   ],
+   "thin_competencies": [
+    "M1",
+    "M2"
+   ],
+   "repeated_competency_levels": [],
+   "overlapping_programs": [
+    {
+     "program": "P13",
+     "shared_competencies": [
+      "M1",
+      "M2"
+     ],
+     "jaccard": 0.25,
+     "declared_sequence_link": true
+    }
+   ],
+   "error_findings": [
+    "Timing: lesson is 60 min but the session is 50 min [L3-L3]",
+    "Timing: lesson is 60 min but the session is 50 min [L3-L4]",
+    "Timing: lesson is 60 min but the session is 50 min [M1-L4]",
+    "Timing: lesson is 60 min but the session is 50 min [M3-L3]",
+    "Timing: lesson is 60 min but the session is 50 min [M3-L4]"
+   ]
+  },
+  {
+   "rank": 12,
+   "program": "P17",
+   "title": "أرحم وأشكر وأسمع قصص السيرة",
+   "severity": 19,
+   "severity_scale": "0-45 (أوزان 5/4/3/2/1 لدرجات 0-3 بالترتيب: تجميع، تكرار، تداخل، مستويات، زمن)",
+   "dimension_scores": {
+    "illogical_grouping": 1,
+    "competency_repetition": 1,
+    "overlap": 1,
+    "level_heterogeneity": 2,
+    "timing": 3
+   },
+   "raw": {
+    "grouping": 2,
+    "repetition": 2,
+    "overlap": 1,
+    "levels": 2,
+    "timing": 3
+   },
+   "summary_ar": "3 كفايات من 2 مجالات؛ 15 عنصرًا؛ الزمن الفعلي 181 دقيقة من 360 معلنة (50%)؛ أعلى خلل: تجميع غير منطقي.",
+   "notes_ar": [
+    "يتداخل مع P01 في C3 وC6، ودروس Y1 5-6 دقائق مع جلسة 20 دقيقة (50%)."
+   ],
+   "main_problem": "تجميع غير منطقي",
+   "recommended_action_ar": "إعادة تعريف مخرج واحد للبرنامج ونقل العناصر غير الخادمة إلى برامج أو روابط اختيارية",
+   "timing": {
+    "declared_sessions": 18,
+    "session_min": 20,
+    "declared_minutes": 360,
+    "content_minutes": 181,
+    "scenario_estimated_minutes": 40,
+    "ratio": 0.5,
+    "stages": [
+     {
+      "stage": "P17-A",
+      "capacity": 120,
+      "content": 44,
+      "ratio": 0.37,
+      "items": 5,
+      "sessions": 6
+     },
+     {
+      "stage": "P17-B",
+      "capacity": 120,
+      "content": 36,
+      "ratio": 0.3,
+      "items": 4,
+      "sessions": 6
+     },
+     {
+      "stage": "P17-C",
+      "capacity": 120,
+      "content": 101,
+      "ratio": 0.84,
+      "items": 6,
+      "sessions": 6
+     }
+    ]
+   },
+   "levels_present": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "domains": [
+    "C",
+    "H"
+   ],
+   "thin_competencies": [],
+   "repeated_competency_levels": [
+    {
+     "ref": "Y1-L1",
+     "other_ref": "C3-L1",
+     "other_program": "P01",
+     "competency": "C3",
+     "level": 1
+    },
+    {
+     "ref": "Y1-L4",
+     "other_ref": "C6-L1",
+     "other_program": "P01",
+     "competency": "C6",
+     "level": 1
+    }
+   ],
+   "overlapping_programs": [
+    {
+     "program": "P01",
+     "shared_competencies": [
+      "C3",
+      "C6"
+     ],
+     "jaccard": 0.5,
+     "declared_sequence_link": false
+    }
+   ],
+   "error_findings": [
+    "Timing: content 181 min fills only 50% of declared 360 min: duration is padded",
+    "Timing: stage P17-A: 44 min of content in 120 min of declared sessions (37%)",
+    "Timing: stage P17-B: 36 min of content in 120 min of declared sessions (30%)"
+   ]
+  },
+  {
+   "rank": 13,
+   "program": "P11",
+   "title": "مالي ومبادرتي",
+   "severity": 17,
+   "severity_scale": "0-45 (أوزان 5/4/3/2/1 لدرجات 0-3 بالترتيب: تجميع، تكرار، تداخل، مستويات، زمن)",
+   "dimension_scores": {
+    "illogical_grouping": 2,
+    "competency_repetition": 0,
+    "overlap": 0,
+    "level_heterogeneity": 2,
+    "timing": 3
+   },
+   "raw": {
+    "grouping": 6,
+    "repetition": 0,
+    "overlap": 0,
+    "levels": 3,
+    "timing": 3
+   },
+   "summary_ar": "4 كفايات من 3 مجالات؛ 15 عنصرًا؛ الزمن الفعلي 530 دقيقة من 720 معلنة (74%)؛ أعلى خلل: تجميع غير منطقي.",
+   "notes_ar": [],
+   "main_problem": "تجميع غير منطقي",
+   "recommended_action_ar": "إعادة تعريف مخرج واحد للبرنامج ونقل العناصر غير الخادمة إلى برامج أو روابط اختيارية",
+   "timing": {
+    "declared_sessions": 16,
+    "session_min": 45,
+    "declared_minutes": 720,
+    "content_minutes": 530,
+    "scenario_estimated_minutes": 40,
+    "ratio": 0.74,
+    "stages": [
+     {
+      "stage": "P11-A",
+      "capacity": 270,
+      "content": 201,
+      "ratio": 0.74,
+      "items": 6,
+      "sessions": 6
+     },
+     {
+      "stage": "P11-B",
+      "capacity": 270,
+      "content": 221,
+      "ratio": 0.82,
+      "items": 6,
+      "sessions": 6
+     },
+     {
+      "stage": "P11-C",
+      "capacity": 180,
+      "content": 108,
+      "ratio": 0.6,
+      "items": 3,
+      "sessions": 4
+     }
+    ]
+   },
+   "levels_present": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "domains": [
+    "L",
+    "R",
+    "W"
+   ],
+   "thin_competencies": [
+    "L4",
+    "R3"
+   ],
+   "repeated_competency_levels": [],
+   "overlapping_programs": [],
+   "error_findings": [
+    "Timing: lesson is 60 min but the session is 45 min [W4-L3]",
+    "Timing: lesson is 60 min but the session is 45 min [W4-L4]",
+    "Timing: lesson is 60 min but the session is 45 min [L4-L3]"
+   ]
+  },
+  {
+   "rank": 14,
+   "program": "P21",
+   "title": "الحفظ المنهجي والتدبّر وأثري الخاص",
+   "severity": 16,
+   "severity_scale": "0-45 (أوزان 5/4/3/2/1 لدرجات 0-3 بالترتيب: تجميع، تكرار، تداخل، مستويات، زمن)",
+   "dimension_scores": {
+    "illogical_grouping": 1,
+    "competency_repetition": 1,
+    "overlap": 0,
+    "level_heterogeneity": 2,
+    "timing": 3
+   },
+   "raw": {
+    "grouping": 2,
+    "repetition": 1,
+    "overlap": 0,
+    "levels": 3,
+    "timing": 3
+   },
+   "summary_ar": "3 كفايات من 2 مجالات؛ 17 عنصرًا؛ الزمن الفعلي 453 دقيقة من 720 معلنة (63%)؛ أعلى خلل: تجميع غير منطقي.",
+   "notes_ar": [
+    "Q4 تتطلب K1 وهي غير مغطاة قبله؛ دروس Q3 (7-10) أصغر من حدّ البرنامج 12."
+   ],
+   "main_problem": "تجميع غير منطقي",
+   "recommended_action_ar": "إعادة تعريف مخرج واحد للبرنامج ونقل العناصر غير الخادمة إلى برامج أو روابط اختيارية",
+   "timing": {
+    "declared_sessions": 24,
+    "session_min": 30,
+    "declared_minutes": 720,
+    "content_minutes": 453,
+    "scenario_estimated_minutes": 48,
+    "ratio": 0.63,
+    "stages": [
+     {
+      "stage": "P21-A",
+      "capacity": 270,
+      "content": 156,
+      "ratio": 0.58,
+      "items": 6,
+      "sessions": 9
+     },
+     {
+      "stage": "P21-B",
+      "capacity": 270,
+      "content": 171,
+      "ratio": 0.63,
+      "items": 6,
+      "sessions": 9
+     },
+     {
+      "stage": "P21-C",
+      "capacity": 180,
+      "content": 126,
+      "ratio": 0.7,
+      "items": 5,
+      "sessions": 6
+     }
+    ]
+   },
+   "levels_present": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "domains": [
+    "K",
+    "Q"
+   ],
+   "thin_competencies": [],
+   "repeated_competency_levels": [
+    {
+     "ref": "X3-L6",
+     "other_ref": "K4-L3",
+     "other_program": "P07",
+     "competency": "K4",
+     "level": 3
+    }
+   ],
+   "overlapping_programs": [],
+   "error_findings": [
+    "Sequence: competency Q4 requires K1, which is neither earlier in the program nor in a prerequisite program",
+    "Timing: lesson is 40 min but the session is 30 min [Q3-L4]",
+    "Timing: lesson is 40 min but the session is 30 min [Q4-L2]",
+    "Timing: lesson is 40 min but the session is 30 min [Q4-L3]",
+    "Timing: lesson is 40 min but the session is 30 min [Q4-L4]"
+   ]
+  },
+  {
+   "rank": 15,
+   "program": "P05",
+   "title": "أسمع وأتكلم وأصاحب",
+   "severity": 15,
+   "severity_scale": "0-45 (أوزان 5/4/3/2/1 لدرجات 0-3 بالترتيب: تجميع، تكرار، تداخل، مستويات، زمن)",
+   "dimension_scores": {
+    "illogical_grouping": 2,
+    "competency_repetition": 0,
+    "overlap": 0,
+    "level_heterogeneity": 1,
+    "timing": 3
+   },
+   "raw": {
+    "grouping": 6,
+    "repetition": 0,
+    "overlap": 0,
+    "levels": 1,
+    "timing": 3
+   },
+   "summary_ar": "5 كفايات من 3 مجالات؛ 18 عنصرًا؛ الزمن الفعلي 357 دقيقة من 600 معلنة (59%)؛ أعلى خلل: تجميع غير منطقي.",
+   "notes_ar": [
+    "كفاية S6 تتطلب S1 في سجل الكفايات، وS1 غير مغطاة في P05 ولا سابقاتها."
+   ],
+   "main_problem": "تجميع غير منطقي",
+   "recommended_action_ar": "إعادة تعريف مخرج واحد للبرنامج ونقل العناصر غير الخادمة إلى برامج أو روابط اختيارية",
+   "timing": {
+    "declared_sessions": 24,
+    "session_min": 25,
+    "declared_minutes": 600,
+    "content_minutes": 357,
+    "scenario_estimated_minutes": 67,
+    "ratio": 0.59,
+    "stages": [
+     {
+      "stage": "P05-A",
+      "capacity": 150,
+      "content": 112,
+      "ratio": 0.75,
+      "items": 6,
+      "sessions": 6
+     },
+     {
+      "stage": "P05-B",
+      "capacity": 150,
+      "content": 106,
+      "ratio": 0.71,
+      "items": 5,
+      "sessions": 6
+     },
+     {
+      "stage": "P05-C",
+      "capacity": 150,
+      "content": 53,
+      "ratio": 0.35,
+      "items": 3,
+      "sessions": 6
+     },
+     {
+      "stage": "P05-D",
+      "capacity": 150,
+      "content": 86,
+      "ratio": 0.57,
+      "items": 4,
+      "sessions": 6
+     }
+    ]
+   },
+   "levels_present": [
+    1,
+    2,
+    3
+   ],
+   "domains": [
+    "R",
+    "S",
+    "T"
+   ],
+   "thin_competencies": [
+    "T1"
+   ],
+   "repeated_competency_levels": [],
+   "overlapping_programs": [],
+   "error_findings": [
+    "Sequence: competency S6 requires S1, which is neither earlier in the program nor in a prerequisite program",
+    "Timing: content 357 min fills only 60% of declared 600 min: duration is padded",
+    "Timing: lesson is 35 min but the session is 25 min [T1-L2]",
+    "Timing: lesson is 35 min but the session is 25 min [R5-L1]",
+    "Timing: lesson is 35 min but the session is 25 min [R5-L2]"
+   ]
+  },
+  {
+   "rank": 16,
+   "program": "P20",
+   "title": "نواة القرآن للصغار: إصغاء وأدب وتعلّم",
+   "severity": 15,
+   "severity_scale": "0-45 (أوزان 5/4/3/2/1 لدرجات 0-3 بالترتيب: تجميع، تكرار، تداخل، مستويات، زمن)",
+   "dimension_scores": {
+    "illogical_grouping": 1,
+    "competency_repetition": 1,
+    "overlap": 0,
+    "level_heterogeneity": 2,
+    "timing": 2
+   },
+   "raw": {
+    "grouping": 2,
+    "repetition": 1,
+    "overlap": 0,
+    "levels": 2,
+    "timing": 2
+   },
+   "summary_ar": "3 كفايات من 2 مجالات؛ 17 عنصرًا؛ الزمن الفعلي 378 دقيقة من 540 معلنة (70%)؛ أعلى خلل: تجميع غير منطقي.",
+   "notes_ar": [],
+   "main_problem": "تجميع غير منطقي",
+   "recommended_action_ar": "إعادة تعريف مخرج واحد للبرنامج ونقل العناصر غير الخادمة إلى برامج أو روابط اختيارية",
+   "timing": {
+    "declared_sessions": 18,
+    "session_min": 30,
+    "declared_minutes": 540,
+    "content_minutes": 378,
+    "scenario_estimated_minutes": 48,
+    "ratio": 0.7,
+    "stages": [
+     {
+      "stage": "P20-A",
+      "capacity": 180,
+      "content": 131,
+      "ratio": 0.73,
+      "items": 6,
+      "sessions": 6
+     },
+     {
+      "stage": "P20-B",
+      "capacity": 180,
+      "content": 146,
+      "ratio": 0.81,
+      "items": 6,
+      "sessions": 6
+     },
+     {
+      "stage": "P20-C",
+      "capacity": 180,
+      "content": 101,
+      "ratio": 0.56,
+      "items": 5,
+      "sessions": 6
+     }
+    ]
+   },
+   "levels_present": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "domains": [
+    "K",
+    "Q"
+   ],
+   "thin_competencies": [],
+   "repeated_competency_levels": [
+    {
+     "ref": "X3-L3",
+     "other_ref": "K4-L3",
+     "other_program": "P07",
+     "competency": "K4",
+     "level": 3
+    }
+   ],
+   "overlapping_programs": [],
+   "error_findings": []
+  },
+  {
+   "rank": 17,
+   "program": "P09",
+   "title": "أميّز وأستدل وأبحث",
+   "severity": 15,
+   "severity_scale": "0-45 (أوزان 5/4/3/2/1 لدرجات 0-3 بالترتيب: تجميع، تكرار، تداخل، مستويات، زمن)",
+   "dimension_scores": {
+    "illogical_grouping": 1,
+    "competency_repetition": 0,
+    "overlap": 1,
+    "level_heterogeneity": 3,
+    "timing": 1
+   },
+   "raw": {
+    "grouping": 3,
+    "repetition": 0,
+    "overlap": 1,
+    "levels": 6,
+    "timing": 1
+   },
+   "summary_ar": "4 كفايات من 2 مجالات؛ 20 عنصرًا؛ الزمن الفعلي 613 دقيقة من 720 معلنة (85%)؛ أعلى خلل: مستويات غير متجانسة.",
+   "notes_ar": [
+    "ثلاثة عناصر لعمر 12-14 أصغر من حدّ البرنامج 14 (K3)."
+   ],
+   "main_problem": "مستويات غير متجانسة",
+   "recommended_action_ar": "مطابقة عمر الدروس مع حدّ البرنامج وترتيب المستويات",
+   "timing": {
+    "declared_sessions": 16,
+    "session_min": 45,
+    "declared_minutes": 720,
+    "content_minutes": 613,
+    "scenario_estimated_minutes": 48,
+    "ratio": 0.85,
+    "stages": [
+     {
+      "stage": "P09-A",
+      "capacity": 270,
+      "content": 211,
+      "ratio": 0.78,
+      "items": 7,
+      "sessions": 6
+     },
+     {
+      "stage": "P09-B",
+      "capacity": 180,
+      "content": 221,
+      "ratio": 1.23,
+      "items": 7,
+      "sessions": 4
+     },
+     {
+      "stage": "P09-C",
+      "capacity": 270,
+      "content": 181,
+      "ratio": 0.67,
+      "items": 6,
+      "sessions": 6
+     }
+    ]
+   },
+   "levels_present": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "domains": [
+    "K",
+    "T"
+   ],
+   "thin_competencies": [
+    "T2"
+   ],
+   "repeated_competency_levels": [],
+   "overlapping_programs": [
+    {
+     "program": "P13",
+     "shared_competencies": [
+      "T3",
+      "T6"
+     ],
+     "jaccard": 0.25,
+     "declared_sequence_link": true
+    }
+   ],
+   "error_findings": []
+  },
+  {
+   "rank": 18,
+   "program": "P03",
+   "title": "صدقي وأمانتي وبرّي",
+   "severity": 14,
+   "severity_scale": "0-45 (أوزان 5/4/3/2/1 لدرجات 0-3 بالترتيب: تجميع، تكرار، تداخل، مستويات، زمن)",
+   "dimension_scores": {
+    "illogical_grouping": 1,
+    "competency_repetition": 1,
+    "overlap": 0,
+    "level_heterogeneity": 1,
+    "timing": 3
+   },
+   "raw": {
+    "grouping": 2,
+    "repetition": 1,
+    "overlap": 0,
+    "levels": 1,
+    "timing": 3
+   },
+   "summary_ar": "3 كفايات من 2 مجالات؛ 15 عنصرًا؛ الزمن الفعلي 293 دقيقة من 525 معلنة (56%)؛ أعلى خلل: تجميع غير منطقي.",
+   "notes_ar": [],
+   "main_problem": "تجميع غير منطقي",
+   "recommended_action_ar": "إعادة تعريف مخرج واحد للبرنامج ونقل العناصر غير الخادمة إلى برامج أو روابط اختيارية",
+   "timing": {
+    "declared_sessions": 21,
+    "session_min": 25,
+    "declared_minutes": 525,
+    "content_minutes": 293,
+    "scenario_estimated_minutes": 48,
+    "ratio": 0.56,
+    "stages": [
+     {
+      "stage": "P03-A",
+      "capacity": 150,
+      "content": 96,
+      "ratio": 0.64,
+      "items": 5,
+      "sessions": 6
+     },
+     {
+      "stage": "P03-B",
+      "capacity": 150,
+      "content": 96,
+      "ratio": 0.64,
+      "items": 5,
+      "sessions": 6
+     },
+     {
+      "stage": "P03-C",
+      "capacity": 225,
+      "content": 101,
+      "ratio": 0.45,
+      "items": 5,
+      "sessions": 9
+     }
+    ]
+   },
+   "levels_present": [
+    1,
+    2,
+    3
+   ],
+   "domains": [
+    "C",
+    "R"
+   ],
+   "thin_competencies": [],
+   "repeated_competency_levels": [
+    {
+     "ref": "C2-L1",
+     "other_ref": "Y2-L1",
+     "other_program": "P19",
+     "competency": "C2",
+     "level": 1
+    }
+   ],
+   "overlapping_programs": [],
+   "error_findings": [
+    "Timing: content 293 min fills only 56% of declared 525 min: duration is padded"
+   ]
+  },
+  {
+   "rank": 19,
+   "program": "P23",
+   "title": "علوم القرآن والقراءات وتوثيق الأخبار",
+   "severity": 14,
+   "severity_scale": "0-45 (أوزان 5/4/3/2/1 لدرجات 0-3 بالترتيب: تجميع، تكرار، تداخل، مستويات، زمن)",
+   "dimension_scores": {
+    "illogical_grouping": 1,
+    "competency_repetition": 0,
+    "overlap": 0,
+    "level_heterogeneity": 3,
+    "timing": 3
+   },
+   "raw": {
+    "grouping": 2,
+    "repetition": 0,
+    "overlap": 0,
+    "levels": 7,
+    "timing": 3
+   },
+   "summary_ar": "3 كفايات من 2 مجالات؛ 19 عنصرًا؛ الزمن الفعلي 603 دقيقة من 960 معلنة (63%)؛ أعلى خلل: مستويات غير متجانسة.",
+   "notes_ar": [
+    "تفاوت مستويات Q5 وQ6 وH4 (L1 إلى L5) في برنامج واحد وفجوات عمرية؛ المحتوى 63% من الزمن."
+   ],
+   "main_problem": "مستويات غير متجانسة",
+   "recommended_action_ar": "مطابقة عمر الدروس مع حدّ البرنامج وترتيب المستويات",
+   "timing": {
+    "declared_sessions": 24,
+    "session_min": 40,
+    "declared_minutes": 960,
+    "content_minutes": 603,
+    "scenario_estimated_minutes": 48,
+    "ratio": 0.63,
+    "stages": [
+     {
+      "stage": "P23-A",
+      "capacity": 360,
+      "content": 221,
+      "ratio": 0.61,
+      "items": 7,
+      "sessions": 9
+     },
+     {
+      "stage": "P23-B",
+      "capacity": 360,
+      "content": 186,
+      "ratio": 0.52,
+      "items": 6,
+      "sessions": 9
+     },
+     {
+      "stage": "P23-C",
+      "capacity": 240,
+      "content": 196,
+      "ratio": 0.82,
+      "items": 6,
+      "sessions": 6
+     }
+    ]
+   },
+   "levels_present": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "domains": [
+    "H",
+    "Q"
+   ],
+   "thin_competencies": [],
+   "repeated_competency_levels": [],
+   "overlapping_programs": [],
+   "error_findings": [
+    "Timing: lesson is 50 min but the session is 40 min [H4-L4]"
+   ]
+  },
+  {
+   "rank": 20,
+   "program": "P06",
+   "title": "أتثبّت قبل أن أصدّق",
+   "severity": 8,
+   "severity_scale": "0-45 (أوزان 5/4/3/2/1 لدرجات 0-3 بالترتيب: تجميع، تكرار، تداخل، مستويات، زمن)",
+   "dimension_scores": {
+    "illogical_grouping": 1,
+    "competency_repetition": 0,
+    "overlap": 0,
+    "level_heterogeneity": 1,
+    "timing": 1
+   },
+   "raw": {
+    "grouping": 2,
+    "repetition": 0,
+    "overlap": 0,
+    "levels": 1,
+    "timing": 1
+   },
+   "summary_ar": "4 كفايات من 2 مجالات؛ 20 عنصرًا؛ الزمن الفعلي 529 دقيقة من 640 معلنة (83%)؛ أعلى خلل: تجميع غير منطقي.",
+   "notes_ar": [
+    "next_programs يذكر P07 وعمره 10 وP06 عمره 11 (تناقض اتجاه)."
+   ],
+   "main_problem": "تجميع غير منطقي",
+   "recommended_action_ar": "إعادة تعريف مخرج واحد للبرنامج ونقل العناصر غير الخادمة إلى برامج أو روابط اختيارية",
+   "timing": {
+    "declared_sessions": 16,
+    "session_min": 40,
+    "declared_minutes": 640,
+    "content_minutes": 529,
+    "scenario_estimated_minutes": 64,
+    "ratio": 0.83,
+    "stages": [
+     {
+      "stage": "P06-A",
+      "capacity": 160,
+      "content": 136,
+      "ratio": 0.85,
+      "items": 5,
+      "sessions": 4
+     },
+     {
+      "stage": "P06-B",
+      "capacity": 160,
+      "content": 131,
+      "ratio": 0.82,
+      "items": 5,
+      "sessions": 4
+     },
+     {
+      "stage": "P06-C",
+      "capacity": 160,
+      "content": 126,
+      "ratio": 0.79,
+      "items": 5,
+      "sessions": 4
+     },
+     {
+      "stage": "P06-D",
+      "capacity": 160,
+      "content": 136,
+      "ratio": 0.85,
+      "items": 5,
+      "sessions": 4
+     }
+    ]
+   },
+   "levels_present": [
+    1,
+    2,
+    3
+   ],
+   "domains": [
+    "K",
+    "T"
+   ],
+   "thin_competencies": [],
+   "repeated_competency_levels": [],
+   "overlapping_programs": [],
+   "error_findings": [
+    "Sequence: next program P07 is for younger learners"
+   ]
+  },
+  {
+   "rank": 21,
+   "program": "P12",
+   "title": "أمانة العمل والعهد",
+   "severity": 7,
+   "severity_scale": "0-45 (أوزان 5/4/3/2/1 لدرجات 0-3 بالترتيب: تجميع، تكرار، تداخل، مستويات، زمن)",
+   "dimension_scores": {
+    "illogical_grouping": 0,
+    "competency_repetition": 0,
+    "overlap": 0,
+    "level_heterogeneity": 2,
+    "timing": 3
+   },
+   "raw": {
+    "grouping": 0,
+    "repetition": 0,
+    "overlap": 0,
+    "levels": 3,
+    "timing": 3
+   },
+   "summary_ar": "3 كفايات من 1 مجالات؛ 13 عنصرًا؛ الزمن الفعلي 417 دقيقة من 720 معلنة (58%)؛ أعلى خلل: مستويات غير متجانسة.",
+   "notes_ar": [],
+   "main_problem": "مستويات غير متجانسة",
+   "recommended_action_ar": "مطابقة عمر الدروس مع حدّ البرنامج وترتيب المستويات",
+   "timing": {
+    "declared_sessions": 16,
+    "session_min": 45,
+    "declared_minutes": 720,
+    "content_minutes": 417,
+    "scenario_estimated_minutes": 32,
+    "ratio": 0.58,
+    "stages": [
+     {
+      "stage": "P12-A",
+      "capacity": 360,
+      "content": 216,
+      "ratio": 0.6,
+      "items": 7,
+      "sessions": 8
+     },
+     {
+      "stage": "P12-B",
+      "capacity": 360,
+      "content": 201,
+      "ratio": 0.56,
+      "items": 6,
+      "sessions": 8
+     }
+    ]
+   },
+   "levels_present": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "domains": [
+    "W"
+   ],
+   "thin_competencies": [],
+   "repeated_competency_levels": [],
+   "overlapping_programs": [],
+   "error_findings": [
+    "Timing: content 417 min fills only 58% of declared 720 min: duration is padded"
+   ]
+  },
+  {
+   "rank": 22,
+   "program": "P04",
+   "title": "أرحم وأعدل وأتواضع وأشكر",
+   "severity": 5,
+   "severity_scale": "0-45 (أوزان 5/4/3/2/1 لدرجات 0-3 بالترتيب: تجميع، تكرار، تداخل، مستويات، زمن)",
+   "dimension_scores": {
+    "illogical_grouping": 0,
+    "competency_repetition": 0,
+    "overlap": 0,
+    "level_heterogeneity": 1,
+    "timing": 3
+   },
+   "raw": {
+    "grouping": 0,
+    "repetition": 0,
+    "overlap": 0,
+    "levels": 1,
+    "timing": 3
+   },
+   "summary_ar": "4 كفايات من 1 مجالات؛ 15 عنصرًا؛ الزمن الفعلي 325 دقيقة من 600 معلنة (54%)؛ أعلى خلل: زمن غير منطقي.",
+   "notes_ar": [],
+   "main_problem": "زمن غير منطقي",
+   "recommended_action_ar": "ضبط عدد الجلسات أو الإيقاع بحسب المجموع الفعلي للمكونات",
+   "timing": {
+    "declared_sessions": 24,
+    "session_min": 25,
+    "declared_minutes": 600,
+    "content_minutes": 325,
+    "scenario_estimated_minutes": 40,
+    "ratio": 0.54,
+    "stages": [
+     {
+      "stage": "P04-A",
+      "capacity": 150,
+      "content": 63,
+      "ratio": 0.42,
+      "items": 3,
+      "sessions": 6
+     },
+     {
+      "stage": "P04-B",
+      "capacity": 150,
+      "content": 98,
+      "ratio": 0.65,
+      "items": 4,
+      "sessions": 6
+     },
+     {
+      "stage": "P04-C",
+      "capacity": 150,
+      "content": 101,
+      "ratio": 0.67,
+      "items": 5,
+      "sessions": 6
+     },
+     {
+      "stage": "P04-D",
+      "capacity": 150,
+      "content": 63,
+      "ratio": 0.42,
+      "items": 3,
+      "sessions": 6
+     }
+    ]
+   },
+   "levels_present": [
+    1,
+    2,
+    3
+   ],
+   "domains": [
+    "C"
+   ],
+   "thin_competencies": [],
+   "repeated_competency_levels": [],
+   "overlapping_programs": [],
+   "error_findings": [
+    "Timing: content 325 min fills only 54% of declared 600 min: duration is padded",
+    "Timing: lesson is 35 min but the session is 25 min [C4-L3]"
+   ]
+  },
+  {
+   "rank": 23,
+   "program": "P15",
+   "title": "نحو بيت مستقر",
+   "severity": 3,
+   "severity_scale": "0-45 (أوزان 5/4/3/2/1 لدرجات 0-3 بالترتيب: تجميع، تكرار، تداخل، مستويات، زمن)",
+   "dimension_scores": {
+    "illogical_grouping": 0,
+    "competency_repetition": 0,
+    "overlap": 0,
+    "level_heterogeneity": 1,
+    "timing": 1
+   },
+   "raw": {
+    "grouping": 0,
+    "repetition": 0,
+    "overlap": 0,
+    "levels": 1,
+    "timing": 1
+   },
+   "summary_ar": "4 كفايات من 1 مجالات؛ 5 عنصرًا؛ الزمن الفعلي 136 دقيقة من 180 معلنة (76%)؛ أعلى خلل: مستويات غير متجانسة.",
+   "notes_ar": [
+    "R6 تتطلب R2 وR3 وهما غير مغطاتين (برنامج مؤجل أصلًا)."
+   ],
+   "main_problem": "مستويات غير متجانسة",
+   "recommended_action_ar": "مطابقة عمر الدروس مع حدّ البرنامج وترتيب المستويات",
+   "timing": {
+    "declared_sessions": 4,
+    "session_min": 45,
+    "declared_minutes": 180,
+    "content_minutes": 136,
+    "scenario_estimated_minutes": 16,
+    "ratio": 0.76,
+    "stages": [
+     {
+      "stage": "P15-A",
+      "capacity": 90,
+      "content": 43,
+      "ratio": 0.48,
+      "items": 2,
+      "sessions": 2
+     },
+     {
+      "stage": "P15-B",
+      "capacity": 90,
+      "content": 93,
+      "ratio": 1.03,
+      "items": 3,
+      "sessions": 2
+     }
+    ]
+   },
+   "levels_present": [
+    1,
+    2,
+    3
+   ],
+   "domains": [
+    "R"
+   ],
+   "thin_competencies": [],
+   "repeated_competency_levels": [],
+   "overlapping_programs": [],
+   "error_findings": [
+    "Sequence: competency R6 requires R2, which is neither earlier in the program nor in a prerequisite program",
+    "Sequence: competency R6 requires R3, which is neither earlier in the program nor in a prerequisite program"
+   ]
+  },
+  {
+   "rank": 24,
+   "program": "P16",
+   "title": "تربية أبنائي",
+   "severity": 3,
+   "severity_scale": "0-45 (أوزان 5/4/3/2/1 لدرجات 0-3 بالترتيب: تجميع، تكرار، تداخل، مستويات، زمن)",
+   "dimension_scores": {
+    "illogical_grouping": 0,
+    "competency_repetition": 0,
+    "overlap": 0,
+    "level_heterogeneity": 1,
+    "timing": 1
+   },
+   "raw": {
+    "grouping": 0,
+    "repetition": 0,
+    "overlap": 0,
+    "levels": 1,
+    "timing": 1
+   },
+   "summary_ar": "3 كفايات من 1 مجالات؛ 5 عنصرًا؛ الزمن الفعلي 136 دقيقة من 180 معلنة (76%)؛ أعلى خلل: مستويات غير متجانسة.",
+   "notes_ar": [],
+   "main_problem": "مستويات غير متجانسة",
+   "recommended_action_ar": "مطابقة عمر الدروس مع حدّ البرنامج وترتيب المستويات",
+   "timing": {
+    "declared_sessions": 4,
+    "session_min": 45,
+    "declared_minutes": 180,
+    "content_minutes": 136,
+    "scenario_estimated_minutes": 16,
+    "ratio": 0.76,
+    "stages": [
+     {
+      "stage": "P16-A",
+      "capacity": 90,
+      "content": 83,
+      "ratio": 0.92,
+      "items": 3,
+      "sessions": 2
+     },
+     {
+      "stage": "P16-B",
+      "capacity": 90,
+      "content": 53,
+      "ratio": 0.59,
+      "items": 2,
+      "sessions": 2
+     }
+    ]
+   },
+   "levels_present": [
+    1,
+    2,
+    3
+   ],
+   "domains": [
+    "R"
+   ],
+   "thin_competencies": [],
+   "repeated_competency_levels": [],
+   "overlapping_programs": [],
+   "error_findings": []
+  }
+ ],
+ "proposed_programs": [
+  {
+   "id": "P25",
+   "status": "proposed_needs_owner_decision",
+   "title": "أرتّب يومي وأراجع نفسي",
+   "band": "b2",
+   "age_min": 10,
+   "age_max": 12,
+   "duration_weeks": 4,
+   "rhythm": "جلستان أسبوعيًّا، 35 دقيقة",
+   "competencies": [
+    "S1",
+    "S2"
+   ],
+   "composition": [
+    "S1-L1",
+    "S1-L2",
+    "S1-S1",
+    "S2-L1",
+    "S2-L2",
+    "S2-S1"
+   ],
+   "candidate_additions": [
+    "X4-L4",
+    "X4-L5",
+    "X4-L6",
+    "X4-S3",
+    "X4-S4 (من P22 المرحلة د، بقرار منفصل)"
+   ],
+   "reason_ar": "يجمع كفايتي المراجعة الذاتية وتنظيم الوقت لعمر 10-12 بمخرج واحد، ويستقبل عناصر خرجت من P07 دون حذفها. لا يُنشأ قبل موافقة المالك وتحديد مراجعين."
+  }
+ ]
+}
