@@ -1,7 +1,7 @@
 {
  "program": "P19",
  "status": "draft-unreviewed",
- "total_sessions": 16,
+ "total_sessions": 21,
  "sessions": [
   {
    "session_number": 1,
@@ -232,6 +232,156 @@
    "session_number": 4,
    "week": 2,
    "stage": "P19-A",
+   "title": "أقول متى سأعيدها",
+   "competency": "C2",
+   "competency_title": "أفي بما قلته: الموعد والإذن",
+   "objective": "أن يتفق الطفل مع صاحب الشيء على موعد واضح للإعادة، ويضع لنفسه تذكيرًا بسيطًا، ويفي بما قاله.",
+   "min_age": 8,
+   "duration_min": 25,
+   "components": [
+    {
+     "type": "intro",
+     "minutes": 3,
+     "ref": {
+      "kind": "lesson",
+      "id": "E11-L1"
+     },
+     "text": "اسأل السؤال الافتتاحي واستمع دون تصحيح."
+    },
+    {
+     "type": "source_teaching",
+     "minutes": 8,
+     "ref": {
+      "kind": "lesson",
+      "id": "E11-L1"
+     },
+     "text": "اقرأ قصة المكبّرة الصغيرة بصوت هادئ ثم اطرح الأسئلة."
+    },
+    {
+     "type": "interactive_practice",
+     "minutes": 13,
+     "ref": {
+      "kind": "lesson",
+      "id": "E11-L1"
+     },
+     "text": "نفّذ تمرين بطاقة الموعد مع كل طفل وراشده. ثم اجلسوا في حلقة وقارنوا بين «قريبًا» و«يوم الخميس»."
+    },
+    {
+     "type": "assessment",
+     "minutes": 0,
+     "embedded_in": "interactive_practice",
+     "ref": {
+      "kind": "lesson",
+      "id": "E11-L1"
+     },
+     "text": "ملاحظة تكوينية وصفية أثناء الممارسة، دون درجات.",
+     "criteria": {
+      "ظهر": "يحدّد موعدًا واضحًا للإعادة ويذكر تذكيرًا يناسبه، ويعيد في موعده بلا تذكير أو بتذكير يسير.",
+      "يتدرب": "يحدّد الموعد بعد سؤال الراشد، ويحتاج تذكيرًا بالبطاقة.",
+      "يحتاج_دعما": "يحتاج تقسيم الخطوات (أسأل، أكتب، أعيد) وتكرار التمرين بأشياء من يومه."
+     }
+    },
+    {
+     "type": "reflection",
+     "minutes": 1,
+     "ref": {
+      "kind": "lesson",
+      "id": "E11-L1"
+     },
+     "text": "اختم بالجملة الجامعة وأعطِ السؤال البيتي."
+    }
+   ],
+   "homework": {
+    "optional": true,
+    "out_of_session": true,
+    "text": "يستعير الطفل شيئًا بسيطًا من أحد أفراد أسرته ويتفقان على موعد واضح للإعادة، ثم يعيده في الموعد ويشكره.",
+    "estimated_minutes": 10,
+    "ref": {
+     "kind": "lesson",
+     "id": "E11-L1"
+    }
+   },
+   "review_status": "unreviewed"
+  },
+  {
+   "session_number": 5,
+   "week": 2,
+   "stage": "P19-A",
+   "title": "تأخرتُ: أخبر قبل الموعد",
+   "competency": "C2",
+   "competency_title": "أفي بما قلته: الموعد والإذن",
+   "objective": "أن يقول الطفل لصاحب الشيء قبل الموعد إنه يحتاج وقتًا إضافيًا، ويطلب منه الإذن بجملة هادئة، ويقبل قراره.",
+   "min_age": 8,
+   "duration_min": 25,
+   "components": [
+    {
+     "type": "intro",
+     "minutes": 3,
+     "ref": {
+      "kind": "lesson",
+      "id": "E11-L2"
+     },
+     "text": "اسأل السؤال الافتتاحي وأنصت."
+    },
+    {
+     "type": "source_teaching",
+     "minutes": 8,
+     "ref": {
+      "kind": "lesson",
+      "id": "E11-L2"
+     },
+     "text": "اقرأ قصة المكعبات الكبيرة ثم اطرح الأسئلة."
+    },
+    {
+     "type": "interactive_practice",
+     "minutes": 13,
+     "ref": {
+      "kind": "lesson",
+      "id": "E11-L2"
+     },
+     "text": "نفّذ لعبة جملة الإخبار بالأدوار مع الراشد. ثم افتح حديثًا هادئًا عن الشعور الثقيل قبل الكلام."
+    },
+    {
+     "type": "assessment",
+     "minutes": 0,
+     "embedded_in": "interactive_practice",
+     "ref": {
+      "kind": "lesson",
+      "id": "E11-L2"
+     },
+     "text": "ملاحظة تكوينية وصفية أثناء الممارسة، دون درجات.",
+     "criteria": {
+      "ظهر": "يقول الجملة قبل الموعد ويطلب الإذن، ويقبل جواب «لا» بهدوء.",
+      "يتدرب": "يقول الجملة بمساعدة الراشد ويحتاج تذكيرًا بأن القرار لصاحب الشيء.",
+      "يحتاج_دعما": "يحتاج أن يسمع الجملة بصوت الراشد أولًا وأن يقولها همسًا قبل أن يقولها أمام الآخرين."
+     }
+    },
+    {
+     "type": "reflection",
+     "minutes": 1,
+     "ref": {
+      "kind": "lesson",
+      "id": "E11-L2"
+     },
+     "text": "اختم بالجملة الجامعة وأعطِ السؤال البيتي."
+    }
+   ],
+   "homework": {
+    "optional": true,
+    "out_of_session": true,
+    "text": "يتدرب الطفل مع راشد على جملة الإخبار، ويستعملها إن احتاج يومًا إلى وقت إضافي في أمانة صغيرة.",
+    "estimated_minutes": 10,
+    "ref": {
+     "kind": "lesson",
+     "id": "E11-L2"
+    }
+   },
+   "review_status": "unreviewed"
+  },
+  {
+   "session_number": 6,
+   "week": 2,
+   "stage": "P19-A",
    "title": "الكتاب المستعار",
    "competency": "C2",
    "competency_title": "الأمانة: عندي وليست لي",
@@ -270,8 +420,165 @@
    "review_status": "unreviewed"
   },
   {
-   "session_number": 5,
+   "session_number": 7,
    "week": 3,
+   "stage": "P19-A",
+   "title": "أستأذن صاحبها",
+   "competency": "C2",
+   "competency_title": "أفي بما قلته: الموعد والإذن",
+   "objective": "أن يميّز الطفل متى يحتاج إلى إذن صاحب الشيء (استعمال جديد، إعارته لغيره، الاحتفاظ به، عرض أشيائه الخاصة)، ويسأل بجملة قصيرة ويقبل الجواب.",
+   "min_age": 8,
+   "duration_min": 25,
+   "components": [
+    {
+     "type": "intro",
+     "minutes": 3,
+     "ref": {
+      "kind": "lesson",
+      "id": "E11-L3"
+     },
+     "text": "اسأل السؤال الافتتاحي وأنصت دون تعليق."
+    },
+    {
+     "type": "source_teaching",
+     "minutes": 8,
+     "ref": {
+      "kind": "lesson",
+      "id": "E11-L3"
+     },
+     "text": "اقرأ قصة دفتر الرسم ثم اطرح الأسئلة."
+    },
+    {
+     "type": "interactive_practice",
+     "minutes": 13,
+     "ref": {
+      "kind": "lesson",
+      "id": "E11-L3"
+     },
+     "text": "وزّع بطاقات «أستأذن أم لا أحتاج» ودع الأطفال يفرزونها. ثم جرّبوا جملة «هل تسمح؟» بالأدوار."
+    },
+    {
+     "type": "assessment",
+     "minutes": 0,
+     "embedded_in": "interactive_practice",
+     "ref": {
+      "kind": "lesson",
+      "id": "E11-L3"
+     },
+     "text": "ملاحظة تكوينية وصفية أثناء الممارسة، دون درجات.",
+     "criteria": {
+      "ظهر": "يسأل بجملة قصيرة قبل الاستعمال الجديد، ويقبل الجواب بلا إلحاح.",
+      "يتدرب": "يسأل بعد تذكير الراشد، وقد يُلحّ قليلًا ثم يهدأ.",
+      "يحتاج_دعما": "يحتاج بطاقات من أشياء بيته ومدرسته وإعادة تمثيل الجملة مع الراشد."
+     }
+    },
+    {
+     "type": "reflection",
+     "minutes": 1,
+     "ref": {
+      "kind": "lesson",
+      "id": "E11-L3"
+     },
+     "text": "اختم بالجملة الجامعة وأعطِ السؤال البيتي."
+    }
+   ],
+   "homework": {
+    "optional": true,
+    "out_of_session": true,
+    "text": "يسأل الطفل صاحب شيء استعاره (أو أحد أفراد أسرته) بجملة «هل تسمح لي أن...؟» قبل أن يستعمله بطريقة جديدة، ويشكره على الجواب.",
+    "estimated_minutes": 10,
+    "ref": {
+     "kind": "lesson",
+     "id": "E11-L3"
+    }
+   },
+   "review_status": "unreviewed"
+  },
+  {
+   "session_number": 8,
+   "week": 3,
+   "stage": "P19-A",
+   "title": "الكرة التي انتقلت",
+   "competency": "C2",
+   "competency_title": "أفي بما قلته: الموعد والإذن",
+   "objective": "أن يقرر الطفل في موقف «الكرة التي انتقلت» ويرى عاقبة اختياره.",
+   "min_age": 8,
+   "duration_min": 10,
+   "components": [
+    {
+     "type": "intro",
+     "minutes": 2,
+     "ref": {
+      "kind": "scenario",
+      "id": "E11-S1"
+     },
+     "text": "قراءة مقدمة الموقف المتخيَّل بصوت هادئ، ثم سؤال مفتوح: ماذا قد يشعر بطل الموقف؟ دون أن يُطلب من أحد أن يحكي موقفًا من حياته."
+    },
+    {
+     "type": "interactive_practice",
+     "minutes": 6,
+     "ref": {
+      "kind": "scenario",
+      "id": "E11-S1"
+     },
+     "text": "يختار المتعلمون في ٣ قرارات متتابعة ويقرؤون عاقبة كل اختيار، ويتحاورون في سبب اختيارهم."
+    },
+    {
+     "type": "reflection",
+     "minutes": 2,
+     "ref": {
+      "kind": "scenario",
+      "id": "E11-S1"
+     },
+     "text": "حديث قصير عن النهاية التي وصلوا إليها، ثم سؤال التأمل: «ماذا يمكن أن تقول حين تتذكر أنه كان عليك أن تسأل قبل أن تعطي؟ ومن يمكن أن يكون بجانبك؟» التأمل اختياري ويُقبل الصمت لمن يفضله."
+    }
+   ],
+   "review_status": "unreviewed"
+  },
+  {
+   "session_number": 9,
+   "week": 3,
+   "stage": "P19-A",
+   "title": "الموعد يقترب",
+   "competency": "C2",
+   "competency_title": "أفي بما قلته: الموعد والإذن",
+   "objective": "أن يقرر الطفل في موقف «الموعد يقترب» ويرى عاقبة اختياره.",
+   "min_age": 8,
+   "duration_min": 8,
+   "components": [
+    {
+     "type": "intro",
+     "minutes": 2,
+     "ref": {
+      "kind": "scenario",
+      "id": "E11-S2"
+     },
+     "text": "قراءة مقدمة الموقف المتخيَّل بصوت هادئ، ثم سؤال مفتوح: ماذا قد يشعر بطل الموقف؟ دون أن يُطلب من أحد أن يحكي موقفًا من حياته."
+    },
+    {
+     "type": "interactive_practice",
+     "minutes": 4,
+     "ref": {
+      "kind": "scenario",
+      "id": "E11-S2"
+     },
+     "text": "يختار المتعلمون في ٢ قرارات متتابعة ويقرؤون عاقبة كل اختيار، ويتحاورون في سبب اختيارهم."
+    },
+    {
+     "type": "reflection",
+     "minutes": 2,
+     "ref": {
+      "kind": "scenario",
+      "id": "E11-S2"
+     },
+     "text": "حديث قصير عن النهاية التي وصلوا إليها، ثم سؤال التأمل: «ما الذي ساعد ريما أن تقول الجملة؟ ومن يمكن أن يكون بجانبك حين تقول كلامًا صعبًا؟» التأمل اختياري ويُقبل الصمت لمن يفضله."
+    }
+   ],
+   "review_status": "unreviewed"
+  },
+  {
+   "session_number": 10,
+   "week": 4,
    "stage": "P19-B",
    "title": "أسمّي ما أشعر به حين يصعب الأمر",
    "competency": "S4",
@@ -345,8 +652,8 @@
    "review_status": "unreviewed"
   },
   {
-   "session_number": 6,
-   "week": 3,
+   "session_number": 11,
+   "week": 4,
    "stage": "P19-B",
    "title": "ثلاثة وجوه للصبر",
    "competency": "S4",
@@ -420,8 +727,8 @@
    "review_status": "unreviewed"
   },
   {
-   "session_number": 7,
-   "week": 3,
+   "session_number": 12,
+   "week": 4,
    "stage": "P19-B",
    "title": "خطوة صغيرة كل يوم",
    "competency": "S4",
@@ -495,8 +802,8 @@
    "review_status": "unreviewed"
   },
   {
-   "session_number": 8,
-   "week": 4,
+   "session_number": 13,
+   "week": 5,
    "stage": "P19-B",
    "title": "الأحجية الكبيرة",
    "competency": "S4",
@@ -536,8 +843,8 @@
    "review_status": "unreviewed"
   },
   {
-   "session_number": 9,
-   "week": 4,
+   "session_number": 14,
+   "week": 5,
    "stage": "P19-C",
    "title": "أقول: لم أفهم",
    "competency": "T1",
@@ -611,8 +918,8 @@
    "review_status": "unreviewed"
   },
   {
-   "session_number": 10,
-   "week": 4,
+   "session_number": 15,
+   "week": 5,
    "stage": "P19-C",
    "title": "سؤال أفهم به وسؤال أحرج به",
    "competency": "T1",
@@ -686,8 +993,8 @@
    "review_status": "unreviewed"
   },
   {
-   "session_number": 11,
-   "week": 5,
+   "session_number": 16,
+   "week": 6,
    "stage": "P19-C",
    "title": "ثلاثة أسئلة قبل أن أحكم",
    "competency": "T1",
@@ -761,8 +1068,8 @@
    "review_status": "unreviewed"
   },
   {
-   "session_number": 12,
-   "week": 5,
+   "session_number": 17,
+   "week": 6,
    "stage": "P19-C",
    "title": "قواعد اللعبة الجديدة",
    "competency": "T1",
@@ -802,8 +1109,8 @@
    "review_status": "unreviewed"
   },
   {
-   "session_number": 13,
-   "week": 5,
+   "session_number": 18,
+   "week": 6,
    "stage": "P19-D",
    "title": "أقول ما أشعر به وما أحتاجه",
    "competency": "R2",
@@ -877,8 +1184,8 @@
    "review_status": "unreviewed"
   },
   {
-   "session_number": 14,
-   "week": 6,
+   "session_number": 19,
+   "week": 7,
    "stage": "P19-D",
    "title": "كلمة تفرح وكلمة تجرح",
    "competency": "R2",
@@ -952,8 +1259,8 @@
    "review_status": "unreviewed"
   },
   {
-   "session_number": 15,
-   "week": 6,
+   "session_number": 20,
+   "week": 7,
    "stage": "P19-D",
    "title": "طلب لطيف وملاحظة صغيرة",
    "competency": "R2",
@@ -1027,8 +1334,8 @@
    "review_status": "unreviewed"
   },
   {
-   "session_number": 16,
-   "week": 6,
+   "session_number": 21,
+   "week": 7,
    "stage": "P19-D",
    "title": "الكرة في الملعب",
    "competency": "R2",

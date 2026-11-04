@@ -1,7 +1,7 @@
 {
  "program": "P02",
  "status": "draft-unreviewed",
- "total_sessions": 14,
+ "total_sessions": 19,
  "sessions": [
   {
    "session_number": 1,
@@ -197,6 +197,313 @@
   {
    "session_number": 4,
    "week": 2,
+   "stage": "P02-A",
+   "title": "أنتبه لشرارتي الأولى",
+   "competency": "S5",
+   "competency_title": "أُبكّر في هدوئي: شرارتي وأدواتي وما بيدي",
+   "objective": "أن يلاحظ الطفل أول علامة في جسده أو صوته قبل أن يكبر غضبه، ويقول «بدأ غضبي» لنفسه أو لكبير، ويعرف أن غضب كل واحد يسخن ويهدأ بطريقته.",
+   "min_age": 7,
+   "duration_min": 22,
+   "components": [
+    {
+     "type": "intro",
+     "minutes": 3,
+     "ref": {
+      "kind": "lesson",
+      "id": "E6-L1"
+     },
+     "text": "اسأل السؤال الافتتاحي واترك الأطفال يتخيلون الشمعة. اقبل كل جواب دون تصحيح."
+    },
+    {
+     "type": "source_teaching",
+     "minutes": 7,
+     "ref": {
+      "kind": "lesson",
+      "id": "E6-L1"
+     },
+     "text": "اقرأ قصة جود ثم اسأل الأسئلة واحدًا واحدًا. لا تُملِ العبرة؛ دعهم يصلون إليها."
+    },
+    {
+     "type": "interactive_practice",
+     "minutes": 10,
+     "ref": {
+      "kind": "lesson",
+      "id": "E6-L1"
+     },
+     "text": "العب لعبة التجمّد: اقرأ كل موقف، ثم يتجمد الأطفال عشر ثوانٍ ويلاحظون أجسادهم. لا أحد يُسأل عن علامته إن لم يرغب، ولا تقارن بين علامتين. ثم ادعُ كل طفل إلى ورقته الخاصة ليرسم أو يقول لنفسه كيف يمرّ غضبه. لا تُجمع الأوراق ولا تُقرأ."
+    },
+    {
+     "type": "assessment",
+     "minutes": 0,
+     "embedded_in": "interactive_practice",
+     "ref": {
+      "kind": "lesson",
+      "id": "E6-L1"
+     },
+     "text": "ملاحظة تكوينية وصفية أثناء الممارسة، دون درجات.",
+     "criteria": {
+      "ظهر": "يسمّي علامة أو علامتين تظهر في جسده أو صوته حين يبدأ غضبه، ويقول «بدأ غضبي».",
+      "يتدرب": "يلاحظ العلامة بعد أن يكبر الغضب ويحتاج تذكيرًا لينتبه مبكرًا.",
+      "يحتاج_دعما": "لا يلاحظ شيئًا في جسده أو يبدو مكتومًا لدرجة القلق، أو يتكرر عنده غضب شديد؛ فيُشرَك ولي الأمر ومختص عند الحاجة."
+     }
+    },
+    {
+     "type": "reflection",
+     "minutes": 2,
+     "ref": {
+      "kind": "lesson",
+      "id": "E6-L1"
+     },
+     "text": "اختم بالجملة الجامعة، ثم أعطِ المهمة الصغيرة والسؤال البيتي."
+    }
+   ],
+   "homework": {
+    "optional": true,
+    "out_of_session": true,
+    "text": "يلاحظ الطفل مرة هذا الأسبوع شرارته الأولى ويقول لنفسه أو لكبير: «بدأ غضبي».",
+    "estimated_minutes": 10,
+    "ref": {
+     "kind": "lesson",
+     "id": "E6-L1"
+    }
+   },
+   "review_status": "unreviewed"
+  },
+  {
+   "session_number": 5,
+   "week": 2,
+   "stage": "P02-A",
+   "title": "أغيّر حالي قبل أن أقرّر",
+   "competency": "S5",
+   "competency_title": "أُبكّر في هدوئي: شرارتي وأدواتي وما بيدي",
+   "objective": "أن يجرّب الطفل أداتين صغيرتين لتهدئة جسده (مثل الجلوس وجرعة ماء) بإشراف كبير ثم يختار ما يفعله بعد أن يهدأ.",
+   "min_age": 7,
+   "duration_min": 24,
+   "components": [
+    {
+     "type": "intro",
+     "minutes": 3,
+     "ref": {
+      "kind": "lesson",
+      "id": "E6-L2"
+     },
+     "text": "اسأل السؤال الافتتاحي وأنصت. لا تقل إن الغضب خطأ؛ قل إن المهم ما نفعله بعده."
+    },
+    {
+     "type": "source_teaching",
+     "minutes": 7,
+     "ref": {
+      "kind": "lesson",
+      "id": "E6-L2"
+     },
+     "text": "اقرأ قصة سامر ثم اطرح أسئلتها. انتبه إلى أن سامر أخبر معلمته قبل أن يجلس."
+    },
+    {
+     "type": "interactive_practice",
+     "minutes": 12,
+     "ref": {
+      "kind": "lesson",
+      "id": "E6-L2"
+     },
+     "text": "افتح «صندوق الأدوات الصغيرة»: يجرّب الأطفال كل أداة نحو نصف دقيقة وهم هادئون. دعهم يختارون أداتين بلا حكم ولا مقارنة. من لا يريد الجرب يشاهد. ثم التأمل الخاص: يرسم الطفل أداته المفضلة أو يقولها لنفسه. لا تُجمع الأوراق."
+    },
+    {
+     "type": "assessment",
+     "minutes": 0,
+     "embedded_in": "interactive_practice",
+     "ref": {
+      "kind": "lesson",
+      "id": "E6-L2"
+     },
+     "text": "ملاحظة تكوينية وصفية أثناء الممارسة، دون درجات.",
+     "criteria": {
+      "ظهر": "يجرّب أداتين ويختار واحدة، ويقول إنه سيخبر كبيرًا قبل أن يبتعد.",
+      "يتدرب": "يجرّب الأدوات بمساعدة الراشد ويحتاج تذكيرًا بإخبار الكبير.",
+      "يحتاج_دعما": "يرفض الأدوات كلها ويتكرر عنده غضب شديد أو عنف؛ فيُشرَك ولي الأمر ومختص عند الحاجة."
+     }
+    },
+    {
+     "type": "reflection",
+     "minutes": 2,
+     "ref": {
+      "kind": "lesson",
+      "id": "E6-L2"
+     },
+     "text": "اختم بالجملة الجامعة وأعطِ المهمة الصغيرة. وفي الجلسة التالية العبوا الموقف E6-S1 معًا."
+    }
+   ],
+   "homework": {
+    "optional": true,
+    "out_of_session": true,
+    "text": "يجرّب الطفل أداته مرة واحدة هذا الأسبوع في لحظة هادئة، وإن غضب جرّبها بعلم كبير.",
+    "estimated_minutes": 10,
+    "ref": {
+     "kind": "lesson",
+     "id": "E6-L2"
+    }
+   },
+   "review_status": "unreviewed"
+  },
+  {
+   "session_number": 6,
+   "week": 2,
+   "stage": "P02-A",
+   "title": "الدور الذي فات",
+   "competency": "S5",
+   "competency_title": "أُبكّر في هدوئي: شرارتي وأدواتي وما بيدي",
+   "objective": "أن يقرر الطفل في موقف «الدور الذي فات» ويرى عاقبة اختياره.",
+   "min_age": 7,
+   "duration_min": 10,
+   "components": [
+    {
+     "type": "intro",
+     "minutes": 2,
+     "ref": {
+      "kind": "scenario",
+      "id": "E6-S1"
+     },
+     "text": "قراءة مقدمة الموقف المتخيَّل بصوت هادئ، ثم سؤال مفتوح: ماذا قد يشعر بطل الموقف؟ دون أن يُطلب من أحد أن يحكي موقفًا من حياته."
+    },
+    {
+     "type": "interactive_practice",
+     "minutes": 6,
+     "ref": {
+      "kind": "scenario",
+      "id": "E6-S1"
+     },
+     "text": "يختار المتعلمون في ٣ قرارات متتابعة ويقرؤون عاقبة كل اختيار، ويتحاورون في سبب اختيارهم."
+    },
+    {
+     "type": "reflection",
+     "minutes": 2,
+     "ref": {
+      "kind": "scenario",
+      "id": "E6-S1"
+     },
+     "text": "حديث قصير عن النهاية التي وصلوا إليها، ثم سؤال التأمل: «ما الذي ساعد لمى على الهدوء قبل أن تتكلم؟ وما أداتك أنت؟» التأمل اختياري ويُقبل الصمت لمن يفضله."
+    }
+   ],
+   "review_status": "unreviewed"
+  },
+  {
+   "session_number": 7,
+   "week": 3,
+   "stage": "P02-A",
+   "title": "ما الذي بيدي؟",
+   "competency": "S5",
+   "competency_title": "أُبكّر في هدوئي: شرارتي وأدواتي وما بيدي",
+   "objective": "أن يسأل الطفل نفسه في موقف مغضب: «هل هذا بيدي؟»، ويختار خطوة هادئة مناسبة لما هو بيده، ويعتني بنفسه فيما ليس بيده.",
+   "min_age": 7,
+   "duration_min": 24,
+   "components": [
+    {
+     "type": "intro",
+     "minutes": 3,
+     "ref": {
+      "kind": "lesson",
+      "id": "E6-L3"
+     },
+     "text": "اسأل السؤال الافتتاحي، ودع الأطفال يضحكون من فكرة إيقاف المطر بالغضب."
+    },
+    {
+     "type": "source_teaching",
+     "minutes": 7,
+     "ref": {
+      "kind": "lesson",
+      "id": "E6-L3"
+     },
+     "text": "اقرأ قصة رزان ثم اطرح أسئلتها. لا تقل إن رزان أخطأت؛ اسأل: ما الذي بيدها الآن؟"
+    },
+    {
+     "type": "interactive_practice",
+     "minutes": 12,
+     "ref": {
+      "kind": "lesson",
+      "id": "E6-L3"
+     },
+     "text": "العب لعبة «بيدي / ليس بيدي». لكل بطاقة اسأل: ما الذي بيدك أنت؟ واقبل أي إجابة لها وجه معقول. اعرض البطاقة الحمراء في آخرها بهدوء. ثم التأمل الخاص: يرسم الطفل شيئًا ضايقه ولم يكن بيده، وما فعله أو يستطيع فعله. لا تُجمع الأوراق."
+    },
+    {
+     "type": "assessment",
+     "minutes": 0,
+     "embedded_in": "interactive_practice",
+     "ref": {
+      "kind": "lesson",
+      "id": "E6-L3"
+     },
+     "text": "ملاحظة تكوينية وصفية أثناء الممارسة، دون درجات.",
+     "criteria": {
+      "ظهر": "يميّز في أمثلة بين ما بيده وما ليس بيده، ويقول خطوة هادئة لما بيده.",
+      "يتدرب": "يميّز الأمثلة الواضحة ويحتاج مساعدة في الأمثلة التي فيها جزء بيده.",
+      "يحتاج_دعما": "يتكرر عنده غضب شديد حين لا يحصل ما يريد، أو يذكر أذى يقع عليه؛ فيُشرَك ولي الأمر ومختص عند الحاجة."
+     }
+    },
+    {
+     "type": "reflection",
+     "minutes": 2,
+     "ref": {
+      "kind": "lesson",
+      "id": "E6-L3"
+     },
+     "text": "اختم بالجملة الجامعة وأعطِ المهمة. وفي الجلسة التالية العبوا الموقف E6-S2 معًا."
+    }
+   ],
+   "homework": {
+    "optional": true,
+    "out_of_session": true,
+    "text": "يسأل الطفل نفسه مرة واحدة هذا الأسبوع: «هل هذا بيدي؟» حين يضايقه شيء، ثم يختار خطوة صغيرة.",
+    "estimated_minutes": 10,
+    "ref": {
+     "kind": "lesson",
+     "id": "E6-L3"
+    }
+   },
+   "review_status": "unreviewed"
+  },
+  {
+   "session_number": 8,
+   "week": 3,
+   "stage": "P02-A",
+   "title": "نزهة المطر",
+   "competency": "S5",
+   "competency_title": "أُبكّر في هدوئي: شرارتي وأدواتي وما بيدي",
+   "objective": "أن يقرر الطفل في موقف «نزهة المطر» ويرى عاقبة اختياره.",
+   "min_age": 7,
+   "duration_min": 10,
+   "components": [
+    {
+     "type": "intro",
+     "minutes": 2,
+     "ref": {
+      "kind": "scenario",
+      "id": "E6-S2"
+     },
+     "text": "قراءة مقدمة الموقف المتخيَّل بصوت هادئ، ثم سؤال مفتوح: ماذا قد يشعر بطل الموقف؟ دون أن يُطلب من أحد أن يحكي موقفًا من حياته."
+    },
+    {
+     "type": "interactive_practice",
+     "minutes": 6,
+     "ref": {
+      "kind": "scenario",
+      "id": "E6-S2"
+     },
+     "text": "يختار المتعلمون في ٣ قرارات متتابعة ويقرؤون عاقبة كل اختيار، ويتحاورون في سبب اختيارهم."
+    },
+    {
+     "type": "reflection",
+     "minutes": 2,
+     "ref": {
+      "kind": "scenario",
+      "id": "E6-S2"
+     },
+     "text": "حديث قصير عن النهاية التي وصلوا إليها، ثم سؤال التأمل: «ما الذي لم يكن بيد هادي؟ وما الذي كان بيده؟» التأمل اختياري ويُقبل الصمت لمن يفضله."
+    }
+   ],
+   "review_status": "unreviewed"
+  },
+  {
+   "session_number": 9,
+   "week": 3,
    "stage": "P02-B",
    "title": "أنا محبَط وهذا مقبول",
    "competency": "S4",
@@ -270,8 +577,8 @@
    "review_status": "unreviewed"
   },
   {
-   "session_number": 5,
-   "week": 2,
+   "session_number": 10,
+   "week": 4,
    "stage": "P02-B",
    "title": "موقف: اللغز الصعب",
    "competency": "S4",
@@ -311,8 +618,8 @@
    "review_status": "unreviewed"
   },
   {
-   "session_number": 6,
-   "week": 2,
+   "session_number": 11,
+   "week": 4,
    "stage": "P02-B",
    "title": "أنواع الصبر",
    "competency": "S4",
@@ -386,8 +693,8 @@
    "review_status": "unreviewed"
   },
   {
-   "session_number": 7,
-   "week": 3,
+   "session_number": 12,
+   "week": 4,
    "stage": "P02-B",
    "title": "موقف: ليس صبرًا",
    "competency": "S4",
@@ -427,8 +734,8 @@
    "review_status": "unreviewed"
   },
   {
-   "session_number": 8,
-   "week": 3,
+   "session_number": 13,
+   "week": 5,
    "stage": "P02-B",
    "title": "تحدي الأسبوع",
    "competency": "S4",
@@ -502,8 +809,8 @@
    "review_status": "unreviewed"
   },
   {
-   "session_number": 9,
-   "week": 4,
+   "session_number": 14,
+   "week": 5,
    "stage": "P02-C",
    "title": "لا أقول فهمت وأنا لم أفهم",
    "competency": "T1",
@@ -577,8 +884,8 @@
    "review_status": "unreviewed"
   },
   {
-   "session_number": 10,
-   "week": 4,
+   "session_number": 15,
+   "week": 5,
    "stage": "P02-C",
    "title": "موقف: فهمت وأنا لم أفهم",
    "competency": "T1",
@@ -618,8 +925,8 @@
    "review_status": "unreviewed"
   },
   {
-   "session_number": 11,
-   "week": 4,
+   "session_number": 16,
+   "week": 6,
    "stage": "P02-C",
    "title": "أين وقفتُ؟",
    "competency": "K4",
@@ -693,8 +1000,8 @@
    "review_status": "unreviewed"
   },
   {
-   "session_number": 12,
-   "week": 5,
+   "session_number": 17,
+   "week": 6,
    "stage": "P02-C",
    "title": "نسيتُ فعدتُ برفق",
    "competency": "K4",
@@ -768,8 +1075,8 @@
    "review_status": "unreviewed"
   },
   {
-   "session_number": 13,
-   "week": 5,
+   "session_number": 18,
+   "week": 6,
    "stage": "P02-C",
    "title": "أحفظ قدرًا قصيرًا وأراجعه",
    "competency": "K4",
@@ -843,8 +1150,8 @@
    "review_status": "unreviewed"
   },
   {
-   "session_number": 14,
-   "week": 5,
+   "session_number": 19,
+   "week": 7,
    "stage": "P02-C",
    "title": "موقف: نسيت مقطعًا",
    "competency": "K4",

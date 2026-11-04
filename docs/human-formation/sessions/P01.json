@@ -1,7 +1,7 @@
 {
  "program": "P01",
  "status": "draft-unreviewed",
- "total_sessions": 8,
+ "total_sessions": 18,
  "sessions": [
   {
    "session_number": 1,
@@ -196,7 +196,198 @@
   },
   {
    "session_number": 4,
+   "week": 2,
+   "stage": "P01-A",
+   "title": "لكلٍّ لطفٌ يناسبه",
+   "competency": "C3",
+   "competency_title": "ألطف بما يناسب: أنظر وأسأل ثم أفعل",
+   "objective": "أن يقول الطفل أو يمثّل كيف يلطف بطفل صغير وبجدّ كبير وبصديق في عمره، وأن يسأل نفسه: من أمامي وماذا يناسبه؟",
+   "min_age": 5,
+   "duration_min": 12,
+   "components": [
+    {
+     "type": "intro",
+     "minutes": 1,
+     "ref": {
+      "kind": "lesson",
+      "id": "E5-L1"
+     },
+     "text": "اطرح السؤال وأصغِ إلى أي جواب بلا تصحيح."
+    },
+    {
+     "type": "source_teaching",
+     "minutes": 4,
+     "ref": {
+      "kind": "lesson",
+      "id": "E5-L1"
+     },
+     "text": "اقرأ قصة جود بصوت دافئ وأسئلتها."
+    },
+    {
+     "type": "interactive_practice",
+     "minutes": 6,
+     "ref": {
+      "kind": "lesson",
+      "id": "E5-L1"
+     },
+     "text": "العبوا «من أمامي؟» بالدمى أو الصور، وبلا لمس ولا عدّ. ثم يختار الطفل لطفًا صغيرًا يمارسه معك الآن: أنظر وأفكّر وأفعل."
+    },
+    {
+     "type": "assessment",
+     "minutes": 0,
+     "embedded_in": "interactive_practice",
+     "ref": {
+      "kind": "lesson",
+      "id": "E5-L1"
+     },
+     "text": "ملاحظة تكوينية وصفية أثناء الممارسة، دون درجات.",
+     "criteria": {
+      "ظهر": "يغيّر صوته أو سرعته بحسب من أمامه، ويقول بكلماته لماذا.",
+      "يتدرب": "يفعل اللطف نفسه مع الجميع ويتغير حين تسأله: «ماذا يناسبه؟».",
+      "يحتاج_دعما": "يحتاج صورًا ودمى ولعبة «من أمامي؟» أكثر من مرة، وجملة واحدة فقط: «الصغير بهدوء والكبير بصبر»."
+     }
+    },
+    {
+     "type": "reflection",
+     "minutes": 1,
+     "ref": {
+      "kind": "lesson",
+      "id": "E5-L1"
+     },
+     "text": "اختم بالجملة الجامعة، وعرض التأمل الاختياري دون إلزام."
+    }
+   ],
+   "homework": {
+    "optional": true,
+    "out_of_session": true,
+    "text": "في اليوم التالي يختار الطفل شخصًا من أهل بيته ويلطف به بما يناسبه: يخفض صوته مع الأصغر، أو ينتظر الأكبر حتى ينهي كلامه، أو يدعو صديقه لما يحب.",
+    "estimated_minutes": 12,
+    "ref": {
+     "kind": "lesson",
+     "id": "E5-L1"
+    }
+   },
+   "review_status": "unreviewed"
+  },
+  {
+   "session_number": 5,
    "week": 3,
+   "stage": "P01-A",
+   "title": "ماذا تحتاج ليان؟",
+   "competency": "C3",
+   "competency_title": "ألطف بما يناسب: أنظر وأسأل ثم أفعل",
+   "objective": "أن يقرر الطفل في موقف «ماذا تحتاج ليان؟» ويرى عاقبة اختياره.",
+   "min_age": 5,
+   "duration_min": 8,
+   "components": [
+    {
+     "type": "intro",
+     "minutes": 2,
+     "ref": {
+      "kind": "scenario",
+      "id": "E5-S1"
+     },
+     "text": "قراءة مقدمة الموقف المتخيَّل بصوت هادئ، ثم سؤال مفتوح: ماذا قد يشعر بطل الموقف؟ دون أن يُطلب من أحد أن يحكي موقفًا من حياته."
+    },
+    {
+     "type": "interactive_practice",
+     "minutes": 4,
+     "ref": {
+      "kind": "scenario",
+      "id": "E5-S1"
+     },
+     "text": "يختار المتعلمون في ٢ قرارات متتابعة ويقرؤون عاقبة كل اختيار، ويتحاورون في سبب اختيارهم."
+    },
+    {
+     "type": "reflection",
+     "minutes": 2,
+     "ref": {
+      "kind": "scenario",
+      "id": "E5-S1"
+     },
+     "text": "حديث قصير عن النهاية التي وصلوا إليها، ثم سؤال التأمل: «ماذا فعل مجد حتى تهدأ ليان؟ وكيف أعرف ماذا يحتاج الصغير؟» التأمل اختياري ويُقبل الصمت لمن يفضله."
+    }
+   ],
+   "review_status": "unreviewed"
+  },
+  {
+   "session_number": 6,
+   "week": 3,
+   "stage": "P01-A",
+   "title": "أكون لطيفًا وأقول: لا",
+   "competency": "C3",
+   "competency_title": "ألطف بما يناسب: أنظر وأسأل ثم أفعل",
+   "objective": "أن يقول الطفل جملة هادئة وواضحة يحفظ بها حقّه أو سلامته («دوري الآن» أو «توقف»)، ويعرف أنه ينادي كبيرًا قريبًا إن لم يكفِ.",
+   "min_age": 5,
+   "duration_min": 13,
+   "components": [
+    {
+     "type": "intro",
+     "minutes": 1,
+     "ref": {
+      "kind": "lesson",
+      "id": "E5-L4"
+     },
+     "text": "اطرح السؤال وأصغِ بلا تصحيح."
+    },
+    {
+     "type": "source_teaching",
+     "minutes": 4,
+     "ref": {
+      "kind": "lesson",
+      "id": "E5-L4"
+     },
+     "text": "اقرأ قصة حنين وأسئلتها."
+    },
+    {
+     "type": "interactive_practice",
+     "minutes": 7,
+     "ref": {
+      "kind": "lesson",
+      "id": "E5-L4"
+     },
+     "text": "العبوا «جملتي الهادئة» بلا مواجهة حقيقية. ثم ارسما أو سمّيا ثلاثة كبار قريبين يناديهم الطفل."
+    },
+    {
+     "type": "assessment",
+     "minutes": 0,
+     "embedded_in": "interactive_practice",
+     "ref": {
+      "kind": "lesson",
+      "id": "E5-L4"
+     },
+     "text": "ملاحظة تكوينية وصفية أثناء الممارسة، دون درجات.",
+     "criteria": {
+      "ظهر": "يقول جملته الهادئة بوضوح ويسمّي كبيرًا قريبًا يناديه.",
+      "يتدرب": "يقول الجملة بتردد أو يحتاج تذكيرًا بمن يناديه.",
+      "يحتاج_دعما": "يحتاج كلمة واحدة فقط («توقف») مع دمية، وتكرارًا بلا ضغط، وربطها بوجه كبير يثق به."
+     }
+    },
+    {
+     "type": "reflection",
+     "minutes": 1,
+     "ref": {
+      "kind": "lesson",
+      "id": "E5-L4"
+     },
+     "text": "اختم بالجملة الجامعة، وعرض التأمل الاختياري دون إلزام."
+    }
+   ],
+   "homework": {
+    "optional": true,
+    "out_of_session": true,
+    "text": "يتدرب الطفل على جملة هادئة واحدة («دوري الآن»، أو «توقف») مع وليّ أمره، ويعرف اسم كبير قريب يناديه.",
+    "estimated_minutes": 12,
+    "ref": {
+     "kind": "lesson",
+     "id": "E5-L4"
+    }
+   },
+   "review_status": "unreviewed"
+  },
+  {
+   "session_number": 7,
+   "week": 4,
    "stage": "P01-B",
    "title": "في الاستراحة",
    "competency": "C3",
@@ -236,8 +427,158 @@
    "review_status": "unreviewed"
   },
   {
-   "session_number": 5,
-   "week": 3,
+   "session_number": 8,
+   "week": 4,
+   "stage": "P01-B",
+   "title": "ما يريحه هو لا ما أحبه أنا",
+   "competency": "C3",
+   "competency_title": "ألطف بما يناسب: أنظر وأسأل ثم أفعل",
+   "objective": "أن يميّز الطفل بين ما يحبه هو وما يحتاجه صديقه، وأن يسأل «ماذا يريحك؟» قبل أن يفعل.",
+   "min_age": 5,
+   "duration_min": 12,
+   "components": [
+    {
+     "type": "intro",
+     "minutes": 1,
+     "ref": {
+      "kind": "lesson",
+      "id": "E5-L2"
+     },
+     "text": "اطرح السؤال واقبل أي جواب بلا حكم."
+    },
+    {
+     "type": "source_teaching",
+     "minutes": 4,
+     "ref": {
+      "kind": "lesson",
+      "id": "E5-L2"
+     },
+     "text": "اقرأ قصة مازن وأسئلتها بصوت هادئ."
+    },
+    {
+     "type": "interactive_practice",
+     "minutes": 6,
+     "ref": {
+      "kind": "lesson",
+      "id": "E5-L2"
+     },
+     "text": "العبوا «أحبه أنا ويحتاجه هو» بالصور. ثم تدرّبا على سؤال «ماذا يريحك؟» مع دمية."
+    },
+    {
+     "type": "assessment",
+     "minutes": 0,
+     "embedded_in": "interactive_practice",
+     "ref": {
+      "kind": "lesson",
+      "id": "E5-L2"
+     },
+     "text": "ملاحظة تكوينية وصفية أثناء الممارسة، دون درجات.",
+     "criteria": {
+      "ظهر": "يسأل «ماذا يريحك؟» قبل أن يعرض ما يحبه، ويقبل جواب صديقه.",
+      "يتدرب": "يسأل حين تذكّره ويعرض ما يحبه هو أولًا في الغالب.",
+      "يحتاج_دعما": "يحتاج أن تُسمَّى الحاجات بصور (ماء، نوم، هدوء) وأن يكرر جملة واحدة معك قبل الجلسة بدل الشرح."
+     }
+    },
+    {
+     "type": "reflection",
+     "minutes": 1,
+     "ref": {
+      "kind": "lesson",
+      "id": "E5-L2"
+     },
+     "text": "اختم بالجملة الجامعة وعرض التأمل الاختياري."
+    }
+   ],
+   "homework": {
+    "optional": true,
+    "out_of_session": true,
+    "text": "حين يرى الطفل أخًا أو صديقًا متعبًا أو حزينًا أو مشغولًا، يسأله بصوت هادئ «ماذا يريحك؟» قبل أن يعرض ما يحبه هو.",
+    "estimated_minutes": 12,
+    "ref": {
+     "kind": "lesson",
+     "id": "E5-L2"
+    }
+   },
+   "review_status": "unreviewed"
+  },
+  {
+   "session_number": 9,
+   "week": 5,
+   "stage": "P01-B",
+   "title": "لا بأس، وأطلب بهدوء",
+   "competency": "C3",
+   "competency_title": "ألطف بما يناسب: أنظر وأسأل ثم أفعل",
+   "objective": "أن يختار الطفل كلمة لطيفة يقولها لمن أخطأ خطأً صغيرًا (مثل «لا بأس»)، وأن يطلب بهدوء ما يحتاجه دون إحراجه.",
+   "min_age": 5,
+   "duration_min": 11,
+   "components": [
+    {
+     "type": "intro",
+     "minutes": 1,
+     "ref": {
+      "kind": "lesson",
+      "id": "E5-L3"
+     },
+     "text": "اطرح سؤال الخطأ الصغير وأصغِ بلا تصحيح."
+    },
+    {
+     "type": "source_teaching",
+     "minutes": 4,
+     "ref": {
+      "kind": "lesson",
+      "id": "E5-L3"
+     },
+     "text": "اقرأ قصة طارق وأسئلتها."
+    },
+    {
+     "type": "interactive_practice",
+     "minutes": 5,
+     "ref": {
+      "kind": "lesson",
+      "id": "E5-L3"
+     },
+     "text": "العبوا «ماذا أقول؟». ثم تدرّبا على «لا بأس ثم أطلب» ببرج صغير."
+    },
+    {
+     "type": "assessment",
+     "minutes": 0,
+     "embedded_in": "interactive_practice",
+     "ref": {
+      "kind": "lesson",
+      "id": "E5-L3"
+     },
+     "text": "ملاحظة تكوينية وصفية أثناء الممارسة، دون درجات.",
+     "criteria": {
+      "ظهر": "يقول «لا بأس» ويطلب بهدوء ما يحتاجه، ويقول متى يخبر كبيرًا.",
+      "يتدرب": "يقول «لا بأس» ويحتاج تذكيرًا بالطلب الهادئ أو يتردد في الطلب.",
+      "يحتاج_دعما": "يحتاج أن يتدرب على جملة واحدة مع دمية، وأن ينتظر نفسًا بطيئًا قبل أن يتكلم، بلا لوم."
+     }
+    },
+    {
+     "type": "reflection",
+     "minutes": 1,
+     "ref": {
+      "kind": "lesson",
+      "id": "E5-L3"
+     },
+     "text": "اختم بالجملة الجامعة دون أي تقييم."
+    }
+   ],
+   "homework": {
+    "optional": true,
+    "out_of_session": true,
+    "text": "حين يخطئ أحد في البيت خطأً صغيرًا ولم يقصد، يقول الطفل «لا بأس»، ثم يطلب بهدوء ما يحتاجه إن احتاج.",
+    "estimated_minutes": 12,
+    "ref": {
+     "kind": "lesson",
+     "id": "E5-L3"
+    }
+   },
+   "review_status": "unreviewed"
+  },
+  {
+   "session_number": 10,
+   "week": 5,
    "stage": "P01-B",
    "title": "أتلو مع معلمي",
    "competency": "K4",
@@ -311,8 +652,8 @@
    "review_status": "unreviewed"
   },
   {
-   "session_number": 6,
-   "week": 4,
+   "session_number": 11,
+   "week": 6,
    "stage": "P01-B",
    "title": "جديد قليل وقديم قريب",
    "competency": "K4",
@@ -386,8 +727,8 @@
    "review_status": "unreviewed"
   },
   {
-   "session_number": 7,
-   "week": 4,
+   "session_number": 12,
+   "week": 6,
    "stage": "P01-B",
    "title": "أريد الجديد فقط",
    "competency": "K4",
@@ -427,8 +768,8 @@
    "review_status": "unreviewed"
   },
   {
-   "session_number": 8,
-   "week": 5,
+   "session_number": 13,
+   "week": 7,
    "stage": "P01-B",
    "title": "غابت كلمة",
    "competency": "K4",
@@ -463,6 +804,313 @@
       "id": "E1-S2"
      },
      "text": "حديث قصير عن النهاية التي وصلوا إليها، ثم سؤال التأمل: «ماذا أقول حين أخجل؟ ومن أنظر إليه ليساعدني؟» التأمل اختياري ويُقبل الصمت لمن يفضله."
+    }
+   ],
+   "review_status": "unreviewed"
+  },
+  {
+   "session_number": 14,
+   "week": 7,
+   "stage": "P01-B",
+   "title": "القلم الأخضر",
+   "competency": "C3",
+   "competency_title": "ألطف بما يناسب: أنظر وأسأل ثم أفعل",
+   "objective": "أن يقرر الطفل في موقف «القلم الأخضر» ويرى عاقبة اختياره.",
+   "min_age": 5,
+   "duration_min": 8,
+   "components": [
+    {
+     "type": "intro",
+     "minutes": 2,
+     "ref": {
+      "kind": "scenario",
+      "id": "E5-S2"
+     },
+     "text": "قراءة مقدمة الموقف المتخيَّل بصوت هادئ، ثم سؤال مفتوح: ماذا قد يشعر بطل الموقف؟ دون أن يُطلب من أحد أن يحكي موقفًا من حياته."
+    },
+    {
+     "type": "interactive_practice",
+     "minutes": 4,
+     "ref": {
+      "kind": "scenario",
+      "id": "E5-S2"
+     },
+     "text": "يختار المتعلمون في ٢ قرارات متتابعة ويقرؤون عاقبة كل اختيار، ويتحاورون في سبب اختيارهم."
+    },
+    {
+     "type": "reflection",
+     "minutes": 2,
+     "ref": {
+      "kind": "scenario",
+      "id": "E5-S2"
+     },
+     "text": "حديث قصير عن النهاية التي وصلوا إليها، ثم سؤال التأمل: «ما الجملة الهادئة التي أستطيع قولها قبل أن أشدّ شيئًا من يد أحد؟» التأمل اختياري ويُقبل الصمت لمن يفضله."
+    }
+   ],
+   "review_status": "unreviewed"
+  },
+  {
+   "session_number": 15,
+   "week": 8,
+   "stage": "P01-B",
+   "title": "أسمع بهدوء",
+   "competency": "K4",
+   "competency_title": "أسمع وأردّد: لحظات قصيرة مع القرآن",
+   "objective": "أن يجلس الطفل بهدوء بجانب وليّ أمره، ويسمع تلاوة بطيئة قصيرة دقيقة أو دقيقتين.",
+   "min_age": 5,
+   "duration_min": 6,
+   "components": [
+    {
+     "type": "intro",
+     "minutes": 2,
+     "ref": {
+      "kind": "lesson",
+      "id": "Y1-L7"
+     },
+     "text": "افتتاحية قصيرة، ثم لعبة الصوتين دقيقة واحدة."
+    },
+    {
+     "type": "source_teaching",
+     "minutes": 2,
+     "ref": {
+      "kind": "lesson",
+      "id": "Y1-L7"
+     },
+     "text": "اجلسا للاستماع إلى تلاوة بطيئة يختارها المعلم، ولا تصحّح شيئًا."
+    },
+    {
+     "type": "interactive_practice",
+     "minutes": 1,
+     "ref": {
+      "kind": "lesson",
+      "id": "Y1-L7"
+     },
+     "text": "اسأل الطفل ماذا أحب، وقل شكرًا للمعلم أو القارئ إن كان حاضرًا."
+    },
+    {
+     "type": "assessment",
+     "minutes": 0,
+     "embedded_in": "interactive_practice",
+     "ref": {
+      "kind": "lesson",
+      "id": "Y1-L7"
+     },
+     "text": "ملاحظة تكوينية وصفية أثناء الممارسة، دون درجات.",
+     "criteria": {
+      "ظهر": "يجلس بهدوء وينتبه للتلاوة القصيرة، ويقول ما أحبه فيها.",
+      "يتدرب": "ينتبه لحظات ثم يتحرك، ويحتاج تذكيرًا لطيفًا بالجلوس.",
+      "يحتاج_دعما": "يحتاج جلسات أقصر وجلوسًا قريبًا من وليّه ومعلّمًا متقنًا يطمئنه."
+     }
+    },
+    {
+     "type": "reflection",
+     "minutes": 1,
+     "ref": {
+      "kind": "lesson",
+      "id": "Y1-L7"
+     },
+     "text": "اختم بالجملة الجامعة والسؤال البيتي."
+    }
+   ],
+   "homework": {
+    "optional": true,
+    "out_of_session": true,
+    "text": "يجلس الطفل مع وليّ أمره دقيقة أو دقيقتين لسماع تلاوة هادئة يختارها المعلم.",
+    "estimated_minutes": 10,
+    "ref": {
+     "kind": "lesson",
+     "id": "Y1-L7"
+    }
+   },
+   "review_status": "unreviewed"
+  },
+  {
+   "session_number": 16,
+   "week": 8,
+   "stage": "P01-B",
+   "title": "أردّد بعده",
+   "competency": "K4",
+   "competency_title": "أسمع وأردّد: لحظات قصيرة مع القرآن",
+   "objective": "أن يردّد الطفل بعد معلمه مقطعًا قصيرًا جدًّا ببطء وصوت واضح، دون أي حكم على أدائه.",
+   "min_age": 5,
+   "duration_min": 8,
+   "components": [
+    {
+     "type": "intro",
+     "minutes": 2,
+     "ref": {
+      "kind": "lesson",
+      "id": "Y1-L8"
+     },
+     "text": "افتتح بلعبة الصدى بكلمات من البيت، وابتسم."
+    },
+    {
+     "type": "source_teaching",
+     "minutes": 4,
+     "ref": {
+      "kind": "lesson",
+      "id": "Y1-L8"
+     },
+     "text": "اجلسوا مع المعلم؛ يقرأ هو مقطعًا قصيرًا ببطء ويردّد الطفل."
+    },
+    {
+     "type": "interactive_practice",
+     "minutes": 1,
+     "ref": {
+      "kind": "lesson",
+      "id": "Y1-L8"
+     },
+     "text": "توقفوا عند أول علامة تعب، وقل شكرًا للمعلم."
+    },
+    {
+     "type": "assessment",
+     "minutes": 0,
+     "embedded_in": "interactive_practice",
+     "ref": {
+      "kind": "lesson",
+      "id": "Y1-L8"
+     },
+     "text": "ملاحظة تكوينية وصفية أثناء الممارسة، دون درجات.",
+     "criteria": {
+      "ظهر": "يردّد بعد المعلم ببطء ويجلس بهدوء أغلب الجلسة.",
+      "يتدرب": "يردّد بعض الكلمات ويحتاج إعادة من المعلم.",
+      "يحتاج_دعما": "يحتاج مقطعًا أقصر وجلسة أقصر وإعادة من المعلم بصبر."
+     }
+    },
+    {
+     "type": "reflection",
+     "minutes": 1,
+     "ref": {
+      "kind": "lesson",
+      "id": "Y1-L8"
+     },
+     "text": "اختم بالجملة الجامعة، دون أي تقييم."
+    }
+   ],
+   "homework": {
+    "optional": true,
+    "out_of_session": true,
+    "text": "يردّد الطفل مع معلمه أو أحد كبار أسرته مقطعًا قصيرًا جدًّا يختاره المعلم.",
+    "estimated_minutes": 10,
+    "ref": {
+     "kind": "lesson",
+     "id": "Y1-L8"
+    }
+   },
+   "review_status": "unreviewed"
+  },
+  {
+   "session_number": 17,
+   "week": 9,
+   "stage": "P01-B",
+   "title": "موعدي القصير",
+   "competency": "K4",
+   "competency_title": "أسمع وأردّد: لحظات قصيرة مع القرآن",
+   "objective": "أن يعرف الطفل أن له موعدًا قصيرًا ثابتًا مع وليّ أمره للاستماع والترديد، وأنه يمكن تعويضه بلا لوم إن فات.",
+   "min_age": 5,
+   "duration_min": 8,
+   "components": [
+    {
+     "type": "intro",
+     "minutes": 1,
+     "ref": {
+      "kind": "lesson",
+      "id": "Y1-L9"
+     },
+     "text": "افتتح بالسؤال واسمع."
+    },
+    {
+     "type": "source_teaching",
+     "minutes": 4,
+     "ref": {
+      "kind": "lesson",
+      "id": "Y1-L9"
+     },
+     "text": "اصنعا معًا ورقة الموعد: الوقت والمكان، دون عدّ."
+    },
+    {
+     "type": "interactive_practice",
+     "minutes": 2,
+     "ref": {
+      "kind": "lesson",
+      "id": "Y1-L9"
+     },
+     "text": "اسأل الطفل أسئلة التأمل، واكتب جوابه إن أحب."
+    },
+    {
+     "type": "assessment",
+     "minutes": 0,
+     "embedded_in": "interactive_practice",
+     "ref": {
+      "kind": "lesson",
+      "id": "Y1-L9"
+     },
+     "text": "ملاحظة تكوينية وصفية أثناء الممارسة، دون درجات.",
+     "criteria": {
+      "ظهر": "يعرف موعده ويجلس فيه مع وليّه بهدوء أغلب الأيام، ويقول ما أحبه.",
+      "يتدرب": "يحتاج تذكيرًا بالموعد ويجلس بعد التذكير.",
+      "يحتاج_دعما": "يحتاج موعدًا أقصر وفي وقت يكون فيه مرتاحًا، وتذكيرًا بصريًّا بسيطًا."
+     }
+    },
+    {
+     "type": "reflection",
+     "minutes": 1,
+     "ref": {
+      "kind": "lesson",
+      "id": "Y1-L9"
+     },
+     "text": "اختم بالجملة الجامعة وذكّره بأن الفوات يُعوَّض بلا لوم."
+    }
+   ],
+   "homework": {
+    "optional": true,
+    "out_of_session": true,
+    "text": "يجلس الطفل في موعده القصير مع وليّ أمره، وإن فاته الموعد يعوّضه في وقت آخر.",
+    "estimated_minutes": 10,
+    "ref": {
+     "kind": "lesson",
+     "id": "Y1-L9"
+    }
+   },
+   "review_status": "unreviewed"
+  },
+  {
+   "session_number": 18,
+   "week": 9,
+   "stage": "P01-B",
+   "title": "موقف: تعبتُ قليلًا",
+   "competency": "K4",
+   "competency_title": "أسمع وأردّد: لحظات قصيرة مع القرآن",
+   "objective": "أن يقرر المتعلم في موقف «تعبتُ قليلًا» ويرى عاقبة اختياره.",
+   "min_age": 5,
+   "duration_min": 6,
+   "components": [
+    {
+     "type": "intro",
+     "minutes": 2,
+     "ref": {
+      "kind": "scenario",
+      "id": "Y1-S4"
+     },
+     "text": "قراءة مقدمة الموقف."
+    },
+    {
+     "type": "interactive_practice",
+     "minutes": 2,
+     "ref": {
+      "kind": "scenario",
+      "id": "Y1-S4"
+     },
+     "text": "يختار المتعلمون في 1 قرارات متتابعة ويقرؤون عاقبة كل اختيار."
+    },
+    {
+     "type": "reflection",
+     "minutes": 2,
+     "ref": {
+      "kind": "scenario",
+      "id": "Y1-S4"
+     },
+     "text": "حديث عن النهاية التي وصلوا إليها وسؤال التأمل في آخر الموقف."
     }
    ],
    "review_status": "unreviewed"
