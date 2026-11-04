@@ -387,7 +387,7 @@
   },
   {
    "session_number": 7,
-   "week": 4,
+   "week": 3,
    "stage": "P21-B",
    "title": "أهيّئ نفسي لأسمع",
    "competency": "Q4",
@@ -462,7 +462,7 @@
   },
   {
    "session_number": 8,
-   "week": 4,
+   "week": 3,
    "stage": "P21-B",
    "title": "أسأل قبل أن أستخلص",
    "competency": "Q4",
@@ -537,7 +537,7 @@
   },
   {
    "session_number": 9,
-   "week": 4,
+   "week": 3,
    "stage": "P21-B",
    "title": "ما تعلمته وما أحسستُ به",
    "competency": "Q4",
@@ -612,7 +612,7 @@
   },
   {
    "session_number": 10,
-   "week": 5,
+   "week": 4,
    "stage": "P21-B",
    "title": "ماذا أعمل بما سمعت؟",
    "competency": "Q4",
@@ -687,7 +687,7 @@
   },
   {
    "session_number": 11,
-   "week": 5,
+   "week": 4,
    "stage": "P21-B",
    "title": "هذا المقطع يخصّني أنا",
    "competency": "Q4",
@@ -728,7 +728,7 @@
   },
   {
    "session_number": 12,
-   "week": 5,
+   "week": 4,
    "stage": "P21-B",
    "title": "ماذا يعني المقطع؟",
    "competency": "Q4",
@@ -769,7 +769,7 @@
   },
   {
    "session_number": 13,
-   "week": 7,
+   "week": 5,
    "stage": "P21-C",
    "title": "دفتر أثري",
    "competency": "K4",
@@ -844,7 +844,7 @@
   },
   {
    "session_number": 14,
-   "week": 7,
+   "week": 5,
    "stage": "P21-C",
    "title": "أصوات مختلفة وقراءات مختلفة",
    "competency": "K4",
@@ -919,7 +919,7 @@
   },
   {
    "session_number": 15,
-   "week": 7,
+   "week": 5,
    "stage": "P21-C",
    "title": "هذا لدفتري وهذا لمعلمي",
    "competency": "K4",
@@ -994,7 +994,7 @@
   },
   {
    "session_number": 16,
-   "week": 8,
+   "week": 6,
    "stage": "P21-C",
    "title": "دفتري ورفيقتي",
    "competency": "K4",
@@ -1035,7 +1035,7 @@
   },
   {
    "session_number": 17,
-   "week": 8,
+   "week": 6,
    "stage": "P21-C",
    "title": "قراءتان مختلفتان",
    "competency": "K4",
@@ -1076,7 +1076,7 @@
   },
   {
    "session_number": 18,
-   "week": 8,
+   "week": 6,
    "stage": "P21-C",
    "title": "جدول مراجعتي",
    "competency": "K4",
@@ -1151,7 +1151,7 @@
   },
   {
    "session_number": 19,
-   "week": 9,
+   "week": 7,
    "stage": "P21-C",
    "title": "جدول مزدحم",
    "competency": "K4",

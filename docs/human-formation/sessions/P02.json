@@ -1,7 +1,7 @@
 {
  "program": "P02",
  "status": "draft-unreviewed",
- "total_sessions": 12,
+ "total_sessions": 14,
  "sessions": [
   {
    "session_number": 1,
@@ -503,7 +503,7 @@
   },
   {
    "session_number": 9,
-   "week": 3,
+   "week": 4,
    "stage": "P02-C",
    "title": "لا أقول فهمت وأنا لم أفهم",
    "competency": "T1",
@@ -621,6 +621,156 @@
    "session_number": 11,
    "week": 4,
    "stage": "P02-C",
+   "title": "أين وقفتُ؟",
+   "competency": "K4",
+   "competency_title": "أتلو مع معلمي بهدوء: أسمع القديم وأعود برفق",
+   "objective": "أن يشير الطفل بعد الترديد إلى موضع احتاج فيه إلى التمهّل، ويقول لمعلمه «هنا أحتاج إعادة» دون خجل.",
+   "min_age": 6,
+   "duration_min": 14,
+   "components": [
+    {
+     "type": "intro",
+     "minutes": 1,
+     "ref": {
+      "kind": "lesson",
+      "id": "E1-L2"
+     },
+     "text": "اطرح سؤال التعثر وأصغِ بلا تصحيح."
+    },
+    {
+     "type": "source_teaching",
+     "minutes": 4,
+     "ref": {
+      "kind": "lesson",
+      "id": "E1-L2"
+     },
+     "text": "اقرأ قصة ليث بصوت دافئ وأسئلتها."
+    },
+    {
+     "type": "interactive_practice",
+     "minutes": 8,
+     "ref": {
+      "kind": "lesson",
+      "id": "E1-L2"
+     },
+     "text": "يقرأ المعلم قدرًا قصيرًا جدًّا ويردّده الطفل؛ ثم يسأل المعلم: هل تعرف أين وقفتَ؟ ويقبل أي جواب بلا حكم. ثم يعيد المعلم الموضع مع الطفل ويشكره، ثم عرض التأمل الاختياري."
+    },
+    {
+     "type": "assessment",
+     "minutes": 0,
+     "embedded_in": "interactive_practice",
+     "ref": {
+      "kind": "lesson",
+      "id": "E1-L2"
+     },
+     "text": "ملاحظة تكوينية وصفية أثناء الممارسة، دون درجات.",
+     "criteria": {
+      "ظهر": "يشير إلى موضع تمهّله أو يقول «هنا» بلا خجل، ويردّد المكان مع معلمه.",
+      "يتدرب": "يشير إلى الموضع حين يُسأل بلطف، ويحتاج تشجيعًا ليبادر بالقول.",
+      "يحتاج_دعما": "يخجل أو يصمت؛ يُخفَّف السؤال إلى «هل تريد أن نعيد معًا؟» ويدلّه المعلم على الموضع بلا إحراج، وتُعاد قصة ليث."
+     }
+    },
+    {
+     "type": "reflection",
+     "minutes": 1,
+     "ref": {
+      "kind": "lesson",
+      "id": "E1-L2"
+     },
+     "text": "اختم بالجملة الجامعة دون أي تقييم."
+    }
+   ],
+   "homework": {
+    "optional": true,
+    "out_of_session": true,
+    "text": "حين يردّد الطفل مع كبير قدرًا قصيرًا، يقول عند الحاجة «هنا أحتاج إعادة» ويشير إلى المكان.",
+    "estimated_minutes": 12,
+    "ref": {
+     "kind": "lesson",
+     "id": "E1-L2"
+    }
+   },
+   "review_status": "unreviewed"
+  },
+  {
+   "session_number": 12,
+   "week": 5,
+   "stage": "P02-C",
+   "title": "نسيتُ فعدتُ برفق",
+   "competency": "K4",
+   "competency_title": "أتلو مع معلمي بهدوء: أسمع القديم وأعود برفق",
+   "objective": "أن يتذكر الطفل خطوات قصيرة للعودة إلى ما نسيه (أتوقف، أتنفس، أقول «أعد من فضلك»، أسمع، أردّد)، ويعرف أن موعده القصير ينتظره غدًا بلا لوم.",
+   "min_age": 6,
+   "duration_min": 12,
+   "components": [
+    {
+     "type": "intro",
+     "minutes": 1,
+     "ref": {
+      "kind": "lesson",
+      "id": "E1-L3"
+     },
+     "text": "اطرح سؤال النسيان بنبرة هادئة، ولا تُحرج أحدًا."
+    },
+    {
+     "type": "source_teaching",
+     "minutes": 3,
+     "ref": {
+      "kind": "lesson",
+      "id": "E1-L3"
+     },
+     "text": "اقرأ قصة نور بصوت دافئ وأسئلتها."
+    },
+    {
+     "type": "interactive_practice",
+     "minutes": 7,
+     "ref": {
+      "kind": "lesson",
+      "id": "E1-L3"
+     },
+     "text": "علّم الخطوات الخمس على الأصابع، ثم العبا اللعبة بكلمات البيت دقيقتين. ثم حوار «ماذا نقول لمن نسي؟» شفويًّا، وأصغِ بلا حكم."
+    },
+    {
+     "type": "assessment",
+     "minutes": 0,
+     "embedded_in": "interactive_practice",
+     "ref": {
+      "kind": "lesson",
+      "id": "E1-L3"
+     },
+     "text": "ملاحظة تكوينية وصفية أثناء الممارسة، دون درجات.",
+     "criteria": {
+      "ظهر": "يتذكر الخطوات ويقول «أعد من فضلك» حين ينسى، ويعود ويردّد بهدوء.",
+      "يتدرب": "يجرّب الخطوات بتذكير بالأصابع، ويحتاج مساعدة ليقول الجملة.",
+      "يحتاج_دعما": "يخاف أو يصمت عند النسيان؛ تُعاد اللعبة بكلمات سهلة، ويُقصَّر الدرس، ويقول الكبير الجملة معه."
+     }
+    },
+    {
+     "type": "reflection",
+     "minutes": 1,
+     "ref": {
+      "kind": "lesson",
+      "id": "E1-L3"
+     },
+     "text": "اختم بالجملة الجامعة وبالشكر."
+    }
+   ],
+   "homework": {
+    "optional": true,
+    "out_of_session": true,
+    "text": "حين ينسى الطفل أمرًا في أي لعبة أو كلمة، يجرّب الخطوات الخمس للعودة بدل أن يسكت أو يخاف.",
+    "estimated_minutes": 12,
+    "ref": {
+     "kind": "lesson",
+     "id": "E1-L3"
+    }
+   },
+   "review_status": "unreviewed"
+  },
+  {
+   "session_number": 13,
+   "week": 5,
+   "stage": "P02-C",
    "title": "أحفظ قدرًا قصيرًا وأراجعه",
    "competency": "K4",
    "competency_title": "أتلو وأحفظ وأراجع برفق",
@@ -693,8 +843,8 @@
    "review_status": "unreviewed"
   },
   {
-   "session_number": 12,
-   "week": 4,
+   "session_number": 14,
+   "week": 5,
    "stage": "P02-C",
    "title": "موقف: نسيت مقطعًا",
    "competency": "K4",

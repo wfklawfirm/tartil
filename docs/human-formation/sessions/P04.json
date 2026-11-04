@@ -1,7 +1,7 @@
 {
  "program": "P04",
  "status": "draft-unreviewed",
- "total_sessions": 15,
+ "total_sessions": 20,
  "sessions": [
   {
    "session_number": 1,
@@ -137,6 +137,122 @@
    "session_number": 3,
    "week": 1,
    "stage": "P04-A",
+   "title": "ماذا يحتاج فعلًا؟",
+   "competency": "C3",
+   "competency_title": "الرحمة: أسأل قبل أن أساعد",
+   "objective": "أن يفرّق الطفل بين مساعدة تريح المساعِد ومساعدة تناسب حاجة صاحبها، وأن يسأل «ماذا تحتاج؟» قبل أن يساعد.",
+   "min_age": 8,
+   "duration_min": 25,
+   "components": [
+    {
+     "type": "intro",
+     "minutes": 3,
+     "ref": {
+      "kind": "lesson",
+      "id": "E3-L1"
+     },
+     "text": "اطرح الافتتاحية واسمع تخمينات الأطفال دون حكم عليها."
+    },
+    {
+     "type": "source_teaching",
+     "minutes": 7,
+     "ref": {
+      "kind": "lesson",
+      "id": "E3-L1"
+     },
+     "text": "اقرأ قصة بركان مازن، وتوقف عند «سكت مازن»، ثم اطرح الأسئلة. لا تُملِ العبرة؛ دعهم يصلون إلى سؤال ريّان الأخير."
+    },
+    {
+     "type": "interactive_practice",
+     "minutes": 14,
+     "ref": {
+      "kind": "lesson",
+      "id": "E3-L1"
+     },
+     "text": "بطاقات «يحتاجه أم يريحني؟» في أزواج، ثم تدريب جمل السؤال بالتمثيل وتبادل الأدوار. ثم تأمل خاص في السجل لا يُجمع ولا يُقرأ، ويُقبل الصمت."
+    },
+    {
+     "type": "assessment",
+     "minutes": 0,
+     "embedded_in": "interactive_practice",
+     "ref": {
+      "kind": "lesson",
+      "id": "E3-L1"
+     },
+     "text": "ملاحظة تكوينية وصفية أثناء الممارسة، دون درجات.",
+     "criteria": {
+      "ظهر": "يميّز في موقف جديد بين ما يريح المساعِد وما يحتاجه صاحب الموقف، ويستعمل جملة سؤال بكلماته.",
+      "يتدرب": "يستعمل جملة السؤال بعد تذكير، ويحتاج مثالًا للتمييز بين الحاجتين.",
+      "يحتاج_دعما": "يقفز إلى الحل بسرعة؛ تُعاد المواقف بالتمثيل وبخطوة واحدة صغيرة، ولا يُلام."
+     }
+    },
+    {
+     "type": "reflection",
+     "minutes": 1,
+     "ref": {
+      "kind": "lesson",
+      "id": "E3-L1"
+     },
+     "text": "اختم بالجملة الجامعة والسؤال البيتي، ثم يُستحسن أن يعقبه سيناريو «في السيارة» (E3-S1) في جلسة قصيرة."
+    }
+   ],
+   "homework": {
+    "optional": true,
+    "out_of_session": true,
+    "text": "حين يرى الطفل زميلًا أو أخًا في موقف صعب صغير، يسأله: «ماذا تحتاج؟» ويفعل ما يطلبه إن كان آمنًا، فإن لم يُرِد شيئًا قال: «أنا قريب منك».",
+    "estimated_minutes": 10,
+    "ref": {
+     "kind": "lesson",
+     "id": "E3-L1"
+    }
+   },
+   "review_status": "unreviewed"
+  },
+  {
+   "session_number": 4,
+   "week": 2,
+   "stage": "P04-A",
+   "title": "في السيارة إلى بيت الجدة",
+   "competency": "C3",
+   "competency_title": "الرحمة: أسأل قبل أن أساعد",
+   "objective": "أن يقرر المتعلم في موقف «في السيارة إلى بيت الجدة» ويرى عاقبة اختياره.",
+   "min_age": 8,
+   "duration_min": 10,
+   "components": [
+    {
+     "type": "intro",
+     "minutes": 2,
+     "ref": {
+      "kind": "scenario",
+      "id": "E3-S1"
+     },
+     "text": "قراءة مقدمة الموقف المتخيَّل بصوت هادئ، ثم سؤال مفتوح: ماذا قد يشعر بطل الموقف؟ دون أن يُطلب من أحد أن يحكي موقفًا من حياته."
+    },
+    {
+     "type": "interactive_practice",
+     "minutes": 6,
+     "ref": {
+      "kind": "scenario",
+      "id": "E3-S1"
+     },
+     "text": "يختار المتعلمون في ٣ قرارات متتابعة ويقرؤون عاقبة كل اختيار، ويتحاورون في سبب اختيارهم."
+    },
+    {
+     "type": "reflection",
+     "minutes": 2,
+     "ref": {
+      "kind": "scenario",
+      "id": "E3-S1"
+     },
+     "text": "حديث قصير عن النهاية التي وصلوا إليها، ثم سؤال التأمل: «ما الذي ظنه رامي أول الأمر؟ وما الذي كانت تحتاجه لمى؟ كيف تعرف ما يحتاجه من تحب؟» التأمل اختياري ويُقبل الصمت لمن يفضله."
+    }
+   ],
+   "review_status": "unreviewed"
+  },
+  {
+   "session_number": 5,
+   "week": 2,
+   "stage": "P04-A",
    "title": "عمل رحيم صغير",
    "competency": "C3",
    "competency_title": "الرحمة: أنتبه وألطف",
@@ -209,7 +325,82 @@
    "review_status": "unreviewed"
   },
   {
-   "session_number": 4,
+   "session_number": 6,
+   "week": 2,
+   "stage": "P04-A",
+   "title": "من حولي يحتاج لطفي؟",
+   "competency": "C3",
+   "competency_title": "الرحمة: أسأل قبل أن أساعد",
+   "objective": "أن يسمّي الطفل ثلاثة أشخاص في يومه (جديد، أو يعمل لأجلنا، أو منزعج) قد يحتاجون لطفه، ويختار لكل واحد خطوة صغيرة آمنة ويعرف متى يستعين بكبير.",
+   "min_age": 8,
+   "duration_min": 25,
+   "components": [
+    {
+     "type": "intro",
+     "minutes": 3,
+     "ref": {
+      "kind": "lesson",
+      "id": "E3-L3"
+     },
+     "text": "اطرح الافتتاحية واسمع الأطفال دون حكم."
+    },
+    {
+     "type": "source_teaching",
+     "minutes": 7,
+     "ref": {
+      "kind": "lesson",
+      "id": "E3-L3"
+     },
+     "text": "اقرأ قصة الساحة، ثم الأسئلة. اجعل السؤال الثالث محورًا: متى نخبر كبيرًا؟"
+    },
+    {
+     "type": "interactive_practice",
+     "minutes": 14,
+     "ref": {
+      "kind": "lesson",
+      "id": "E3-L3"
+     },
+     "text": "خريطة اللطف: يملأها كل طفل بنفسه. مرّ بينهم وتأكد أن الخطوات آمنة. شارك من شاء بصف واحد. ثم تأمل خاص لا يُجمع ولا يُقرأ، ويُقبل الصمت."
+    },
+    {
+     "type": "assessment",
+     "minutes": 0,
+     "embedded_in": "interactive_practice",
+     "ref": {
+      "kind": "lesson",
+      "id": "E3-L3"
+     },
+     "text": "ملاحظة تكوينية وصفية أثناء الممارسة، دون درجات.",
+     "criteria": {
+      "ظهر": "يسمّي أشخاصًا في يومه قد يحتاجون لطفه، ويختار لكل واحد خطوة صغيرة آمنة ويعرف متى يخبر كبيرًا.",
+      "يتدرب": "يختار الخطوة بمساعدة ويحتاج تذكيرًا بقواعد السلامة.",
+      "يحتاج_دعما": "يحصر لطفه في أصدقائه المقرّبين؛ تُعرض عليه أمثلة ملموسة وصور، ولا يُلام."
+     }
+    },
+    {
+     "type": "reflection",
+     "minutes": 1,
+     "ref": {
+      "kind": "lesson",
+      "id": "E3-L3"
+     },
+     "text": "اختم بالجملة الجامعة والسؤال البيتي."
+    }
+   ],
+   "homework": {
+    "optional": true,
+    "out_of_session": true,
+    "text": "يختار الطفل شخصًا واحدًا هذا الأسبوع في المدرسة أو البيت (جديد أو يعمل لأجلنا أو منزعج) ويقوم بخطوة لطف صغيرة آمنة: تحية، أو دعوة للجلوس، أو الحفاظ على نظافة ما استعمله، أو إخبار معلم.",
+    "estimated_minutes": 10,
+    "ref": {
+     "kind": "lesson",
+     "id": "E3-L3"
+    }
+   },
+   "review_status": "unreviewed"
+  },
+  {
+   "session_number": 7,
    "week": 3,
    "stage": "P04-B",
    "title": "ما العدل؟",
@@ -284,7 +475,7 @@
    "review_status": "unreviewed"
   },
   {
-   "session_number": 5,
+   "session_number": 8,
    "week": 3,
    "stage": "P04-B",
    "title": "عدل أم مساواة؟",
@@ -359,7 +550,7 @@
    "review_status": "unreviewed"
   },
   {
-   "session_number": 6,
+   "session_number": 9,
    "week": 3,
    "stage": "P04-B",
    "title": "حَكَم اللعبة",
@@ -434,7 +625,7 @@
    "review_status": "unreviewed"
   },
   {
-   "session_number": 7,
+   "session_number": 10,
    "week": 4,
    "stage": "P04-B",
    "title": "لعبة الفريقين",
@@ -489,8 +680,8 @@
    "review_status": "unreviewed"
   },
   {
-   "session_number": 8,
-   "week": 5,
+   "session_number": 11,
+   "week": 4,
    "stage": "P04-C",
    "title": "أعرف قدري",
    "competency": "C5",
@@ -564,8 +755,8 @@
    "review_status": "unreviewed"
   },
   {
-   "session_number": 9,
-   "week": 5,
+   "session_number": 12,
+   "week": 4,
    "stage": "P04-C",
    "title": "التصحيح الصغير",
    "competency": "C5",
@@ -619,7 +810,7 @@
    "review_status": "unreviewed"
   },
   {
-   "session_number": 10,
+   "session_number": 13,
    "week": 5,
    "stage": "P04-C",
    "title": "التواضع ليس ذلًّا",
@@ -694,7 +885,123 @@
    "review_status": "unreviewed"
   },
   {
-   "session_number": 11,
+   "session_number": 14,
+   "week": 5,
+   "stage": "P04-C",
+   "title": "كلمة هادئة حين يخطئ صديقي",
+   "competency": "C3",
+   "competency_title": "الرحمة: أسأل قبل أن أساعد",
+   "objective": "أن يختار الطفل طريقة لطيفة وخاصة لينبّه صديقًا إلى خطأ صغير غير مؤذٍ، ويميّز بين ما يقوله بنفسه وما يخبر فيه كبيرًا وما يتركه.",
+   "min_age": 8,
+   "duration_min": 25,
+   "components": [
+    {
+     "type": "intro",
+     "minutes": 3,
+     "ref": {
+      "kind": "lesson",
+      "id": "E3-L2"
+     },
+     "text": "اطرح الافتتاحية واسمع الأفكار دون حكم."
+    },
+    {
+     "type": "source_teaching",
+     "minutes": 6,
+     "ref": {
+      "kind": "lesson",
+      "id": "E3-L2"
+     },
+     "text": "اقرأ قصة اللوحة الكبيرة ثم اطرح أسئلتها. ركّز على أجزاء كلام جود الثلاثة: ما لاحظت، ما تظن، دعوة المراجعة."
+    },
+    {
+     "type": "interactive_practice",
+     "minutes": 15,
+     "ref": {
+      "kind": "lesson",
+      "id": "E3-L2"
+     },
+     "text": "القسم الأول: مقارنة الصيغ الثلاث وتدريب قالب (ج) بالتمثيل في أزواج. ثم القسم الثاني: فرز البطاقات الأربع. تأكد أن الأطفال يخرجون بقاعدة: الخطر والأذى يعني كبيرًا فورًا. ثم تأمل خاص لا يُجمع ولا يُقرأ، ويُقبل الصمت."
+    },
+    {
+     "type": "assessment",
+     "minutes": 0,
+     "embedded_in": "interactive_practice",
+     "ref": {
+      "kind": "lesson",
+      "id": "E3-L2"
+     },
+     "text": "ملاحظة تكوينية وصفية أثناء الممارسة، دون درجات.",
+     "criteria": {
+      "ظهر": "ينبّه إلى خطأ صغير بقالب هادئ وعلى انفراد، ويميّز بين ما يقوله بنفسه وما يخبر فيه كبيرًا.",
+      "يتدرب": "يستعمل القالب بتذكير، ويحتاج مساعدة في الفرق بين الخطأ الصغير وما فيه أذى.",
+      "يحتاج_دعما": "يميل إلى التصحيح العلني أو السكوت دائمًا؛ تُعاد البطاقات بأمثلة من يومه، ولا يُلام."
+     }
+    },
+    {
+     "type": "reflection",
+     "minutes": 1,
+     "ref": {
+      "kind": "lesson",
+      "id": "E3-L2"
+     },
+     "text": "اختم بالجملة الجامعة والسؤال البيتي، ثم يُستحسن أن يعقبه سيناريو «جدول الضرب» (E3-S2) في جلسة قصيرة."
+    }
+   ],
+   "homework": {
+    "optional": true,
+    "out_of_session": true,
+    "text": "إذا رأى الطفل هذا الأسبوع خطأً صغيرًا غير مؤذٍ عند صديق أو أخ، ينبّهه بقالب «لاحظتُ ...، أظن أن ...، هل نراجعها معًا؟» وعلى انفراد؛ وإن رأى خطرًا أو أذى أخبر كبيرًا فورًا.",
+    "estimated_minutes": 10,
+    "ref": {
+     "kind": "lesson",
+     "id": "E3-L2"
+    }
+   },
+   "review_status": "unreviewed"
+  },
+  {
+   "session_number": 15,
+   "week": 5,
+   "stage": "P04-C",
+   "title": "جدول الضرب في معرض الصف",
+   "competency": "C3",
+   "competency_title": "الرحمة: أسأل قبل أن أساعد",
+   "objective": "أن يقرر المتعلم في موقف «جدول الضرب في معرض الصف» ويرى عاقبة اختياره.",
+   "min_age": 8,
+   "duration_min": 10,
+   "components": [
+    {
+     "type": "intro",
+     "minutes": 2,
+     "ref": {
+      "kind": "scenario",
+      "id": "E3-S2"
+     },
+     "text": "قراءة مقدمة الموقف المتخيَّل بصوت هادئ، ثم سؤال مفتوح: ماذا قد يشعر بطل الموقف؟ دون أن يُطلب من أحد أن يحكي موقفًا من حياته."
+    },
+    {
+     "type": "interactive_practice",
+     "minutes": 6,
+     "ref": {
+      "kind": "scenario",
+      "id": "E3-S2"
+     },
+     "text": "يختار المتعلمون في ٣ قرارات متتابعة ويقرؤون عاقبة كل اختيار، ويتحاورون في سبب اختيارهم."
+    },
+    {
+     "type": "reflection",
+     "minutes": 2,
+     "ref": {
+      "kind": "scenario",
+      "id": "E3-S2"
+     },
+     "text": "حديث قصير عن النهاية التي وصلوا إليها، ثم سؤال التأمل: «ما الكلمات التي ساعدت زين على أن يقبل التصحيح؟ وماذا تحب أن يقول لك صديقك إذا أخطأت؟» التأمل اختياري ويُقبل الصمت لمن يفضله."
+    }
+   ],
+   "review_status": "unreviewed"
+  },
+  {
+   "session_number": 16,
    "week": 6,
    "stage": "P04-C",
    "title": "شكرًا لأنك صححت لي",
@@ -769,7 +1076,7 @@
    "review_status": "unreviewed"
   },
   {
-   "session_number": 12,
+   "session_number": 17,
    "week": 6,
    "stage": "P04-C",
    "title": "تواضع ولا تردّ",
@@ -824,7 +1131,7 @@
    "review_status": "unreviewed"
   },
   {
-   "session_number": 13,
+   "session_number": 18,
    "week": 7,
    "stage": "P04-D",
    "title": "أعرف وأفرح وأعمل",
@@ -899,7 +1206,7 @@
    "review_status": "unreviewed"
   },
   {
-   "session_number": 14,
+   "session_number": 19,
    "week": 7,
    "stage": "P04-D",
    "title": "أشكر وأطلب",
@@ -954,7 +1261,7 @@
    "review_status": "unreviewed"
   },
   {
-   "session_number": 15,
+   "session_number": 20,
    "week": 7,
    "stage": "P04-D",
    "title": "شكر بالفعل",

@@ -1,7 +1,7 @@
 {
  "program": "P05",
  "status": "draft-unreviewed",
- "total_sessions": 18,
+ "total_sessions": 24,
  "sessions": [
   {
    "session_number": 1,
@@ -212,6 +212,81 @@
    "session_number": 4,
    "week": 2,
    "stage": "P05-A",
+   "title": "أنتظر حتى يجد كلماته",
+   "competency": "R1",
+   "competency_title": "حين يتعثر الكلام بين صاحبين: أنتظر وأسأل وأقول ما جرى",
+   "objective": "أن يصف الطفل بكلماته كيف ينتظر زميلًا يتعثر في عبارته حتى يُنهي كلامه، وأن يختار جملة لطيفة يطلب بها نوبته من زميل أو من الكبير المشرف.",
+   "min_age": 8,
+   "duration_min": 25,
+   "components": [
+    {
+     "type": "intro",
+     "minutes": 3,
+     "ref": {
+      "kind": "lesson",
+      "id": "E4-L1"
+     },
+     "text": "اطرح الافتتاحية واسمع جوابين أو ثلاثة بلا تعليق."
+    },
+    {
+     "type": "source_teaching",
+     "minutes": 9,
+     "ref": {
+      "kind": "lesson",
+      "id": "E4-L1"
+     },
+     "text": "اقرأ قصة «ضيف الحصة»، وتوقف ثلاث ثوانٍ عند سكوت الضيف، ثم اطرح الأسئلة واحدًا واحدًا. لا تُملِ العبرة؛ دعهم يصلون إليها."
+    },
+    {
+     "type": "interactive_practice",
+     "minutes": 11,
+     "ref": {
+      "kind": "lesson",
+      "id": "E4-L1"
+     },
+     "text": "وزّع الأزواج على نشاط «ثلاثة أنفاس وجملة لطيفة». مرّ بينهم وساعد من يتعجل بإشارة هادئة، دون تقييم أو مقارنة. ثم التأمل الفردي الخاص «أذن وفم»؛ اختياري، ولا يُجمع ولا يُقرأ."
+    },
+    {
+     "type": "assessment",
+     "minutes": 0,
+     "embedded_in": "interactive_practice",
+     "ref": {
+      "kind": "lesson",
+      "id": "E4-L1"
+     },
+     "text": "ملاحظة تكوينية وصفية أثناء الممارسة، دون درجات.",
+     "criteria": {
+      "ظهر": "ينتظر حتى ينهي زميله جملته ولو تباطأ، ويطلب نوبته بجملة لطيفة.",
+      "يتدرب": "ينتظر لكنه يكمل الجملة عن زميله أحيانًا، ويستعيد الانتظار بعد تذكير هادئ.",
+      "يحتاج_دعما": "يتحمس ويتكلم مع المتكلم؛ يُعاد معه النشاط في مجموعة صغيرة ويُعطى إشارة بصرية للنوبة."
+     }
+    },
+    {
+     "type": "reflection",
+     "minutes": 2,
+     "ref": {
+      "kind": "lesson",
+      "id": "E4-L1"
+     },
+     "text": "اختم بالجملة الجامعة والسؤال البيتي."
+    }
+   ],
+   "homework": {
+    "optional": true,
+    "out_of_session": true,
+    "text": "هذا الأسبوع، حين يتوقف أحد من أسرتي في وسط كلامه ليفكر، أنتظر ثلاثة أنفاس هادئة قبل أن أتكلم.",
+    "estimated_minutes": 10,
+    "ref": {
+     "kind": "lesson",
+     "id": "E4-L1"
+    }
+   },
+   "review_status": "unreviewed"
+  },
+  {
+   "session_number": 5,
+   "week": 2,
+   "stage": "P05-A",
    "title": "كلام لا يريحني",
    "competency": "R1",
    "competency_title": "حسن الاستماع: أسكت وأنتبه لأفهم",
@@ -264,8 +339,124 @@
    "review_status": "unreviewed"
   },
   {
-   "session_number": 5,
+   "session_number": 6,
    "week": 2,
+   "stage": "P05-A",
+   "title": "سؤال ثانٍ حتى يتّضح",
+   "competency": "R1",
+   "competency_title": "حين يتعثر الكلام بين صاحبين: أنتظر وأسأل وأقول ما جرى",
+   "objective": "أن يميّز الطفل بين سؤال ثانٍ يطلب توضيح جزء بعينه لم يتضح، وسؤال يتكرر بعد أن اتضح الجواب، وأن يقول «اتّضح لي، شكرًا» حين يفهم.",
+   "min_age": 8,
+   "duration_min": 25,
+   "components": [
+    {
+     "type": "intro",
+     "minutes": 3,
+     "ref": {
+      "kind": "lesson",
+      "id": "E4-L2"
+     },
+     "text": "اطرح الافتتاحية واسمع جوابين بلا حكم."
+    },
+    {
+     "type": "source_teaching",
+     "minutes": 7,
+     "ref": {
+      "kind": "lesson",
+      "id": "E4-L2"
+     },
+     "text": "اقرأ «بذرة في كوب» واسأل الأسئلة. صِف السؤال والموقف ولا تصف الأطفال بصفات."
+    },
+    {
+     "type": "interactive_practice",
+     "minutes": 12,
+     "ref": {
+      "kind": "lesson",
+      "id": "E4-L2"
+     },
+     "text": "لعبة البطاقتين: الجولة الأولى بتعليمات ناقصة، والثانية بتعليمات كاملة. ثم نشاط «سؤال جديد أم سؤال أعيده؟» في أزواج، وتجوّل بينهم."
+    },
+    {
+     "type": "assessment",
+     "minutes": 0,
+     "embedded_in": "interactive_practice",
+     "ref": {
+      "kind": "lesson",
+      "id": "E4-L2"
+     },
+     "text": "ملاحظة تكوينية وصفية أثناء الممارسة، دون درجات.",
+     "criteria": {
+      "ظهر": "يحدد الجزء الغامض بجملة، ويقول «اتّضح لي» ويبدأ العمل حين يفهم.",
+      "يتدرب": "يسأل سؤالًا ثانيًا لكنه يحتاج تذكيرًا بصيغة تحديد الجزء، أو يكرر السؤال أحيانًا بعد أن يتضح.",
+      "يحتاج_دعما": "يسكت ولا يسأل، أو يكرر السؤال كثيرًا؛ يُرافَق بلطف ويُشجَّع على أن يقول ما يشعر به، ويُترك له أن يشير بالبطاقة دون كلام."
+     }
+    },
+    {
+     "type": "reflection",
+     "minutes": 3,
+     "ref": {
+      "kind": "lesson",
+      "id": "E4-L2"
+     },
+     "text": "تأمل خاص قصير، ثم الجملة الجامعة والسؤال البيتي."
+    }
+   ],
+   "homework": {
+    "optional": true,
+    "out_of_session": true,
+    "text": "عند أول شرح أسمعه هذا الأسبوع، إن بقي جزء غامض أسأل سؤالًا ثانيًا بصيغة «فهمت أن ...، ولم يتضح لي ...»، وإذا اتضح لي أقول «اتّضح لي، شكرًا».",
+    "estimated_minutes": 10,
+    "ref": {
+     "kind": "lesson",
+     "id": "E4-L2"
+    }
+   },
+   "review_status": "unreviewed"
+  },
+  {
+   "session_number": 7,
+   "week": 3,
+   "stage": "P05-A",
+   "title": "بطاقة المفاجأة",
+   "competency": "R1",
+   "competency_title": "حين يتعثر الكلام بين صاحبين: أنتظر وأسأل وأقول ما جرى",
+   "objective": "أن يقرر المتعلم في موقف «بطاقة المفاجأة» ويرى عاقبة اختياره.",
+   "min_age": 8,
+   "duration_min": 12,
+   "components": [
+    {
+     "type": "intro",
+     "minutes": 2,
+     "ref": {
+      "kind": "scenario",
+      "id": "E4-S1"
+     },
+     "text": "قراءة مقدمة الموقف المتخيَّل بصوت هادئ، ثم سؤال مفتوح: ماذا قد يشعر بطل الموقف؟ دون أن يُطلب من أحد أن يحكي موقفًا من حياته."
+    },
+    {
+     "type": "interactive_practice",
+     "minutes": 8,
+     "ref": {
+      "kind": "scenario",
+      "id": "E4-S1"
+     },
+     "text": "يختار المتعلمون في ٤ قرارات متتابعة ويقرؤون عاقبة كل اختيار، ويتحاورون في سبب اختيارهم."
+    },
+    {
+     "type": "reflection",
+     "minutes": 2,
+     "ref": {
+      "kind": "scenario",
+      "id": "E4-S1"
+     },
+     "text": "حديث قصير عن النهاية التي وصلوا إليها، ثم سؤال التأمل: «متى تشعر أن الجواب صار كافيًا؟ وكيف تقول ذلك؟» التأمل اختياري ويُقبل الصمت لمن يفضله."
+    }
+   ],
+   "review_status": "unreviewed"
+  },
+  {
+   "session_number": 8,
+   "week": 3,
    "stage": "P05-A",
    "title": "أنا أسمع وأنت تتحقق",
    "competency": "R1",
@@ -339,8 +530,8 @@
    "review_status": "unreviewed"
   },
   {
-   "session_number": 6,
-   "week": 2,
+   "session_number": 9,
+   "week": 3,
    "stage": "P05-A",
    "title": "ما قالته ندى",
    "competency": "R1",
@@ -394,8 +585,8 @@
    "review_status": "unreviewed"
   },
   {
-   "session_number": 7,
-   "week": 3,
+   "session_number": 10,
+   "week": 4,
    "stage": "P05-B",
    "title": "أسمّي شعوري",
    "competency": "R2",
@@ -469,8 +660,8 @@
    "review_status": "unreviewed"
   },
   {
-   "session_number": 8,
-   "week": 3,
+   "session_number": 11,
+   "week": 4,
    "stage": "P05-B",
    "title": "هدوء أحتاجه",
    "competency": "R2",
@@ -524,8 +715,8 @@
    "review_status": "unreviewed"
   },
   {
-   "session_number": 9,
-   "week": 3,
+   "session_number": 12,
+   "week": 4,
    "stage": "P05-B",
    "title": "جارح أم لطيف؟",
    "competency": "R2",
@@ -599,8 +790,8 @@
    "review_status": "unreviewed"
   },
   {
-   "session_number": 10,
-   "week": 4,
+   "session_number": 13,
+   "week": 5,
    "stage": "P05-B",
    "title": "الخطأ أمام الزملاء",
    "competency": "R2",
@@ -654,8 +845,8 @@
    "review_status": "unreviewed"
   },
   {
-   "session_number": 11,
-   "week": 4,
+   "session_number": 14,
+   "week": 5,
    "stage": "P05-B",
    "title": "أسأل لأفهم أو أسأل لأغلب",
    "competency": "T1",
@@ -729,8 +920,83 @@
    "review_status": "unreviewed"
   },
   {
-   "session_number": 12,
+   "session_number": 15,
    "week": 5,
+   "stage": "P05-B",
+   "title": "سؤال بدل حكم",
+   "competency": "R1",
+   "competency_title": "حين يتعثر الكلام بين صاحبين: أنتظر وأسأل وأقول ما جرى",
+   "objective": "أن يجرّب الطفل صياغة سؤال لطيف بدل جملة حكم حين يضايقه تصرف صغير من صديق في لعبة أو مشاركة، وأن يعرف متى يطلب كبيرًا.",
+   "min_age": 8,
+   "duration_min": 25,
+   "components": [
+    {
+     "type": "intro",
+     "minutes": 3,
+     "ref": {
+      "kind": "lesson",
+      "id": "E4-L4"
+     },
+     "text": "اطرح الافتتاحية واسمع جوابين بلا تعليق."
+    },
+    {
+     "type": "source_teaching",
+     "minutes": 7,
+     "ref": {
+      "kind": "lesson",
+      "id": "E4-L4"
+     },
+     "text": "اقرأ «القاعدة التي تتغير»، واسأل الأسئلة بالتدرّج. لا تُعدّ نهاية القصة قاعدة مضمونة."
+    },
+    {
+     "type": "interactive_practice",
+     "minutes": 12,
+     "ref": {
+      "kind": "lesson",
+      "id": "E4-L4"
+     },
+     "text": "نشاط «أحوّل الحكم إلى سؤال» في أزواج؛ تجوّل ولا تقيّم. ثم نقاش «ما الذي أقوله أنا؟» مع التركيز على متى نطلب كبيرًا."
+    },
+    {
+     "type": "assessment",
+     "minutes": 0,
+     "embedded_in": "interactive_practice",
+     "ref": {
+      "kind": "lesson",
+      "id": "E4-L4"
+     },
+     "text": "ملاحظة تكوينية وصفية أثناء الممارسة، دون درجات.",
+     "criteria": {
+      "ظهر": "يحوّل جملة حكم إلى سؤال لطيف بإحدى الصيغ، ويقول متى يطلب كبيرًا.",
+      "يتدرب": "يعرف الصيغ لكنه يعود إلى الحكم حين ينفعل، ويحتاج تذكيرًا هادئًا.",
+      "يحتاج_دعما": "ينفعل أو ينسحب؛ يُدرَّب معه على جملة واحدة قصيرة في مجموعة صغيرة، ويُطمأن بأن طلب كبير جائز دائمًا."
+     }
+    },
+    {
+     "type": "reflection",
+     "minutes": 3,
+     "ref": {
+      "kind": "lesson",
+      "id": "E4-L4"
+     },
+     "text": "تأمل خاص قصير، ثم الجملة الجامعة والسؤال البيتي."
+    }
+   ],
+   "homework": {
+    "optional": true,
+    "out_of_session": true,
+    "text": "هذا الأسبوع، إن ضايقني تصرف صغير من صديق في لعبة أو مشاركة، أجرّب أن أسأله سؤالًا لطيفًا بدل أن أحكم عليه.",
+    "estimated_minutes": 10,
+    "ref": {
+     "kind": "lesson",
+     "id": "E4-L4"
+    }
+   },
+   "review_status": "unreviewed"
+  },
+  {
+   "session_number": 16,
+   "week": 6,
    "stage": "P05-C",
    "title": "أسمّي الخطأ بلا لوم",
    "competency": "S6",
@@ -804,8 +1070,8 @@
    "review_status": "unreviewed"
   },
   {
-   "session_number": 13,
-   "week": 5,
+   "session_number": 17,
+   "week": 6,
    "stage": "P05-C",
    "title": "الكوب المكسور",
    "competency": "S6",
@@ -859,8 +1125,8 @@
    "review_status": "unreviewed"
   },
   {
-   "session_number": 14,
-   "week": 5,
+   "session_number": 18,
+   "week": 6,
    "stage": "P05-C",
    "title": "ماذا حدث؟ ماذا أصلح؟ ماذا أفعل غدًا؟",
    "competency": "S6",
@@ -934,7 +1200,123 @@
    "review_status": "unreviewed"
   },
   {
-   "session_number": 15,
+   "session_number": 19,
+   "week": 7,
+   "stage": "P05-C",
+   "title": "حين يسألني صديقي: هل أنت الذي فعل؟",
+   "competency": "R1",
+   "competency_title": "حين يتعثر الكلام بين صاحبين: أنتظر وأسأل وأقول ما جرى",
+   "objective": "أن يميّز الطفل ثلاثة ردود صادقة على سؤال صديق عمّا حدث، وأن يختار الرد الذي يشبه ما جرى فعلًا ويعرض الإصلاح، وأن يقبل اعتذار صديقه بحسن ظن.",
+   "min_age": 8,
+   "duration_min": 25,
+   "components": [
+    {
+     "type": "intro",
+     "minutes": 3,
+     "ref": {
+      "kind": "lesson",
+      "id": "E4-L3"
+     },
+     "text": "اطرح الافتتاحية واسمع جوابين بلا حكم."
+    },
+    {
+     "type": "source_teaching",
+     "minutes": 7,
+     "ref": {
+      "kind": "lesson",
+      "id": "E4-L3"
+     },
+     "text": "اقرأ النسخ الثلاث، وبعد كل نسخة اسأل: ما الذي جرى؟ وما الرد الذي يشبهه؟"
+    },
+    {
+     "type": "interactive_practice",
+     "minutes": 12,
+     "ref": {
+      "kind": "lesson",
+      "id": "E4-L3"
+     },
+     "text": "لعبة «أي رد يشبه ما جرى؟» في أزواج، دون وصف أحد بصفة. ثم لعب الأدوار بالبطاقات الخيالية؛ شدّد على أنه لا يُحكى موقف حقيقي."
+    },
+    {
+     "type": "assessment",
+     "minutes": 0,
+     "embedded_in": "interactive_practice",
+     "ref": {
+      "kind": "lesson",
+      "id": "E4-L3"
+     },
+     "text": "ملاحظة تكوينية وصفية أثناء الممارسة، دون درجات.",
+     "criteria": {
+      "ظهر": "يختار الرد الذي يشبه الواقعة، ويعرض إصلاحًا صغيرًا ويقبل الاعتذار بجملة شكر.",
+      "يتدرب": "يعرف الجمل الثلاث لكنه يحتاج تذكيرًا بأن الرد يشبه ما جرى أو أن يعرض الإصلاح.",
+      "يحتاج_دعما": "يتجنب الجواب أو يتوتر؛ يُعاد النشاط بالبطاقات في مجموعة صغيرة بلا أي ضغط، ويُتاح له أن يشير إلى الجملة بدل قولها."
+     }
+    },
+    {
+     "type": "reflection",
+     "minutes": 3,
+     "ref": {
+      "kind": "lesson",
+      "id": "E4-L3"
+     },
+     "text": "تأمل خاص قصير، ثم الجملة الجامعة والسؤال البيتي."
+    }
+   ],
+   "homework": {
+    "optional": true,
+    "out_of_session": true,
+    "text": "هذا الأسبوع، إن سألني أحد عن أمر صغير جرى، أقول ما جرى فعلًا بجملة واحدة هادئة، وأعرض إصلاحًا صغيرًا إن لزم.",
+    "estimated_minutes": 10,
+    "ref": {
+     "kind": "lesson",
+     "id": "E4-L3"
+    }
+   },
+   "review_status": "unreviewed"
+  },
+  {
+   "session_number": 20,
+   "week": 7,
+   "stage": "P05-C",
+   "title": "برج المكعبات: ما الرد الذي يشبه ما جرى؟",
+   "competency": "R1",
+   "competency_title": "حين يتعثر الكلام بين صاحبين: أنتظر وأسأل وأقول ما جرى",
+   "objective": "أن يقرر المتعلم في موقف «برج المكعبات: ما الرد الذي يشبه ما جرى؟» ويرى عاقبة اختياره.",
+   "min_age": 8,
+   "duration_min": 10,
+   "components": [
+    {
+     "type": "intro",
+     "minutes": 2,
+     "ref": {
+      "kind": "scenario",
+      "id": "E4-S2"
+     },
+     "text": "قراءة مقدمة الموقف المتخيَّل بصوت هادئ، ثم سؤال مفتوح: ماذا قد يشعر بطل الموقف؟ دون أن يُطلب من أحد أن يحكي موقفًا من حياته."
+    },
+    {
+     "type": "interactive_practice",
+     "minutes": 6,
+     "ref": {
+      "kind": "scenario",
+      "id": "E4-S2"
+     },
+     "text": "يختار المتعلمون في ٣ قرارات متتابعة ويقرؤون عاقبة كل اختيار، ويتحاورون في سبب اختيارهم."
+    },
+    {
+     "type": "reflection",
+     "minutes": 2,
+     "ref": {
+      "kind": "scenario",
+      "id": "E4-S2"
+     },
+     "text": "حديث قصير عن النهاية التي وصلوا إليها، ثم سؤال التأمل: «لو كنت رامي، ماذا تقول لعدنان؟ ولو كنت عدنان، ما الذي ساعدك على قول «لا» بهدوء؟» التأمل اختياري ويُقبل الصمت لمن يفضله."
+    }
+   ],
+   "review_status": "unreviewed"
+  },
+  {
+   "session_number": 21,
    "week": 7,
    "stage": "P05-D",
    "title": "من الصديق؟ أفعال لا ألقاب",
@@ -1009,8 +1391,8 @@
    "review_status": "unreviewed"
   },
   {
-   "session_number": 16,
-   "week": 7,
+   "session_number": 22,
+   "week": 8,
    "stage": "P05-D",
    "title": "الطائرة المكسورة",
    "competency": "R5",
@@ -1064,8 +1446,8 @@
    "review_status": "unreviewed"
   },
   {
-   "session_number": 17,
-   "week": 7,
+   "session_number": 23,
+   "week": 8,
    "stage": "P05-D",
    "title": "حقوق الجار الصغيرة",
    "competency": "R5",
@@ -1139,7 +1521,7 @@
    "review_status": "unreviewed"
   },
   {
-   "session_number": 18,
+   "session_number": 24,
    "week": 8,
    "stage": "P05-D",
    "title": "الكرة عند نافذة الجارة",

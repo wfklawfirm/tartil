@@ -271,7 +271,7 @@
   },
   {
    "session_number": 5,
-   "week": 2,
+   "week": 3,
    "stage": "P19-B",
    "title": "أسمّي ما أشعر به حين يصعب الأمر",
    "competency": "S4",
@@ -346,7 +346,7 @@
   },
   {
    "session_number": 6,
-   "week": 2,
+   "week": 3,
    "stage": "P19-B",
    "title": "ثلاثة وجوه للصبر",
    "competency": "S4",
@@ -496,7 +496,7 @@
   },
   {
    "session_number": 8,
-   "week": 3,
+   "week": 4,
    "stage": "P19-B",
    "title": "الأحجية الكبيرة",
    "competency": "S4",
@@ -537,7 +537,7 @@
   },
   {
    "session_number": 9,
-   "week": 3,
+   "week": 4,
    "stage": "P19-C",
    "title": "أقول: لم أفهم",
    "competency": "T1",
@@ -687,7 +687,7 @@
   },
   {
    "session_number": 11,
-   "week": 4,
+   "week": 5,
    "stage": "P19-C",
    "title": "ثلاثة أسئلة قبل أن أحكم",
    "competency": "T1",
@@ -762,7 +762,7 @@
   },
   {
    "session_number": 12,
-   "week": 4,
+   "week": 5,
    "stage": "P19-C",
    "title": "قواعد اللعبة الجديدة",
    "competency": "T1",
@@ -878,7 +878,7 @@
   },
   {
    "session_number": 14,
-   "week": 5,
+   "week": 6,
    "stage": "P19-D",
    "title": "كلمة تفرح وكلمة تجرح",
    "competency": "R2",
@@ -953,7 +953,7 @@
   },
   {
    "session_number": 15,
-   "week": 5,
+   "week": 6,
    "stage": "P19-D",
    "title": "طلب لطيف وملاحظة صغيرة",
    "competency": "R2",

@@ -462,7 +462,7 @@
   },
   {
    "session_number": 8,
-   "week": 4,
+   "week": 3,
    "stage": "P23-B",
    "title": "اختلاف في الأداء لا يعني خطأ",
    "competency": "Q6",
@@ -537,7 +537,7 @@
   },
   {
    "session_number": 9,
-   "week": 4,
+   "week": 3,
    "stage": "P23-B",
    "title": "قراءة أم رواية أم طريق؟ أسمّي الأشياء بأسمائها",
    "competency": "Q6",
@@ -687,7 +687,7 @@
   },
   {
    "session_number": 11,
-   "week": 5,
+   "week": 4,
    "stage": "P23-B",
    "title": "مصحفان وحلقة واحدة: عادات تهيئة الحلقة",
    "competency": "Q6",
@@ -762,7 +762,7 @@
   },
   {
    "session_number": 12,
-   "week": 5,
+   "week": 4,
    "stage": "P23-B",
    "title": "مصحفان على الطاولة",
    "competency": "Q6",
@@ -844,7 +844,7 @@
   },
   {
    "session_number": 14,
-   "week": 7,
+   "week": 5,
    "stage": "P23-C",
    "title": "نصٌّ أصلي وشرحٌ عليه",
    "competency": "H4",
@@ -919,7 +919,7 @@
   },
   {
    "session_number": 15,
-   "week": 7,
+   "week": 5,
    "stage": "P23-C",
    "title": "بطاقة العزو: من أين جاءنا هذا الخبر؟",
    "competency": "H4",
@@ -994,7 +994,7 @@
   },
   {
    "session_number": 16,
-   "week": 7,
+   "week": 6,
    "stage": "P23-C",
    "title": "الحكم على الدرجة عمل المختصين",
    "competency": "H4",
@@ -1069,7 +1069,7 @@
   },
   {
    "session_number": 17,
-   "week": 8,
+   "week": 6,
    "stage": "P23-C",
    "title": "أتثبت من الكتاب نفسه، وأدرّب غيري",
    "competency": "H4",
@@ -1144,7 +1144,7 @@
   },
   {
    "session_number": 18,
-   "week": 8,
+   "week": 6,
    "stage": "P23-C",
    "title": "رسالة بلا مصدر",
    "competency": "H4",
@@ -1185,7 +1185,7 @@
   },
   {
    "session_number": 19,
-   "week": 8,
+   "week": 7,
    "stage": "P23-C",
    "title": "الملخّص الجاهز",
    "competency": "H4",

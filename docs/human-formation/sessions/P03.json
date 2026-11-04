@@ -1,7 +1,7 @@
 {
  "program": "P03",
  "status": "draft-unreviewed",
- "total_sessions": 15,
+ "total_sessions": 20,
  "sessions": [
   {
    "session_number": 1,
@@ -212,6 +212,122 @@
    "session_number": 4,
    "week": 2,
    "stage": "P03-A",
+   "title": "وعدٌ أقوله وأقدر عليه",
+   "competency": "C1",
+   "competency_title": "أفي بما قلت: الوعد صدق في الغد",
+   "objective": "أن يشرح الطفل أن الوعد كلام عن الغد، وأن يسأل نفسه قبل أن يعد: هل أستطيع؟ ومتى؟ وهل يتوقف على غيري؟ وأن يستعمل عبارة «سأحاول» أو «سأسأل أولًا» حين لا يكون متأكدًا.",
+   "min_age": 8,
+   "duration_min": 25,
+   "components": [
+    {
+     "type": "intro",
+     "minutes": 3,
+     "ref": {
+      "kind": "lesson",
+      "id": "E2-L1"
+     },
+     "text": "اطرح الافتتاحية واترك الأطفال يجيبون بكلماتهم دون تصحيح."
+    },
+    {
+     "type": "source_teaching",
+     "minutes": 8,
+     "ref": {
+      "kind": "lesson",
+      "id": "E2-L1"
+     },
+     "text": "اقرأ قصة الطائرة الورقية بصوت هادئ، ثم اطرح أسئلتها واحدًا واحدًا، وأنصت بلا حكم."
+    },
+    {
+     "type": "interactive_practice",
+     "minutes": 12,
+     "ref": {
+      "kind": "lesson",
+      "id": "E2-L1"
+     },
+     "text": "وزّع بطاقات «وعد أم محاولة؟» على أزواج، واترك لكل زوج أن يفرز البطاقات في ثلاث مجموعات ويقول سببه. ثم اجمع الأزواج وناقشوا بطاقة واحدة اختلفوا حولها، دون أن تسأل أي زوج عمّن أخطأ."
+    },
+    {
+     "type": "assessment",
+     "minutes": 0,
+     "embedded_in": "interactive_practice",
+     "ref": {
+      "kind": "lesson",
+      "id": "E2-L1"
+     },
+     "text": "ملاحظة تكوينية وصفية أثناء الممارسة، دون درجات.",
+     "criteria": {
+      "ظهر": "يقول قبل الوعد ما يستطيعه فعلًا ويستعمل عبارة «سأحاول» أو «سأسأل أولًا» في موضعها.",
+      "يتدرب": "يفرز معظم البطاقات ويحتاج تذكيرًا بسؤال «هل يتوقف على غيري؟».",
+      "يحتاج_دعما": "يحتاج أمثلة من حياته مع الراشد وقراءة مشتركة، ويُترك له أن يكتفي بالاستماع دون إلحاح."
+     }
+    },
+    {
+     "type": "reflection",
+     "minutes": 2,
+     "ref": {
+      "kind": "lesson",
+      "id": "E2-L1"
+     },
+     "text": "تأمل فردي خاص اختياري (لا يُجمع ولا يُقرأ)، ثم اختم بالجملة الجامعة."
+    }
+   ],
+   "homework": {
+    "optional": true,
+    "out_of_session": true,
+    "text": "يختار الطفل وعدًا صغيرًا واحدًا لأحد أفراد أسرته أو لصديق هذا الأسبوع، ويسأل نفسه الأسئلة الثلاثة قبل أن يقوله، ثم يفي به.",
+    "estimated_minutes": 12,
+    "ref": {
+     "kind": "lesson",
+     "id": "E2-L1"
+    }
+   },
+   "review_status": "unreviewed"
+  },
+  {
+   "session_number": 5,
+   "week": 2,
+   "stage": "P03-A",
+   "title": "كتاب الألغاز",
+   "competency": "C1",
+   "competency_title": "أفي بما قلت: الوعد صدق في الغد",
+   "objective": "أن يقرر المتعلم في موقف «كتاب الألغاز» ويرى عاقبة اختياره.",
+   "min_age": 8,
+   "duration_min": 10,
+   "components": [
+    {
+     "type": "intro",
+     "minutes": 2,
+     "ref": {
+      "kind": "scenario",
+      "id": "E2-S1"
+     },
+     "text": "قراءة مقدمة الموقف المتخيَّل بصوت هادئ، ثم سؤال مفتوح: ماذا قد يشعر بطل الموقف؟ دون أن يُطلب من أحد أن يحكي موقفًا من حياته."
+    },
+    {
+     "type": "interactive_practice",
+     "minutes": 6,
+     "ref": {
+      "kind": "scenario",
+      "id": "E2-S1"
+     },
+     "text": "يختار المتعلمون في ٣ قرارات متتابعة ويقرؤون عاقبة كل اختيار، ويتحاورون في سبب اختيارهم."
+    },
+    {
+     "type": "reflection",
+     "minutes": 2,
+     "ref": {
+      "kind": "scenario",
+      "id": "E2-S1"
+     },
+     "text": "حديث قصير عن النهاية التي وصلوا إليها، ثم سؤال التأمل: «كيف تغيّر شعور رند حين عادت إلى الحقيقة؟ وماذا يساعدنا حين نصحّح ما قلناه؟» التأمل اختياري ويُقبل الصمت لمن يفضله."
+    }
+   ],
+   "review_status": "unreviewed"
+  },
+  {
+   "session_number": 6,
+   "week": 2,
+   "stage": "P03-A",
    "title": "أخطأتُ وأقول",
    "competency": "C1",
    "competency_title": "الصدق: أقول ما أعرفه وأفي بما قلت",
@@ -284,8 +400,8 @@
    "review_status": "unreviewed"
   },
   {
-   "session_number": 5,
-   "week": 2,
+   "session_number": 7,
+   "week": 3,
    "stage": "P03-A",
    "title": "الخط على الجدار",
    "competency": "C1",
@@ -339,7 +455,7 @@
    "review_status": "unreviewed"
   },
   {
-   "session_number": 6,
+   "session_number": 8,
    "week": 3,
    "stage": "P03-B",
    "title": "طبق الضيافة",
@@ -414,7 +530,7 @@
    "review_status": "unreviewed"
   },
   {
-   "session_number": 7,
+   "session_number": 9,
    "week": 3,
    "stage": "P03-B",
    "title": "علبة الألوان",
@@ -469,8 +585,8 @@
    "review_status": "unreviewed"
   },
   {
-   "session_number": 8,
-   "week": 3,
+   "session_number": 10,
+   "week": 4,
    "stage": "P03-B",
    "title": "الأمانة ليست الملك",
    "competency": "C2",
@@ -544,7 +660,7 @@
    "review_status": "unreviewed"
   },
   {
-   "session_number": 9,
+   "session_number": 11,
    "week": 4,
    "stage": "P03-B",
    "title": "أمانة صغيرة وسر صغير",
@@ -619,7 +735,7 @@
    "review_status": "unreviewed"
   },
   {
-   "session_number": 10,
+   "session_number": 12,
    "week": 4,
    "stage": "P03-B",
    "title": "السر الصغير والسر الثقيل",
@@ -674,7 +790,7 @@
    "review_status": "unreviewed"
   },
   {
-   "session_number": 11,
+   "session_number": 13,
    "week": 5,
    "stage": "P03-C",
    "title": "من يرعاني؟",
@@ -749,7 +865,7 @@
    "review_status": "unreviewed"
   },
   {
-   "session_number": 12,
+   "session_number": 14,
    "week": 5,
    "stage": "P03-C",
    "title": "طلبان في وقت واحد",
@@ -804,7 +920,7 @@
    "review_status": "unreviewed"
   },
   {
-   "session_number": 13,
+   "session_number": 15,
    "week": 5,
    "stage": "P03-C",
    "title": "صور البر الصغيرة",
@@ -879,7 +995,123 @@
    "review_status": "unreviewed"
   },
   {
-   "session_number": 14,
+   "session_number": 16,
+   "week": 6,
+   "stage": "P03-C",
+   "title": "لم أستطع أن أفي: أخبر مبكرًا",
+   "competency": "C1",
+   "competency_title": "أفي بما قلت: الوعد صدق في الغد",
+   "objective": "أن يتدرب الطفل على جملة إخبار قصيرة من ثلاثة أجزاء (ما وعدتُ به، وما منعني، وما أقترحه بدلًا منه) حين لا يستطيع الوفاء، وأن يعرف أن الوعد بإخفاء ما يخيفه أو يؤذي أحدًا لا يُحمل وحده.",
+   "min_age": 8,
+   "duration_min": 25,
+   "components": [
+    {
+     "type": "intro",
+     "minutes": 3,
+     "ref": {
+      "kind": "lesson",
+      "id": "E2-L2"
+     },
+     "text": "اطرح الافتتاحية، واستمع إلى الأجوبة دون تعليق حاد."
+    },
+    {
+     "type": "source_teaching",
+     "minutes": 7,
+     "ref": {
+      "kind": "lesson",
+      "id": "E2-L2"
+     },
+     "text": "اقرأ قصة الدراجة، ثم اسأل: متى أخبر ماجد جود؟ وماذا لو انتظر حتى العودة؟"
+    },
+    {
+     "type": "interactive_practice",
+     "minutes": 13,
+     "ref": {
+      "kind": "lesson",
+      "id": "E2-L2"
+     },
+     "text": "علّق بطاقة الجمل الثلاث وتدرب مع الأطفال على قولها، ثم اترك الأزواج يمثلون بحضورك. ثم ناقش مع الأطفال: متى يفرح الصاحب بالخبر؟ ثم اقرأ حالة الوعد الذي يخيف بصوت هادئ وأكّد أنه يُقال لراشد."
+    },
+    {
+     "type": "assessment",
+     "minutes": 0,
+     "embedded_in": "interactive_practice",
+     "ref": {
+      "kind": "lesson",
+      "id": "E2-L2"
+     },
+     "text": "ملاحظة تكوينية وصفية أثناء الممارسة، دون درجات.",
+     "criteria": {
+      "ظهر": "يقول جملة الإخبار بأجزائها الثلاثة بكلماته ويعرف أن الوعد الذي يخيفه يُقال لراشد.",
+      "يتدرب": "يقول جزأين من الثلاثة ويحتاج تذكيرًا بجزء الاقتراح.",
+      "يحتاج_دعما": "يحتاج إلى إعادة التمثيل مع الراشد وإلى تسمية راشد موثوق بمساعدته."
+     }
+    },
+    {
+     "type": "reflection",
+     "minutes": 2,
+     "ref": {
+      "kind": "lesson",
+      "id": "E2-L2"
+     },
+     "text": "اختم بالجملة الجامعة، واطلب من كل طفل أن يسمّي في نفسه راشدًا يحكي له، دون أن يعلن اسمه."
+    }
+   ],
+   "homework": {
+    "optional": true,
+    "out_of_session": true,
+    "text": "يتدرب الطفل مع راشد على جملة الإخبار الثلاثية في موقف متخيَّل، ويحتفظ بها في ذهنه ليستعملها إن احتاج.",
+    "estimated_minutes": 12,
+    "ref": {
+     "kind": "lesson",
+     "id": "E2-L2"
+    }
+   },
+   "review_status": "unreviewed"
+  },
+  {
+   "session_number": 17,
+   "week": 6,
+   "stage": "P03-C",
+   "title": "الرسالة لأمي",
+   "competency": "C1",
+   "competency_title": "أفي بما قلت: الوعد صدق في الغد",
+   "objective": "أن يقرر المتعلم في موقف «الرسالة لأمي» ويرى عاقبة اختياره.",
+   "min_age": 8,
+   "duration_min": 10,
+   "components": [
+    {
+     "type": "intro",
+     "minutes": 2,
+     "ref": {
+      "kind": "scenario",
+      "id": "E2-S2"
+     },
+     "text": "قراءة مقدمة الموقف المتخيَّل بصوت هادئ، ثم سؤال مفتوح: ماذا قد يشعر بطل الموقف؟ دون أن يُطلب من أحد أن يحكي موقفًا من حياته."
+    },
+    {
+     "type": "interactive_practice",
+     "minutes": 6,
+     "ref": {
+      "kind": "scenario",
+      "id": "E2-S2"
+     },
+     "text": "يختار المتعلمون في ٣ قرارات متتابعة ويقرؤون عاقبة كل اختيار، ويتحاورون في سبب اختيارهم."
+    },
+    {
+     "type": "reflection",
+     "minutes": 2,
+     "ref": {
+      "kind": "scenario",
+      "id": "E2-S2"
+     },
+     "text": "حديث قصير عن النهاية التي وصلوا إليها، ثم سؤال التأمل: «ما الفرق بين أن أنقل ما سمعته كما هو وبين أن أضيف من عندي؟ وماذا يفعل «لا أتذكر» لثقة من يسمعني؟» التأمل اختياري ويُقبل الصمت لمن يفضله."
+    }
+   ],
+   "review_status": "unreviewed"
+  },
+  {
+   "session_number": 18,
    "week": 6,
    "stage": "P03-C",
    "title": "اتصال بقريب",
@@ -954,8 +1186,83 @@
    "review_status": "unreviewed"
   },
   {
-   "session_number": 15,
-   "week": 6,
+   "session_number": 19,
+   "week": 7,
+   "stage": "P03-C",
+   "title": "وعدٌ لمن يرعاني",
+   "competency": "C1",
+   "competency_title": "أفي بما قلت: الوعد صدق في الغد",
+   "objective": "أن يضع الطفل مع راشد وعدًا يوميًّا صغيرًا لمن يرعاه (عملًا واضحًا بوقت واضح وطريقة للتذكّر)، وأن يقول فورًا «نسيت، سأفعله الآن» إن نسي، دون أن يُلام على النسيان نفسه.",
+   "min_age": 8,
+   "duration_min": 25,
+   "components": [
+    {
+     "type": "intro",
+     "minutes": 3,
+     "ref": {
+      "kind": "lesson",
+      "id": "E2-L3"
+     },
+     "text": "اطرح الافتتاحية واسأل الأطفال: ما أصغر عمل يفرّح من يرعاكم؟"
+    },
+    {
+     "type": "source_teaching",
+     "minutes": 8,
+     "ref": {
+      "kind": "lesson",
+      "id": "E2-L3"
+     },
+     "text": "اقرأ قصة الورقة على الباب، ثم اطرح الأسئلة. أكّد أن زياد لم يُلَم على النسيان."
+    },
+    {
+     "type": "interactive_practice",
+     "minutes": 12,
+     "ref": {
+      "kind": "lesson",
+      "id": "E2-L3"
+     },
+     "text": "ساعد كل طفل على كتابة أو رسم «بطاقة وعدي» بالأجزاء الأربعة، وامنحه خيار العمل الذي يختاره. ثم اطلب من الأطفال أن يقرؤوا بطاقاتهم لأنفسهم أو يشاركوا من شاء، دون مقارنة بين البطاقات."
+    },
+    {
+     "type": "assessment",
+     "minutes": 0,
+     "embedded_in": "interactive_practice",
+     "ref": {
+      "kind": "lesson",
+      "id": "E2-L3"
+     },
+     "text": "ملاحظة تكوينية وصفية أثناء الممارسة، دون درجات.",
+     "criteria": {
+      "ظهر": "يضع وعدًا صغيرًا بوقت وطريقة تذكّر ويستعمل جملة «نسيتُ، سأفعله الآن» حين ينسى.",
+      "يتدرب": "يحتاج مساعدة في اختيار وقت واضح أو طريقة للتذكّر.",
+      "يحتاج_دعما": "يحتاج راشدًا يقترح عملًا صغيرًا ويقرأ معه أجزاء البطاقة، ويكتفي بالاستماع دون إلحاح."
+     }
+    },
+    {
+     "type": "reflection",
+     "minutes": 2,
+     "ref": {
+      "kind": "lesson",
+      "id": "E2-L3"
+     },
+     "text": "تأمل فردي خاص اختياري، ثم اختم بالجملة الجامعة."
+    }
+   ],
+   "homework": {
+    "optional": true,
+    "out_of_session": true,
+    "text": "يحتفظ الطفل ببطاقة وعده ويفي بالعمل الصغير في موعده أيامًا من هذا الأسبوع، ويقول جملة «نسيتُ، سأفعله الآن» إن نسي.",
+    "estimated_minutes": 12,
+    "ref": {
+     "kind": "lesson",
+     "id": "E2-L3"
+    }
+   },
+   "review_status": "unreviewed"
+  },
+  {
+   "session_number": 20,
+   "week": 7,
    "stage": "P03-C",
    "title": "اتصال بالعم البعيد",
    "competency": "R4",
