@@ -1,7 +1,7 @@
 {
  "program": "P13",
  "status": "draft-unreviewed",
- "total_sessions": 24,
+ "total_sessions": 30,
  "sessions": [
   {
    "session_number": 1,
@@ -198,6 +198,81 @@
    "session_number": 4,
    "week": 2,
    "stage": "P13-A",
+   "title": "بعد السؤال: أترك للجواب وقتًا وأصغي إلى آخره",
+   "competency": "M1",
+   "competency_title": "أسأل ثم أنتظر وأبني: ما بعد السؤال في جلسة مع زميل أصغر",
+   "objective": "أن يشرح المتعلم لماذا يحتاج المجيب إلى وقت بعد السؤال، ويطبّق وقفة هادئة بخيارات ثلاثة (أنتظر، أو أعيد صياغة السؤال بكلمات أبسط، أو أدعو إلى التفكير مع الجار)، ويصغي إلى جواب زميله حتى آخره دون مقاطعة ودون إكمال الجملة عنه.",
+   "min_age": 16,
+   "duration_min": 45,
+   "components": [
+    {
+     "type": "intro",
+     "minutes": 5,
+     "ref": {
+      "kind": "lesson",
+      "id": "E15-L1"
+     },
+     "text": "اقرأ الافتتاحية، وأعطِ دقيقة للكتابة الصامتة، واسمع جوابين دون تعليق."
+    },
+    {
+     "type": "source_teaching",
+     "minutes": 12,
+     "ref": {
+      "kind": "lesson",
+      "id": "E15-L1"
+     },
+     "text": "اقرأ قصة «صمت لم يكن فراغًا» ثم الأسئلة الثلاثة، وسجّل على السبورة: أنتظر / أبسّط / أدعو للتفكير مع الجار."
+    },
+    {
+     "type": "interactive_practice",
+     "minutes": 24,
+     "ref": {
+      "kind": "lesson",
+      "id": "E15-L1"
+     },
+     "text": "التدريب بثلاثيات: دورة لكل متعلم، وتجوّل بهدوء ولا تقيّم أحدًا أمام زملائه. ثم التأمل الخاص خمس دقائق، ثم مشاركة طوعية بجملة واحدة لمن أحب."
+    },
+    {
+     "type": "assessment",
+     "minutes": 0,
+     "embedded_in": "interactive_practice",
+     "ref": {
+      "kind": "lesson",
+      "id": "E15-L1"
+     },
+     "text": "ملاحظة تكوينية وصفية أثناء الممارسة، دون درجات.",
+     "criteria": {
+      "ظهر": "ينتظر بهدوء ويصغي إلى آخر الجواب، ويذكر خيارات الوقفة الثلاثة ومتى يستعمل كل واحد.",
+      "يتدرب": "ينتظر لكنه يقاطع أو يكمل عن المجيب أحيانًا، ويحتاج إلى تذكير بالعدّ في السر.",
+      "يحتاج_دعما": "يتعجل في ملء الصمت ويحتاج إلى تدرب إضافي على الوقفة مع المربي في مواقف قصيرة."
+     }
+    },
+    {
+     "type": "reflection",
+     "minutes": 4,
+     "ref": {
+      "kind": "lesson",
+      "id": "E15-L1"
+     },
+     "text": "اختم بجملة من المتعلمين وأعطِ المهمة الحياتية مع التذكير بحضور البالغ في أي تعليم لمن هو أصغر."
+    }
+   ],
+   "homework": {
+    "optional": true,
+    "out_of_session": true,
+    "text": "أطرح سؤالًا مفتوحًا على زميل في سني أو على أحد أفراد أسرتي من الكبار، وأنتظر عدّ عشر في سرّي، وأصغي إلى آخر جوابه.",
+    "estimated_minutes": 12,
+    "ref": {
+     "kind": "lesson",
+     "id": "E15-L1"
+    }
+   },
+   "review_status": "unreviewed"
+  },
+  {
+   "session_number": 5,
+   "week": 2,
+   "stage": "P13-A",
    "title": "سلّم الأسئلة وتجربة على زميل",
    "competency": "M1",
    "competency_title": "نعلّم بالسؤال لا بالتلقين",
@@ -270,8 +345,315 @@
    "review_status": "unreviewed"
   },
   {
-   "session_number": 5,
+   "session_number": 6,
    "week": 2,
+   "stage": "P13-A",
+   "title": "جواب ناقص أو مخطئ: أبني على ما فيه من صواب وأسأل",
+   "competency": "M1",
+   "competency_title": "أسأل ثم أنتظر وأبني: ما بعد السؤال في جلسة مع زميل أصغر",
+   "objective": "أن يحوّل المتعلم ردًّا مباشرًا على جواب مخطئ (مثل «لا، خطأ») إلى ثلاث خطوات: يسمّي الجزء الصحيح، ويسأل عمّا قاد إلى الجواب، ثم يطرح سؤالًا مرشدًا يقود إلى اكتشاف الخلل؛ ويفصل بين الجواب وصاحبه.",
+   "min_age": 16,
+   "duration_min": 50,
+   "components": [
+    {
+     "type": "intro",
+     "minutes": 5,
+     "ref": {
+      "kind": "lesson",
+      "id": "E15-L2"
+     },
+     "text": "الافتتاحية: دقيقتان للكتابة الصامتة، وجوابان طوعيان دون تعليق."
+    },
+    {
+     "type": "source_teaching",
+     "minutes": 12,
+     "ref": {
+      "kind": "lesson",
+      "id": "E15-L2"
+     },
+     "text": "اقرأ قصة «ما بعد لا» بنسختيها ثم الأسئلة، وسجّل على السبورة عمودين: الردّ المغلق / الردّ المفتوح."
+    },
+    {
+     "type": "interactive_practice",
+     "minutes": 26,
+     "ref": {
+      "kind": "lesson",
+      "id": "E15-L2"
+     },
+     "text": "تدريب «حوّل الرد» في ثنائيات، ثم يجرّب كل ثنائي جملة واحدة بصوت مسموع. ثم التأمل الخاص بخمس دقائق دون جمع أي ورقة."
+    },
+    {
+     "type": "assessment",
+     "minutes": 0,
+     "embedded_in": "interactive_practice",
+     "ref": {
+      "kind": "lesson",
+      "id": "E15-L2"
+     },
+     "text": "ملاحظة تكوينية وصفية أثناء الممارسة، دون درجات.",
+     "criteria": {
+      "ظهر": "يسمّي الجزء الصحيح بصدق ويسأل «كيف وصلتَ» ويطرح سؤالًا مرشدًا دون أن يخفي الجواب بمكر، ويفصل بين الجواب وصاحبه.",
+      "يتدرب": "يسأل «كيف وصلتَ» لكنه ينسى تسمية الصواب أو يصوغ السؤال المرشد بحيث يعطي الجواب.",
+      "يحتاج_دعما": "يميل إلى التصحيح المباشر؛ ويُدرَّب مع المربي على صيغة واحدة جاهزة من ثلاث جمل."
+     }
+    },
+    {
+     "type": "reflection",
+     "minutes": 7,
+     "ref": {
+      "kind": "lesson",
+      "id": "E15-L2"
+     },
+     "text": "اختم بجملة من المتعلمين: ما الصيغة التي سأستعملها بدل «خطأ»؟ وقدّم المهمة الحياتية."
+    }
+   ],
+   "homework": {
+    "optional": true,
+    "out_of_session": true,
+    "text": "في حديث عادي مع زميل أو قريب، حين أسمع منه جوابًا ناقصًا أو غير دقيق، أجرّب الخطوات الثلاث بدل التصحيح المباشر.",
+    "estimated_minutes": 12,
+    "ref": {
+     "kind": "lesson",
+     "id": "E15-L2"
+    }
+   },
+   "review_status": "unreviewed"
+  },
+  {
+   "session_number": 7,
+   "week": 3,
+   "stage": "P13-A",
+   "title": "أختم الجلسة: يعيد بكلماته ويختار خطوته",
+   "competency": "M1",
+   "competency_title": "أسأل ثم أنتظر وأبني: ما بعد السؤال في جلسة مع زميل أصغر",
+   "objective": "أن يختم المتعلم جلسة سؤال قصيرة بعدم الاكتفاء بسؤال «هل فهمت؟»: يطلب من زميله أن يعيد بكلماته ما خرج به، ثم يختار خطوة واحدة يجرّبها وحده، ويطبّق ذلك في بروفة جلسة من اثنتي عشرة دقيقة بين أقران بحضور المربي، ويحدد مع البالغ المسؤول متى ينظر إليه وما يعرضه عليه.",
+   "min_age": 16,
+   "duration_min": 50,
+   "components": [
+    {
+     "type": "intro",
+     "minutes": 5,
+     "ref": {
+      "kind": "lesson",
+      "id": "E15-L4"
+     },
+     "text": "الافتتاحية: أجب بجملة على السؤال، ثم اعرض التسلسل الست على السبورة."
+    },
+    {
+     "type": "source_teaching",
+     "minutes": 25,
+     "ref": {
+      "kind": "lesson",
+      "id": "E15-L4"
+     },
+     "text": "البروفة بالثلاثيات: دورة لكل واحد، وتجوّل ولا تقيّم أمام الجميع."
+    },
+    {
+     "type": "interactive_practice",
+     "minutes": 15,
+     "ref": {
+      "kind": "lesson",
+      "id": "E15-L4"
+     },
+     "text": "نقاش «اتفاقي مع البالغ الحاضر»، وثبّت: حضور البالغ، لا سرّ مطلق، إحالة ما يخيف أو يؤذي. ثم التأمل الخاص ثلاث دقائق، ثم جملة طوعية."
+    },
+    {
+     "type": "assessment",
+     "minutes": 0,
+     "embedded_in": "interactive_practice",
+     "ref": {
+      "kind": "lesson",
+      "id": "E15-L4"
+     },
+     "text": "ملاحظة تكوينية وصفية أثناء الممارسة، دون درجات.",
+     "criteria": {
+      "ظهر": "يختم بإعادة الزميل وخطوة يختارها، ويفصل بين دوره وما يحيله إلى البالغ، ولا يعد بسرّ مطلق.",
+      "يتدرب": "يختم بإعادة الزميل لكنه ينسى سؤال الخطوة أو جملة الإحالة.",
+      "يحتاج_دعما": "يكتفي بسؤال «هل فهمت؟» أو يميل إلى حمل المشكلة وحده؛ ويُدرَّب مع المربي على سؤال الختام وجملة الإحالة وحدها."
+     }
+    },
+    {
+     "type": "reflection",
+     "minutes": 5,
+     "ref": {
+      "kind": "lesson",
+      "id": "E15-L4"
+     },
+     "text": "الإغلاق وتحديد مهمة الأسبوع (قد تكون على الورق فقط)."
+    }
+   ],
+   "homework": {
+    "optional": true,
+    "out_of_session": true,
+    "text": "أكتب على الورق خطة جلسة من اثنتي عشرة دقيقة بالتسلسل الست، وأعرضها على المشرف البالغ قبل أي جلسة فعلية.",
+    "estimated_minutes": 12,
+    "ref": {
+     "kind": "lesson",
+     "id": "E15-L4"
+    }
+   },
+   "review_status": "unreviewed"
+  },
+  {
+   "session_number": 8,
+   "week": 3,
+   "stage": "P13-A",
+   "title": "جواب لا يطابق الفقرة",
+   "competency": "M1",
+   "competency_title": "أسأل ثم أنتظر وأبني: ما بعد السؤال في جلسة مع زميل أصغر",
+   "objective": "أن يقرر المتعلم في موقف «جواب لا يطابق الفقرة» ويرى عاقبة اختياره.",
+   "min_age": 16,
+   "duration_min": 10,
+   "components": [
+    {
+     "type": "intro",
+     "minutes": 2,
+     "ref": {
+      "kind": "scenario",
+      "id": "E15-S1"
+     },
+     "text": "قراءة مقدمة الموقف."
+    },
+    {
+     "type": "interactive_practice",
+     "minutes": 6,
+     "ref": {
+      "kind": "scenario",
+      "id": "E15-S1"
+     },
+     "text": "يختار المتعلمون في 3 قرارات متتابعة ويقرؤون عاقبة كل اختيار."
+    },
+    {
+     "type": "reflection",
+     "minutes": 2,
+     "ref": {
+      "kind": "scenario",
+      "id": "E15-S1"
+     },
+     "text": "حديث عن النهاية التي وصلوا إليها وسؤال التأمل في آخر الموقف."
+    }
+   ],
+   "review_status": "unreviewed"
+  },
+  {
+   "session_number": 9,
+   "week": 3,
+   "stage": "P13-A",
+   "title": "من يجيب؟ أوزّع الكلام بإنصاف دون إحراج",
+   "competency": "M1",
+   "competency_title": "أسأل ثم أنتظر وأبني: ما بعد السؤال في جلسة مع زميل أصغر",
+   "objective": "أن يخطط المتعلم كتلة أسئلة قصيرة تتيح لكل مشارك أن يفكر وأن يقول ما عنده (كتابة قصيرة، ثم تبادل مع الجار، ثم مشاركة طوعية مع حق التمرير)، ويذكر بصوت مسموع سبب كل طريقة، ويتصرف بلطف حين يسبق أحدٌ دائمًا أو يسكت آخر أو يسخر أحدهم من جواب غيره.",
+   "min_age": 16,
+   "duration_min": 45,
+   "components": [
+    {
+     "type": "intro",
+     "minutes": 5,
+     "ref": {
+      "kind": "lesson",
+      "id": "E15-L3"
+     },
+     "text": "الافتتاحية: كتابة صامتة دقيقتان، ثم جوابان طوعيان بلا أسماء."
+    },
+    {
+     "type": "source_teaching",
+     "minutes": 9,
+     "ref": {
+      "kind": "lesson",
+      "id": "E15-L3"
+     },
+     "text": "اقرأ قصة «الأيدي التي ترتفع أولًا» ثم الأسئلة، وركّز على الطريقة لا على الأطفال."
+    },
+    {
+     "type": "interactive_practice",
+     "minutes": 24,
+     "ref": {
+      "kind": "lesson",
+      "id": "E15-L3"
+     },
+     "text": "تدريب «خريطة أسئلتي» فرديًّا ثم عرض سؤال واحد في ثنائيات. ثم نقاش «كلمات تحفظ الجميع» بالمواقف الخيالية، وثبّت قاعدة إخبار المشرف البالغ عند السخرية المتكررة أو الخوف."
+    },
+    {
+     "type": "assessment",
+     "minutes": 0,
+     "embedded_in": "interactive_practice",
+     "ref": {
+      "kind": "lesson",
+      "id": "E15-L3"
+     },
+     "text": "ملاحظة تكوينية وصفية أثناء الممارسة، دون درجات.",
+     "criteria": {
+      "ظهر": "يخطط كتلة أسئلة بطرق مختلفة، ويذكر سبب كل طريقة، ويحفظ حق التمرير، ويعرف متى يحيل الأمر إلى المشرف البالغ.",
+      "يتدرب": "يخطط بطريقة واحدة، أو ينسى ذكر السبب بصوت مسموع.",
+      "يحتاج_دعما": "يميل إلى مناداة الصامت بالاسم أو إلى ترك السخرية دون تدخل؛ ويحتاج إلى تدريب على جملتين جاهزتين مع المربي."
+     }
+    },
+    {
+     "type": "reflection",
+     "minutes": 7,
+     "ref": {
+      "kind": "lesson",
+      "id": "E15-L3"
+     },
+     "text": "تأمل خاص قصير، ثم الإغلاق والمهمة الحياتية."
+    }
+   ],
+   "homework": {
+    "optional": true,
+    "out_of_session": true,
+    "text": "في اجتماع عائلي أو دراسي أحضره، أجرّب طريقة «اكتب ثم تبادل ثم من يحب» في سؤال واحد، وأقول سببها بجملة.",
+    "estimated_minutes": 12,
+    "ref": {
+     "kind": "lesson",
+     "id": "E15-L3"
+    }
+   },
+   "review_status": "unreviewed"
+  },
+  {
+   "session_number": 10,
+   "week": 3,
+   "stage": "P13-A",
+   "title": "الضحكة التي ثقلت",
+   "competency": "M1",
+   "competency_title": "أسأل ثم أنتظر وأبني: ما بعد السؤال في جلسة مع زميل أصغر",
+   "objective": "أن يقرر المتعلم في موقف «الضحكة التي ثقلت» ويرى عاقبة اختياره.",
+   "min_age": 16,
+   "duration_min": 10,
+   "components": [
+    {
+     "type": "intro",
+     "minutes": 2,
+     "ref": {
+      "kind": "scenario",
+      "id": "E15-S2"
+     },
+     "text": "قراءة مقدمة الموقف."
+    },
+    {
+     "type": "interactive_practice",
+     "minutes": 6,
+     "ref": {
+      "kind": "scenario",
+      "id": "E15-S2"
+     },
+     "text": "يختار المتعلمون في 3 قرارات متتابعة ويقرؤون عاقبة كل اختيار."
+    },
+    {
+     "type": "reflection",
+     "minutes": 2,
+     "ref": {
+      "kind": "scenario",
+      "id": "E15-S2"
+     },
+     "text": "حديث عن النهاية التي وصلوا إليها وسؤال التأمل في آخر الموقف."
+    }
+   ],
+   "review_status": "unreviewed"
+  },
+  {
+   "session_number": 11,
+   "week": 3,
    "stage": "P13-A",
    "title": "اختياري: أعلّم الاستدلال",
    "competency": "T3",
@@ -345,8 +727,8 @@
    "review_status": "unreviewed"
   },
   {
-   "session_number": 6,
-   "week": 2,
+   "session_number": 12,
+   "week": 3,
    "stage": "P13-B",
    "title": "النصيحة والتعيير: الفرق في القصد والأسلوب",
    "competency": "M2",
@@ -420,7 +802,7 @@
    "review_status": "unreviewed"
   },
   {
-   "session_number": 7,
+   "session_number": 13,
    "week": 3,
    "stage": "P13-B",
    "title": "موقف: عرض بلا ترتيب",
@@ -461,8 +843,8 @@
    "review_status": "unreviewed"
   },
   {
-   "session_number": 8,
-   "week": 3,
+   "session_number": 14,
+   "week": 4,
    "stage": "P13-B",
    "title": "ما الذي يجعل الملاحظة نافعة",
    "competency": "M2",
@@ -536,8 +918,8 @@
    "review_status": "unreviewed"
   },
   {
-   "session_number": 9,
-   "week": 3,
+   "session_number": 15,
+   "week": 4,
    "stage": "P13-B",
    "title": "قالب الملاحظة بثلاث خانات",
    "competency": "M2",
@@ -611,7 +993,7 @@
    "review_status": "unreviewed"
   },
   {
-   "session_number": 10,
+   "session_number": 16,
    "week": 4,
    "stage": "P13-B",
    "title": "قبل أن أقول: هل يعلم؟ وهل ينفعه؟ وهل هو حقّي أنا؟",
@@ -686,8 +1068,8 @@
    "review_status": "unreviewed"
   },
   {
-   "session_number": 11,
-   "week": 4,
+   "session_number": 17,
+   "week": 5,
    "stage": "P13-B",
    "title": "أخفّ الوسائل أولًا: تنبيه عام ثم كلمة خاصة",
    "competency": "M2",
@@ -761,8 +1143,8 @@
    "review_status": "unreviewed"
   },
   {
-   "session_number": 12,
-   "week": 4,
+   "session_number": 18,
+   "week": 5,
    "stage": "P13-B",
    "title": "بين التنبيه العام والكلمة الخاصة",
    "competency": "M2",
@@ -802,7 +1184,7 @@
    "review_status": "unreviewed"
   },
   {
-   "session_number": 13,
+   "session_number": 19,
    "week": 5,
    "stage": "P13-B",
    "title": "حين تُقال لي ملاحظة: أصغي وأعيد وأسأل ثم أقرر",
@@ -877,7 +1259,7 @@
    "review_status": "unreviewed"
   },
   {
-   "session_number": 14,
+   "session_number": 20,
    "week": 5,
    "stage": "P13-B",
    "title": "اختياري: أعين غيري على قراره",
@@ -952,8 +1334,8 @@
    "review_status": "unreviewed"
   },
   {
-   "session_number": 15,
-   "week": 5,
+   "session_number": 21,
+   "week": 6,
    "stage": "P13-C",
    "title": "أدير اجتماعًا قصيرًا",
    "competency": "L1",
@@ -1027,7 +1409,7 @@
    "review_status": "unreviewed"
   },
   {
-   "session_number": 16,
+   "session_number": 22,
    "week": 6,
    "stage": "P13-C",
    "title": "لكل مسؤولية سؤال",
@@ -1102,7 +1484,7 @@
    "review_status": "unreviewed"
   },
   {
-   "session_number": 17,
+   "session_number": 23,
    "week": 6,
    "stage": "P13-C",
    "title": "القيادة خدمة",
@@ -1177,8 +1559,8 @@
    "review_status": "unreviewed"
   },
   {
-   "session_number": 18,
-   "week": 6,
+   "session_number": 24,
+   "week": 7,
    "stage": "P13-C",
    "title": "موقف: قائد فريق التطوع",
    "competency": "L2",
@@ -1218,7 +1600,7 @@
    "review_status": "unreviewed"
   },
   {
-   "session_number": 19,
+   "session_number": 25,
    "week": 7,
    "stage": "P13-C",
    "title": "أتولى مهمة صغيرة",
@@ -1293,7 +1675,7 @@
    "review_status": "unreviewed"
   },
   {
-   "session_number": 20,
+   "session_number": 26,
    "week": 7,
    "stage": "P13-C",
    "title": "موقف: تعليمات تؤذي",
@@ -1334,8 +1716,8 @@
    "review_status": "unreviewed"
   },
   {
-   "session_number": 21,
-   "week": 7,
+   "session_number": 27,
+   "week": 8,
    "stage": "P13-C",
    "title": "أقود فريقًا بإنصاف",
    "competency": "L2",
@@ -1409,7 +1791,7 @@
    "review_status": "unreviewed"
   },
   {
-   "session_number": 22,
+   "session_number": 28,
    "week": 8,
    "stage": "P13-C",
    "title": "حدود المرشد الناشئ: ما أعين فيه وما أحيله إلى كبير",
@@ -1484,7 +1866,7 @@
    "review_status": "unreviewed"
   },
   {
-   "session_number": 23,
+   "session_number": 29,
    "week": 8,
    "stage": "P13-C",
    "title": "لا تخبر أحدًا",
@@ -1525,8 +1907,8 @@
    "review_status": "unreviewed"
   },
   {
-   "session_number": 24,
-   "week": 8,
+   "session_number": 30,
+   "week": 9,
    "stage": "P13-C",
    "title": "اختياري: أرشد زميلًا في بحثه",
    "competency": "T6",

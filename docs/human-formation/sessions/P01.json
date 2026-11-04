@@ -1,7 +1,7 @@
 {
  "program": "P01",
  "status": "draft-unreviewed",
- "total_sessions": 18,
+ "total_sessions": 24,
  "sessions": [
   {
    "session_number": 1,
@@ -121,6 +121,122 @@
   },
   {
    "session_number": 3,
+   "week": 1,
+   "stage": "P01-A",
+   "title": "من يعمل من أجلي ولا أراه؟",
+   "competency": "C6",
+   "competency_title": "أشكر بلطف: أرى من أحسن إليّ وأذكره وأردّ بما أحب",
+   "objective": "أن يسمّي الطفل شخصًا أو اثنين تعبوا ليصل إليه شيء يستعمله كل يوم دون أن يراهم، وأن يقول جملة شكر قصيرة لواحد منهم مع كبير حاضر.",
+   "min_age": 5,
+   "duration_min": 11,
+   "components": [
+    {
+     "type": "intro",
+     "minutes": 1,
+     "ref": {
+      "kind": "lesson",
+      "id": "E12-L1"
+     },
+     "text": "اطرح سؤال الرغيف الدافئ واقبل أي جواب بلا حكم."
+    },
+    {
+     "type": "source_teaching",
+     "minutes": 4,
+     "ref": {
+      "kind": "lesson",
+      "id": "E12-L1"
+     },
+     "text": "اقرأ قصة أروى وأسئلتها بصوت هادئ."
+    },
+    {
+     "type": "interactive_practice",
+     "minutes": 5,
+     "ref": {
+      "kind": "lesson",
+      "id": "E12-L1"
+     },
+     "text": "العبوا «سلسلة الرغيف» بالبطاقات. ثم يختار الطفل صورة «شكرًا لمن لا أراه» أو يكتفي بالتفكير."
+    },
+    {
+     "type": "assessment",
+     "minutes": 0,
+     "embedded_in": "interactive_practice",
+     "ref": {
+      "kind": "lesson",
+      "id": "E12-L1"
+     },
+     "text": "ملاحظة تكوينية وصفية أثناء الممارسة، دون درجات.",
+     "criteria": {
+      "ظهر": "يذكر شخصًا لا يراه عادةً أسهم في شيء يستعمله، ويقول جملة شكر قصيرة بكلماته أو برسمة.",
+      "يتدرب": "يذكر من يراه فقط (أمه، معلمه) ويحتاج صورة أو سؤالًا موجّهًا ليفكر فيمن وراءهم.",
+      "يحتاج_دعما": "يصعب عليه تخيّل من لا يراه؛ تُستعمل ثلاث صور فقط وجملة واحدة، بلا شرح طويل ولا لوم."
+     }
+    },
+    {
+     "type": "reflection",
+     "minutes": 1,
+     "ref": {
+      "kind": "lesson",
+      "id": "E12-L1"
+     },
+     "text": "اختم بالجملة الجامعة وعرض التأمل الاختياري."
+    }
+   ],
+   "homework": {
+    "optional": true,
+    "out_of_session": true,
+    "text": "هذا الأسبوع يختار الطفل شخصًا واحدًا يعمل لأجله (من يخبز، أو ينظّف، أو يطبخ، أو يحمل الأغراض) ويقول له «شكرًا» وهو مع كبير من أهله أو معلميه.",
+    "estimated_minutes": 12,
+    "ref": {
+     "kind": "lesson",
+     "id": "E12-L1"
+    }
+   },
+   "review_status": "unreviewed"
+  },
+  {
+   "session_number": 4,
+   "week": 2,
+   "stage": "P01-A",
+   "title": "بوّاب الباب الكبير",
+   "competency": "C6",
+   "competency_title": "أشكر بلطف: أرى من أحسن إليّ وأذكره وأردّ بما أحب",
+   "objective": "أن يقرر المتعلم في موقف «بوّاب الباب الكبير» ويرى عاقبة اختياره.",
+   "min_age": 5,
+   "duration_min": 10,
+   "components": [
+    {
+     "type": "intro",
+     "minutes": 2,
+     "ref": {
+      "kind": "scenario",
+      "id": "E12-S1"
+     },
+     "text": "قراءة مقدمة الموقف."
+    },
+    {
+     "type": "interactive_practice",
+     "minutes": 6,
+     "ref": {
+      "kind": "scenario",
+      "id": "E12-S1"
+     },
+     "text": "يختار المتعلمون في 3 قرارات متتابعة ويقرؤون عاقبة كل اختيار."
+    },
+    {
+     "type": "reflection",
+     "minutes": 2,
+     "ref": {
+      "kind": "scenario",
+      "id": "E12-S1"
+     },
+     "text": "حديث عن النهاية التي وصلوا إليها وسؤال التأمل في آخر الموقف."
+    }
+   ],
+   "review_status": "unreviewed"
+  },
+  {
+   "session_number": 5,
    "week": 2,
    "stage": "P01-A",
    "title": "الرحمة تُرى",
@@ -195,7 +311,7 @@
    "review_status": "unreviewed"
   },
   {
-   "session_number": 4,
+   "session_number": 6,
    "week": 2,
    "stage": "P01-A",
    "title": "لكلٍّ لطفٌ يناسبه",
@@ -270,7 +386,7 @@
    "review_status": "unreviewed"
   },
   {
-   "session_number": 5,
+   "session_number": 7,
    "week": 3,
    "stage": "P01-A",
    "title": "ماذا تحتاج ليان؟",
@@ -311,7 +427,7 @@
    "review_status": "unreviewed"
   },
   {
-   "session_number": 6,
+   "session_number": 8,
    "week": 3,
    "stage": "P01-A",
    "title": "أكون لطيفًا وأقول: لا",
@@ -386,7 +502,7 @@
    "review_status": "unreviewed"
   },
   {
-   "session_number": 7,
+   "session_number": 9,
    "week": 4,
    "stage": "P01-B",
    "title": "في الاستراحة",
@@ -427,7 +543,7 @@
    "review_status": "unreviewed"
   },
   {
-   "session_number": 8,
+   "session_number": 10,
    "week": 4,
    "stage": "P01-B",
    "title": "ما يريحه هو لا ما أحبه أنا",
@@ -502,7 +618,82 @@
    "review_status": "unreviewed"
   },
   {
-   "session_number": 9,
+   "session_number": 11,
+   "week": 4,
+   "stage": "P01-B",
+   "title": "أحكي خيرًا عمّن أحسن إليّ",
+   "competency": "C6",
+   "competency_title": "أشكر بلطف: أرى من أحسن إليّ وأذكره وأردّ بما أحب",
+   "objective": "أن يحكي الطفل لكبير يحبه، بثلاث جمل قصيرة، ما فعله شخص طيب معه: من هو؟ وماذا فعل؟ وما الكلمة الطيبة التي أقولها عنه؟",
+   "min_age": 5,
+   "duration_min": 10,
+   "components": [
+    {
+     "type": "intro",
+     "minutes": 1,
+     "ref": {
+      "kind": "lesson",
+      "id": "E12-L2"
+     },
+     "text": "اطرح السؤال وأصغِ إلى أي جواب بلا تصحيح."
+    },
+    {
+     "type": "source_teaching",
+     "minutes": 3,
+     "ref": {
+      "kind": "lesson",
+      "id": "E12-L2"
+     },
+     "text": "اقرأ قصة بسمة وأسئلتها."
+    },
+    {
+     "type": "interactive_practice",
+     "minutes": 5,
+     "ref": {
+      "kind": "lesson",
+      "id": "E12-L2"
+     },
+     "text": "العبوا «هاتف الخير» وبدّلوا الأدوار. ثم قدّم التأمل الصامت ببطء وبلا طلب لأي اسم."
+    },
+    {
+     "type": "assessment",
+     "minutes": 0,
+     "embedded_in": "interactive_practice",
+     "ref": {
+      "kind": "lesson",
+      "id": "E12-L2"
+     },
+     "text": "ملاحظة تكوينية وصفية أثناء الممارسة، دون درجات.",
+     "criteria": {
+      "ظهر": "يحكي لكبير ما فعله شخص معه بجملتين أو ثلاث، ويقول كلمة طيبة عنه، ويلتزم بما حدث.",
+      "يتدرب": "يحكي الحدث دون أن يذكر من فعله أو دون الكلمة الطيبة، ويتم بسؤال واحد لطيف.",
+      "يحتاج_دعما": "يحكي بالرسم أو بالإشارة؛ يُستعمل «هاتف الخير» مع جملة واحدة، وتُقبل منه جملة «أمرّر» بلا لوم."
+     }
+    },
+    {
+     "type": "reflection",
+     "minutes": 1,
+     "ref": {
+      "kind": "lesson",
+      "id": "E12-L2"
+     },
+     "text": "اختم بالجملة الجامعة."
+    }
+   ],
+   "homework": {
+    "optional": true,
+    "out_of_session": true,
+    "text": "مرة واحدة هذا الأسبوع يحكي الطفل لكبير يحبه خيرًا صغيرًا فعله له شخص ما، بثلاث جمل: من؟ ماذا فعل؟ وكلمة طيبة عنه.",
+    "estimated_minutes": 12,
+    "ref": {
+     "kind": "lesson",
+     "id": "E12-L2"
+    }
+   },
+   "review_status": "unreviewed"
+  },
+  {
+   "session_number": 12,
    "week": 5,
    "stage": "P01-B",
    "title": "لا بأس، وأطلب بهدوء",
@@ -577,7 +768,7 @@
    "review_status": "unreviewed"
   },
   {
-   "session_number": 10,
+   "session_number": 13,
    "week": 5,
    "stage": "P01-B",
    "title": "أتلو مع معلمي",
@@ -652,8 +843,8 @@
    "review_status": "unreviewed"
   },
   {
-   "session_number": 11,
-   "week": 6,
+   "session_number": 14,
+   "week": 5,
    "stage": "P01-B",
    "title": "جديد قليل وقديم قريب",
    "competency": "K4",
@@ -727,7 +918,7 @@
    "review_status": "unreviewed"
   },
   {
-   "session_number": 12,
+   "session_number": 15,
    "week": 6,
    "stage": "P01-B",
    "title": "أريد الجديد فقط",
@@ -768,8 +959,8 @@
    "review_status": "unreviewed"
   },
   {
-   "session_number": 13,
-   "week": 7,
+   "session_number": 16,
+   "week": 6,
    "stage": "P01-B",
    "title": "غابت كلمة",
    "competency": "K4",
@@ -809,8 +1000,8 @@
    "review_status": "unreviewed"
   },
   {
-   "session_number": 14,
-   "week": 7,
+   "session_number": 17,
+   "week": 6,
    "stage": "P01-B",
    "title": "القلم الأخضر",
    "competency": "C3",
@@ -850,7 +1041,198 @@
    "review_status": "unreviewed"
   },
   {
-   "session_number": 15,
+   "session_number": 18,
+   "week": 7,
+   "stage": "P01-B",
+   "title": "أرتّب حقيبة نعمي",
+   "competency": "C6",
+   "competency_title": "أشكر بلطف: أرى من أحسن إليّ وأذكره وأردّ بما أحب",
+   "objective": "أن يختار الطفل نعمة من أيامه ويقول أو يرسم ما عرفه عنها وما فرح به وما فعله أو يريد أن يفعله، بالطريقة التي يشاء، وأن يعرف أن له أن يحتفظ بحقيبته لنفسه.",
+   "min_age": 5,
+   "duration_min": 12,
+   "components": [
+    {
+     "type": "intro",
+     "minutes": 1,
+     "ref": {
+      "kind": "lesson",
+      "id": "E12-L4"
+     },
+     "text": "اطرح سؤال الحقيبة الصغيرة واقبل أي جواب."
+    },
+    {
+     "type": "source_teaching",
+     "minutes": 5,
+     "ref": {
+      "kind": "lesson",
+      "id": "E12-L4"
+     },
+     "text": "يرسم الطفل الجيوب الثلاثة ويملأ ما يشاء."
+    },
+    {
+     "type": "interactive_practice",
+     "minutes": 5,
+     "ref": {
+      "kind": "lesson",
+      "id": "E12-L4"
+     },
+     "text": "العبوا «أُخرج من الحقيبة» وبدّلوا الأدوار. ثم قدّم عرض التأمل الاختياري وبلا إلحاح."
+    },
+    {
+     "type": "assessment",
+     "minutes": 0,
+     "embedded_in": "interactive_practice",
+     "ref": {
+      "kind": "lesson",
+      "id": "E12-L4"
+     },
+     "text": "ملاحظة تكوينية وصفية أثناء الممارسة، دون درجات.",
+     "criteria": {
+      "ظهر": "يملأ جيبًا أو أكثر بنعمة من يومه بكلمة أو رسمة، ويقول إن أراد ماذا يُري وماذا يُبقي.",
+      "يتدرب": "يملأ جيبًا واحدًا بمساعدة سؤال موجّه، ويحتاج وقتًا ليقرر ما يُري.",
+      "يحتاج_دعما": "يصعب عليه الاختيار؛ تُستعمل ثلاث صور جاهزة يختار منها، وتُقبل «أمرّر» بلا لوم."
+     }
+    },
+    {
+     "type": "reflection",
+     "minutes": 1,
+     "ref": {
+      "kind": "lesson",
+      "id": "E12-L4"
+     },
+     "text": "اختم بالجملة الجامعة."
+    }
+   ],
+   "homework": {
+    "optional": true,
+    "out_of_session": true,
+    "text": "يجمع الطفل أسبوعًا واحدًا أوراقًا صغيرة في حقيبته: نعمة عرفها، وفرحة أحسّها، ولطف فعله، ويحكي منها ما يشاء.",
+    "estimated_minutes": 12,
+    "ref": {
+     "kind": "lesson",
+     "id": "E12-L4"
+    }
+   },
+   "review_status": "unreviewed"
+  },
+  {
+   "session_number": 19,
+   "week": 7,
+   "stage": "P01-B",
+   "title": "أردّ اللطف بلطف صغير",
+   "competency": "C6",
+   "competency_title": "أشكر بلطف: أرى من أحسن إليّ وأذكره وأردّ بما أحب",
+   "objective": "أن يختار الطفل مع كبير طريقة صغيرة وآمنة يردّ بها لطفًا لقيه (كلمة أو رسمة أو مساعدة بسيطة)، وأن يقول بلطف «لا أريد» إن طُلب منه شيء لا يرغب أن يعطيه.",
+   "min_age": 5,
+   "duration_min": 13,
+   "components": [
+    {
+     "type": "intro",
+     "minutes": 1,
+     "ref": {
+      "kind": "lesson",
+      "id": "E12-L3"
+     },
+     "text": "اطرح السؤال واقبل أي جواب بلا تصحيح."
+    },
+    {
+     "type": "source_teaching",
+     "minutes": 4,
+     "ref": {
+      "kind": "lesson",
+      "id": "E12-L3"
+     },
+     "text": "اقرأ قصة روان وقيس وأسئلتها."
+    },
+    {
+     "type": "interactive_practice",
+     "minutes": 7,
+     "ref": {
+      "kind": "lesson",
+      "id": "E12-L3"
+     },
+     "text": "العبوا «ثلاث طرق صغيرة» بالبطاقات. ثم ناقش «وإن لم أرد أن أعطي؟» ودرّب الطفل على جملة واحدة."
+    },
+    {
+     "type": "assessment",
+     "minutes": 0,
+     "embedded_in": "interactive_practice",
+     "ref": {
+      "kind": "lesson",
+      "id": "E12-L3"
+     },
+     "text": "ملاحظة تكوينية وصفية أثناء الممارسة، دون درجات.",
+     "criteria": {
+      "ظهر": "يختار لطفًا صغيرًا يردّ به لطفًا لقيه، ويقول جملة «لا أريد» بلطف حين يُدرَّب عليها.",
+      "يتدرب": "يختار طريقة بمساعدة البطاقات، ويحتاج تذكيرًا بجملة «لا أريد» ومن ينادي.",
+      "يحتاج_دعما": "يحتاج بطاقة واحدة وجملة واحدة تُكرَّر معه بلا شرح كثير؛ يُقبل منه الاكتفاء بالإشارة."
+     }
+    },
+    {
+     "type": "reflection",
+     "minutes": 1,
+     "ref": {
+      "kind": "lesson",
+      "id": "E12-L3"
+     },
+     "text": "اختم بالجملة الجامعة وعرض التأمل الاختياري."
+    }
+   ],
+   "homework": {
+    "optional": true,
+    "out_of_session": true,
+    "text": "هذا الأسبوع يختار الطفل مع كبير لطفًا واحدًا صغيرًا يردّ به لطفًا لقيه: كلمة، أو رسمة، أو مساعدة بسيطة وآمنة.",
+    "estimated_minutes": 12,
+    "ref": {
+     "kind": "lesson",
+     "id": "E12-L3"
+    }
+   },
+   "review_status": "unreviewed"
+  },
+  {
+   "session_number": 20,
+   "week": 7,
+   "stage": "P01-B",
+   "title": "هدية الخالة ولا أريد العناق",
+   "competency": "C6",
+   "competency_title": "أشكر بلطف: أرى من أحسن إليّ وأذكره وأردّ بما أحب",
+   "objective": "أن يقرر المتعلم في موقف «هدية الخالة ولا أريد العناق» ويرى عاقبة اختياره.",
+   "min_age": 5,
+   "duration_min": 8,
+   "components": [
+    {
+     "type": "intro",
+     "minutes": 2,
+     "ref": {
+      "kind": "scenario",
+      "id": "E12-S2"
+     },
+     "text": "قراءة مقدمة الموقف."
+    },
+    {
+     "type": "interactive_practice",
+     "minutes": 4,
+     "ref": {
+      "kind": "scenario",
+      "id": "E12-S2"
+     },
+     "text": "يختار المتعلمون في 2 قرارات متتابعة ويقرؤون عاقبة كل اختيار."
+    },
+    {
+     "type": "reflection",
+     "minutes": 2,
+     "ref": {
+      "kind": "scenario",
+      "id": "E12-S2"
+     },
+     "text": "حديث عن النهاية التي وصلوا إليها وسؤال التأمل في آخر الموقف."
+    }
+   ],
+   "review_status": "unreviewed"
+  },
+  {
+   "session_number": 21,
    "week": 8,
    "stage": "P01-B",
    "title": "أسمع بهدوء",
@@ -925,7 +1307,7 @@
    "review_status": "unreviewed"
   },
   {
-   "session_number": 16,
+   "session_number": 22,
    "week": 8,
    "stage": "P01-B",
    "title": "أردّد بعده",
@@ -1000,8 +1382,8 @@
    "review_status": "unreviewed"
   },
   {
-   "session_number": 17,
-   "week": 9,
+   "session_number": 23,
+   "week": 8,
    "stage": "P01-B",
    "title": "موعدي القصير",
    "competency": "K4",
@@ -1075,7 +1457,7 @@
    "review_status": "unreviewed"
   },
   {
-   "session_number": 18,
+   "session_number": 24,
    "week": 9,
    "stage": "P01-B",
    "title": "موقف: تعبتُ قليلًا",
