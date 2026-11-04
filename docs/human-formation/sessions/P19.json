@@ -1,7 +1,7 @@
 {
  "program": "P19",
  "status": "draft-unreviewed",
- "total_sessions": 21,
+ "total_sessions": 27,
  "sessions": [
   {
    "session_number": 1,
@@ -655,6 +655,81 @@
    "session_number": 11,
    "week": 4,
    "stage": "P19-B",
+   "title": "كم أستطيع اليوم؟ قدر يومي",
+   "competency": "S4",
+   "competency_title": "أكمل بقدري ولا أُخفي تعبي: دروس لعمر ٨ سنوات تسدّ المرحلة B في P19",
+   "objective": "أن يفهم الطفل أن طاقته تختلف من يوم إلى يوم، وأن يختار مع كبير مقدارًا مناسبًا لحاله اليوم (صغيرًا أو متوسطًا أو كبيرًا) من مهمة يكررها، وأن يعرف أن تصغير المقدار في يوم متعب لا يعني ترك المهمة.",
+   "min_age": 8,
+   "duration_min": 22,
+   "components": [
+    {
+     "type": "intro",
+     "minutes": 2,
+     "ref": {
+      "kind": "lesson",
+      "id": "E18-L1"
+     },
+     "text": "اطرح سؤال الحقيبة واصغِ لجوابين أو ثلاثة بلا تصحيح."
+    },
+    {
+     "type": "source_teaching",
+     "minutes": 5,
+     "ref": {
+      "kind": "lesson",
+      "id": "E18-L1"
+     },
+     "text": "اقرأ قصة أصص الشرفة وتوقف عند أسئلتها."
+    },
+    {
+     "type": "interactive_practice",
+     "minutes": 11,
+     "ref": {
+      "kind": "lesson",
+      "id": "E18-L1"
+     },
+     "text": "العبوا «ميزان قدر اليوم» ثلاث دقائق ثم بدّلوا الأدوار. ثم يختار الطفل مهمة بسيطة ويحدد مع كبيره مقدار اليوم، ثم يعمله. توقفوا عند أول علامة تعب."
+    },
+    {
+     "type": "assessment",
+     "minutes": 0,
+     "embedded_in": "interactive_practice",
+     "ref": {
+      "kind": "lesson",
+      "id": "E18-L1"
+     },
+     "text": "ملاحظة تكوينية وصفية أثناء الممارسة، دون درجات.",
+     "criteria": {
+      "ظهر": "يقول بكلماته إن طاقته تختلف من يوم إلى يوم، ويختار مع كبير مقدارًا يناسب حاله، ويعرف أن المقدار الأصغر ما زال خطوة.",
+      "يتدرب": "يختار المقدار بعد تذكير، أو يميل إلى الأكبر دائمًا أو الأصغر دائمًا، ويحتاج أمثلة أخرى عن علاقة حاله بالمقدار.",
+      "يحتاج_دعما": "يحتاج أن يبدأ بالبطاقتين الصغيرة والكبيرة فقط، ومثالًا ملموسًا من يومه، وكبيرًا قريبًا يسأله عن حاله بلطف."
+     }
+    },
+    {
+     "type": "reflection",
+     "minutes": 4,
+     "ref": {
+      "kind": "lesson",
+      "id": "E18-L1"
+     },
+     "text": "عرض التأمل الخاص دون إلزام، ثم الجملة الجامعة والسؤال البيتي."
+    }
+   ],
+   "homework": {
+    "optional": true,
+    "out_of_session": true,
+    "text": "في مهمة صغيرة يكررها الطفل، يسأل نفسه كل يوم «كيف حالي؟» ثم يختار مع كبيره خطوة صغيرة أو متوسطة أو كبيرة، ويعدّلها غدًا بحسب حاله.",
+    "estimated_minutes": 12,
+    "ref": {
+     "kind": "lesson",
+     "id": "E18-L1"
+    }
+   },
+   "review_status": "unreviewed"
+  },
+  {
+   "session_number": 12,
+   "week": 4,
+   "stage": "P19-B",
    "title": "ثلاثة وجوه للصبر",
    "competency": "S4",
    "competency_title": "المثابرة: خطوة صغيرة وأكمل",
@@ -727,8 +802,158 @@
    "review_status": "unreviewed"
   },
   {
-   "session_number": 12,
+   "session_number": 13,
    "week": 4,
+   "stage": "P19-B",
+   "title": "أريد الآن وأريد أن أكمل",
+   "competency": "S4",
+   "competency_title": "أكمل بقدري ولا أُخفي تعبي: دروس لعمر ٨ سنوات تسدّ المرحلة B في P19",
+   "objective": "أن يسمّي الطفل رغبتين في داخله حين تصعب المهمة (أريد أن ألعب الآن، وأريد أن أكمل ما بدأت)، ويعرف أن الرغبتين له، ويختار «جسرًا صغيرًا» يجمع بينهما بتخطيط مع كبير.",
+   "min_age": 8,
+   "duration_min": 24,
+   "components": [
+    {
+     "type": "intro",
+     "minutes": 2,
+     "ref": {
+      "kind": "lesson",
+      "id": "E18-L2"
+     },
+     "text": "اطرح سؤال «أريد الاثنين» واصغِ لجوابين أو ثلاثة بلا تصحيح."
+    },
+    {
+     "type": "source_teaching",
+     "minutes": 6,
+     "ref": {
+      "kind": "lesson",
+      "id": "E18-L2"
+     },
+     "text": "اقرأ قصة سوار سراج وتوقف عند أسئلتها."
+    },
+    {
+     "type": "interactive_practice",
+     "minutes": 12,
+     "ref": {
+      "kind": "lesson",
+      "id": "E18-L2"
+     },
+     "text": "العبوا «رغبتان في يدي» ثلاث دقائق ثم بدّلوا الأدوار. ثم يصنع الطفل جسره الصغير مع كبيره ويكتبانه على بطاقة، ويجرّبانه إن أمكن."
+    },
+    {
+     "type": "assessment",
+     "minutes": 0,
+     "embedded_in": "interactive_practice",
+     "ref": {
+      "kind": "lesson",
+      "id": "E18-L2"
+     },
+     "text": "ملاحظة تكوينية وصفية أثناء الممارسة، دون درجات.",
+     "criteria": {
+      "ظهر": "يسمّي رغبتيه في الموقف، ويقول إن كلتيهما له، ويقترح جسرًا صغيرًا يجمع بينهما.",
+      "يتدرب": "يسمّي إحدى الرغبتين ويحتاج تذكيرًا بالأخرى، أو يقترح جسرًا كبيرًا فيحتاج إلى تصغيره.",
+      "يحتاج_دعما": "يحتاج أمثلة ملموسة من يومه، وأن يرى الكبير يسمّي رغبتيه هو أولًا، وجلوسًا قريبًا من كبيره."
+     }
+    },
+    {
+     "type": "reflection",
+     "minutes": 4,
+     "ref": {
+      "kind": "lesson",
+      "id": "E18-L2"
+     },
+     "text": "عرض التأمل الخاص دون إلزام، ثم الجملة الجامعة والسؤال البيتي."
+    }
+   ],
+   "homework": {
+    "optional": true,
+    "out_of_session": true,
+    "text": "حين تثقل عليه مهمة وتناديه لعبة أو راحة، يسمّي الطفل الرغبتين ثم يختار مع كبيره جسرًا صغيرًا: أكمل جزءًا قصيرًا ثم أرتاح أو ألعب.",
+    "estimated_minutes": 12,
+    "ref": {
+     "kind": "lesson",
+     "id": "E18-L2"
+    }
+   },
+   "review_status": "unreviewed"
+  },
+  {
+   "session_number": 14,
+   "week": 5,
+   "stage": "P19-B",
+   "title": "تعبتُ حقًّا: أقول وأرتاح",
+   "competency": "S4",
+   "competency_title": "أكمل بقدري ولا أُخفي تعبي: دروس لعمر ٨ سنوات تسدّ المرحلة B في P19",
+   "objective": "أن يفرّق الطفل بين تعب العمل العادي (يقول «تعبتُ قليلًا» ويرتاح ثم يكمل بخطوة أصغر) وبين ألم أو خوف أو دوار أو أذى (يتوقف ويقوله لكبير موثوق فورًا)، وأن يعرف أن الصبر لا يعني السكوت عمّا يؤلمه أو يخيفه.",
+   "min_age": 8,
+   "duration_min": 24,
+   "components": [
+    {
+     "type": "intro",
+     "minutes": 2,
+     "ref": {
+      "kind": "lesson",
+      "id": "E18-L3"
+     },
+     "text": "اطرح سؤال «اصبر ولا تشتكِ» واصغِ بلا تعليق."
+    },
+    {
+     "type": "source_teaching",
+     "minutes": 6,
+     "ref": {
+      "kind": "lesson",
+      "id": "E18-L3"
+     },
+     "text": "اقرأ قصة الحذاء الضيق وتوقف عند أسئلتها."
+    },
+    {
+     "type": "interactive_practice",
+     "minutes": 12,
+     "ref": {
+      "kind": "lesson",
+      "id": "E18-L3"
+     },
+     "text": "العبوا «تعب أم ألم؟» ثلاث دقائق ثم بدّلوا الأدوار. ثم تدرّبوا على الجملتين، ويسمّي الطفل كبيرًا يثق به إن أراد."
+    },
+    {
+     "type": "assessment",
+     "minutes": 0,
+     "embedded_in": "interactive_practice",
+     "ref": {
+      "kind": "lesson",
+      "id": "E18-L3"
+     },
+     "text": "ملاحظة تكوينية وصفية أثناء الممارسة، دون درجات.",
+     "criteria": {
+      "ظهر": "يفرّق بين التعب العادي والألم أو الخوف، ويقول الجملة المناسبة لكل منهما، ويعرف أن عليه أن يخبر كبيرًا موثوقًا فورًا في الحالة الثانية.",
+      "يتدرب": "يقول جملة التعب بسهولة ويحتاج تذكيرًا بجملة الألم أو الخوف، أو يتردد في تسمية كبير موثوق.",
+      "يحتاج_دعما": "يحتاج مواقف ملموسة وتكرار اللعبة، وكبيرًا قريبًا يطمئنه أن قول «يؤلمني» أو «أخاف» ليس عيبًا."
+     }
+    },
+    {
+     "type": "reflection",
+     "minutes": 4,
+     "ref": {
+      "kind": "lesson",
+      "id": "E18-L3"
+     },
+     "text": "عرض التأمل الخاص دون إلزام، ثم الجملة الجامعة والسؤال البيتي."
+    }
+   ],
+   "homework": {
+    "optional": true,
+    "out_of_session": true,
+    "text": "حين يتعب الطفل من عمل ما، يقول «تعبتُ قليلًا» ويرتاح؛ وإذا آلمه شيء أو أخافه أو أدارت رأسه، يتوقف ويقول لكبير يثق به في أول لحظة.",
+    "estimated_minutes": 12,
+    "ref": {
+     "kind": "lesson",
+     "id": "E18-L3"
+    }
+   },
+   "review_status": "unreviewed"
+  },
+  {
+   "session_number": 15,
+   "week": 5,
    "stage": "P19-B",
    "title": "خطوة صغيرة كل يوم",
    "competency": "S4",
@@ -802,8 +1027,83 @@
    "review_status": "unreviewed"
   },
   {
-   "session_number": 13,
+   "session_number": 16,
    "week": 5,
+   "stage": "P19-B",
+   "title": "فاتني يوم؟ أعود وأكتب ما أعانني",
+   "competency": "S4",
+   "competency_title": "أكمل بقدري ولا أُخفي تعبي: دروس لعمر ٨ سنوات تسدّ المرحلة B في P19",
+   "objective": "أن يعرف الطفل أن توقفه يومًا أو أكثر عن مهمة لا يلغي ما فعله من قبل، وأن يعود بخطوة أصغر دون لوم، وأن يلاحظ ما أعانه ويدوّنه في بطاقة «ما أعانني» ليستفيد منه غدًا.",
+   "min_age": 8,
+   "duration_min": 22,
+   "components": [
+    {
+     "type": "intro",
+     "minutes": 2,
+     "ref": {
+      "kind": "lesson",
+      "id": "E18-L4"
+     },
+     "text": "اطرح سؤال «هل ضاع كل شيء؟» واصغِ بلا تصحيح."
+    },
+    {
+     "type": "source_teaching",
+     "minutes": 5,
+     "ref": {
+      "kind": "lesson",
+      "id": "E18-L4"
+     },
+     "text": "اقرأ قصة حبل جلنار وتوقف عند أسئلتها."
+    },
+    {
+     "type": "interactive_practice",
+     "minutes": 11,
+     "ref": {
+      "kind": "lesson",
+      "id": "E18-L4"
+     },
+     "text": "العبوا «بطاقة ما أعانني» ثلاث دقائق. ثم يختار الطفل أصغر خطوة للعودة ويجربها مدة قصيرة، ثم يكتبان البطاقة."
+    },
+    {
+     "type": "assessment",
+     "minutes": 0,
+     "embedded_in": "interactive_practice",
+     "ref": {
+      "kind": "lesson",
+      "id": "E18-L4"
+     },
+     "text": "ملاحظة تكوينية وصفية أثناء الممارسة، دون درجات.",
+     "criteria": {
+      "ظهر": "يقول إن توقفه لا يلغي ما فعله، ويختار أصغر خطوة للعودة، ويذكر شيئًا أعانه ويدوّنه.",
+      "يتدرب": "يبدأ بخطوة صغيرة بعد تذكير، أو يحتاج مساعدة ليلاحظ ما أعانه.",
+      "يحتاج_دعما": "يحتاج أن يرى الكبير يعود بخطوة صغيرة بعد توقف، ويحتاج بطاقة جاهزة بدايات جمل وكبيرًا قريبًا."
+     }
+    },
+    {
+     "type": "reflection",
+     "minutes": 4,
+     "ref": {
+      "kind": "lesson",
+      "id": "E18-L4"
+     },
+     "text": "عرض التأمل الخاص دون إلزام، ثم الجملة الجامعة والسؤال البيتي."
+    }
+   ],
+   "homework": {
+    "optional": true,
+    "out_of_session": true,
+    "text": "حين يتوقف الطفل عن مهمة يكررها، يعود بأصغر خطوة بدل أن يعوّض كل ما فاته، ثم يكتب ما أعانه في بطاقة يقرؤها قبل أن يبدأ غدًا.",
+    "estimated_minutes": 12,
+    "ref": {
+     "kind": "lesson",
+     "id": "E18-L4"
+    }
+   },
+   "review_status": "unreviewed"
+  },
+  {
+   "session_number": 17,
+   "week": 6,
    "stage": "P19-B",
    "title": "الأحجية الكبيرة",
    "competency": "S4",
@@ -843,8 +1143,90 @@
    "review_status": "unreviewed"
   },
   {
-   "session_number": 14,
-   "week": 5,
+   "session_number": 18,
+   "week": 6,
+   "stage": "P19-B",
+   "title": "جسر وضّاح الكرتوني",
+   "competency": "S4",
+   "competency_title": "أكمل بقدري ولا أُخفي تعبي: دروس لعمر ٨ سنوات تسدّ المرحلة B في P19",
+   "objective": "أن يقرر المتعلم في موقف «جسر وضّاح الكرتوني» ويرى عاقبة اختياره.",
+   "min_age": 8,
+   "duration_min": 10,
+   "components": [
+    {
+     "type": "intro",
+     "minutes": 2,
+     "ref": {
+      "kind": "scenario",
+      "id": "E18-S1"
+     },
+     "text": "قراءة مقدمة الموقف."
+    },
+    {
+     "type": "interactive_practice",
+     "minutes": 6,
+     "ref": {
+      "kind": "scenario",
+      "id": "E18-S1"
+     },
+     "text": "يختار المتعلمون في 3 قرارات متتابعة ويقرؤون عاقبة كل اختيار."
+    },
+    {
+     "type": "reflection",
+     "minutes": 2,
+     "ref": {
+      "kind": "scenario",
+      "id": "E18-S1"
+     },
+     "text": "حديث عن النهاية التي وصلوا إليها وسؤال التأمل في آخر الموقف."
+    }
+   ],
+   "review_status": "unreviewed"
+  },
+  {
+   "session_number": 19,
+   "week": 6,
+   "stage": "P19-B",
+   "title": "دفتر الغيوم",
+   "competency": "S4",
+   "competency_title": "أكمل بقدري ولا أُخفي تعبي: دروس لعمر ٨ سنوات تسدّ المرحلة B في P19",
+   "objective": "أن يقرر المتعلم في موقف «دفتر الغيوم» ويرى عاقبة اختياره.",
+   "min_age": 8,
+   "duration_min": 8,
+   "components": [
+    {
+     "type": "intro",
+     "minutes": 2,
+     "ref": {
+      "kind": "scenario",
+      "id": "E18-S2"
+     },
+     "text": "قراءة مقدمة الموقف."
+    },
+    {
+     "type": "interactive_practice",
+     "minutes": 4,
+     "ref": {
+      "kind": "scenario",
+      "id": "E18-S2"
+     },
+     "text": "يختار المتعلمون في 2 قرارات متتابعة ويقرؤون عاقبة كل اختيار."
+    },
+    {
+     "type": "reflection",
+     "minutes": 2,
+     "ref": {
+      "kind": "scenario",
+      "id": "E18-S2"
+     },
+     "text": "حديث عن النهاية التي وصلوا إليها وسؤال التأمل في آخر الموقف."
+    }
+   ],
+   "review_status": "unreviewed"
+  },
+  {
+   "session_number": 20,
+   "week": 6,
    "stage": "P19-C",
    "title": "أقول: لم أفهم",
    "competency": "T1",
@@ -918,8 +1300,8 @@
    "review_status": "unreviewed"
   },
   {
-   "session_number": 15,
-   "week": 5,
+   "session_number": 21,
+   "week": 6,
    "stage": "P19-C",
    "title": "سؤال أفهم به وسؤال أحرج به",
    "competency": "T1",
@@ -993,8 +1375,8 @@
    "review_status": "unreviewed"
   },
   {
-   "session_number": 16,
-   "week": 6,
+   "session_number": 22,
+   "week": 7,
    "stage": "P19-C",
    "title": "ثلاثة أسئلة قبل أن أحكم",
    "competency": "T1",
@@ -1068,8 +1450,8 @@
    "review_status": "unreviewed"
   },
   {
-   "session_number": 17,
-   "week": 6,
+   "session_number": 23,
+   "week": 7,
    "stage": "P19-C",
    "title": "قواعد اللعبة الجديدة",
    "competency": "T1",
@@ -1109,8 +1491,8 @@
    "review_status": "unreviewed"
   },
   {
-   "session_number": 18,
-   "week": 6,
+   "session_number": 24,
+   "week": 7,
    "stage": "P19-D",
    "title": "أقول ما أشعر به وما أحتاجه",
    "competency": "R2",
@@ -1184,8 +1566,8 @@
    "review_status": "unreviewed"
   },
   {
-   "session_number": 19,
-   "week": 7,
+   "session_number": 25,
+   "week": 8,
    "stage": "P19-D",
    "title": "كلمة تفرح وكلمة تجرح",
    "competency": "R2",
@@ -1259,8 +1641,8 @@
    "review_status": "unreviewed"
   },
   {
-   "session_number": 20,
-   "week": 7,
+   "session_number": 26,
+   "week": 8,
    "stage": "P19-D",
    "title": "طلب لطيف وملاحظة صغيرة",
    "competency": "R2",
@@ -1334,8 +1716,8 @@
    "review_status": "unreviewed"
   },
   {
-   "session_number": 21,
-   "week": 7,
+   "session_number": 27,
+   "week": 8,
    "stage": "P19-D",
    "title": "الكرة في الملعب",
    "competency": "R2",

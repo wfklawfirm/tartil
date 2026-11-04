@@ -1,7 +1,7 @@
 {
  "program": "P18",
  "status": "draft-unreviewed",
- "total_sessions": 20,
+ "total_sessions": 26,
  "sessions": [
   {
    "session_number": 1,
@@ -157,6 +157,81 @@
    "session_number": 3,
    "week": 1,
    "stage": "P18-A",
+   "title": "شردتُ فعدتُ: علامتي للرجوع إلى الصوت",
+   "competency": "K4",
+   "competency_title": "أعود حين يشرد ذهني وأجعل للطف عادة: دروس إضافية لعمر ٧–٨",
+   "objective": "أن يلاحظ الطفل أن ذهنه شرد أثناء الإصغاء، فيعود بعلامة هادئة يختارها (نَفَس بطيء ثم النظر إلى وجه المتكلم)، ويقول لمعلمه أو لوليّه أين التبس عليه ليعيد له ذلك الجزء وحده، دون لوم ودون أن يحكم على أدائه.",
+   "min_age": 7,
+   "duration_min": 18,
+   "components": [
+    {
+     "type": "intro",
+     "minutes": 1,
+     "ref": {
+      "kind": "lesson",
+      "id": "E17-L1"
+     },
+     "text": "اطرح سؤال الشرود واصغِ لجوابين أو ثلاثة بلا تصحيح."
+    },
+    {
+     "type": "source_teaching",
+     "minutes": 4,
+     "ref": {
+      "kind": "lesson",
+      "id": "E17-L1"
+     },
+     "text": "اقرأ قصة ساري والنحلة وتوقف عند أسئلتها."
+    },
+    {
+     "type": "interactive_practice",
+     "minutes": 10,
+     "ref": {
+      "kind": "lesson",
+      "id": "E17-L1"
+     },
+     "text": "العبا «أين ضاعت الكلمة؟» ثلاث دقائق، وبدّلا الأدوار. ثم يختار الطفل علامته ويرسمها، ثم يقرأ المعلم المقطع القصير ويجرّبان العودة وجملة «ضاع مني». توقفوا عند أول علامة تعب."
+    },
+    {
+     "type": "assessment",
+     "minutes": 0,
+     "embedded_in": "interactive_practice",
+     "ref": {
+      "kind": "lesson",
+      "id": "E17-L1"
+     },
+     "text": "ملاحظة تكوينية وصفية أثناء الممارسة، دون درجات.",
+     "criteria": {
+      "ظهر": "يعود بعلامته بعد أن يشرد، ويقول أين التبس عليه بجملة قصيرة، ويسمع الجزء المعاد بهدوء.",
+      "يتدرب": "يلاحظ شروده متأخرًا أو ينسى علامته، ويحتاج تذكيرًا لطيفًا وبطاقة أمامه.",
+      "يحتاج_دعما": "يحتاج جلسات أقصر ولعبة الكلمات أكثر من مرة، وكبيرًا يجلس قريبًا منه ويشير إلى علامته بهدوء."
+     }
+    },
+    {
+     "type": "reflection",
+     "minutes": 3,
+     "ref": {
+      "kind": "lesson",
+      "id": "E17-L1"
+     },
+     "text": "اسأل الطفل أي علامة أعجبته، ثم اختم بالجملة الجامعة وبشكر المعلم دون أي تقييم."
+    }
+   ],
+   "homework": {
+    "optional": true,
+    "out_of_session": true,
+    "text": "حين يشرد ذهن الطفل وهو يسمع كبيرًا يكلّمه أو يشرح له، يستعمل علامته الهادئة، ثم يقول بجملة قصيرة أين التبس عليه: «ضاع مني ما بعد ...».",
+    "estimated_minutes": 12,
+    "ref": {
+     "kind": "lesson",
+     "id": "E17-L1"
+    }
+   },
+   "review_status": "unreviewed"
+  },
+  {
+   "session_number": 4,
+   "week": 2,
+   "stage": "P18-A",
    "title": "ضيوف في وقت موعدي",
    "competency": "K4",
    "competency_title": "أسمع بهدوء وأنتظر نوبتي: دروس لعمر ٧–٨ بديلة لدروس الصغار",
@@ -195,7 +270,123 @@
    "review_status": "unreviewed"
   },
   {
-   "session_number": 4,
+   "session_number": 5,
+   "week": 2,
+   "stage": "P18-A",
+   "title": "ضاعت مني الكلمة وأنا أسمع",
+   "competency": "K4",
+   "competency_title": "أعود حين يشرد ذهني وأجعل للطف عادة: دروس إضافية لعمر ٧–٨",
+   "objective": "أن يقرر المتعلم في موقف «ضاعت مني الكلمة وأنا أسمع» ويرى عاقبة اختياره.",
+   "min_age": 7,
+   "duration_min": 8,
+   "components": [
+    {
+     "type": "intro",
+     "minutes": 2,
+     "ref": {
+      "kind": "scenario",
+      "id": "E17-S1"
+     },
+     "text": "قراءة مقدمة الموقف."
+    },
+    {
+     "type": "interactive_practice",
+     "minutes": 4,
+     "ref": {
+      "kind": "scenario",
+      "id": "E17-S1"
+     },
+     "text": "يختار المتعلمون في 2 قرارات متتابعة ويقرؤون عاقبة كل اختيار."
+    },
+    {
+     "type": "reflection",
+     "minutes": 2,
+     "ref": {
+      "kind": "scenario",
+      "id": "E17-S1"
+     },
+     "text": "حديث عن النهاية التي وصلوا إليها وسؤال التأمل في آخر الموقف."
+    }
+   ],
+   "review_status": "unreviewed"
+  },
+  {
+   "session_number": 6,
+   "week": 2,
+   "stage": "P18-B",
+   "title": "سؤال يبدو غريبًا: أُصغي ولا أضحك",
+   "competency": "K4",
+   "competency_title": "أعود حين يشرد ذهني وأجعل للطف عادة: دروس إضافية لعمر ٧–٨",
+   "objective": "أن يستقبل الطفل سؤالًا يبدو غريبًا من زميل أو ضيف جديد بأن ينتظر حتى ينتهي منه، ثم يجيب بهدوء أو يقول «ماذا تقصد؟» أو «لا أعرف، نسأل كبيرًا»، دون ضحك ساخر، ويعرف أن الكبير الحاضر هو الذي يتولى الأمر إن وقع أذى.",
+   "min_age": 7,
+   "duration_min": 18,
+   "components": [
+    {
+     "type": "intro",
+     "minutes": 1,
+     "ref": {
+      "kind": "lesson",
+      "id": "E17-L2"
+     },
+     "text": "اطرح سؤال الوجه والصوت واصغِ لجوابين أو ثلاثة بلا تصحيح."
+    },
+    {
+     "type": "source_teaching",
+     "minutes": 5,
+     "ref": {
+      "kind": "lesson",
+      "id": "E17-L2"
+     },
+     "text": "اقرأ قصة رواد الجديد وتوقف عند أسئلتها."
+    },
+    {
+     "type": "interactive_practice",
+     "minutes": 10,
+     "ref": {
+      "kind": "lesson",
+      "id": "E17-L2"
+     },
+     "text": "العبا «صندوق الأسئلة الغريبة» خمس دقائق مع تبادل الأدوار. ثم حوار «أضحك معه أم أضحك منه؟» ثلاث دقائق، ثم اقرأ السؤال الصامت وامنح الطفل لحظة هدوء دون أن تطلب جوابًا."
+    },
+    {
+     "type": "assessment",
+     "minutes": 0,
+     "embedded_in": "interactive_practice",
+     "ref": {
+      "kind": "lesson",
+      "id": "E17-L2"
+     },
+     "text": "ملاحظة تكوينية وصفية أثناء الممارسة، دون درجات.",
+     "criteria": {
+      "ظهر": "ينتظر حتى ينتهي السائل، ويختار جملة لطيفة من الثلاث، ويفرّق بين الضحك مع زميله والضحك منه.",
+      "يتدرب": "يستعجل أو يضحك لحظة ثم يتذكر الجمل، ويحتاج تذكيرًا لطيفًا وبطاقة بالجمل الثلاث.",
+      "يحتاج_دعما": "يحتاج تمثيل الأدوار أكثر من مرة وجملة واحدة فقط يبدأ بها، وكبيرًا قريبًا منه يطمئنه."
+     }
+    },
+    {
+     "type": "reflection",
+     "minutes": 2,
+     "ref": {
+      "kind": "lesson",
+      "id": "E17-L2"
+     },
+     "text": "اختم بالجملة الجامعة وشكر الطفل على إصغائه دون أي تقييم."
+    }
+   ],
+   "homework": {
+    "optional": true,
+    "out_of_session": true,
+    "text": "حين يسأل أحد من أسرته أو زملائه سؤالًا يبدو غريبًا، ينتظر الطفل حتى ينتهي ثم يجيب بإحدى الجمل الثلاث: «ماذا تقصد؟» أو «سؤال جميل، أفكر معك» أو «لا أعرف، نسأل كبيرًا».",
+    "estimated_minutes": 12,
+    "ref": {
+     "kind": "lesson",
+     "id": "E17-L2"
+    }
+   },
+   "review_status": "unreviewed"
+  },
+  {
+   "session_number": 7,
    "week": 2,
    "stage": "P18-B",
    "title": "أنتظر نوبتي ولا تضيع فكرتي",
@@ -270,8 +461,158 @@
    "review_status": "unreviewed"
   },
   {
-   "session_number": 5,
+   "session_number": 8,
    "week": 2,
+   "stage": "P18-B",
+   "title": "لطفٌ صغير أكرّره حتى يخفّ",
+   "competency": "K4",
+   "competency_title": "أعود حين يشرد ذهني وأجعل للطف عادة: دروس إضافية لعمر ٧–٨",
+   "objective": "أن يختار الطفل مع وليّ أمره فعل لطف صغيرًا يوجَّه إلى أهله أو من يعرفهم أهله (كقول «صباح الخير» لأول فرد يراه من أسرته، أو «شكرًا» لمن يقدّم له الطعام)، ويكرره عدة أيام رابطًا إياه بشيء يفعله دائمًا، ويلاحظ هل صار أخفّ عليه، دون ربطه بالتدين ودون انتظار ردّ.",
+   "min_age": 7,
+   "duration_min": 16,
+   "components": [
+    {
+     "type": "intro",
+     "minutes": 1,
+     "ref": {
+      "kind": "lesson",
+      "id": "E17-L3"
+     },
+     "text": "اطرح سؤال اللطف الصغير واصغِ لجوابين أو ثلاثة بلا تصحيح."
+    },
+    {
+     "type": "source_teaching",
+     "minutes": 4,
+     "ref": {
+      "kind": "lesson",
+      "id": "E17-L3"
+     },
+     "text": "اقرأ قصة نوار وتوقف عند أسئلتها."
+    },
+    {
+     "type": "interactive_practice",
+     "minutes": 9,
+     "ref": {
+      "kind": "lesson",
+      "id": "E17-L3"
+     },
+     "text": "العبا «خمّن اللطف» أربع دقائق وبدّلا الأدوار. ثم يختار الطفل فعله وإشارة البداية ويرسم ورقة الحجر والريشة مع وليّه."
+    },
+    {
+     "type": "assessment",
+     "minutes": 0,
+     "embedded_in": "interactive_practice",
+     "ref": {
+      "kind": "lesson",
+      "id": "E17-L3"
+     },
+     "text": "ملاحظة تكوينية وصفية أثناء الممارسة، دون درجات.",
+     "criteria": {
+      "ظهر": "يسمّي فعل لطف صغيرًا اختاره، ويربطه بشيء يفعله دائمًا، ويصف هل ثقل عليه أو خفّ دون ضيق.",
+      "يتدرب": "يختار فعلًا لكنه ينسى إشارة البداية أو يتردد، ويحتاج بطاقة مرسومة وتذكيرًا لطيفًا.",
+      "يحتاج_دعما": "يحتاج فعلًا أصغر وإشارة يختارها الكبير معه، وجلسات قصيرة دون ضغط."
+     }
+    },
+    {
+     "type": "reflection",
+     "minutes": 2,
+     "ref": {
+      "kind": "lesson",
+      "id": "E17-L3"
+     },
+     "text": "اختم بالجملة الجامعة وبسؤال البيت دون أي تقييم."
+    }
+   ],
+   "homework": {
+    "optional": true,
+    "out_of_session": true,
+    "text": "يختار الطفل فعل لطف صغيرًا لأهله، ويربطه بشيء يفعله دائمًا، ويجرّبه ثلاثة أيام، ويرسم حجرًا أو ريشة كل يوم أو يترك الخانة فارغة دون لوم.",
+    "estimated_minutes": 12,
+    "ref": {
+     "kind": "lesson",
+     "id": "E17-L3"
+    }
+   },
+   "review_status": "unreviewed"
+  },
+  {
+   "session_number": 9,
+   "week": 2,
+   "stage": "P18-B",
+   "title": "سؤال واحد ثم أُصغي",
+   "competency": "K4",
+   "competency_title": "أعود حين يشرد ذهني وأجعل للطف عادة: دروس إضافية لعمر ٧–٨",
+   "objective": "أن يطرح الطفل سؤالًا واحدًا لطيفًا يُجاب عنه بحكاية لا بكلمة (مثل «ما أجمل شيء رأيتَه اليوم؟») على فرد من أسرته أو معلمه، ثم يصغي حتى ينتهي ويقول جملة واحدة مما سمع، ويقبل بهدوء إن قال له المسؤول «لا أريد الآن».",
+   "min_age": 7,
+   "duration_min": 17,
+   "components": [
+    {
+     "type": "intro",
+     "minutes": 1,
+     "ref": {
+      "kind": "lesson",
+      "id": "E17-L4"
+     },
+     "text": "اطرح سؤال الجواب بنعم واصغِ لجوابين أو ثلاثة بلا تصحيح."
+    },
+    {
+     "type": "source_teaching",
+     "minutes": 4,
+     "ref": {
+      "kind": "lesson",
+      "id": "E17-L4"
+     },
+     "text": "اقرأ قصة سدرة وتوقف عند أسئلتها."
+    },
+    {
+     "type": "interactive_practice",
+     "minutes": 10,
+     "ref": {
+      "kind": "lesson",
+      "id": "E17-L4"
+     },
+     "text": "العبا «جوابه كلمة أم حكاية؟» ثلاث دقائق. ثم تدرّب الطفل على سؤاله الواحد وجملته، ثم على قبول «لا أريد الآن»، وبدّلا الأدوار."
+    },
+    {
+     "type": "assessment",
+     "minutes": 0,
+     "embedded_in": "interactive_practice",
+     "ref": {
+      "kind": "lesson",
+      "id": "E17-L4"
+     },
+     "text": "ملاحظة تكوينية وصفية أثناء الممارسة، دون درجات.",
+     "criteria": {
+      "ظهر": "يسأل سؤالًا يُحكى جوابه، ويصغي حتى ينتهي، ويقول جملة مما سمع، ويقبل «لا أريد الآن» بهدوء.",
+      "يتدرب": "يسأل سؤالًا جوابه كلمة أو يقاطع قليلًا، ويحتاج تذكيرًا لطيفًا وبطاقة بصيغ الأسئلة.",
+      "يحتاج_دعما": "يحتاج أسئلة جاهزة مرسومة وجملة بداية («سمعتُ أنك ...») ومرافقًا قريبًا منه."
+     }
+    },
+    {
+     "type": "reflection",
+     "minutes": 2,
+     "ref": {
+      "kind": "lesson",
+      "id": "E17-L4"
+     },
+     "text": "اختم بالجملة الجامعة وبسؤال البيت دون أي تقييم."
+    }
+   ],
+   "homework": {
+    "optional": true,
+    "out_of_session": true,
+    "text": "يسأل الطفل مرة أو مرتين هذا الأسبوع فردًا من أسرته أو معلمه سؤالًا واحدًا يُحكى جوابه، ويُصغي حتى ينتهي، ثم يقول جملة مما سمع، ويقبل إن اعتذر المسؤول.",
+    "estimated_minutes": 12,
+    "ref": {
+     "kind": "lesson",
+     "id": "E17-L4"
+    }
+   },
+   "review_status": "unreviewed"
+  },
+  {
+   "session_number": 10,
+   "week": 3,
    "stage": "P18-B",
    "title": "أقول ما سمعت وأسأل عمّا غمض",
    "competency": "K4",
@@ -345,8 +686,8 @@
    "review_status": "unreviewed"
   },
   {
-   "session_number": 6,
-   "week": 2,
+   "session_number": 11,
+   "week": 3,
    "stage": "P18-B",
    "title": "فكرتي تكاد تضيع",
    "competency": "K4",
@@ -386,7 +727,7 @@
    "review_status": "unreviewed"
   },
   {
-   "session_number": 7,
+   "session_number": 12,
    "week": 3,
    "stage": "P18-C",
    "title": "البذرة الصغيرة",
@@ -461,8 +802,8 @@
    "review_status": "unreviewed"
   },
   {
-   "session_number": 8,
-   "week": 3,
+   "session_number": 13,
+   "week": 4,
    "stage": "P18-C",
    "title": "لكل شيء مكانٌ أعرفه",
    "competency": "S3",
@@ -536,8 +877,8 @@
    "review_status": "unreviewed"
   },
   {
-   "session_number": 9,
-   "week": 3,
+   "session_number": 14,
+   "week": 4,
    "stage": "P18-C",
    "title": "كيف تنمو العادة؟",
    "competency": "S3",
@@ -611,7 +952,7 @@
    "review_status": "unreviewed"
   },
   {
-   "session_number": 10,
+   "session_number": 15,
    "week": 4,
    "stage": "P18-C",
    "title": "موقف: السلسلة المقطوعة",
@@ -652,8 +993,8 @@
    "review_status": "unreviewed"
   },
   {
-   "session_number": 11,
-   "week": 4,
+   "session_number": 16,
+   "week": 5,
    "stage": "P18-C",
    "title": "أدواتي وعنايتي بنفسي",
    "competency": "S3",
@@ -727,8 +1068,8 @@
    "review_status": "unreviewed"
   },
   {
-   "session_number": 12,
-   "week": 4,
+   "session_number": 17,
+   "week": 5,
    "stage": "P18-C",
    "title": "موقف: أين ذهب القلم؟",
    "competency": "S3",
@@ -768,7 +1109,7 @@
    "review_status": "unreviewed"
   },
   {
-   "session_number": 13,
+   "session_number": 18,
    "week": 5,
    "stage": "P18-D",
    "title": "أتابع عادتي سبعة أيام",
@@ -843,8 +1184,8 @@
    "review_status": "unreviewed"
   },
   {
-   "session_number": 14,
-   "week": 5,
+   "session_number": 19,
+   "week": 6,
    "stage": "P18-D",
    "title": "ليلتي وصباحي بلا عجلة",
    "competency": "S3",
@@ -918,8 +1259,8 @@
    "review_status": "unreviewed"
   },
   {
-   "session_number": 15,
-   "week": 5,
+   "session_number": 20,
+   "week": 6,
    "stage": "P18-D",
    "title": "موقف: كل واحد وسرعته",
    "competency": "S3",
@@ -959,7 +1300,48 @@
    "review_status": "unreviewed"
   },
   {
-   "session_number": 16,
+   "session_number": 21,
+   "week": 6,
+   "stage": "P18-D",
+   "title": "جارتنا لم تردّ تحيتي",
+   "competency": "K4",
+   "competency_title": "أعود حين يشرد ذهني وأجعل للطف عادة: دروس إضافية لعمر ٧–٨",
+   "objective": "أن يقرر المتعلم في موقف «جارتنا لم تردّ تحيتي» ويرى عاقبة اختياره.",
+   "min_age": 7,
+   "duration_min": 6,
+   "components": [
+    {
+     "type": "intro",
+     "minutes": 2,
+     "ref": {
+      "kind": "scenario",
+      "id": "E17-S2"
+     },
+     "text": "قراءة مقدمة الموقف."
+    },
+    {
+     "type": "interactive_practice",
+     "minutes": 2,
+     "ref": {
+      "kind": "scenario",
+      "id": "E17-S2"
+     },
+     "text": "يختار المتعلمون في 1 قرارات متتابعة ويقرؤون عاقبة كل اختيار."
+    },
+    {
+     "type": "reflection",
+     "minutes": 2,
+     "ref": {
+      "kind": "scenario",
+      "id": "E17-S2"
+     },
+     "text": "حديث عن النهاية التي وصلوا إليها وسؤال التأمل في آخر الموقف."
+    }
+   ],
+   "review_status": "unreviewed"
+  },
+  {
+   "session_number": 22,
    "week": 6,
    "stage": "P18-D",
    "title": "موقف: ركن الألعاب الذي نتشاركه",
@@ -1000,7 +1382,7 @@
    "review_status": "unreviewed"
   },
   {
-   "session_number": 17,
+   "session_number": 23,
    "week": 6,
    "stage": "P18-D",
    "title": "لكل متكلم نوبة",
@@ -1075,7 +1457,7 @@
    "review_status": "unreviewed"
   },
   {
-   "session_number": 18,
+   "session_number": 24,
    "week": 6,
    "stage": "P18-D",
    "title": "لماذا ننتظر؟",
@@ -1150,8 +1532,8 @@
    "review_status": "unreviewed"
   },
   {
-   "session_number": 19,
-   "week": 7,
+   "session_number": 25,
+   "week": 6,
    "stage": "P18-D",
    "title": "أقول ما سمعت",
    "competency": "R1",
@@ -1225,8 +1607,8 @@
    "review_status": "unreviewed"
   },
   {
-   "session_number": 20,
-   "week": 7,
+   "session_number": 26,
+   "week": 6,
    "stage": "P18-D",
    "title": "موقف: أريد أن أتكلم الآن",
    "competency": "R1",

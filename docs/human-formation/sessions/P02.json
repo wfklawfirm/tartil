@@ -1,7 +1,7 @@
 {
  "program": "P02",
  "status": "draft-unreviewed",
- "total_sessions": 19,
+ "total_sessions": 25,
  "sessions": [
   {
    "session_number": 1,
@@ -578,6 +578,122 @@
   },
   {
    "session_number": 10,
+   "week": 3,
+   "stage": "P02-B",
+   "title": "صوتان في داخلي: أترك الآن أم أجرّب خطوة؟",
+   "competency": "S4",
+   "competency_title": "أصبر خطوة خطوة: صوتان وتعب وعون وكلمة طيبة",
+   "objective": "أن يسمّي الطفل الصوتين اللذين قد يسمعهما في نفسه حين يصعب عليه أمر صغير («اتركه الآن» و«جرّب خطوة صغيرة»)، ويقول أيّهما يريد أن يقود قراره الآن، ويختار خطوة صغيرة جدًّا بقرب كبير.",
+   "min_age": 7,
+   "duration_min": 20,
+   "components": [
+    {
+     "type": "intro",
+     "minutes": 3,
+     "ref": {
+      "kind": "lesson",
+      "id": "E16-L1"
+     },
+     "text": "اطرح سؤال الصوتين واصغِ لجوابين أو ثلاثة بلا تصحيح، وأكّد أن سماع الصوتين أمر عادي."
+    },
+    {
+     "type": "source_teaching",
+     "minutes": 5,
+     "ref": {
+      "kind": "lesson",
+      "id": "E16-L1"
+     },
+     "text": "اقرأ قصة ظافر وتوقف عند أسئلتها."
+    },
+    {
+     "type": "interactive_practice",
+     "minutes": 10,
+     "ref": {
+      "kind": "lesson",
+      "id": "E16-L1"
+     },
+     "text": "العبوا «بطاقتا الصوتين» بثلاثة مواقف خيالية فقط. ثم يجرّب الطفل «خطوتي الأصغر» دقيقتين أو ثلاثًا بقرب الكبير، وأوقفوا النشاط عند أول علامة تعب."
+    },
+    {
+     "type": "assessment",
+     "minutes": 0,
+     "embedded_in": "interactive_practice",
+     "ref": {
+      "kind": "lesson",
+      "id": "E16-L1"
+     },
+     "text": "ملاحظة تكوينية وصفية أثناء الممارسة، دون درجات.",
+     "criteria": {
+      "ظهر": "يسمّي الصوتين بكلماته ويقول أيّهما قاد قراره، ويختار خطوة صغيرة جدًّا ويجرّبها بقرب كبير.",
+      "يتدرب": "يسمّي صوتًا واحدًا أو يحتاج تذكيرًا بالبطاقتين، ويختار خطوة كبيرة نسبيًّا فتُصغَّر معه.",
+      "يحتاج_دعما": "يتضايق بسرعة أو يتجنب المحاولة، فيُخفَّف النشاط ويُكرَّر اللعب بالبطاقتين مع مهمة أسهل وجلوس قريب من الكبير، ويُطمأن أن الراحة ليست عيبًا."
+     }
+    },
+    {
+     "type": "reflection",
+     "minutes": 2,
+     "ref": {
+      "kind": "lesson",
+      "id": "E16-L1"
+     },
+     "text": "اسأل: ما الصوت الذي قاد قراره؟ ثم اختم بالجملة الجامعة دون أي تقييم."
+    }
+   ],
+   "homework": {
+    "optional": true,
+    "out_of_session": true,
+    "text": "حين يصعب على الطفل شيء صغير في يومه، يسمّي الصوتين في نفسه ثم يختار خطوة صغيرة جدًّا، ويرتاح قليلًا بقرب كبير إن احتاج.",
+    "estimated_minutes": 12,
+    "ref": {
+     "kind": "lesson",
+     "id": "E16-L1"
+    }
+   },
+   "review_status": "unreviewed"
+  },
+  {
+   "session_number": 11,
+   "week": 3,
+   "stage": "P02-B",
+   "title": "الزرّ الذي يهرب",
+   "competency": "S4",
+   "competency_title": "أصبر خطوة خطوة: صوتان وتعب وعون وكلمة طيبة",
+   "objective": "أن يقرر المتعلم في موقف «الزرّ الذي يهرب» ويرى عاقبة اختياره.",
+   "min_age": 7,
+   "duration_min": 8,
+   "components": [
+    {
+     "type": "intro",
+     "minutes": 2,
+     "ref": {
+      "kind": "scenario",
+      "id": "E16-S1"
+     },
+     "text": "قراءة مقدمة الموقف."
+    },
+    {
+     "type": "interactive_practice",
+     "minutes": 4,
+     "ref": {
+      "kind": "scenario",
+      "id": "E16-S1"
+     },
+     "text": "يختار المتعلمون في 2 قرارات متتابعة ويقرؤون عاقبة كل اختيار."
+    },
+    {
+     "type": "reflection",
+     "minutes": 2,
+     "ref": {
+      "kind": "scenario",
+      "id": "E16-S1"
+     },
+     "text": "حديث عن النهاية التي وصلوا إليها وسؤال التأمل في آخر الموقف."
+    }
+   ],
+   "review_status": "unreviewed"
+  },
+  {
+   "session_number": 12,
    "week": 4,
    "stage": "P02-B",
    "title": "موقف: اللغز الصعب",
@@ -618,7 +734,82 @@
    "review_status": "unreviewed"
   },
   {
-   "session_number": 11,
+   "session_number": 13,
+   "week": 4,
+   "stage": "P02-B",
+   "title": "تعب يدي أم ضيق صدري؟",
+   "competency": "S4",
+   "competency_title": "أصبر خطوة خطوة: صوتان وتعب وعون وكلمة طيبة",
+   "objective": "أن يفرّق الطفل في مواقف خيالية بين تعبٍ في جسمه (يد أو ذراع أو عين متعبة) وضيقٍ في صدره (ملل أو خوف من الخطأ أو انزعاج)، ويختار لكل منهما خطوة تناسبه: راحة قصيرة وماء بقرب كبير للجسم، وتسمية الضيق وخطوة صغيرة للصدر.",
+   "min_age": 7,
+   "duration_min": 22,
+   "components": [
+    {
+     "type": "intro",
+     "minutes": 3,
+     "ref": {
+      "kind": "lesson",
+      "id": "E16-L2"
+     },
+     "text": "اطرح سؤال اليد والصدر واصغِ لجوابين أو ثلاثة بلا تصحيح."
+    },
+    {
+     "type": "source_teaching",
+     "minutes": 6,
+     "ref": {
+      "kind": "lesson",
+      "id": "E16-L2"
+     },
+     "text": "اقرأ قصة رفيف والعجين وتوقف عند الأسئلة."
+    },
+    {
+     "type": "interactive_practice",
+     "minutes": 11,
+     "ref": {
+      "kind": "lesson",
+      "id": "E16-L2"
+     },
+     "text": "العبوا «يدي أم صدري؟» بأربعة مواقف خيالية، ودع الطفل يضحك ويتحرك. ثم حوار «ماذا تناسب كل حالة؟»، والسؤال الأخير صامت."
+    },
+    {
+     "type": "assessment",
+     "minutes": 0,
+     "embedded_in": "interactive_practice",
+     "ref": {
+      "kind": "lesson",
+      "id": "E16-L2"
+     },
+     "text": "ملاحظة تكوينية وصفية أثناء الممارسة، دون درجات.",
+     "criteria": {
+      "ظهر": "يفرّق بين تعب الجسم وضيق الصدر في مواقف خيالية ويقول ما يناسب كلًّا منهما.",
+      "يتدرب": "يعرف أحدهما أكثر من الآخر أو يخلط بينهما أحيانًا، ويحتاج أمثلة إضافية ولعبة «يدي أم صدري؟» مرة أخرى.",
+      "يحتاج_دعما": "لا يجد كلمة لما يشعر به، فتُعرض عليه كلمات قليلة (ضيق، ملل، خوف) بلا إلحاح، ويُكتفى بالإشارة إلى مكان الإحساس في جسمه."
+     }
+    },
+    {
+     "type": "reflection",
+     "minutes": 2,
+     "ref": {
+      "kind": "lesson",
+      "id": "E16-L2"
+     },
+     "text": "اختم بالجملة الجامعة، وأكّد أن الراحة والتسمية كلاهما صبر لا تهرب منه."
+    }
+   ],
+   "homework": {
+    "optional": true,
+    "out_of_session": true,
+    "text": "حين يشعر الطفل بتعب أو ضيق وهو يعمل شيئًا صعبًا، يسأل نفسه: هل هذا تعب جسم أم ضيق صدر؟ ثم يفعل ما يناسب.",
+    "estimated_minutes": 12,
+    "ref": {
+     "kind": "lesson",
+     "id": "E16-L2"
+    }
+   },
+   "review_status": "unreviewed"
+  },
+  {
+   "session_number": 14,
    "week": 4,
    "stage": "P02-B",
    "title": "أنواع الصبر",
@@ -693,8 +884,8 @@
    "review_status": "unreviewed"
   },
   {
-   "session_number": 12,
-   "week": 4,
+   "session_number": 15,
+   "week": 5,
    "stage": "P02-B",
    "title": "موقف: ليس صبرًا",
    "competency": "S4",
@@ -734,7 +925,123 @@
    "review_status": "unreviewed"
   },
   {
-   "session_number": 13,
+   "session_number": 16,
+   "week": 5,
+   "stage": "P02-B",
+   "title": "أقول أين علقتُ وأطلب عونًا",
+   "competency": "S4",
+   "competency_title": "أصبر خطوة خطوة: صوتان وتعب وعون وكلمة طيبة",
+   "objective": "أن يقول الطفل بجملة قصيرة محددة أين علق في مهمة صعبة وماذا يحتاج («علقتُ في الخطوة كذا، أريد أن أرى أول خطوة»)، ويفرّق بين طلب العون وطلب أن يُنجز غيره العمل بدلًا منه، ويعرف أن قول «هذا صعب عليّ» لا ينافي الصبر.",
+   "min_age": 7,
+   "duration_min": 24,
+   "components": [
+    {
+     "type": "intro",
+     "minutes": 3,
+     "ref": {
+      "kind": "lesson",
+      "id": "E16-L3"
+     },
+     "text": "اطرح سؤال «ساعدني» أم «علقتُ هنا» واصغِ لجوابين بلا تصحيح."
+    },
+    {
+     "type": "source_teaching",
+     "minutes": 6,
+     "ref": {
+      "kind": "lesson",
+      "id": "E16-L3"
+     },
+     "text": "اقرأ قصة صفوان وتوقف عند الأسئلة."
+    },
+    {
+     "type": "interactive_practice",
+     "minutes": 13,
+     "ref": {
+      "kind": "lesson",
+      "id": "E16-L3"
+     },
+     "text": "«جملتي الدقيقة»: مثّلوا الدور مرتين على الأكثر، بتلميح صغير من الكبير. ثم حوار «من أطلب منه؟»، والسؤال الثالث صامت."
+    },
+    {
+     "type": "assessment",
+     "minutes": 0,
+     "embedded_in": "interactive_practice",
+     "ref": {
+      "kind": "lesson",
+      "id": "E16-L3"
+     },
+     "text": "ملاحظة تكوينية وصفية أثناء الممارسة، دون درجات.",
+     "criteria": {
+      "ظهر": "يقول بجملة محددة أين علق وماذا يحتاج، ويقبل التلميح ويكمل بنفسه.",
+      "يتدرب": "يقول «ساعدني» فقط أو يحتاج قالب الجملة، ويتحسن بالتدريب مع الكبير.",
+      "يحتاج_دعما": "يتردد في الطلب أو يخجل، فيتدرب بالإشارة أو بالبطاقة، ويبدأ بسؤال بسيط جدًّا، ويطمئن أن لكل واحد ما يصعب عليه."
+     }
+    },
+    {
+     "type": "reflection",
+     "minutes": 2,
+     "ref": {
+      "kind": "lesson",
+      "id": "E16-L3"
+     },
+     "text": "اختم بالجملة الجامعة دون أي تقييم."
+    }
+   ],
+   "homework": {
+    "optional": true,
+    "out_of_session": true,
+    "text": "حين يعلق الطفل في مهمة صعبة، يقول لكبير قريب جملة قصيرة: ما يحاول، وأين علق، وماذا يحتاج.",
+    "estimated_minutes": 12,
+    "ref": {
+     "kind": "lesson",
+     "id": "E16-L3"
+    }
+   },
+   "review_status": "unreviewed"
+  },
+  {
+   "session_number": 17,
+   "week": 5,
+   "stage": "P02-B",
+   "title": "زاوية الفسيفساء",
+   "competency": "S4",
+   "competency_title": "أصبر خطوة خطوة: صوتان وتعب وعون وكلمة طيبة",
+   "objective": "أن يقرر المتعلم في موقف «زاوية الفسيفساء» ويرى عاقبة اختياره.",
+   "min_age": 7,
+   "duration_min": 8,
+   "components": [
+    {
+     "type": "intro",
+     "minutes": 2,
+     "ref": {
+      "kind": "scenario",
+      "id": "E16-S2"
+     },
+     "text": "قراءة مقدمة الموقف."
+    },
+    {
+     "type": "interactive_practice",
+     "minutes": 4,
+     "ref": {
+      "kind": "scenario",
+      "id": "E16-S2"
+     },
+     "text": "يختار المتعلمون في 2 قرارات متتابعة ويقرؤون عاقبة كل اختيار."
+    },
+    {
+     "type": "reflection",
+     "minutes": 2,
+     "ref": {
+      "kind": "scenario",
+      "id": "E16-S2"
+     },
+     "text": "حديث عن النهاية التي وصلوا إليها وسؤال التأمل في آخر الموقف."
+    }
+   ],
+   "review_status": "unreviewed"
+  },
+  {
+   "session_number": 18,
    "week": 5,
    "stage": "P02-B",
    "title": "تحدي الأسبوع",
@@ -809,8 +1116,83 @@
    "review_status": "unreviewed"
   },
   {
-   "session_number": 14,
+   "session_number": 19,
    "week": 5,
+   "stage": "P02-B",
+   "title": "كلمة تعين صاحبي وشكر لمن أعانني",
+   "competency": "S4",
+   "competency_title": "أصبر خطوة خطوة: صوتان وتعب وعون وكلمة طيبة",
+   "objective": "أن يقول الطفل لزميل متعثر في مهمة (في موقف خيالي) كلمة صادقة محددة تعينه، دون مقارنة ولا وصاية ولا إنجاز العمل عنه، وأن يشكر بكلمة محددة من أعانه حين يكمل خطوة.",
+   "min_age": 7,
+   "duration_min": 22,
+   "components": [
+    {
+     "type": "intro",
+     "minutes": 3,
+     "ref": {
+      "kind": "lesson",
+      "id": "E16-L4"
+     },
+     "text": "اطرح سؤال الكلمة التي تعين واصغِ لجوابين أو ثلاثة بلا تصحيح."
+    },
+    {
+     "type": "source_teaching",
+     "minutes": 6,
+     "ref": {
+      "kind": "lesson",
+      "id": "E16-L4"
+     },
+     "text": "اقرأ قصة تيماء وسلاف وتوقف عند الأسئلة."
+    },
+    {
+     "type": "interactive_practice",
+     "minutes": 11,
+     "ref": {
+      "kind": "lesson",
+      "id": "E16-L4"
+     },
+     "text": "العبوا «كلمة تعين» بثلاثة مواقف فقط. ثم يصنع الطفل «بطاقة شكر» ويقرر أن يسلمها أو يحتفظ بها."
+    },
+    {
+     "type": "assessment",
+     "minutes": 0,
+     "embedded_in": "interactive_practice",
+     "ref": {
+      "kind": "lesson",
+      "id": "E16-L4"
+     },
+     "text": "ملاحظة تكوينية وصفية أثناء الممارسة، دون درجات.",
+     "criteria": {
+      "ظهر": "يختار كلمة صادقة محددة تعين، ويشرح لماذا لا تعين المقارنة، ويشكر بكلمة محددة.",
+      "يتدرب": "يقول «أحسنت» عامة أو يحتاج قالب الجملة، ويتحسن بالأمثلة والتدريب.",
+      "يحتاج_دعما": "يقارن نفسه بغيره أو يتضايق من تعثر الآخرين، فيُخفَّف النشاط ويُكتفى ببطاقة شكر لكبير، ويُطمأن أن لكل واحد سرعته."
+     }
+    },
+    {
+     "type": "reflection",
+     "minutes": 2,
+     "ref": {
+      "kind": "lesson",
+      "id": "E16-L4"
+     },
+     "text": "اختم بالجملة الجامعة دون أي تقييم."
+    }
+   ],
+   "homework": {
+    "optional": true,
+    "out_of_session": true,
+    "text": "هذا الأسبوع يحاول الطفل أن يقول لأحد يتعثر في شيء صغير كلمة صادقة محددة، وأن يشكر بكلمة محددة من أعانه.",
+    "estimated_minutes": 12,
+    "ref": {
+     "kind": "lesson",
+     "id": "E16-L4"
+    }
+   },
+   "review_status": "unreviewed"
+  },
+  {
+   "session_number": 20,
+   "week": 6,
    "stage": "P02-C",
    "title": "لا أقول فهمت وأنا لم أفهم",
    "competency": "T1",
@@ -884,8 +1266,8 @@
    "review_status": "unreviewed"
   },
   {
-   "session_number": 15,
-   "week": 5,
+   "session_number": 21,
+   "week": 6,
    "stage": "P02-C",
    "title": "موقف: فهمت وأنا لم أفهم",
    "competency": "T1",
@@ -925,7 +1307,7 @@
    "review_status": "unreviewed"
   },
   {
-   "session_number": 16,
+   "session_number": 22,
    "week": 6,
    "stage": "P02-C",
    "title": "أين وقفتُ؟",
@@ -1000,8 +1382,8 @@
    "review_status": "unreviewed"
   },
   {
-   "session_number": 17,
-   "week": 6,
+   "session_number": 23,
+   "week": 7,
    "stage": "P02-C",
    "title": "نسيتُ فعدتُ برفق",
    "competency": "K4",
@@ -1075,8 +1457,8 @@
    "review_status": "unreviewed"
   },
   {
-   "session_number": 18,
-   "week": 6,
+   "session_number": 24,
+   "week": 7,
    "stage": "P02-C",
    "title": "أحفظ قدرًا قصيرًا وأراجعه",
    "competency": "K4",
@@ -1150,7 +1532,7 @@
    "review_status": "unreviewed"
   },
   {
-   "session_number": 19,
+   "session_number": 25,
    "week": 7,
    "stage": "P02-C",
    "title": "موقف: نسيت مقطعًا",
