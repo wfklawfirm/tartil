@@ -1,0 +1,7 @@
+{"project":"okbtrogotrtciymmuokr","taken":"2026-11-05","method":"read-only SELECT via Supabase MCP",
+"row_counts":{"ai_suggestions":1,"assessments":0,"attendance":0,"audit_logs":14,"certificates":0,"consents":0,"guardian_links":0,"halaqah_members":0,"halaqah_sessions":0,"halaqat":0,"hifz_items":1,"hifz_reviews":1,"homework_assignments":0,"homework_recipients":0,"homework_requests":0,"homework_reviews":0,"homework_submissions":0,"homework_templates":0,"institutions":3,"kid_attempts":0,"kid_profiles":0,"learning_tracks":2,"memberships":5,"qari_assignments":0,"quiz_attempts":0,"quran_ayahs":6236,"quran_editions":1,"quran_reference_counts":114,"rate_limits":46,"recitation_attempts":0,"recitation_submissions":0,"sanad_entries":0,"scholarly_items":39,"scholarly_reviews":0,"student_profiles":0,"study_plans":0,"track_units":20,"translation_ayahs":6236,"translation_editions":1,"unit_progress":0,"users":7},
+"learning_tracks":[{"title":"أساسيات التجويد","status":"published"},{"title":"أساسيات التجويد","status":"draft"}],
+"track_units_per_track":10,"track_units_titles_identical_across_tracks":true,
+"scholarly_items":{"concept/DRAFT":39},
+"not_applied_migrations":["0017","0018","0019","0020"],
+"notes":"No academy (P01-P25) content exists in DB; it lives only in static JSON built from docs/human-formation. The two tracks are exact duplicates by title/description/unit list (one published, one draft) — no deletion without backup and owner decision."}
