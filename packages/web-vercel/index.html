@@ -371,6 +371,7 @@ html{scroll-padding-top:76px;scroll-padding-bottom:84px}
 .tabsw.fl::before,.tabsw.fr::after{opacity:1}
 .acx .actools .tabsw{margin:0}.acx .actools .tabsw.jw{flex:1 1 320px;min-width:0}.acx .tabsw.jw .jump{flex:none}
 .acx .jump a[aria-current]{color:var(--ink);border-bottom-color:var(--gold)}
+.acx .related .rel-list li{margin:8px 0}.acx .related .why{color:var(--mute)}.acx .pathprogs{margin:8px 0 0;padding-inline-start:22px}.dhub .acx{margin-top:18px}
 .hubgrid .feat{display:flex;flex-direction:column;gap:4px}.hubgrid .feat .btn{margin-top:auto;align-self:flex-start}
 .authcard .tabs [role=tab]{width:auto;margin:0}
 /* file chooser (F-18) */
@@ -728,13 +729,14 @@ function applyTheme(){let t='light';try{t=localStorage.getItem('theme')||'light'
 $('#theme').addEventListener('click',()=>{let t='light';try{t=localStorage.getItem('theme')||'light'}catch{}const n={light:'dark',dark:'auto',auto:'light'}[t]||'light';try{localStorage.setItem('theme',n)}catch{}applyTheme()});
 applyTheme();
 const BNAV=[['journey','رحلتي','home'],['learn','تعلّم','scroll'],['practise','تدرّب','mic'],['explore','استكشف','book'],['account','حسابي','user']];
-const BDEST={me:'journey',plan:'journey',learn:'learn',foundations:'learn',tajweed:'learn',kids:'learn',academy:'learn',qiraat:'learn',demo:'learn',practise:'practise',quran:'explore',search:'explore',verify:'explore',app:'account',auth:'account',review:'account'};
+const BDEST={'d-quran':'explore','d-family':'learn','d-inst':'account',me:'journey',plan:'journey',learn:'learn',foundations:'learn',tajweed:'learn',kids:'learn',academy:'learn',qiraat:'learn',demo:'learn',practise:'practise',quran:'explore',search:'explore',verify:'explore',app:'account',auth:'account',review:'account'};
 const bHref=k=>k==='journey'?(token?'#/me':'#/plan'):k==='learn'?'#/learn':k==='practise'?'#/practise':k==='explore'?'#/quran':(token?'#/app':'#/auth');
+const NAVMAP={home:'home',quran:'quran',search:'quran',tajweed:'quran',foundations:'quran',qiraat:'quran','d-quran':'quran',academy:'formation',learn:'formation',kids:'family','d-family':'family',app:'inst',review:'inst',verify:'inst','d-inst':'inst',me:'journey',plan:'journey',demo:'formation',practise:'journey'};
 function renderNav(active,parts){
-  const items=[['#/','الرئيسية','home'],['#/quran','القرآن','quran'],['#/search','بحث','search'],['#/tajweed','التجويد','tajweed'],['#/foundations','الأسس','foundations'],['#/kids','الصغار','kids'],['#/academy','التكوين','academy'],['#/qiraat','القراءات','qiraat']];
-  if(token)items.push(['#/me','رحلتي','me'],['#/app','لوحتي','app']);
-  if(token&&isScholar())items.push(['#/review','المراجعة العلمية','review']);
-  $('#nav').replaceChildren(...items.map(([h,t,k])=>el('a',{href:h,class:k===active?'on':'','aria-current':k===active?'page':null},t)));
+  /* six destinations (TARTIL_RESTRUCTURING_PLAN 2.2); every old route still resolves, it is only grouped under one of them */
+  const items=[['#/','الرئيسية','home'],['#/domain/quran','القرآن وعلومه','quran'],['#/academy/paths','مسارات التكوين','formation'],['#/domain/family','الصغار والأسرة','family'],['#/domain/inst','المؤسسات','inst'],[token?'#/me':'#/plan','رحلتي','journey']];
+  const cur=NAVMAP[active]||'';
+  $('#nav').replaceChildren(...items.map(([h,t,k])=>el('a',{href:h,'data-nav':k,class:k===cur?'on':'','aria-current':k===cur?'page':null},t)));
   document.querySelectorAll('footer a[data-need]').forEach(a=>{let m=a.querySelector('small');if(token){if(m)m.remove()}else if(!m){m=document.createElement('small');m.textContent=' · يتطلب حسابًا';a.append(m)}});
   document.querySelectorAll('footer a[data-guest]').forEach(a=>{a.hidden=!!token});
   const who=$('#who');
@@ -751,9 +753,27 @@ const HUBS={
   learn:{t:'تعلّم',sub:'مسارات منظّمة تختار منها ما يناسبك',items:[['#/foundations','الأسس: الحروف والحركات','الحروف والأشكال والحركات والمقاطع بخطوات هادئة.'],['#/tajweed','التجويد','المخارج والصفات والأحكام والمدود.'],['#/kids','أكاديمية الصغار','بطاقات كبيرة وأنشطة قصيرة للصغار.'],['#/academy','أكاديمية التكوين','رحلات قصيرة ومتدرّجة في الخُلق وضبط النفس والتفكير.'],['#/qiraat','القراءات والإسناد','القراءات والروايات وتوثيق الإسناد.'],['#/demo','جولة في الواجبات','عرض توضيحي لكيفية عمل الواجبات.']]},
   practise:{t:'تدرّب',sub:'مراجعة وتسميع واختبار ذاتي',items:[['#/me/hifz','حفظي','مراجعة المقاطع المحفوظة بتباعد تدريجي.',1],['#/me/tasmi','تسميع','تسجيل تلاوتك والحصول على ملاحظات أولية.',1],['#/me/quiz','اختبر نفسك','أسئلة قصيرة في التجويد وأكمل الآية.',1],['#/me/map','خريطة الإتقان','ما أتقنته وما يحتاج مراجعة.',1],['#/foundations','اختبار الأساس','اختبار الحروف والحركات دون حساب.'],['#/kids','أنشطة الصغار','أنشطة قصيرة لا تحتاج حسابًا.']]}
 };
+const hubCard=([href,t,d,needs,scholarOnly])=>{const gate=needs&&!token;
+  return el('div',{class:'feat'},el('b',{},t),el('span',{class:'small'},d),gate?el('span',{class:'small'},'يتطلب حسابًا'):null,el('a',{class:'btn sm',href:gate?'#/auth':href},gate?'سجّل الدخول':'افتح'))};
+const DOMAINS={
+  quran:{t:'القرآن وعلومه',sub:'المصحف والبحث والتجويد والأسس والقراءات والحفظ والتسميع. نص القرآن محقَّق، وكل مادة تعليمية هنا مسودة قيد المراجعة.',progs:['P20','P21','P23'],progT:'برامج قرآنية في أكاديمية التكوين',
+    items:[['#/quran','المصحف','114 سورة برواية حفص عن عاصم مع تلاوة مسموعة.'],['#/search','البحث في القرآن','بحث في نص المصحف كله.'],['#/tajweed','التجويد','المخارج والصفات والأحكام والمدود (مسودة قيد المراجعة).'],['#/foundations','الأسس: الحروف والحركات','لمن يبدأ من الصفر، صغارًا وكبارًا.'],['#/qiraat','القراءات والإسناد','القراءات والروايات وتوثيق الإسناد.'],['#/me/hifz','حفظي','مراجعة المحفوظ بتباعد تدريجي.',1],['#/me/tasmi','تسميع','تسجيل تلاوتك وملاحظات أولية.',1],['#/me/quiz','اختبر نفسك','أسئلة قصيرة في التجويد وأكمل الآية.',1]]},
+  family:{t:'الصغار والأسرة',sub:'مدخل واحد للصغار ولمن يرعاهم. يعرض ما هو موجود أصلًا ولا ينسخ شيئًا، ولا فيه مراسلة ولا مشاركة.',progs:null,progT:'برامج الأكاديمية للصغار وللأسرة',
+    items:[['#/kids','أكاديمية الصغار','أنشطة قصيرة وبطاقات كبيرة للحروف، لا تحتاج حسابًا.'],['#/foundations','الأسس: الحروف والحركات','خطوات هادئة تصلح للصغار مع كبير.']]},
+  inst:{t:'المؤسسات',sub:'للمراكز والجمعيات والمعاهد: أعضاء بأدوارهم وحلقات وواجبات ومسارات وشهادات إتمام قابلة للتحقق (وليست إجازات).',progs:['P13'],progT:'للمعلّمين والمرشدين',
+    items:[['#/app','لوحة المؤسسة','إدارة الأعضاء والحلقات والواجبات والمسارات.',1],['#/verify','التحقق من شهادة','تحقّق من شهادة إتمام برقمها.'],['#/review','المراجعة العلمية','مخصّصة للمراجعين العلميين المعتمدين.',1,1]]}};
+async function domainView(app,k){const d=DOMAINS[k];
+  if(!d){app.replaceChildren(el('div',{class:'card plain statepg'},el('h1',{},'الصفحة غير موجودة'),el('a',{class:'btn',href:'#/'},'الرئيسية')));return}
+  const items=d.items.filter(it=>!it[4]||(token&&isScholar()));
+  const root=el('div',{class:'dhub','data-domain':k},pageHead(d.t,d.sub),el('div',{class:'grid hubgrid'},...items.map(hubCard)));
+  app.replaceChildren(root);
+  await acLoad();if(!AC.P||!AC.P.length)return;
+  if(!ME&&token){try{ME=await api('GET','/me')}catch{}}
+  const ps=(k==='family'?AC.P.filter(p=>p.age_max<=12||['P15','P16'].includes(p.id)):AC.P.filter(p=>d.progs.includes(p.id))).filter(p=>!acGated('p',p.id)).sort((a,b)=>a.age_min-b.age_min||(a.id<b.id?-1:1));
+  if(!ps.length)return;
+  root.append(el('section',{class:'acx'},el('h2',{class:'sh'},d.progT,' ',acDraft()),el('div',{class:'grid'},...ps.map(acProgCard)),token?null:el('p',{class:'small'},'تفتح برامج الأكاديمية بعد تسجيل الدخول.')))}
 function hubView(app,k){const h=HUBS[k];
-  app.replaceChildren(pageHead(h.t,h.sub),el('div',{class:'grid hubgrid'},...h.items.map(([href,t,d,needs])=>{const gate=needs&&!token;
-    return el('div',{class:'feat'},el('b',{},t),el('span',{class:'small'},d),gate?el('span',{class:'small'},'يتطلب حسابًا'):null,el('a',{class:'btn sm',href:gate?'#/auth':href},gate?'سجّل الدخول':'افتح'))})))}
+  app.replaceChildren(pageHead(h.t,h.sub),el('div',{class:'grid hubgrid'},...h.items.map(hubCard)))}
 const SITE_T='ترتيل — منصة تعلّم القرآن وإتقانه',TT={app:'لوحتي',auth:'الدخول والتسجيل',verify:'التحقق من شهادة',gallery:'معرض التصميم',academy:'أكاديمية التكوين'};
 function setTitle(top){const app=$('#app');if(!top){document.title=SITE_T;return}
   const h=app.querySelector('h1'),tb=app.querySelector('.tabs:not(.tabs2) [role=tab][aria-selected=true]');
@@ -779,6 +799,7 @@ async function route(){
     else if(top==='plan'){renderNav('plan');await planView(app)}
     else if(top==='demo'){renderNav('demo');demoHomework(app)}
     else if(top==='kids'){renderNav('kids');kidsView(app)}
+    else if(top==='domain'){const k=parts[1];renderNav('d-'+k);await domainView(app,k)}
     else if(top==='academy'){renderNav('academy');await academyView(app,parts)}
     else if(top==='gallery'){renderNav('');gallery(app)}
     else if(top==='auth'){renderNav('auth');authView(app)}
@@ -824,7 +845,7 @@ async function landing(app){
     el('div',{class:'eco'},...ECO.map(([ic,t,d,h,l,k])=>{const m=/^(.*?)\s*\(([^()]*)\)\s*$/.exec(d),body=m?m[1]:d,stat=m?m[2]:'';return el('a',{class:'ec'+(k==='lead'?' lead':k==='wide'?' wide':''),href:h},pathIcon(ic),el('b',{},t),el('span',{class:'small'},body),stat?el('span',{class:'chip ecs'},stat):null,el('span',{class:'go'},l+' ←'))})));
   const jr=el('section',{class:'zone'},el('h2',{class:'sec'},'رحلة المتعلّم'),divider(),
     el('ol',{class:'stages'},...STAGES.map(([t,d,h],i)=>el('li',{},el('a',{href:h},el('span',{class:'sn'},roseSvg(),el('i',{},ar(i+1))),el('b',{},t),el('span',{class:'small'},d))))));
-  const caps=['إدارة الأعضاء بأدوارهم: مدير ومقرئ وطالب ووليّ أمر','حلقات وجلسات بموعد وحضور وغرفة اتصال','مسارات من وحدات، مع ثمانية قوالب مبدئية (مسوّدات قيد المراجعة)','تسميع بتسجيل صوتي وملاحظات مقرئ بشري','شهادات إتمام مساق قابلة للتحقق (وليست إجازات)','مؤشرات المؤسسة وسجلّ تدقيق وعزل لبياناتها على مستوى قاعدة البيانات'];
+  const caps=['إدارة الأعضاء بأدوارهم: مدير ومقرئ وطالب ووليّ أمر','حلقات وجلسات بموعد وحضور وغرفة اتصال','مسارات من وحدات، مع '+ar(TEMPLATES.length)+' قوالب مبدئية (مسوّدات قيد المراجعة)','تسميع بتسجيل صوتي وملاحظات مقرئ بشري','شهادات إتمام مساق قابلة للتحقق (وليست إجازات)','مؤشرات المؤسسة وسجلّ تدقيق وعزل لبياناتها على مستوى قاعدة البيانات'];
   const inst=el('section',{class:'inst zone zc'},el('div',{class:'imain'},el('h2',{},'للمراكز والجمعيات والمعاهد'),
       el('p',{},'أنشئ مؤسستك بنفسك فتكون مديرها، وأضف مقرئيك وطلابك، وابدأ من قوالب مسارات جاهزة تعدّلها وتنشرها.'),
       el('div',{class:'hbtns'},el('a',{class:'btn',href:token?'#/app':'#/auth'},token?'افتح لوحة المؤسسة':'أنشئ حساب مؤسستك'))),
@@ -1082,7 +1103,7 @@ async function dashboard(app,parts){
   const newInst=()=>{const box=el('div'),name=el('input'),slug=el('input',{dir:'ltr',placeholder:'اتركه فارغًا للتوليد التلقائي'}),tpl=el('input',{type:'checkbox',checked:true});
     return el('div',{},el('h2',{},'أنشئ مؤسستك (أكاديمية / مدرسة / حلقة)'),el('p',{class:'small'},'تصبح أنت مديرها، وتضيف إليها المقرئين والطلاب بالبريد الإلكتروني (يجب أن يكونوا مسجّلين في المنصة).'),
       el('div',{class:'row'},field('اسم المؤسسة',name),field('المعرّف بالإنجليزية (اختياري)',slug)),
-      el('label',{style:'display:flex;gap:8px;align-items:flex-start;color:var(--ink)'},tpl,'أنشئ معها المسارات الجاهزة الثمانية كمسوّدات (مبدئية، قيد المراجعة العلمية؛ تراجعها وتنشرها بنفسك).'),
+      el('label',{style:'display:flex;gap:8px;align-items:flex-start;color:var(--ink)'},tpl,'أنشئ معها المسارات الجاهزة ('+ar(TEMPLATES.length)+') كمسوّدات (مبدئية، قيد المراجعة العلمية؛ تراجعها وتنشرها بنفسك).'),
       el('button',{on:{click:()=>run(box,async()=>{
         const sg=slug.value.trim()||('inst-'+Math.random().toString(36).slice(2,10));
         const r=await api('POST','/institutions',{name:name.value.trim(),slug:sg});
@@ -1832,7 +1853,7 @@ const acP=(t)=>String(t||'').split(/\n{2,}|\r?\n/).filter(x=>x.trim()).map(acCle
 async function acLoad(){
   if(AC.ok)return;
   const g=async u=>{try{const r=await fetch(u,{cache:'no-store'});return r.ok?await r.json():null}catch{return null}};
-  const [d,l,p,gg]=await Promise.all([g('/academy.json'),g('/academy-lessons.json'),g('/academy-programs.json'),g('/academy-guides.json')]);AC.G=(gg&&gg.guides)||{};
+  const [d,l,p,gg,pa]=await Promise.all([g('/academy.json'),g('/academy-lessons.json'),g('/academy-programs.json'),g('/academy-guides.json'),g('/academy-paths.json')]);AC.G=(gg&&gg.guides)||{};AC.W=(pa&&pa.paths)||[];
   AC.D=d||{competencies:[],domains:{}};AC.U=(l&&l.units)||{};AC.P=(p&&p.programs)||[];AC.B=(p&&p.bands)||[];
   AC.les={};AC.scn={};
   Object.values(AC.U).forEach(u=>{u.lessons.forEach(x=>AC.les[x.id]={l:x,u});u.scenarios.forEach(x=>AC.scn[x.id]={s:x,u})});
@@ -1847,7 +1868,7 @@ const acAgeOut=(p,l)=>{const r=l&&acLRange(l.age_range);return !!r&&(r[1]<p.age_
 const acAge=(a,b)=>acD(b>=90?'من '+a+' سنة فأكثر':a===b?YEAR(a):'من '+ar(a)+' إلى '+ar(b)+' سنة');
 const acAgeStr=r=>{const m=String(r||'').match(/(\d+)\s*[-–]\s*(\d+)/);if(m)return acAge(+m[1],+m[2]);const n=String(r||'').match(/(\d+)\s*\+/);return n?acAge(+n[1],99):acD(String(r||'')+' سنة')};
 const acLv=l=>'المستوى '+acD(String(l).replace(/\D/g,''));
-function acTabs(cur,panel){return Tabs([['','البرامج'],['c','الكفايات']],cur,{cls:'tabs2',label:'أقسام الأكاديمية',href:k=>'#/academy'+(k?'/'+k:''),panel})}
+function acTabs(cur,panel){return Tabs([['','البرامج'],['paths','المسارات'],['c','الكفايات']],cur,{cls:'tabs2',label:'أقسام الأكاديمية',href:k=>'#/academy'+(k?'/'+k:''),panel})}
 function acProgCard(p){const req=acItems(p),n=req.length,done=acDone(),dn=req.filter(i=>done[i.ref]).length;
   return el('a',{class:'pcard',href:'#/academy/p/'+p.slug},el('h3',{},acClean(p.title)),el('p',{class:'tag'},acClean(p.tagline)),
     el('div',{class:'info'},acAge(p.age_min,p.age_max)+' · '+WEEK(p.duration_weeks)+' · '+STEP(n)+(dn?' · أنجزتَ '+ar(dn):'')+(p.status==='adults_gated'?' · بانتظار مراجعة متخصصة':'')))}
@@ -1924,6 +1945,60 @@ function acGuidePage(app,p,kind){
       acFaq(g.faq),
       acHas(sp.gate)?el('p',{class:'small'},'جهة المراجعة المطلوبة قبل الاعتماد: '+sp.gate):null]}
   done([el('h1',{class:'gh1'},kind==='parent'?'دليل ولي الأمر':'دليل المرشد'),el('p',{class:'small'},acClean(p.title)),seg,...body,el('p',{class:'small foot'},'مسودة لم تُراجَع بعد، وليست فتوى ولا استشارة متخصصة.')])}
+
+/* مسارات التكوين: 11 paths from academy-paths.json (built from real program ids); order, ages and rhythm are read from the programmes themselves */
+function acPaths(app){
+  const root=el('div',{class:'acx acx-paths'}),panel=el('div');
+  const byId=Object.fromEntries(AC.P.map(p=>[p.id,p]));
+  const paths=(AC.W||[]).map(w=>({w,ps:w.programs.map(id=>byId[id]).filter(Boolean).filter(p=>!acGated('p',p.id))})).filter(x=>x.ps.length);
+  panel.append(...paths.map(({w,ps})=>{const lo=Math.min(...ps.map(p=>p.age_min)),hi=Math.max(...ps.map(p=>p.age_max));
+    return el('section',{class:'agroup pathcard','data-path':w.id},el('div',{class:'ghead'},el('h2',{},w.label),el('span',{class:'small'},acAge(lo,hi)+' · '+STEP2(ps.length))),
+      el('ol',{class:'ls pathprogs'},...ps.map(p=>el('li',{},el('a',{href:'#/academy/p/'+p.slug},el('b',{},acClean(p.title))),el('div',{class:'small'},acAge(p.age_min,p.age_max)+' · '+acD(p.rhythm)+' · '+WEEK(p.duration_weeks))))))}));
+  if(!paths.length)panel.append(el('div',{class:'note'},'تعذّر تحميل المسارات.'));
+  root.append(pageHead('مسارات التكوين','كل مسار سلسلة قصيرة من البرامج مرتّبة بحسب المتطلبات ثم العمر. ليست خطًّا إلزاميًّا: يمكنك فتح أي برنامج مباشرة.'),
+    el('p',{class:'ameta'},ar(paths.length)+' مسارًا ',acDraft()),el('div',{class:'actools'},acTabs('paths',panel)),panel,
+    el('p',{class:'small foot'},'الأكاديمية تربّي ولا تُفتي. المادة مسودة لم تُراجَع بعد.'));
+  app.replaceChildren(root)}
+const STEP2=n=>pl(n,['برنامج واحد','برنامجان','برامج','برنامجًا']);
+/* «ذات صلة»: every suggestion comes from a real field (prerequisites, next_programs, same competency, shared grounding principle id, optional_link, same unit) and states its reason. No mood/faith inference; the notebook (acGet 'ref:*') is never read here. */
+let AC_R=null;
+function acRel(){if(AC_R)return AC_R;
+  const prog={},pri={},unitsOf={};
+  AC.P.forEach(p=>{p.stages.forEach(s=>s.items.forEach(i=>{(prog[i.ref]=prog[i.ref]||[]).push({p,s,i})}));
+    unitsOf[p.id]=new Set(p.stages.flatMap(s=>s.items).map(i=>(AC.les[i.ref]||AC.scn[i.ref]||{}).u).filter(Boolean).map(u=>u.unit_id))});
+  Object.values(AC.U).forEach(u=>(u.grounding||[]).forEach(g=>{if(g.principle_id)(pri[g.principle_id]=pri[g.principle_id]||new Set()).add(u.unit_id)}));
+  const unitPri={};Object.values(AC.U).forEach(u=>{unitPri[u.unit_id]=new Set((u.grounding||[]).map(g=>g.principle_id).filter(Boolean))});
+  const shared=(a,b)=>{let n=0;a.forEach(x=>{if(b.has(x))n++});return n};
+  return AC_R={prog,pri,unitsOf,unitPri,shared}}
+const acCompName=id=>{const c=(AC.D.competencies||[]).find(x=>x.id===id);return c?c.name:''};
+function acRelBlock(entries){
+  if(!entries.length)return null;
+  return el('section',{class:'related','aria-label':'ذات صلة','data-related':'1'},el('h2',{class:'sh'},'ذات صلة'),
+    el('ul',{class:'ls rel-list'},...entries.map(e=>el('li',{'data-rel':e.type},el('a',{href:e.href},el('b',{},e.title)),e.meta?el('small',{}," · "+e.meta):null,el('div',{class:'small why'},'السبب: '+e.reasons.join('؛ '))))),
+    el('details',{class:'fold'},el('summary',{},'كيف اختيرت هذه الاقتراحات؟'),el('p',{class:'small'},'من بيانات المنهج نفسها فقط: متطلبات البرنامج والبرامج التالية والكفاية المشتركة والمصادر المشتركة والروابط الاختيارية. لا نقرأ دفترك ولا نخمّن حالتك أو مستواك الإيماني، وأي اقتراح تستطيع تجاهله. الصلات المبنية على مصدر مشترك مرشّحة ولم تُراجَع بعد.')))}
+function acMerge(map,key,e,reason){const x=map.get(key);if(x){if(!x.reasons.includes(reason))x.reasons.push(reason)}else map.set(key,{...e,reasons:[reason]})}
+function acRelatedProgram(p){
+  const R=acRel(),G=acGraph(),m=new Map(),pe=q=>({type:'program',href:'#/academy/p/'+q.slug,title:acClean(q.title),meta:acAge(q.age_min,q.age_max)});
+  const ok=q=>q&&q.id!==p.id&&!acGated('p',q.id);
+  G.before(p.id).filter(ok).forEach(q=>acMerge(m,q.id,pe(q),'يُفضَّل قبل هذا البرنامج بحسب مسار البرامج'));
+  G.after(p.id).filter(ok).forEach(q=>acMerge(m,q.id,pe(q),'يأتي بعده في المسار المرسوم'));
+  AC.P.filter(ok).forEach(q=>{const c=(q.competencies||[]).filter(x=>(p.competencies||[]).includes(x));if(c.length)acMerge(m,q.id,pe(q),'يدرّب الكفاية نفسها: '+acCompName(c[0]))});
+  AC.P.filter(ok).map(q=>[q,R.shared(new Set([...R.unitsOf[p.id]].flatMap(u=>[...(R.unitPri[u]||[])])),new Set([...R.unitsOf[q.id]].flatMap(u=>[...(R.unitPri[u]||[])])))]).filter(x=>x[1]>0).sort((a,b)=>b[1]-a[1]).slice(0,3)
+    .forEach(([q,n])=>acMerge(m,q.id,pe(q),'يشترك معه في '+ar(n)+' من المصادر الأصلية (صلة مرشّحة لم تُراجَع)'));
+  const out=[...m.values()].slice(0,6);
+  p.stages.flatMap(s=>s.items).filter(acOpt).slice(0,4).forEach(i=>out.push({type:'optional',href:acHref(i),title:acClean(acItemTitle(i)||''),meta:KIND[i.kind]||'',reasons:['اختياري: إثراء لإحدى مراحل هذا البرنامج']}));
+  return acRelBlock(out.filter(e=>e.title))}
+function acRelatedItem(id){
+  const R=acRel(),isL=!!AC.les[id],X=AC.les[id]||AC.scn[id];if(!X)return null;const u=X.u,m=new Map();
+  const le=(ref,rec,kind)=>({type:'item',href:'#/academy/'+kind+'/'+ref,title:acClean(rec.title),meta:kind==='l'?'درس':'سيناريو'});
+  const okL=ref=>!acGated('l',ref);
+  if(isL)u.scenarios.filter(s=>okL(s.id)).slice(0,2).forEach(s=>acMerge(m,s.id,le(s.id,s,'s'),'تطبيق عملي على موضوع الوحدة نفسها'));
+  else u.lessons.filter(l=>okL(l.id)).slice(0,2).forEach(l=>acMerge(m,l.id,le(l.id,l,'l'),'درس من الوحدة نفسها'));
+  (R.prog[id]||[]).forEach(({s})=>s.items.filter(i=>acOpt(i)&&i.ref!==id).slice(0,3).forEach(i=>{const t=AC.les[i.ref]?.l||AC.scn[i.ref]?.s;if(t&&okL(i.ref))acMerge(m,i.ref,le(i.ref,t,AC.les[i.ref]?'l':'s'),'اختياري: إثراء لهذه المرحلة')}));
+  Object.values(AC.U).filter(v=>v.unit_id!==u.unit_id&&v.competency===u.competency&&v.lessons.length).slice(0,3).forEach(v=>{const l=v.lessons[0];if(okL(l.id))acMerge(m,l.id,le(l.id,l,'l'),'يدرّب الكفاية نفسها: '+acCompName(u.competency))});
+  Object.values(AC.U).filter(v=>v.unit_id!==u.unit_id&&v.lessons.length).map(v=>[v,R.shared(R.unitPri[u.unit_id]||new Set(),R.unitPri[v.unit_id]||new Set())]).filter(x=>x[1]>0).sort((a,b)=>b[1]-a[1]).slice(0,2)
+    .forEach(([v,n])=>{const l=v.lessons[0];if(okL(l.id))acMerge(m,l.id,le(l.id,l,'l'),'يشترك معه في '+ar(n)+' من المصادر الأصلية (صلة مرشّحة لم تُراجَع)')});
+  return acRelBlock([...m.values()].filter(e=>e.title).slice(0,8))}
 function acProgram(app,slug,sub){
   const p=AC.P.find(x=>x.slug===slug||x.id===slug);
   if(!p){app.replaceChildren(el('div',{class:'acx'},el('div',{class:'note'},'لم أجد هذا البرنامج.'),el('a',{href:'#/academy'},'← إلى الأكاديمية')));return}
@@ -1962,7 +2037,7 @@ function acProgram(app,slug,sub){
         el('div',{class:'items'},...s.items.map(itemEl)),
         s.mission?el('p',{class:'mission'},el('b',{},'مهمتك: '+acClean(s.mission.title)),' ',acClean(s.mission.brief)):null)}),
       p.capstone?el('div',{class:'stage cap'},el('div',{class:'no','aria-hidden':'true'},'★'),el('h3',{},'ختام البرنامج: '+acClean(p.capstone.title)),el('p',{class:'why'},acClean(p.capstone.brief))):null),
-    whatNext,pathMap,guideLinks))}
+    whatNext,acRelatedProgram(p),pathMap,guideLinks))}
 function acScenarioBox(sc,onEnd){const box=el('div',{class:'lesson',style:'padding:16px'});let cur=sc.start,trail=[];
   /* F-27: longest chain of decisions from the start (cycle-safe) gives the "decision n of N" cue */
   const depth=(()=>{const memo={},f=(id,seen)=>{const n=sc.nodes[id];if(!n||!n.choices||!n.choices.length||seen.has(id))return 0;if(id in memo)return memo[id];seen.add(id);let m=0;n.choices.forEach(c=>{m=Math.max(m,1+f(c.next,seen))});seen.delete(id);return memo[id]=m};return f(sc.start,new Set())})();
@@ -1978,7 +2053,7 @@ function acScenarioPage(app,id){const S=AC.scn[id];
   if(!S){app.replaceChildren(el('div',{class:'acx'},el('div',{class:'note'},'لم أجد هذا السيناريو.')));return}
   const d=acDone();
   app.replaceChildren(el('div',{class:'acx'},acCrumb({h:'#/academy',t:'الأكاديمية'},{h:'#/academy/c/'+S.u.competency,t:S.u.title},{t:S.s.title}),acScenarioBox(S.s,e=>{fin.style.display=e?'':'none'}),
-    el('div',{class:'nav2'},fin,el('a',{class:'btn ghost',href:'#/academy'},'الأكاديمية')),
+    el('div',{class:'nav2'},fin,el('a',{class:'btn ghost',href:'#/academy'},'الأكاديمية')),acRelatedItem(id),
     el('div',{class:'note draft'},'مسودة قيد المراجعة؛ شخصيات هذا السيناريو خيالية من إعداد المنصة.')))}
 /* Session path: أكتشف → أفهم → أتعلم من المصدر → أتدرّب → أطبّق → أراجع. Only the phases a lesson really contains are drawn. «أتعلم من المصدر» is not mapped to any step because the lesson data has no learner-facing source step (source_basis is reviewer-only). */
 const AC_PH={discover:'أكتشف',understand:'أفهم',source:'أتعلم من المصدر',practice:'أتدرّب',apply:'أطبّق',review:'أراجع'};
@@ -2039,11 +2114,11 @@ function acLesson(app,id){const R=AC.les[id];
   const sync=()=>{if(gsw){gsw.setAttribute('aria-pressed',String(isGuide()));gsw.textContent=isGuide()?'وضع المرشد: مفعّل':'وضع المرشد'}};
   app.replaceChildren(el('div',{class:'acx acx-lesson'},acCrumb({h:'#/academy',t:'الأكاديمية'},{h:'#/academy/c/'+u.competency,t:u.title},{t:l.title}),
     el('div',{class:'lhead'},el('div',{class:'small meta1'},u.title+' · '+acLv(l.level)+' · '+acAgeStr(l.age_range)+' · '+acD(l.duration_min)+' دقيقة'),gsw),ackBox,
-    el('div',{class:'lesson'},track,ptxt,bar,body,nav,hint)));
+    el('div',{class:'lesson'},track,ptxt,bar,body,nav,hint),acRelatedItem(id)));
   sync();draw()}
 function acCompetencies(app,id){
   const root=el('div',{class:'acx'});
-  if(!id){const panel=el('div');root.append(pageHead('الكفايات الأربعون','كل كفاية وحدة تعلّم من عدة دروس متدرّجة وسيناريوهات.'),el('div',{class:'ahero slim'},acDraft()),acTabs('c',panel),panel);
+  if(!id){const panel=el('div');root.append(pageHead('الكفايات: '+ar(AC.D.competencies.length)+' كفاية','كل كفاية وحدة تعلّم من عدة دروس متدرّجة وسيناريوهات.'),el('div',{class:'ahero slim'},acDraft()),acTabs('c',panel),panel);
     Object.entries(AC.D.domains).forEach(([k,v])=>{panel.append(el('h2',{class:'sh'},v),el('div',{class:'grid'},...AC.D.competencies.filter(c=>c.domain===k).map(c=>{const u=AC.U[c.id];return el('a',{class:'pcard',href:'#/academy/c/'+c.id},el('div',{class:'meta'},el('span',{class:'pill'},'من سنّ '+acD(c.min_age)),u?el('span',{class:'pill'},u.lessons.length+' دروس'):null),el('h3',{},c.name),el('p',{class:'tag'},c.definition))})))});
     app.replaceChildren(root);return}
   const c=AC.D.competencies.find(x=>x.id===id),u=AC.U[id];
@@ -2084,9 +2159,9 @@ async function academyView(app,parts){
   const a=parts&&parts[1],b=parts&&parts[2];
   if(!ME){try{ME=await api('GET','/me')}catch{}}
   if(acGated(a,b)){app.replaceChildren(el('div',{class:'acx'},acCrumb({h:'#/academy',t:'الأكاديمية'},{t:'غير متاح لحسابك'}),el('div',{class:'note'},el('b',{},'هذا المحتوى مخصّص للبالغين.'),' الحسابات المرتبطة بمؤسسة كطالب (وقد يكون الطالب قاصرًا) لا تفتحه هنا. اطلب من معلّمك أو وليّ أمرك برنامجًا مناسبًا لعمرك.'),el('a',{href:'#/academy'},'← إلى الأكاديمية')));return}
-  const isRv=a==='review'||(a&&AC.D.competencies.some(c=>c.id===a));
+  const isRv=a==='paths'?false:a==='review'||(a&&AC.D.competencies.some(c=>c.id===a));
   if(isRv&&!isScholar()){app.replaceChildren(el('div',{class:'acx'},acCrumb({h:'#/academy',t:'الأكاديمية'},{t:'لوحة المراجعة'}),el('div',{class:'card'},el('h2',{},'لوحة المراجعة'),el('p',{},'هذه المساحة للمراجعين العلميين المعتمدين فقط.')),el('a',{href:'#/academy'},'← إلى الأكاديمية')));return}
-  if(a==='p')acProgram(app,b,parts[3]);else if(a==='l')acLesson(app,b);else if(a==='s')acScenarioPage(app,b);else if(a==='c')acCompetencies(app,b);else if(isRv)acReview(app,a==='review'?b:a);else acHome(app)}
+  if(a==='p')acProgram(app,b,parts[3]);else if(a==='l')acLesson(app,b);else if(a==='s')acScenarioPage(app,b);else if(a==='paths')acPaths(app);else if(a==='c')acCompetencies(app,b);else if(isRv)acReview(app,a==='review'?b:a);else acHome(app)}
 
 function kidsView(app){
   const S=kst.get(),root=el('div',{class:'kids'});

@@ -1,0 +1,128 @@
+{
+ "version": 1,
+ "status": "draft-unreviewed",
+ "source": "docs/TARTIL_TAKWEEN_REBUILD.md section 1",
+ "paths": [
+  {
+   "id": "TW-1",
+   "label": "أراجع يومي",
+   "programs": [
+    "P25"
+   ],
+   "age_min": 10,
+   "age_max": 12,
+   "review_status": "unreviewed"
+  },
+  {
+   "id": "TW-2",
+   "label": "أضبط غضبي وأصلح",
+   "programs": [
+    "P02",
+    "P07"
+   ],
+   "age_min": 7,
+   "age_max": 12,
+   "review_status": "unreviewed"
+  },
+  {
+   "id": "TW-3",
+   "label": "أصدقائي وخلافاتي",
+   "programs": [
+    "P05",
+    "P08"
+   ],
+   "age_min": 8,
+   "age_max": 12,
+   "review_status": "unreviewed"
+  },
+  {
+   "id": "TW-4",
+   "label": "أقرر بالشورى",
+   "programs": [
+    "P10"
+   ],
+   "age_min": 14,
+   "age_max": 17,
+   "review_status": "unreviewed"
+  },
+  {
+   "id": "TW-5",
+   "label": "القيم الأولى: الشكر والرحمة والصدق والأمانة والعدل والتواضع",
+   "programs": [
+    "P01",
+    "P17",
+    "P03",
+    "P04"
+   ],
+   "age_min": 5,
+   "age_max": 8,
+   "review_status": "unreviewed"
+  },
+  {
+   "id": "TW-6",
+   "label": "العادات اليومية والمثابرة والأمانة اليومية",
+   "programs": [
+    "P18",
+    "P19"
+   ],
+   "age_min": 7,
+   "age_max": 8,
+   "review_status": "unreviewed"
+  },
+  {
+   "id": "TW-7",
+   "label": "أتثبّت وأستدل وأبحث",
+   "programs": [
+    "P06",
+    "P09"
+   ],
+   "age_min": 11,
+   "age_max": 17,
+   "review_status": "unreviewed"
+  },
+  {
+   "id": "TW-8",
+   "label": "المال والعمل والمبادرة",
+   "programs": [
+    "P11",
+    "P12",
+    "P24"
+   ],
+   "age_min": 15,
+   "age_max": 99,
+   "review_status": "unreviewed"
+  },
+  {
+   "id": "TW-9",
+   "label": "القيادة والإرشاد والمسؤولية العامة",
+   "programs": [
+    "P13",
+    "P14"
+   ],
+   "age_min": 16,
+   "age_max": 99,
+   "review_status": "unreviewed"
+  },
+  {
+   "id": "TW-10",
+   "label": "الأسرة والوالدية (للبالغين)",
+   "programs": [
+    "P15",
+    "P16"
+   ],
+   "age_min": 18,
+   "age_max": 99,
+   "review_status": "unreviewed"
+  },
+  {
+   "id": "TW-11",
+   "label": "السيرة والشمائل والآداب والمسؤولية الرقمية",
+   "programs": [
+    "P22"
+   ],
+   "age_min": 12,
+   "age_max": 17,
+   "review_status": "unreviewed"
+  }
+ ]
+}

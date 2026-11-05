@@ -69,3 +69,14 @@ To implement or verify: English LTR interface (the UI is Arabic-first; only Qura
 - No hidden profiling: no mood, religiosity or trait labels; suggestions explain themselves.
 - Child screens contain no public profile, leaderboard, photo, or contact feature.
 - Every unreviewed item says so; nothing unreviewed is presented as final.
+
+## 9. Implementation status (Phases 1-3, UI only)
+
+Implemented in both copies of `index.html` (identical except line 6) and tested by sections 9 of `scripts/e2e_academy.mjs`:
+- Top navigation has six items: الرئيسية، القرآن وعلومه، مسارات التكوين، الصغار والأسرة، المؤسسات، رحلتي. It only groups existing routes; every old hash route still resolves and highlights its destination. Three small hub pages were added (`#/domain/quran`, `#/domain/family`, `#/domain/inst`); they link to existing pages and list existing programs (P20/P21/P23, age-limited programs and P15/P16 for family, P13 for institutions), using the existing adult gate for student accounts. The search page is reached from the Quran hub, not from a header field (not done). The mobile bottom bar is unchanged.
+- `#/academy/paths` («مسارات التكوين», also a tab in the academy) lists the 11 paths from `academy-paths.json` (built by `scripts/build_academy_paths.py`, which validates every program id against `academy-programs.json`, competencies against `academy.json`, ages against the programs, and that each of the 22 formation programs appears exactly once). Order, ages and rhythm are read from the programs. Internal ids are not shown.
+- «ذات صلة» block on program, lesson and scenario pages, built only from `prerequisites`/`next_programs`, shared competency, shared `grounding.principle_id` (labelled as a candidate not yet reviewed), `optional_link` and same-unit membership. Each entry states its reason. No notebook data is read, no mood/faith inference.
+- Stale copy fixed: competencies heading uses the computed count; the template counts on the institution pages use `TEMPLATES.length`.
+- Parents: no UI renders notebook text; guide/parent pages contain none (checked by e2e with a planted notebook string). Notebook stays in per-user localStorage.
+
+Not done: header search field, mobile bottom-bar change, per-band density classes, "turn off suggestions" and per-suggestion dismissal, relation file `relations.json`, tracks as program fields (phase 2 data fields), session views, review-status badges beyond the existing draft ribbon. All content remains unreviewed.

@@ -380,7 +380,7 @@ try {
       // أكاديمية: التبويبان والقفز
       await go('/academy', '#app .acx .jump a');
       const ac = await page.evaluate(() => ({ tl: document.querySelectorAll('#app .tabs2[role=tablist] [role=tab]').length, jump: document.querySelectorAll('#app .jump a').length, wrap: !!document.querySelector('#app .tabsw .jump') }));
-      if (ac.tl !== 2 || ac.jump < 2 || !ac.wrap) fail('F-16/academy', JSON.stringify(ac));
+      if (ac.tl !== 3 || ac.jump < 2 || !ac.wrap) fail('F-16/academy', JSON.stringify(ac));
       await hOverflow('F-16/academy-overflow');
       // F-17: جدول الحفظ بطاقات على الجوال
       await go('/me/hifz', '#app table.rt');
@@ -846,6 +846,89 @@ try {
           await r2.c.close();
         }
       }
+      // 9 navigation (six items), formation paths, related block, stale copy, parent privacy
+      {
+        const pathsDoc = JSON.parse(fs.readFileSync(path.join(ROOT, 'academy-paths.json'), 'utf8'));
+        const AD = x => String(x).replace(/\d/g, d => '٠١٢٣٤٥٦٧٨٩'[d]);
+        const NAV6 = ['الرئيسية', 'القرآن وعلومه', 'مسارات التكوين', 'الصغار والأسرة', 'المؤسسات', 'رحلتي'];
+        const { c, pg } = await mk8(1440, { ls: { 'acx:user:u1:mentor': 'true' } });
+        await go8(pg, '/', '#nav a');
+        const navT = (await pg.locator('#nav a').allInnerTexts()).map(x => x.trim());
+        if (JSON.stringify(navT) !== JSON.stringify(NAV6)) fail('9/nav', 'عناصر القائمة: ' + navT.join('|'));
+        // old routes keep working and highlight the right destination
+        const OLD = { '/quran': 'القرآن وعلومه', '/tajweed': 'القرآن وعلومه', '/foundations': 'القرآن وعلومه', '/qiraat': 'القرآن وعلومه', '/search': 'القرآن وعلومه', '/kids': 'الصغار والأسرة', '/academy': 'مسارات التكوين', '/me': 'رحلتي', '/plan': 'رحلتي', '/verify': 'المؤسسات', '/domain/quran': 'القرآن وعلومه', '/domain/family': 'الصغار والأسرة', '/domain/inst': 'المؤسسات', '/learn': 'مسارات التكوين' };
+        for (const [h, want] of Object.entries(OLD)) {
+          await go8(pg, h, '#app');
+          const on = (await pg.locator('#nav a[aria-current=page]').allInnerTexts()).map(x => x.trim());
+          if (on.join() !== want) fail('9/nav-route' + h, `النشط: [${on}] والمتوقع ${want}`);
+          if (!(await pg.locator('#app').innerText()).trim()) fail('9/route' + h, 'صفحة فارغة');
+        }
+        // hubs
+        await go8(pg, '/domain/quran', '.dhub .feat');
+        if (!(await pg.locator('.dhub a[href="#/quran"]').count()) || !(await pg.locator('.dhub a[href="#/tajweed"]').count())) fail('9/hub-quran', 'لا روابط المصحف/التجويد');
+        await pg.waitForSelector('.dhub .pcard', { timeout: 5000 }).catch(() => {});
+        const qh = await pg.locator('.dhub .pcard').count();
+        if (qh !== 3) fail('9/hub-quran-programs', 'برامج القرآن في المحور: ' + qh);
+        await go8(pg, '/domain/family', '.dhub .feat');
+        if (!(await pg.locator('.dhub a[href="#/kids"]').count())) fail('9/hub-family', 'لا رابط الصغار');
+        // paths
+        await go8(pg, '/academy/paths', '.pathcard');
+        const cards = await pg.locator('.pathcard').count();
+        if (cards !== 11) fail('9/paths-count', 'عدد المسارات ' + cards);
+        const txt = await pg.locator('#app').innerText();
+        if (/P\d\d/.test(txt) || /TW-\d/.test(txt)) fail('9/paths-ids', 'معرّفات داخلية ظاهرة');
+        for (const w of pathsDoc.paths) {
+          const hrefs = await pg.locator(`.pathcard[data-path="${w.id}"] ol a`).evaluateAll(a => a.map(x => x.getAttribute('href')));
+          const want = w.programs.map(id => '#/academy/p/' + PT(id).slug);
+          if (JSON.stringify(hrefs) !== JSON.stringify(want)) fail('9/path-' + w.id, 'ترتيب البرامج ' + hrefs.join(','));
+          const t = await pg.locator(`.pathcard[data-path="${w.id}"]`).innerText();
+          if (!t.includes(w.label) || !t.includes(AD(PT(w.programs[0]).rhythm))) fail('9/path-' + w.id + '/content', 'العنوان أو الإيقاع ناقص');
+        }
+        // stale copy
+        await go8(pg, '/academy/c', '#app h1');
+        const h1 = await pg.locator('#app h1').innerText();
+        const nC = JSON.parse(fs.readFileSync(path.join(ROOT, 'academy.json'), 'utf8')).competencies.length;
+        if (/الأربعون/.test(h1) || !h1.includes(AD(nC))) fail('9/stale-competencies', 'العنوان: ' + h1);
+        const src = fs.readFileSync(path.join(ROOT, 'index.html'), 'utf8');
+        if (/الثمانية|ثمانية قوالب|الكفايات الأربعون/.test(src)) fail('9/stale-src', 'نص قديم في المصدر');
+        await c.close();
+        // related block: reasons present; no ids; notebook text never read or shown
+        const SECRET = 'سر-الدفتر-' + Math.random().toString(36).slice(2);
+        const r2 = await mk8(1440, { ls: { 'acx:user:u1:mentor': 'true', ['acx:user:u1:ref:' + PT('P08').stages[0].items[0].ref]: JSON.stringify(SECRET) } });
+        let withRel = 0;
+        for (const pid of ['P08', 'P13', 'P25', 'P07']) {
+          await go8(r2.pg, '/academy/p/' + PT(pid).slug, '.pprog');
+          const blk = r2.pg.locator('.related');
+          if (!(await blk.count())) continue; withRel++;
+          const lis = await blk.locator('li').count();
+          if (!lis) fail(`9/rel-${pid}`, 'كتلة فارغة');
+          for (let i = 0; i < lis; i++) { const w = await blk.locator('li').nth(i).locator('.why').innerText().catch(() => ''); if (!/^السبب: .{6,}/.test(w)) fail(`9/rel-${pid}/why${i}`, 'سبب ناقص'); }
+          const bt = await blk.innerText();
+          if (/P\d\d|[A-Z]\d{1,2}-[LS]\d/.test(bt)) fail(`9/rel-${pid}/ids`, 'معرّفات داخلية');
+          if (bt.includes(SECRET)) fail(`9/rel-${pid}/secret`, 'نص الدفتر ظهر');
+        }
+        if (!withRel) fail('9/rel-program', 'لا كتلة «ذات صلة» في أي برنامج');
+        const L0 = PT('P08').stages[0].items.find(i => i.kind === 'lesson').ref, S0 = Object.values(lessonsDoc.units).flatMap(u => u.scenarios || [])[0].id;
+        for (const [k, id] of [['l', L0], ['s', S0]]) {
+          await go8(r2.pg, `/academy/${k}/${id}`, '.acx');
+          const blk = r2.pg.locator('.related');
+          if (await blk.count()) {
+            const bt = await blk.innerText();
+            if (bt.includes(SECRET) || /[A-Z]\d{1,2}-[LS]\d|P\d\d/.test(bt)) fail(`9/rel-${k}`, 'تسرّب');
+            const lis = await blk.locator('li').count();
+            for (let i = 0; i < lis; i++) if (!(await blk.locator('li').nth(i).locator('.why').innerText()).startsWith('السبب: ')) fail(`9/rel-${k}/why`, 'بلا سبب');
+          } else fail(`9/rel-${k}`, 'لا كتلة «ذات صلة»');
+        }
+        // parents never see child notebook text
+        for (const pid of ['P08', 'P01', 'P16']) {
+          for (const sub of ['parent', 'guide']) {
+            await go8(r2.pg, `/academy/p/${PT(pid).slug}/${sub}`, '.acx');
+            if ((await r2.pg.locator('#app').innerText()).includes(SECRET)) fail(`9/parent-${pid}-${sub}`, 'نص الدفتر ظاهر في دليل');
+          }
+        }
+        if (r2.pg.__errs.length) fail('9/pageerrors', r2.pg.__errs.slice(0, 3).join(' | '));
+        await r2.c.close();
+      }
     } catch (e) { fail('8/fatal', e.stack || e.message); }
   }
 } catch (e) {
@@ -862,5 +945,5 @@ if (fails.length) {
   if (fails.length > 60) console.log(` ... و${fails.length - 60} أخرى`);
   process.exit(1);
 }
-console.log('نجح: كل الفحوص (1-8) سليمة');
+console.log('نجح: كل الفحوص (1-9) سليمة');
 process.exit(0);
